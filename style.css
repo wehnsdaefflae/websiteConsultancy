@@ -221,6 +221,42 @@
   object-fit: cover; /* Ensures image covers the container */
 }
 
+/* Special container for SVG images that need natural sizing */
+.project-card-image-container.svg-natural {
+  aspect-ratio: 16 / 9;
+  height: auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #475569;
+}
+
+.project-card-image-container.svg-natural img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Special container for images that need to fit completely without cropping */
+.project-card-image-container.fit-contain {
+  aspect-ratio: 16 / 9;
+  height: auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #475569;
+}
+
+.project-card-image-container.fit-contain img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
 .community-image {
   border-radius: 0.5rem; /* rounded-lg */
   box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); /* shadow-lg */
