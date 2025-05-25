@@ -431,12 +431,32 @@ html {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  html {
+    font-size: 18px; /* Base font size for mobile (approx 18px if browser default is 16px) */
+  }
+
   .heading-1 {
-    font-size: 1.875rem;
+    font-size: 2.2rem; /* Approx 39.6px */
   }
   
   .heading-2 {
-    font-size: 1.5rem;
+    font-size: 1.9rem; /* Approx 34.2px */
+  }
+
+  .heading-3 {
+    font-size: 1.6rem; /* Approx 28.8px */
+  }
+
+  .body-large {
+    font-size: 1.2rem; /* Approx 21.6px */
+  }
+
+  .body-regular {
+    font-size: 1.1rem; /* Approx 19.8px - aiming for very comfortable readability */
+  }
+
+  .body-small {
+    font-size: 1rem; /* Approx 18px */
   }
   
   .card {
@@ -444,8 +464,18 @@ html {
   }
   
   .section {
-    margin: var(--space-xl) 0;
-    padding: var(--space-lg) 0;
+    margin: var(--space-2xl) 0;
+    padding: var(--space-xl) 0;
+  }
+
+  .btn {
+    padding: var(--space-md) var(--space-lg); /* Increased padding for easier tapping */
+    font-size: 1rem; /* Approx 18px */
+  }
+
+  .nav-link {
+    padding: var(--space-md) var(--space-lg); /* Increased padding for easier tapping */
+    font-size: 1rem; /* Approx 18px */
   }
 }
 
