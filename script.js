@@ -84,4 +84,32 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   }, true); // Use capture phase to ensure it runs, or delegate from a common ancestor.
+
+  // Mobile menu toggle
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const headerNavLinks = document.getElementById('header-nav-links');
+
+  if (mobileMenuButton && headerNavLinks) {
+    mobileMenuButton.addEventListener('click', () => {
+      const isHidden = headerNavLinks.classList.toggle('hidden');
+      const iconElement = mobileMenuButton.querySelector('svg');
+      if (!isHidden) { // Menu is now visible
+        iconElement.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>'; // Close icon
+      } else { // Menu is now hidden
+        iconElement.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>'; // Hamburger icon
+      }
+    });
+
+    // Close mobile menu when a nav link is clicked
+    headerNavLinks.addEventListener('click', (e) => {
+      if (e.target.closest('a[href^="#"]')) {
+        // Check if the hamburger button is visible (i.e., we are in mobile view)
+        if (window.getComputedStyle(mobileMenuButton).display !== 'none') {
+          headerNavLinks.classList.add('hidden');
+          // Reset hamburger icon
+          mobileMenuButton.querySelector('svg').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>';
+        }
+      }
+    });
+  }
 });
