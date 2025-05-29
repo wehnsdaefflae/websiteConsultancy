@@ -1,92 +1,101 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
-    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?display=swap&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500" />
-    <title>Dr. Mark Wernsdorfer - AI Consultant</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2271%22 font-size=%2260%22 text-anchor=%22middle%22 fill=%22%232563eb%22>MW</text></svg>">
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries,aspect-ratio"></script>
-    <link rel="stylesheet" href="style.css" />
-    <script defer src="script.js"></script>
-  </head>
+<head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Playfair+Display%3Awght%40400%3B500%3B700%3B900&amp;family=Roboto+Slab%3Awght%40300%3B400%3B500%3B700&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<title>Dr. Mark Wernsdorfer - Interdisciplinary AI Consultant</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link rel="stylesheet" href="style_new.css" />
+<script defer src="javascript_new.js"></script>
+</head>
+<body class="bg-stone-50 text-stone-800" style='font-family: "Roboto Slab", "Noto Sans", sans-serif;'>
+<div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-stone-200 bg-stone-50/80 px-6 sm:px-10 py-4 backdrop-blur-md">
+<div class="flex items-center gap-3 text-stone-800">
+<div class="size-8 text-amber-600">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_535)">
+<path d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z" fill="currentColor"></path>
+</g>
+<defs>
+<clipPath id="clip0_6_535"><rect fill="white" height="48" width="48"></rect></clipPath>
+</defs>
+</svg>
+</div>
+<h2 class="text-stone-800 text-2xl font-bold tracking-tight" style='font-family: "Playfair Display", serif;'>Dr. Mark Wernsdorfer</h2>
+</div>
+<nav class="hidden lg:flex items-center gap-10" id="header-nav-links">
+<!-- Navigation links will be dynamically inserted here -->
+</nav>
+<div class="flex items-center gap-4">
+<a class="flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-10 px-5 bg-amber-600 text-stone-50 text-base font-semibold tracking-wide shadow-lg hover:bg-amber-700 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600" href="#contact">
+<span class="truncate">Contact</span>
+</a>
+<button id="mobile-menu-button" class="lg:hidden p-2 text-stone-800 hover:text-amber-600 transition-colors">
+<span class="material-icons-outlined text-3xl">menu_open</span>
+</button>
+</div>
+</header>
+<main class="flex-1">
+<section class="px-6 sm:px-10 md:px-20 lg:px-40 py-16 md:py-24" id="hero">
+<div class="layout-content-container flex flex-col max-w-[960px] mx-auto">
+<div class="@container">
+<div class="relative flex min-h-[480px] md:min-h-[560px] flex-col gap-8 bg-cover bg-left bg-no-repeat @[480px]:gap-10 rounded-2xl items-end justify-center p-8 @[480px]:p-12 shadow-2xl overflow-hidden" style='background-image: linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%), url("images/016.jpg"); background-size: 150%; background-position: right center;'>
+<div class="flex flex-col gap-4 text-right z-10 max-w-lg">
+<h1 class="text-white text-5xl font-black leading-tight tracking-tighter @[480px]:text-6xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-tighter" style='font-family: "Playfair Display", serif;'>
+Dr. Mark Wernsdorfer
+</h1>
+<h2 class="text-white text-2xl font-semibold leading-relaxed @[480px]:text-3xl" style='font-family: "Playfair Display", serif;'>
+Interdisciplinary AI Consultant
+</h2>
+<p class="text-stone-100 text-lg font-light leading-relaxed @[480px]:text-xl @[480px]:font-light @[480px]:leading-relaxed">
+Bridging foundational AI research with real-world impact through deep technical expertise, philosophical insight, and practical innovation.
+</p>
+</div>
+<div class="flex flex-wrap gap-4 justify-end mt-4 z-10">
+<a class="flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-12 px-8 @[480px]:h-14 @[480px]:px-10 bg-amber-600 text-stone-50 text-lg font-semibold tracking-wide shadow-xl hover:bg-amber-700 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600" href="#services">
+<span class="truncate">Explore Services</span>
+</a>
+<a class="flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-12 px-8 @[480px]:h-14 @[480px]:px-10 bg-transparent border-2 border-stone-100 text-stone-100 text-lg font-semibold tracking-wide shadow-xl hover:bg-stone-100 hover:text-stone-800 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-100" href="#projects">
+<span class="truncate">View Projects</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-  <body class="bg-zinc-950">
-    <header class="sticky top-0 flex items-center justify-between whitespace-nowrap border-b border-zinc-800 px-4 sm:px-10 py-4 bg-zinc-900/50 backdrop-blur-lg z-50">
-          <div class="flex items-center gap-3 sm:gap-4">
-            <div class="size-5 sm:size-6 text-blue-500">
-              <svg viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"></path></svg>
-            </div>
-            <h2 class="text-zinc-50 text-lg sm:text-xl font-semibold tracking-tight">Dr. Mark Wernsdorfer</h2>
-          </div>
-          <div class="flex items-center gap-2 sm:gap-8">
+<div id="dynamic-sections">
+<!-- Dynamic sections will be inserted here -->
+</div>
 
-            <div id="header-nav-links" class="hidden absolute top-full left-0 right-0 z-40 bg-zinc-900/95 backdrop-blur-sm md:static md:flex md:items-center md:gap-6 md:bg-transparent md:backdrop-blur-none flex-col md:flex-row items-stretch md:items-center gap-2 p-4 md:p-0">
-              <!-- Navigation links will be dynamically inserted here -->
-            </div>
-
-            <button class="btn btn-primary" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });">
-              <span class="truncate">Contact</span>
-            </button>
-
-            <!-- Hamburger Menu Button -->
-            <button id="mobile-menu-button" class="p-2 rounded-md text-zinc-50 hover:text-white hover:bg-zinc-700 md:hidden">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-              </svg>
-            </button>
-          </div>
-        </header>
-
-    <div class="relative flex size-full min-h-screen flex-col bg-zinc-950 text-zinc-50 overflow-x-hidden" style='font-family: "Inter", sans-serif;'>
-
-      <div class="layout-container flex h-full grow flex-col">
-
-        <div class="px-4 sm:px-10 md:px-20 lg:px-40 flex flex-1 justify-center py-12">
-          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
-            <div class="@container">
-              <div class="@[480px]:p-4">
-                <div class="flex min-h-[360px] sm:min-h-[480px] flex-col gap-8 @[480px]:gap-12 items-center justify-center text-center px-4 py-12 sm:py-16 @[480px]:px-10">
-                  <div class="flex flex-col gap-6">
-                    <h1 class="heading-1 text-gradient @[480px]:text-5xl">Dr. Mark Wernsdorfer</h1>
-                    <h2 class="heading-2 @[480px]:text-2xl">Interdisciplinary AI Consultant</h2>
-                    <p class="body-large max-w-2xl mx-auto">Bridging foundational AI research with real-world impact through deep technical expertise, philosophical insight, and practical innovation.</p>
-                  </div>
-                  <div class="flex flex-wrap gap-4 justify-center mt-8">
-                    <button class="btn btn-primary" onclick="document.getElementById('services').scrollIntoView({ behavior: 'smooth' });">
-                      <span class="truncate">Explore Services</span>
-                    </button>
-                    <button class="btn btn-secondary" onclick="document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });">
-                      <span class="truncate">View Projects</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div id="dynamic-sections">
-              <!-- Dynamic sections will be inserted here -->
-            </div>
-
-          </div>
-        </div>
-
-        <footer class="flex justify-center bg-zinc-900/50 backdrop-blur-lg relative z-10 border-t border-zinc-800">
-          <div class="flex max-w-[960px] flex-1 flex-col">
-            <div class="flex flex-col gap-6 px-5 py-6 text-center @container">
-              <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 @[480px]:flex-row @[480px]:justify-around">
-                <a class="text-slate-300 hover:text-sky-400 text-base font-normal leading-normal sm:min-w-40" href="#">Privacy Policy</a>
-                <a class="text-slate-300 hover:text-sky-400 text-base font-normal leading-normal sm:min-w-40" href="#">Terms of Service</a>
-              </div>
-              <div class="flex flex-wrap justify-center gap-4 pt-4">
-                <a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><div class="text-slate-400 hover:text-sky-400" data-icon="LinkedinLogo" data-size="24px" data-weight="regular"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24Zm0,192H40V40H216V216ZM96,112v64a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0Zm88,28v36a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140ZM100,84A12,12,0,1,1,88,72,12,12,0,0,1,100,84Z"></path></svg></div></a>
-                <a href="mailto:contact@markwernsdorfer.com" target="_blank" rel="noopener noreferrer" aria-label="Email"><div class="text-slate-400 hover:text-sky-400" data-icon="Envelope" data-size="24px" data-weight="regular"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm-8.69,32L128.69,128a8.06,8.06,0,0,1-11.38,0L40.69,80ZM40.69,192V88l75.62,56a24.06,24.06,0,0,0,28.38-.01l75.62-56v104ZM216,192H40V88l75.62,56a40.06,40.06,0,0,0,46.76-.01L216,88Z"></path></svg></div></a>
-              </div>
-              <p class="text-slate-400 text-base font-normal leading-normal pt-4">© 2025 Dr. Mark Wernsdorfer. All rights reserved.</p>
-            </div>
-          </div>
-        </footer>
-
-      </div>
-    </div>
-  </body>
+</main>
+<footer class="bg-stone-800 text-stone-300">
+<div class="max-w-[960px] mx-auto px-6 sm:px-10 py-12 text-center space-y-6">
+<div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+<a class="text-stone-400 hover:text-amber-600 text-base font-normal leading-normal transition-colors" href="#">Privacy Policy</a>
+<a class="text-stone-400 hover:text-amber-600 text-base font-normal leading-normal transition-colors" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-wrap justify-center gap-4">
+<a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-stone-400 hover:text-amber-600 transition-colors">
+<span class="material-icons text-2xl">business</span>
+</a>
+<a href="mailto:contact@markwernsdorfer.com" target="_blank" rel="noopener noreferrer" aria-label="Email" class="text-stone-400 hover:text-amber-600 transition-colors">
+<span class="material-icons text-2xl">email</span>
+</a>
+</div>
+<p class="text-base font-normal leading-normal">© 2025 Dr. Mark Wernsdorfer. All rights reserved.</p>
+<p class="text-sm text-stone-400" style='font-family: "Playfair Display", serif;'>
+Bridging AI theory and practice with precision.
+</p>
+</div>
+</footer>
+</div>
+</div>
+</body>
 </html>
