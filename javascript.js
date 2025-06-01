@@ -4,13 +4,13 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Section files in order
   const sectionFiles = [
-    'sections_new/01_about.html',
-    'sections_new/02_services.html',
-    'sections_new/03_projects.html',
-    'sections_new/04_grants.html',
-    'sections_new/05_publications.html',
-    'sections_new/06_community.html',
-    'sections_new/07_contact.html'
+    'sections/01_about.html',
+    'sections/02_services.html',
+    'sections/03_projects.html',
+    'sections/04_grants.html',
+    'sections/05_publications.html',
+    'sections/06_community.html',
+    'sections/07_contact.html'
   ];
   
   const container = document.getElementById('dynamic-sections');
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!headerNavLinksContainer) console.error('Header navigation links container not found.');
   }
 
-  // Smooth scroll for nav links (including dynamically added ones)
+  // Smooth scroll for nav links (including dynamically added ones) with mobile optimization
   document.addEventListener('click', function(e) {
     if (e.target.matches('a[href^="#"]')) {
       const href = e.target.getAttribute('href');
@@ -97,7 +97,17 @@ document.addEventListener('DOMContentLoaded', function() {
           const targetElement = document.getElementById(href.slice(1));
           if (targetElement) {
             e.preventDefault();
-            targetElement.scrollIntoView({ behavior: 'smooth' });
+            
+            // Calculate offset for mobile header
+            const isMobile = window.innerWidth < 1024;
+            const headerHeight = isMobile ? 80 : 60;
+            const elementPosition = targetElement.offsetTop - headerHeight;
+            
+            // Use smooth scrolling with proper offset
+            window.scrollTo({
+              top: elementPosition,
+              behavior: 'smooth'
+            });
           }
         } catch (error) {
           console.error("Error scrolling to element:", error);
@@ -106,17 +116,31 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }, true);
 
-  // Mobile menu toggle
+  // Mobile menu toggle with improved accessibility
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const headerNavLinks = document.getElementById('header-nav-links');
 
   if (mobileMenuButton && headerNavLinks) {
+    // Initialize ARIA attributes
+    mobileMenuButton.setAttribute('aria-expanded', 'false');
+    mobileMenuButton.setAttribute('aria-controls', 'header-nav-links');
+    headerNavLinks.setAttribute('aria-hidden', 'true');
+
     mobileMenuButton.addEventListener('click', () => {
       const isHidden = headerNavLinks.classList.toggle('hidden');
       const iconElement = mobileMenuButton.querySelector('.material-icons-outlined');
       
+      // Update ARIA attributes
+      mobileMenuButton.setAttribute('aria-expanded', !isHidden);
+      headerNavLinks.setAttribute('aria-hidden', isHidden);
+      
       if (!isHidden) { // Menu is now visible
         iconElement.textContent = 'close';
+        // Focus the first nav link for keyboard users
+        const firstLink = headerNavLinks.querySelector('a');
+        if (firstLink) {
+          setTimeout(() => firstLink.focus(), 100);
+        }
       } else { // Menu is now hidden
         iconElement.textContent = 'menu_open';
       }
@@ -129,8 +153,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const computedStyle = window.getComputedStyle(mobileMenuButton);
         if (computedStyle.display !== 'none') {
           headerNavLinks.classList.add('hidden');
+          headerNavLinks.setAttribute('aria-hidden', 'true');
+          mobileMenuButton.setAttribute('aria-expanded', 'false');
           // Reset menu icon
           mobileMenuButton.querySelector('.material-icons-outlined').textContent = 'menu_open';
+          // Return focus to menu button
+          mobileMenuButton.focus();
         }
       }
     });
@@ -141,8 +169,35 @@ document.addEventListener('DOMContentLoaded', function() {
         const computedStyle = window.getComputedStyle(mobileMenuButton);
         if (computedStyle.display !== 'none' && !headerNavLinks.classList.contains('hidden')) {
           headerNavLinks.classList.add('hidden');
+          headerNavLinks.setAttribute('aria-hidden', 'true');
+          mobileMenuButton.setAttribute('aria-expanded', 'false');
           mobileMenuButton.querySelector('.material-icons-outlined').textContent = 'menu_open';
         }
+      }
+    });
+
+    // Close mobile menu on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !headerNavLinks.classList.contains('hidden')) {
+        const computedStyle = window.getComputedStyle(mobileMenuButton);
+        if (computedStyle.display !== 'none') {
+          headerNavLinks.classList.add('hidden');
+          headerNavLinks.setAttribute('aria-hidden', 'true');
+          mobileMenuButton.setAttribute('aria-expanded', 'false');
+          mobileMenuButton.querySelector('.material-icons-outlined').textContent = 'menu_open';
+          mobileMenuButton.focus();
+        }
+      }
+    });
+
+    // Handle window resize to close mobile menu on desktop
+    window.addEventListener('resize', () => {
+      const computedStyle = window.getComputedStyle(mobileMenuButton);
+      if (computedStyle.display === 'none' && !headerNavLinks.classList.contains('hidden')) {
+        headerNavLinks.classList.add('hidden');
+        headerNavLinks.setAttribute('aria-hidden', 'true');
+        mobileMenuButton.setAttribute('aria-expanded', 'false');
+        mobileMenuButton.querySelector('.material-icons-outlined').textContent = 'menu_open';
       }
     });
   }
@@ -228,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Function to show form messages
+  // Function to show form messages with mobile optimization
   function showFormMessage(message, type) {
     // Remove existing message
     const existingMessage = document.querySelector('.form-message');
@@ -243,10 +298,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }`;
     messageElement.textContent = message;
     
+    // Make text size responsive
+    if (window.innerWidth <= 768) {
+      messageElement.style.fontSize = '0.875rem';
+      messageElement.style.padding = '0.875rem';
+    }
+    
     // Insert message after the form
     const contactForm = document.querySelector('#contact form');
     if (contactForm) {
       contactForm.parentNode.insertBefore(messageElement, contactForm.nextSibling);
+      
+      // Scroll to message on mobile for visibility
+      if (window.innerWidth <= 768) {
+        setTimeout(() => {
+          messageElement.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center' 
+          });
+        }, 100);
+      }
       
       // Auto-remove success messages after 5 seconds
       if (type === 'success') {
@@ -260,10 +331,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Add scroll animations (optional enhancement)
+  // Add scroll animations with mobile optimization
   const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: window.innerWidth <= 768 ? 0.05 : 0.1, // Lower threshold for mobile
+    rootMargin: window.innerWidth <= 768 ? '0px 0px -20px 0px' : '0px 0px -50px 0px'
   };
 
   const observer = new IntersectionObserver((entries) => {
@@ -275,14 +346,39 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }, observerOptions);
 
-  // Observe sections for scroll animations
+  // Observe sections for scroll animations with reduced motion support
   setTimeout(() => {
     const sections = document.querySelectorAll('section');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
     sections.forEach(section => {
-      section.style.opacity = '0';
-      section.style.transform = 'translateY(20px)';
-      section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-      observer.observe(section);
+      if (!prefersReducedMotion) {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(20px)';
+        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(section);
+      }
     });
   }, 100);
+
+  // Handle orientation changes for mobile devices
+  window.addEventListener('orientationchange', function() {
+    // Close mobile menu on orientation change
+    if (mobileMenuButton && headerNavLinks && !headerNavLinks.classList.contains('hidden')) {
+      headerNavLinks.classList.add('hidden');
+      headerNavLinks.setAttribute('aria-hidden', 'true');
+      mobileMenuButton.setAttribute('aria-expanded', 'false');
+      mobileMenuButton.querySelector('.material-icons-outlined').textContent = 'menu_open';
+    }
+    
+    // Recalculate viewport height for mobile browsers
+    setTimeout(() => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }, 500);
+  });
+
+  // Set initial viewport height for mobile browsers
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
 });

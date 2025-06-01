@@ -1,31 +1,38 @@
-/* Modern Minimalistic Design System */
+/* Modern Consultancy Design System - Based on template.html style */
 
-/* CSS Reset and Base */
-* {
-  box-sizing: border-box;
+/* Material Icons */
+.material-icons,
+.material-icons-outlined {
+  font-size: inherit;
+  line-height: inherit;
 }
 
+/* Hover Underline Animation */
+.hover-underline-animation {
+  display: inline-block;
+  position: relative;
+}
+
+.hover-underline-animation::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #d97706;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Base Typography and Spacing */
 :root {
-  /* Modern Color Palette */
-  --primary: #080808;
-  --secondary: #1a1a1a;
-  --accent: #2563eb;
-  --accent-light: #3b82f6;
-  --text-primary: #fafafa;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
-  --border: #27272a;
-  --surface: #18181b;
-  --surface-elevated: #262626;
-  --success: #10b981;
-  --warning: #f59e0b;
-  --error: #ef4444;
-  
-  /* Typography */
-  --font-primary: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono", Consolas, monospace;
-  
-  /* Spacing Scale */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-md: 1rem;
@@ -33,338 +40,201 @@
   --space-xl: 2rem;
   --space-2xl: 3rem;
   --space-3xl: 4rem;
-  
-  /* Border Radius */
-  --radius-sm: 0.125rem;
-  --radius-md: 0.375rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
-  
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --vh: 1vh; /* Viewport height unit for mobile browsers */
 }
 
-/* Typography System */
-.heading-1 {
+/* Navigation Links - Template Style */
+.nav-link {
+  color: #57534e;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+  display: block;
+}
+
+.nav-link:hover {
+  color: #d97706;
+  background: rgba(245, 245, 244, 0.5);
+}
+
+/* Mobile Menu */
+#header-nav-links {
+  transition: all 0.3s ease;
+}
+
+#header-nav-links.hidden {
+  display: none;
+}
+
+@media (max-width: 1279px) {
+  #header-nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(245, 245, 244, 0.98);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid #e7e5e4;
+    border-bottom: 1px solid #e7e5e4;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    z-index: 40;
+  }
+  
+  #header-nav-links.hidden {
+    display: none;
+  }
+  
+  #header-nav-links .nav-link,
+  #header-nav-links a {
+    font-size: 1.125rem;
+    padding: 0.875rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    text-align: center;
+    border: 1px solid transparent;
+  }
+  
+  #header-nav-links a:hover {
+    background: rgba(217, 119, 6, 0.1);
+    border-color: #d97706;
+    color: #d97706;
+  }
+}
+
+@media (min-width: 1280px) {
+  #header-nav-links {
+    position: static !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    border: none !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 2.5rem !important;
+    margin-right: 2rem !important; /* Add spacing to the right of nav links */
+  }
+  
+  #header-nav-links.hidden {
+    display: flex !important;
+  }
+}
+
+/* Header sticky positioning - override flexbox interference */
+header {
+  /* Force sticky positioning */
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 50 !important;
+}
+
+/* Fix flexbox container that prevents sticky positioning */
+.layout-container {
+  /* Remove height constraints that prevent sticky */
+  height: auto !important;
+  min-height: 100vh !important;
+}
+
+/* Ensure parent containers support sticky positioning */
+div.relative.flex.size-full.min-h-screen.flex-col {
+  /* Remove overflow hidden that can break sticky */
+  overflow: visible !important;
+}
+
+/* Ensure body supports sticky positioning */
+body {
+  overflow-x: hidden;
+  height: auto !important;
+}
+
+/* Section Spacing - Template Style */
+.section-minimal {
+  padding: 4rem 0;
+  margin: 2rem 0;
+}
+
+/* Card System - Template Style */
+.card {
+  background: white;
+  border: 1px solid #e7e5e4;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
+}
+
+/* Typography - Template Style */
+.heading-2 {
   font-size: 2.25rem;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.025em;
-  color: var(--text-primary);
-}
-
-.heading-2 {
-  font-size: 1.875rem;
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: -0.025em;
-  color: var(--text-primary);
+  color: #1c1917;
 }
 
 .heading-3 {
   font-size: 1.5rem;
   font-weight: 600;
-  line-height: 1.4;
-  color: var(--text-primary);
+  line-height: 1.3;
+  color: #1c1917;
 }
 
 .body-large {
   font-size: 1.125rem;
   line-height: 1.7;
-  color: var(--text-secondary);
+  color: #57534e;
 }
 
 .body-regular {
   font-size: 1rem;
   line-height: 1.6;
-  color: var(--text-secondary);
+  color: #57534e;
 }
 
 .body-small {
   font-size: 0.875rem;
   line-height: 1.6;
-  color: var(--text-muted);
+  color: #78716c;
 }
 
-/* Modern Card System */
-.card {
-  background: var(--surface-elevated);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-xl);
-  transition: all 0.2s ease;
+/* Hero Section Background Positioning - Responsive Design */
+section#hero div.relative {
+  background-position: center center !important;
+  background-size: 150% auto !important;
+  background-repeat: no-repeat !important;
+  transition: background-position 0.3s ease-in-out;
 }
 
-.card:hover {
-  border-color: var(--accent);
-  box-shadow: var(--shadow-lg);
+/* For screens 640px+ where text is right-aligned, shift background left by ~20% */
+@media (min-width: 640px) {
+  section#hero div.relative {
+    background-position: 100% center !important; /* 100% as you specified */
+    background-size: 150% auto !important;
+    background-repeat: no-repeat !important;
+  }
 }
 
-.card-minimal {
-  background: transparent;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  transition: border-color 0.2s ease;
+/* Mobile screens (below 640px) use center positioning for better mobile experience */
+@media (max-width: 639px) {
+  section#hero div.relative {
+    background-position: center center !important;
+    background-size: 150% auto !important;
+    background-repeat: no-repeat !important;
+  }
 }
 
-.card-minimal:hover {
-  border-color: var(--accent);
-}
-
-/* Button System */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-md) var(--space-lg);
-  border-radius: var(--radius-md);
-  font-weight: 500;
-  font-size: 0.875rem;
-  line-height: 1;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  border: none;
-  text-decoration: none;
-}
-
-.btn-primary {
-  background: var(--accent);
-  color: white;
-  border: 1px solid var(--accent);
-}
-
-.btn-primary:hover {
-  background: var(--accent-light);
-  border-color: var(--accent-light);
-  box-shadow: var(--shadow-md);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--border);
-}
-
-.btn-secondary:hover {
-  background: var(--surface-elevated);
-  border-color: var(--accent);
-}
-
-.btn-ghost {
-  background: transparent;
-  color: var(--text-secondary);
-  border: 1px solid transparent;
-}
-
-.btn-ghost:hover {
-  background: var(--surface-elevated);
-  color: var(--text-primary);
-}
-
-/* Navigation */
-.nav-link {
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.875rem;
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-md);
-  transition: all 0.2s ease;
-}
-
-.nav-link:hover {
-  color: var(--text-primary);
-  background: var(--surface-elevated);
-}
-
-/* Links */
-.link {
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s ease;
-}
-
-.link:hover {
-  color: var(--accent-light);
-  text-decoration: underline;
-}
-
-/* Images */
-.profile-image {
-  width: 100%;
-  max-width: 250px; 
-  height: 250px; /* Fixed height for consistency */
-  border-radius: 0.5rem; 
-  object-fit: cover; 
-  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); 
-}
-
-.profile-image:hover {
-  transform: scale(1.02);
-}
-
-.project-card-image-container { /* Container for img tag to maintain aspect ratio */
-  width: 100%;
-  aspect-ratio: 16 / 9; /* Or your desired aspect ratio */
-  overflow: hidden;
-  border-radius: 0.5rem;
-  background-color: #334155; /* Fallback bg for image container */
-}
-
-.project-card-image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ensures image covers the container */
-}
-
-/* Special container for SVG images that need natural sizing */
-.project-card-image-container.svg-natural {
-  aspect-ratio: 16 / 9;
-  height: auto;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #475569;
-}
-
-.project-card-image-container.svg-natural img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-}
-
-/* Special container for images that need to fit completely without cropping */
-.project-card-image-container.fit-contain {
-  aspect-ratio: 16 / 9;
-  height: auto;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #475569;
-}
-
-.project-card-image-container.fit-contain img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-}
-
-.community-image {
-  border-radius: 0.5rem; /* rounded-lg */
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); /* shadow-lg */
-  object-fit: cover;
-}
-
-/* Form Elements */
-.form-input {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: var(--space-md);
-  color: var(--text-primary);
-  font-size: 0.875rem;
-  transition: border-color 0.2s ease;
-  width: 100%;
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgb(37 99 235 / 0.1);
-}
-
-.form-input::placeholder {
-  color: var(--text-muted);
-}
-
-/* Details/Accordion */
-.accordion {
-  background: var(--surface-elevated);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  transition: all 0.2s ease;
-}
-
-.accordion:hover {
-  border-color: var(--accent);
-}
-
-.accordion summary {
-  padding: var(--space-lg);
-  cursor: pointer;
-  font-weight: 600;
-  color: var(--text-primary);
-  background: var(--surface-elevated);
-  transition: background-color 0.2s ease;
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.accordion summary:hover {
-  background: var(--surface);
-}
-
-.accordion summary::-webkit-details-marker {
-  display: none;
-}
-
-.accordion[open] summary {
-  border-bottom: 1px solid var(--border);
-}
-
-.accordion-content {
-  padding: var(--space-lg);
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-
-/* Section Spacing */
-.section {
-  margin: var(--space-3xl) 0;
-  padding: var(--space-2xl) 0;
-}
-
-.section-minimal {
-  margin: var(--space-2xl) 0;
-  padding: var(--space-xl) 0;
-}
-
-/* Status Badges */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: var(--space-xs) var(--space-md);
-  border-radius: var(--radius-lg);
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.badge-accent {
-  background: rgb(37 99 235 / 0.1);
-  color: var(--accent);
-  border: 1px solid rgb(37 99 235 / 0.2);
-}
-
-.badge-success {
-  background: rgb(16 185 129 / 0.1);
-  color: var(--success);
-  border: 1px solid rgb(16 185 129 / 0.2);
-}
-
-/* List Styling */
+/* List Styling - Template Style */
 .list-modern {
   list-style: none;
   padding: 0;
@@ -372,9 +242,9 @@
 
 .list-modern li {
   position: relative;
-  padding-left: var(--space-lg);
-  margin-bottom: var(--space-md);
-  color: var(--text-secondary);
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #57534e;
   line-height: 1.6;
 }
 
@@ -385,147 +255,911 @@
   top: 0.75em;
   width: 4px;
   height: 4px;
-  background: var(--accent);
+  background: #d97706;
   border-radius: 50%;
 }
 
-/* Icon System */
-.icon-caret {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  background: currentColor;
-  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.427 9.573a.5.5 0 0 0 .707.708L8 7.414l2.866 2.867a.5.5 0 1 0 .708-.708L8.707 6.707a.5.5 0 0 0-.708 0L4.427 9.573z"/></svg>') no-repeat center;
-  transition: transform 0.2s ease;
+/* Images - Template Style */
+.profile-image {
+  width: 100%;
+  max-width: 280px;
+  height: 280px;
+  border-radius: 0.75rem;
+  object-fit: cover;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s ease;
 }
 
-.icon-caret.open {
-  transform: rotate(180deg);
+.profile-image:hover {
+  transform: scale(1.02);
 }
 
-/* Sticky Header - Force sticky positioning */
-header {
-  position: sticky !important;
-  top: 0 !important;
-  z-index: 9999 !important;
-  will-change: transform;
-  width: 100% !important;
+.project-card-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 0.75rem;
 }
 
-/* Body layout to accommodate sticky header */
-body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+.community-image {
+  border-radius: 0.75rem;
+  object-fit: cover;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
 }
 
-/* Main container should not interfere with header */
-.relative {
-  position: relative;
+/* Responsive image adjustments */
+@media (max-width: 480px) {
+  .profile-image {
+    max-width: 200px;
+    height: 200px;
+  }
+  
+  .project-card-image {
+    aspect-ratio: 4 / 3;
+  }
 }
 
-/* Ensure smooth scrolling accounts for sticky header */
-html {
-  scroll-padding-top: 80px;
+@media (max-width: 768px) {
+  .profile-image {
+    max-width: 240px;
+    height: 240px;
+  }
+  
+  .project-card-image {
+    aspect-ratio: 3 / 2;
+  }
+}
+
+@media (min-width: 1025px) {
+  .profile-image:hover {
+    transform: scale(1.05);
+  }
+  
+  .community-image:hover {
+    transform: scale(1.02);
+  }
+}
+
+/* Form Elements - Template Style */
+.input-field {
+  background: #fafaf9;
+  border: 1px solid #d6d3d1;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: #1c1917;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #d97706;
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
+  background: white;
+}
+
+.input-field::placeholder {
+  color: #a8a29e;
+}
+
+/* Mobile font size improvements */
+@media (max-width: 768px) {
+  .input-field {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 0.875rem 1rem;
+  }
+  
+  textarea.input-field {
+    font-size: 16px;
+    min-height: 120px;
+  }
+}
+
+/* Enhanced mobile form styling */
+@media (max-width: 480px) {
+  .input-field {
+    font-size: 16px;
+    padding: 1rem;
+    border-radius: 0.75rem;
+  }
+  
+  textarea.input-field {
+    min-height: 100px;
+    resize: vertical;
+  }
+}
+
+@media (min-width: 1025px) {
+  .input-field:hover {
+    border-color: #a8a29e;
+    background: #fff;
+  }
+}
+
+/* Form Messages */
+.form-message {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .form-message {
+    font-size: 1rem;
+  }
+}
+
+/* Button System - Template Style */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2rem;
+  background: #d97706;
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  min-height: 44px; /* Touch target size for accessibility */
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  background: #b45309;
+  transform: translateY(-1px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive button adjustments */
+@media (max-width: 480px) {
+  .btn-primary {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.875rem;
+    border-radius: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .btn-primary {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .btn-primary:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* Service Cards Grid */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* Project Cards */
+.project-card {
+  background: white;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Grants and Recognition Cards */
+.grant-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid #fbbf24;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+
+.grant-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Publications Cards */
+.publication-card {
+  background: white;
+  border-top: 4px solid #0ea5e9;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.publication-card:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Community Cards */
+.community-card {
+  background: white;
+  border: 2px dashed #14b8a6;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.community-card:hover {
+  border-color: #0f766e;
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  html {
-    font-size: 18px; /* Base font size for mobile (approx 18px if browser default is 16px) */
-  }
 
-  .heading-1 {
-    font-size: 2.2rem; /* Approx 39.6px */
+/* Mobile-first approach - Base styles for mobile */
+@media (max-width: 480px) {
+  /* Extra small mobile devices */
+  .card {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .section-minimal {
+    padding: 1.5rem 0;
+    margin: 0.5rem 0;
   }
   
   .heading-2 {
-    font-size: 1.9rem; /* Approx 34.2px */
+    font-size: 1.75rem;
+    line-height: 1.1;
   }
-
+  
   .heading-3 {
-    font-size: 1.6rem; /* Approx 28.8px */
+    font-size: 1.125rem;
+    line-height: 1.2;
   }
-
+  
   .body-large {
-    font-size: 1.2rem; /* Approx 21.6px */
+    font-size: 0.95rem;
+    line-height: 1.6;
   }
-
+  
   .body-regular {
-    font-size: 1.1rem; /* Approx 19.8px - aiming for very comfortable readability */
+    font-size: 0.85rem;
+    line-height: 1.5;
   }
-
+  
   .body-small {
-    font-size: 1rem; /* Approx 18px */
+    font-size: 0.75rem;
+    line-height: 1.4;
   }
   
+  /* Header improvements for very small screens */
+  header {
+    padding: 0.75rem 1rem !important;
+  }
+  
+  header h2 {
+    font-size: 1rem !important;
+    line-height: 1.2 !important;
+  }
+  
+  /* Hero section improvements */
+  #hero {
+    padding: 1rem !important;
+  }
+  
+  #hero .relative {
+    min-height: 350px !important;
+    padding: 1.5rem !important;
+    border-radius: 0.75rem !important;
+    background-position: center center !important;
+  }
+  
+  #hero h1 {
+    font-size: 2rem !important;
+    line-height: 1.1 !important;
+  }
+  
+  #hero h2 {
+    font-size: 1.125rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  #hero p {
+    font-size: 0.875rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  /* Button adjustments */
+  .btn-primary {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.8rem;
+    min-height: 44px;
+    border-radius: 0.5rem;
+  }
+  
+  /* Navigation menu improvements */
+  #mobile-menu-button {
+    padding: 0.5rem;
+  }
+  
+  #mobile-menu-button .material-icons-outlined {
+    font-size: 1.5rem;
+  }
+  
+  /* Service cards and grid layouts */
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  /* Profile image on mobile */
+  .profile-image {
+    max-width: 180px;
+    height: 180px;
+    margin: 0 auto;
+  }
+  
+  /* Form improvements */
+  .input-field {
+    font-size: 16px !important; /* Prevents zoom on iOS */
+    padding: 0.875rem;
+    border-radius: 0.5rem;
+  }
+  
+  /* Grid adjustments */
+  .grid.grid-cols-1.sm\\:grid-cols-2,
+  .grid.grid-cols-1.md\\:grid-cols-2,
+  .grid.grid-cols-1.lg\\:grid-cols-2,
+  .grid.grid-cols-1.lg\\:grid-cols-3 {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  
+  /* Text center on mobile for better readability */
+  .sm\\:text-right {
+    text-align: center !important;
+  }
+  
+  .sm\\:items-end {
+    align-items: center !important;
+  }
+  
+  .sm\\:justify-end {
+    justify-content: center !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Standard mobile devices */
   .card {
-    padding: var(--space-lg);
+    padding: 1.5rem;
+    border-radius: 0.75rem;
   }
   
-  .section {
-    margin: var(--space-2xl) 0;
-    padding: var(--space-xl) 0;
+  .section-minimal {
+    padding: 2rem 0;
+    margin: 1rem 0;
   }
-
-  .btn {
-    padding: var(--space-md) var(--space-lg); /* Increased padding for easier tapping */
-    font-size: 1rem; /* Approx 18px */
+  
+  .heading-2 {
+    font-size: 2rem;
+    line-height: 1.2;
   }
-
+  
+  .heading-3 {
+    font-size: 1.25rem;
+    line-height: 1.3;
+  }
+  
+  .body-large {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  /* Header adjustments */
+  header {
+    padding: 1rem 1.5rem !important;
+  }
+  
+  header h2 {
+    font-size: 1.125rem !important;
+  }
+  
+  /* Hero section mobile improvements */
+  #hero {
+    padding: 1.5rem !important;
+  }
+  
+  #hero .relative {
+    min-height: 400px !important;
+    padding: 2rem !important;
+  }
+  
+  #hero h1 {
+    font-size: 2.25rem !important;
+  }
+  
+  #hero h2 {
+    font-size: 1.375rem !important;
+  }
+  
+  #hero p {
+    font-size: 1rem !important;
+  }
+  
+  /* Service grid layouts */
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  /* Contact form specific mobile improvements */
+  .contact-form-container {
+    padding: 1.5rem;
+  }
+  
+  .contact-form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  /* Ensure buttons are properly sized on mobile */
+  .btn-primary {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.875rem;
+    min-height: 44px; /* Touch target size */
+    border-radius: 0.5rem;
+  }
+  
+  /* Make text more readable on mobile */
+  .body-regular {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  
+  .body-small {
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+  
+  /* Grid layout improvements for mobile */
+  .grid {
+    gap: 1rem !important;
+  }
+  
+  /* Force single column on mobile for better readability */
+  .grid.grid-cols-1.sm\\:grid-cols-2,
+  .grid.grid-cols-1.md\\:grid-cols-2,
+  .grid.grid-cols-1.lg\\:grid-cols-2,
+  .grid.grid-cols-1.lg\\:grid-cols-3 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Spacing improvements */
+  .space-y-10 > * + * {
+    margin-top: 2rem !important;
+  }
+  
+  .space-y-12 > * + * {
+    margin-top: 2rem !important;
+  }
+  
+  /* Typography improvements for readability */
+  ul li {
+    margin-bottom: 0.75rem;
+  }
+  
+  /* Image containers */
+  .project-card-image {
+    aspect-ratio: 4 / 3; /* Better for mobile viewing */
+  }
+  
+  /* Profile image adjustments */
+  .profile-image {
+    max-width: 220px;
+    height: 220px;
+    margin: 0 auto;
+  }
+  
+  /* Navigation improvements */
   .nav-link {
-    padding: var(--space-md) var(--space-lg); /* Increased padding for easier tapping */
-    font-size: 1rem; /* Approx 18px */
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+  }
+  
+  /* Footer improvements */
+  footer {
+    padding: 2rem 1.5rem !important;
+  }
+  
+  footer .flex-row {
+    flex-direction: column !important;
+    gap: 1rem !important;
   }
 }
 
-/* Animation System */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Tablet landscape */
+  .card {
+    padding: 1.75rem;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+  }
+  
+  .heading-2 {
+    font-size: 2.25rem;
+  }
+  
+  .heading-3 {
+    font-size: 1.375rem;
+  }
+  
+  /* Better grid layouts for medium screens */
+  .grid.grid-cols-1.md\\:grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .grid.grid-cols-1.md\\:grid-cols-3 {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out;
+@media (min-width: 1025px) {
+  /* Desktop and larger screens */
+  .card:hover {
+    transform: translateY(-4px);
+  }
+  
+  /* Enhanced hover effects for desktop */
+  .project-card:hover {
+    transform: translateY(-6px) scale(1.03);
+  }
+  
+  .grant-card:hover,
+  .publication-card:hover,
+  .community-card:hover {
+    transform: translateY(-3px);
+  }
 }
 
-/* Utilities */
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* Text Gradient for special headings */
 .text-gradient {
-  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  background: linear-gradient(135deg, #d97706, #f59e0b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.border-gradient {
-  border: 1px solid transparent;
-  background: linear-gradient(var(--surface-elevated), var(--surface-elevated)) padding-box,
-              linear-gradient(135deg, var(--accent), var(--accent-light)) border-box;
+/* Icon Colors by Section */
+.icon-amber { color: #d97706; }
+.icon-rose { color: #e11d48; }
+.icon-sky { color: #0ea5e9; }
+.icon-teal { color: #14b8a6; }
+
+/* Section Background Colors */
+.bg-stone-100 { background-color: #f5f5f4; }
+.bg-amber-gradient { 
+  background: linear-gradient(135deg, #fef3c7, #fce7d4); 
+}
+.bg-sky-100 { background-color: #e0f2fe; }
+.bg-teal-50 { background-color: #f0fdfa; }
+
+/* Responsive utilities */
+.container-responsive {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
-/* Secondary button style updated for a modern outline look */
-.hero-secondary-button { 
-  background-color: transparent; 
-  color: #0ea5e9; /* sky-500 */
-  border: 2px solid #0ea5e9; /* sky-500 */
-}
-.hero-secondary-button:hover { 
-  background-color: #0ea5e9; /* sky-500 */
-  color: white; 
-  border-color: #0ea5e9; /* sky-500 */
+@media (min-width: 640px) {
+  .container-responsive {
+    padding: 0 1.5rem;
+  }
 }
 
-/* Service cards alignment */
-.grid .text-center .heading-3 {
-  min-height: 3rem; /* Ensures consistent title height */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
+@media (min-width: 768px) {
+  .container-responsive {
+    padding: 0 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-responsive {
+    padding: 0 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-responsive {
+    padding: 0 3rem;
+  }
+}
+
+/* Improved responsive containers */
+.container-fluid {
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 640px) {
+  .container-fluid {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container-fluid {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-fluid {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+/* Viewport height fixes for mobile browsers */
+.min-h-screen {
+  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
+}
+
+/* Better handling of long text on mobile */
+@media (max-width: 768px) {
+  .text-ellipsis-mobile {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  /* Improve readability of lists on mobile */
+  ul, ol {
+    padding-left: 1.25rem;
+  }
+  
+  li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+  
+  /* Better spacing for mobile cards */
+  .card + .card {
+    margin-top: 1.5rem;
+  }
+}
+
+/* Responsive font loading optimization */
+@media (max-width: 768px) {
+  /* Ensure system fonts are used as fallback on slow connections */
+  body {
+    font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  
+  h1, h2, h3 {
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  }
+}
+
+/* Print styles for better printing experience */
+@media print {
+  .btn-primary,
+  #mobile-menu-button,
+  #header-nav-links {
+    display: none !important;
+  }
+  
+  header {
+    position: static !important;
+    border-bottom: 2px solid #000;
+  }
+  
+  section {
+    page-break-inside: avoid;
+  }
+  
+  .card {
+    border: 1px solid #000;
+    box-shadow: none;
+  }
+}
+
+/* Loading states and animations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .profile-image:hover,
+  .card:hover,
+  .project-card:hover,
+  .btn-primary:hover {
+    transform: none !important;
+  }
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid #d97706;
+  outline-offset: 2px;
+  border-radius: 0.125rem;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #d97706;
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 0.25rem;
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Additional Mobile Responsiveness Improvements */
+
+/* Touch-friendly interactions */
+@media (hover: none) and (pointer: coarse) {
+  .btn-primary:hover,
+  .card:hover,
+  .project-card:hover {
+    transform: none !important;
+  }
+  
+  .btn-primary:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+/* Improved mobile typography scaling */
+@media (max-width: 320px) {
+  /* Very small screens (iPhone SE, older phones) */
+  body {
+    font-size: 14px;
+  }
+  
+  #hero h1 {
+    font-size: 1.75rem !important;
+  }
+  
+  #hero h2 {
+    font-size: 1rem !important;
+  }
+  
+  .btn-primary {
+    font-size: 0.75rem;
+    padding: 0.625rem 1rem;
+  }
+  
+  .card {
+    padding: 0.875rem;
+  }
+}
+
+/* Improved section spacing for mobile */
+@media (max-width: 768px) {
+  section[id] {
+    scroll-margin-top: 80px; /* Account for fixed header */
+  }
+  
+  /* Better padding for sections */
+  section.px-4,
+  section.px-6 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  section.py-12,
+  section.py-16 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+}
+
+/* Enhanced mobile navigation */
+@media (max-width: 1023px) {
+  /* Ensure mobile menu appears above other content while keeping header sticky */
+  header {
+    position: sticky !important; /* Keep header sticky on mobile */
+    top: 0 !important;
+    z-index: 50 !important;
+  }
+  
+  #header-nav-links {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  /* Close button styling */
+  #mobile-menu-button[aria-expanded="true"] .material-icons-outlined {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+  }
+}
+
+/* Responsive image improvements */
+@media (max-width: 768px) {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .profile-image {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  /* Project and community images */
+  .project-card-image,
+  .community-image {
+    border-radius: 0.5rem;
+  }
+}
+
+/* Accessibility improvements for mobile */
+@media (max-width: 768px) {
+  /* Larger touch targets */
+  a, button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better focus indicators for mobile */
+  *:focus-visible {
+    outline: 3px solid #d97706;
+    outline-offset: 2px;
+  }
+  
+  /* Improved readability */
+  p, li {
+    line-height: 1.6;
+  }
 }
