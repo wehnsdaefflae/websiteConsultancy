@@ -211,7 +211,7 @@ body {
 /* Hero Section Background Positioning - Responsive Design */
 section#hero div.relative {
   background-position: center center !important;
-  background-size: 150% auto !important;
+  background-size: cover !important; /* Changed from 150% auto to cover for mobile */
   background-repeat: no-repeat !important;
   transition: background-position 0.3s ease-in-out;
 }
@@ -220,16 +220,16 @@ section#hero div.relative {
 @media (min-width: 640px) {
   section#hero div.relative {
     background-position: 100% center !important; /* 100% as you specified */
-    background-size: 150% auto !important;
+    background-size: 150% auto !important; /* Keep larger size for desktop effect */
     background-repeat: no-repeat !important;
   }
 }
 
-/* Mobile screens (below 640px) use center positioning for better mobile experience */
+/* Mobile screens (below 640px) use center positioning and cover to prevent borders */
 @media (max-width: 639px) {
   section#hero div.relative {
     background-position: center center !important;
-    background-size: 150% auto !important;
+    background-size: cover !important; /* Use cover to fill completely on mobile */
     background-repeat: no-repeat !important;
   }
 }
