@@ -4,7 +4,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Mobile menu toggle functionality
   function toggleMobileMenu() {
-    const menu = document.getElementById('mobileMenu');
+    const menu = document.getElementById('header-nav-links');
     if (menu) {
       menu.classList.toggle('hidden');
     }
@@ -12,6 +12,35 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Make toggleMobileMenu available globally for inline onclick handlers
   window.toggleMobileMenu = toggleMobileMenu;
+
+  // Add click event listener to mobile menu button
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  if (mobileMenuButton) {
+    mobileMenuButton.addEventListener('click', toggleMobileMenu);
+  }
+
+  // Ensure mobile menu starts hidden on page load
+  const menu = document.getElementById('header-nav-links');
+  if (menu) {
+    // On mobile screens, ensure menu starts hidden
+    if (window.innerWidth < 1280) {
+      menu.classList.add('hidden');
+    }
+  }
+
+  // Handle window resize to properly show/hide menu
+  window.addEventListener('resize', function() {
+    const menu = document.getElementById('header-nav-links');
+    if (menu) {
+      if (window.innerWidth >= 1280) {
+        // Desktop view - remove hidden class to show normal navigation
+        menu.classList.remove('hidden');
+      } else {
+        // Mobile view - add hidden class to hide menu by default
+        menu.classList.add('hidden');
+      }
+    }
+  });
 
   // Smooth scroll for nav links and internal page anchors
   document.addEventListener('click', function(e) {
@@ -44,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Close mobile menu when clicking on links
   document.addEventListener('click', function(e) {
     if (e.target.matches('a')) {
-      const menu = document.getElementById('mobileMenu');
+      const menu = document.getElementById('header-nav-links');
       if (menu && !menu.classList.contains('hidden')) {
         menu.classList.add('hidden');
       }
@@ -171,10 +200,185 @@ document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('keydown', function(e) {
     // Close mobile menu on Escape
     if (e.key === 'Escape') {
-      const menu = document.getElementById('mobileMenu');
+      const menu = document.getElementById('header-nav-links');
       if (menu && !menu.classList.contains('hidden')) {
         menu.classList.add('hidden');
       }
     }
   });
+
+  // Dark Mode Functionality
+  function initDarkMode() {
+    // Check for saved theme preference or default to system preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Disable transitions during initial setup
+    document.documentElement.classList.remove('transitions-enabled');
+    
+    // If no saved preference, use system preference
+    if (savedTheme === null) {
+      if (prefersDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    } else if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    
+    // Update initial state after DOM is fully loaded
+    setTimeout(() => {
+      // Enable transitions after everything is set up
+      document.documentElement.classList.add('transitions-enabled');
+    }, 100);
+  }
+
+  function toggleDarkMode() {
+    const isDark = document.documentElement.classList.contains('dark');
+    
+    // Disable transitions temporarily
+    document.documentElement.classList.remove('transitions-enabled');
+    
+    if (isDark) {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    } else {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    }
+    
+    // Re-enable transitions after a short delay
+    setTimeout(() => {
+      document.documentElement.classList.add('transitions-enabled');
+    }, 50);
+  }
+
+  // Removed updateThemeToggleIcon function - no longer needed with flip switch
+
+  // Initialize dark mode on page load
+  initDarkMode();
+
+  // Make toggle function available globally
+  window.toggleDarkMode = toggleDarkMode;
+
+  // Listen for system theme changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+      if (e.matches) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    }
+  });
+
+  // Landing page animations on scroll
+  function initScrollAnimations() {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          
+          // Add staggered animation for cards
+          if (entry.target.classList.contains('card')) {
+            const cards = entry.target.parentElement.querySelectorAll('.card');
+            const index = Array.from(cards).indexOf(entry.target);
+            entry.target.style.transitionDelay = `${index * 0.1}s`;
+          }
+        }
+      });
+    }, observerOptions);
+
+    // Enhanced scroll animations for different elements
+    const animatedElements = document.querySelectorAll('.card, .section-animated, .hero-title, .hero-subtitle, .hero-description, .hero-buttons');
+    
+    animatedElements.forEach((el, index) => {
+      // Different animation styles for different elements
+      if (el.classList.contains('hero-title')) {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(50px) scale(0.95)';
+        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      } else if (el.classList.contains('hero-subtitle')) {
+        el.style.opacity = '0';
+        el.style.transform = 'translateX(-30px)';
+        el.style.transition = 'opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s';
+      } else if (el.classList.contains('hero-description')) {
+        el.style.opacity = '0';
+        el.style.transform = 'translateX(30px)';
+        el.style.transition = 'opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s';
+      } else if (el.classList.contains('hero-buttons')) {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease 0.6s, transform 0.6s ease 0.6s';
+      } else {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      }
+      
+      observer.observe(el);
+    });
+
+    // Add hover animations for interactive elements
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          this.style.transform = 'translateY(-8px) scale(1.02)';
+          this.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.25)';
+        }
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+        this.style.boxShadow = '';
+      });
+    });
+  }
+
+  // Add subtle parallax effect to hero section
+  function initParallaxEffect() {
+    const heroSection = document.querySelector('#hero');
+    if (heroSection && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+        
+        if (scrolled < window.innerHeight) {
+          heroSection.style.transform = `translateY(${rate}px)`;
+        }
+      });
+    }
+  }
+
+  // Add floating animation to cards
+  function initFloatingAnimation() {
+    const cards = document.querySelectorAll('.card');
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      cards.forEach((card, index) => {
+        // Stagger the animation start times
+        setTimeout(() => {
+          card.style.animation = `float ${3 + (index % 3)}s ease-in-out infinite`;
+        }, index * 200);
+      });
+    }
+  }
+
+  // Initialize enhanced animations
+  initParallaxEffect();
+  setTimeout(initFloatingAnimation, 1000); // Start floating after initial load
+
+  // Initialize scroll animations
+  if (window.IntersectionObserver) {
+    initScrollAnimations();
+  }
 });

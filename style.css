@@ -41,11 +41,285 @@
   --space-2xl: 3rem;
   --space-3xl: 4rem;
   --vh: 1vh; /* Viewport height unit for mobile browsers */
+  
+  /* Light mode colors */
+  --bg-primary: #fafaf9;
+  --bg-secondary: #f5f5f4;
+  --bg-tertiary: #ffffff;
+  --text-primary: #1c1917;
+  --text-secondary: #57534e;
+  --text-tertiary: #78716c;
+  --border-color: #e7e5e4;
+  --accent-color: #d97706;
+  --accent-hover: #b45309;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode colors */
+:root.dark {
+  --bg-primary: #0f0f0f;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #2a2a2a;
+  --text-primary: #ffffff;
+  --text-secondary: #e5e5e5;
+  --text-tertiary: #a3a3a3;
+  --border-color: #404040;
+  --accent-color: #f59e0b;
+  --accent-hover: #d97706;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Comprehensive dark mode background overrides */
+:root.dark {
+  background-color: var(--bg-primary) !important;
+}
+
+:root.dark html {
+  background-color: var(--bg-primary) !important;
+}
+
+:root.dark body {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+:root.dark main {
+  background-color: var(--bg-primary) !important;
+}
+
+:root.dark section {
+  background-color: var(--bg-primary) !important;
+}
+
+/* Exception: Hero section should not have solid background */
+:root.dark section#hero {
+  background-color: transparent !important;
+}
+
+:root.dark div {
+  background-color: inherit;
+}
+
+/* Exception: Hero section divs should not inherit solid backgrounds */
+:root.dark section#hero div {
+  background-color: transparent !important;
+}
+
+/* Ensure all hero section child elements have transparent backgrounds */
+:root.dark section#hero * {
+  background-color: transparent !important;
+}
+
+/* Ensure button backgrounds work properly in hero */
+:root.dark section#hero .btn-primary,
+:root.dark section#hero button,
+:root.dark section#hero a[class*="btn"] {
+  background-color: #d97706 !important;
+}
+
+:root.dark section#hero .border-stone-100 {
+  background-color: transparent !important;
+}
+
+/* Override any white/light backgrounds */
+:root.dark .bg-white {
+  background-color: var(--bg-tertiary) !important;
+}
+
+:root.dark .bg-stone-50 {
+  background-color: var(--bg-primary) !important;
+}
+
+:root.dark .bg-stone-100 {
+  background-color: var(--bg-secondary) !important;
+}
+
+:root.dark .bg-gray-50 {
+  background-color: var(--bg-secondary) !important;
+}
+
+:root.dark .bg-gray-100 {
+  background-color: var(--bg-secondary) !important;
+}
+
+/* Preserve specific element backgrounds that should remain solid */
+:root.dark .card,
+:root.dark .nav,
+:root.dark .header,
+:root.dark [class*="card"] {
+  background-color: var(--bg-tertiary) !important;
+}
+
+/* Fix modal and popup backgrounds */
+:root.dark .modal,
+:root.dark .popup,
+:root.dark .dropdown {
+  background-color: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Override Tailwind text colors for dark mode */
+:root.dark .text-stone-400 {
+  color: var(--text-tertiary) !important;
+}
+
+/* Additional comprehensive dark mode fixes */
+
+/* Enhanced text contrast fixes for dark mode */
+:root.dark .text-stone-50,
+:root.dark .text-stone-100,
+:root.dark .text-stone-200 {
+  color: var(--text-primary) !important;
+}
+
+:root.dark .text-stone-300,
+:root.dark .text-stone-400 {
+  color: var(--text-secondary) !important;
+}
+
+:root.dark .text-gray-50,
+:root.dark .text-gray-100,
+:root.dark .text-gray-200 {
+  color: var(--text-primary) !important;
+}
+
+:root.dark .text-gray-300,
+:root.dark .text-gray-400 {
+  color: var(--text-secondary) !important;
+}
+
+/* Enhanced dark mode contrast for bullet points and lists with text-stone-600 */
+:root.dark ul.text-stone-600,
+:root.dark .text-stone-600 ul,
+:root.dark ul .text-stone-600 {
+  color: var(--text-secondary) !important;
+}
+
+:root.dark ul.text-stone-600 li,
+:root.dark .text-stone-600 ul li,
+:root.dark ul .text-stone-600 li {
+  color: var(--text-secondary) !important;
+}
+
+:root.dark .text-stone-500,
+:root.dark .text-stone-600,
+:root.dark .text-stone-700,
+:root.dark .text-stone-800 {
+  color: var(--text-secondary) !important;
+}
+
+/* Ensure all headings are properly visible */
+:root.dark h1,
+:root.dark h2, 
+:root.dark h3,
+:root.dark h4,
+:root.dark h5,
+:root.dark h6 {
+  color: var(--text-primary) !important;
+}
+
+/* Fix heading classes specifically */
+:root.dark .heading-2,
+:root.dark .heading-3 {
+  color: var(--text-primary) !important;
+}
+
+/* Ensure body text classes are readable */
+:root.dark .body-large,
+:root.dark .body-regular,
+:root.dark .body-small {
+  color: var(--text-secondary) !important;
+}
+
+/* Fix any remaining text color issues */
+:root.dark p {
+  color: var(--text-secondary) !important;
+}
+
+:root.dark strong {
+  color: var(--text-primary) !important;
+}
+
+/* Fix link colors in dark mode */
+:root.dark a {
+  color: var(--accent-color) !important;
+}
+
+:root.dark a:hover {
+  color: var(--accent-hover) !important;
+}
+
+/* Fix section backgrounds */
+:root.dark section {
+  background-color: var(--bg-primary) !important;
+}
+
+/* Fix container backgrounds but allow cards to override */
+:root.dark .container {
+  background-color: var(--bg-primary) !important;
+}
+
+/* Ensure proper button styling in dark mode */
+:root.dark .btn {
+  background-color: var(--accent-color) !important;
+  color: white !important;
+  border-color: var(--accent-color) !important;
+}
+
+:root.dark .btn:hover {
+  background-color: #d97706 !important;
+  border-color: #d97706 !important;
+}
+
+/* Enhanced button styling for better dark mode contrast */
+:root.dark .btn-primary {
+  background-color: #f59e0b !important;
+  color: #000000 !important;
+  border: 2px solid #f59e0b !important;
+  font-weight: 700 !important;
+}
+
+:root.dark .btn-primary:hover {
+  background-color: #d97706 !important;
+  color: #ffffff !important;
+  border-color: #d97706 !important;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.4) !important;
+}
+
+/* Contact button styling in dark mode */
+:root.dark .bg-amber-600 {
+  background-color: #f59e0b !important;
+  color: #000000 !important;
+  border: 2px solid #f59e0b !important;
+}
+
+:root.dark .bg-amber-600:hover,
+:root.dark .hover\\:bg-amber-700:hover {
+  background-color: #d97706 !important;
+  color: #ffffff !important;
+  border-color: #d97706 !important;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.4) !important;
+}
+
+/* Fix form elements in dark mode */
+:root.dark input,
+:root.dark textarea,
+:root.dark select {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+:root.dark input:focus,
+:root.dark textarea:focus,
+:root.dark select:focus {
+  border-color: var(--accent-color) !important;
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2) !important;
 }
 
 /* Navigation Links - Template Style */
 .nav-link {
-  color: #57534e;
+  color: var(--text-secondary);
   text-decoration: none;
   font-weight: 500;
   font-size: 0.875rem;
@@ -53,11 +327,20 @@
   border-radius: 0.375rem;
   transition: all 0.2s ease;
   display: block;
+  /* Ensure consistent layout across themes */
+  white-space: nowrap;
+  box-sizing: border-box;
+  /* Force consistent text rendering */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-variant: normal;
+  letter-spacing: normal;
+  word-spacing: normal;
 }
 
 .nav-link:hover {
-  color: #d97706;
-  background: rgba(245, 245, 244, 0.5);
+  color: var(--accent-color);
 }
 
 /* Mobile Menu */
@@ -80,7 +363,7 @@
     border-top: 1px solid #e7e5e4;
     border-bottom: 1px solid #e7e5e4;
     padding: 1.5rem;
-    display: flex;
+    display: flex !important; /* Override Tailwind hidden class */
     flex-direction: column;
     gap: 0.75rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -88,7 +371,7 @@
   }
   
   #header-nav-links.hidden {
-    display: none;
+    display: none !important; /* Only hide when explicitly hidden */
   }
   
   #header-nav-links .nav-link,
@@ -102,9 +385,8 @@
   }
   
   #header-nav-links a:hover {
-    background: rgba(217, 119, 6, 0.1);
-    border-color: #d97706;
     color: #d97706;
+    border-color: #d97706;
   }
 }
 
@@ -119,10 +401,35 @@
     flex-direction: row !important;
     gap: 2.5rem !important;
     margin-right: 2rem !important; /* Add spacing to the right of nav links */
+    /* Force consistent positioning */
+    width: auto !important;
+    min-width: fit-content !important;
+    flex-shrink: 0 !important;
+    /* Ensure identical layout in both themes */
+    align-items: center !important;
+    justify-content: flex-start !important;
   }
   
   #header-nav-links.hidden {
     display: flex !important;
+  }
+  
+  /* Ensure navigation positioning is pixel-perfect identical in both themes */
+  nav#header-nav-links {
+    position: relative !important;
+    transform: translateX(0) !important;
+    left: auto !important;
+    right: auto !important;
+    margin-left: 0 !important;
+  }
+  
+  /* Ensure nav links maintain consistent spacing and positioning */
+  nav#header-nav-links .nav-link {
+    display: inline-block !important;
+    vertical-align: middle !important;
+    margin: 0 !important;
+    border: none !important;
+    outline: none !important;
   }
 }
 
@@ -468,22 +775,6 @@ section#hero div.relative {
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
-/* Grants and Recognition Cards */
-.grant-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(8px);
-  border: 1px solid #fbbf24;
-  border-radius: 0.75rem;
-  padding: 2rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  transition: all 0.3s ease;
-}
-
-.grant-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-}
-
 /* Publications Cards */
 .publication-card {
   background: white;
@@ -515,651 +806,623 @@ section#hero div.relative {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-/* Responsive Design */
+/* Enhanced Landing Page Animations */
+.hero-title {
+  animation: fadeInScale 0.8s ease-out forwards;
+}
 
-/* Mobile-first approach - Base styles for mobile */
-@media (max-width: 480px) {
-  /* Extra small mobile devices */
-  .card {
-    padding: 1rem;
-    margin-bottom: 1rem;
+.hero-subtitle {
+  animation: slideInLeft 0.6s ease-out 0.2s both;
+}
+
+.hero-description {
+  animation: slideInRight 0.6s ease-out 0.4s both;
+}
+
+.hero-buttons {
+  animation: fadeInUp 0.6s ease-out 0.6s both;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
   }
-  
-  .section-minimal {
-    padding: 1.5rem 0;
-    margin: 0.5rem 0;
-  }
-  
-  .heading-2 {
-    font-size: 1.75rem;
-    line-height: 1.1;
-  }
-  
-  .heading-3 {
-    font-size: 1.125rem;
-    line-height: 1.2;
-  }
-  
-  .body-large {
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-  
-  .body-regular {
-    font-size: 0.85rem;
-    line-height: 1.5;
-  }
-  
-  .body-small {
-    font-size: 0.75rem;
-    line-height: 1.4;
-  }
-  
-  /* Header improvements for very small screens */
-  header {
-    padding: 0.75rem 1rem !important;
-  }
-  
-  header h2 {
-    font-size: 1rem !important;
-    line-height: 1.2 !important;
-  }
-  
-  /* Hero section improvements */
-  #hero {
-    padding: 1rem !important;
-  }
-  
-  #hero .relative {
-    min-height: 350px !important;
-    padding: 1.5rem !important;
-    border-radius: 0.75rem !important;
-    background-position: center center !important;
-  }
-  
-  #hero h1 {
-    font-size: 2rem !important;
-    line-height: 1.1 !important;
-  }
-  
-  #hero h2 {
-    font-size: 1.125rem !important;
-    line-height: 1.3 !important;
-  }
-  
-  #hero p {
-    font-size: 0.875rem !important;
-    line-height: 1.5 !important;
-  }
-  
-  /* Button adjustments */
-  .btn-primary {
-    padding: 0.75rem 1.25rem;
-    font-size: 0.8rem;
-    min-height: 44px;
-    border-radius: 0.5rem;
-  }
-  
-  /* Navigation menu improvements */
-  #mobile-menu-button {
-    padding: 0.5rem;
-  }
-  
-  #mobile-menu-button .material-icons-outlined {
-    font-size: 1.5rem;
-  }
-  
-  /* Service cards and grid layouts */
-  .services-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  /* Profile image on mobile */
-  .profile-image {
-    max-width: 180px;
-    height: 180px;
-    margin: 0 auto;
-  }
-  
-  /* Form improvements */
-  .input-field {
-    font-size: 16px !important; /* Prevents zoom on iOS */
-    padding: 0.875rem;
-    border-radius: 0.5rem;
-  }
-  
-  /* Grid adjustments */
-  .grid.grid-cols-1.sm\\:grid-cols-2,
-  .grid.grid-cols-1.md\\:grid-cols-2,
-  .grid.grid-cols-1.lg\\:grid-cols-2,
-  .grid.grid-cols-1.lg\\:grid-cols-3 {
-    grid-template-columns: 1fr !important;
-    gap: 1rem !important;
-  }
-  
-  /* Text center on mobile for better readability */
-  .sm\\:text-right {
-    text-align: center !important;
-  }
-  
-  .sm\\:items-end {
-    align-items: center !important;
-  }
-  
-  .sm\\:justify-end {
-    justify-content: center !important;
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
-@media (max-width: 768px) {
-  /* Standard mobile devices */
-  .card {
-    padding: 1.5rem;
-    border-radius: 0.75rem;
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
   }
-  
-  .section-minimal {
-    padding: 2rem 0;
-    margin: 1rem 0;
-  }
-  
-  .heading-2 {
-    font-size: 2rem;
-    line-height: 1.2;
-  }
-  
-  .heading-3 {
-    font-size: 1.25rem;
-    line-height: 1.3;
-  }
-  
-  .body-large {
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-  
-  /* Header adjustments */
-  header {
-    padding: 1rem 1.5rem !important;
-  }
-  
-  header h2 {
-    font-size: 1.125rem !important;
-  }
-  
-  /* Hero section mobile improvements */
-  #hero {
-    padding: 1.5rem !important;
-  }
-  
-  #hero .relative {
-    min-height: 400px !important;
-    padding: 2rem !important;
-  }
-  
-  #hero h1 {
-    font-size: 2.25rem !important;
-  }
-  
-  #hero h2 {
-    font-size: 1.375rem !important;
-  }
-  
-  #hero p {
-    font-size: 1rem !important;
-  }
-  
-  /* Service grid layouts */
-  .services-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  /* Contact form specific mobile improvements */
-  .contact-form-container {
-    padding: 1.5rem;
-  }
-  
-  .contact-form-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  /* Ensure buttons are properly sized on mobile */
-  .btn-primary {
-    padding: 0.875rem 1.5rem;
-    font-size: 0.875rem;
-    min-height: 44px; /* Touch target size */
-    border-radius: 0.5rem;
-  }
-  
-  /* Make text more readable on mobile */
-  .body-regular {
-    font-size: 0.875rem;
-    line-height: 1.5;
-  }
-  
-  .body-small {
-    font-size: 0.8rem;
-    line-height: 1.5;
-  }
-  
-  /* Grid layout improvements for mobile */
-  .grid {
-    gap: 1rem !important;
-  }
-  
-  /* Force single column on mobile for better readability */
-  .grid.grid-cols-1.sm\\:grid-cols-2,
-  .grid.grid-cols-1.md\\:grid-cols-2,
-  .grid.grid-cols-1.lg\\:grid-cols-2,
-  .grid.grid-cols-1.lg\\:grid-cols-3 {
-    grid-template-columns: 1fr !important;
-  }
-  
-  /* Spacing improvements */
-  .space-y-10 > * + * {
-    margin-top: 2rem !important;
-  }
-  
-  .space-y-12 > * + * {
-    margin-top: 2rem !important;
-  }
-  
-  /* Typography improvements for readability */
-  ul li {
-    margin-bottom: 0.75rem;
-  }
-  
-  /* Image containers */
-  .project-card-image {
-    aspect-ratio: 4 / 3; /* Better for mobile viewing */
-  }
-  
-  /* Profile image adjustments */
-  .profile-image {
-    max-width: 220px;
-    height: 220px;
-    margin: 0 auto;
-  }
-  
-  /* Navigation improvements */
-  .nav-link {
-    font-size: 1rem;
-    padding: 0.75rem 1rem;
-  }
-  
-  /* Footer improvements */
-  footer {
-    padding: 2rem 1.5rem !important;
-  }
-  
-  footer .flex-row {
-    flex-direction: column !important;
-    gap: 1rem !important;
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-  /* Tablet landscape */
-  .card {
-    padding: 1.75rem;
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
   }
-  
-  .services-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.75rem;
-  }
-  
-  .heading-2 {
-    font-size: 2.25rem;
-  }
-  
-  .heading-3 {
-    font-size: 1.375rem;
-  }
-  
-  /* Better grid layouts for medium screens */
-  .grid.grid-cols-1.md\\:grid-cols-2 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .grid.grid-cols-1.md\\:grid-cols-3 {
-    grid-template-columns: repeat(2, 1fr);
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
-@media (min-width: 1025px) {
-  /* Desktop and larger screens */
-  .card:hover {
-    transform: translateY(-4px);
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  /* Enhanced hover effects for desktop */
-  .project-card:hover {
-    transform: translateY(-6px) scale(1.03);
-  }
-  
-  .grant-card:hover,
-  .publication-card:hover,
-  .community-card:hover {
-    transform: translateY(-3px);
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px;
-}
-
-/* Text Gradient for special headings */
-.text-gradient {
-  background: linear-gradient(135deg, #d97706, #f59e0b);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Icon Colors by Section */
-.icon-amber { color: #d97706; }
-.icon-rose { color: #e11d48; }
-.icon-sky { color: #0ea5e9; }
-.icon-teal { color: #14b8a6; }
-
-/* Section Background Colors */
-.bg-stone-100 { background-color: #f5f5f4; }
-.bg-amber-gradient { 
-  background: linear-gradient(135deg, #fef3c7, #fce7d4); 
-}
-.bg-sky-100 { background-color: #e0f2fe; }
-.bg-teal-50 { background-color: #f0fdfa; }
-
-/* Responsive utilities */
-.container-responsive {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-@media (min-width: 640px) {
-  .container-responsive {
-    padding: 0 1.5rem;
+/* Floating animation for cards */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
   }
 }
 
-@media (min-width: 768px) {
-  .container-responsive {
-    padding: 0 2rem;
+/* Subtle breathing animation for important elements */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
   }
 }
 
-@media (min-width: 1024px) {
-  .container-responsive {
-    padding: 0 2.5rem;
-  }
+.breathe {
+  animation: breathe 4s ease-in-out infinite;
 }
 
-@media (min-width: 1280px) {
-  .container-responsive {
-    padding: 0 3rem;
-  }
+/* Enhanced focus states for accessibility */
+:focus-visible {
+  outline: 3px solid var(--accent-color) !important;
+  outline-offset: 2px !important;
+  border-radius: 0.25rem !important;
 }
 
-/* Improved responsive containers */
-.container-fluid {
-  width: 100%;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  margin-left: auto;
-  margin-right: auto;
+:root.dark :focus-visible {
+  outline-color: var(--accent-color) !important;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2) !important;
 }
 
-@media (min-width: 640px) {
-  .container-fluid {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
+/* Smooth transitions for all interactive elements */
+a, button, .nav-link, .btn-primary, .card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@media (min-width: 768px) {
-  .container-fluid {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container-fluid {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-  }
-}
-
-/* Viewport height fixes for mobile browsers */
-.min-h-screen {
-  min-height: 100vh;
-  min-height: calc(var(--vh, 1vh) * 100);
-}
-
-/* Better handling of long text on mobile */
-@media (max-width: 768px) {
-  .text-ellipsis-mobile {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  
-  /* Improve readability of lists on mobile */
-  ul, ol {
-    padding-left: 1.25rem;
-  }
-  
-  li {
-    margin-bottom: 0.5rem;
-    line-height: 1.6;
-  }
-  
-  /* Better spacing for mobile cards */
-  .card + .card {
-    margin-top: 1.5rem;
-  }
-}
-
-/* Responsive font loading optimization */
-@media (max-width: 768px) {
-  /* Ensure system fonts are used as fallback on slow connections */
-  body {
-    font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  }
-  
-  h1, h2, h3 {
-    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-  }
-}
-
-/* Print styles for better printing experience */
-@media print {
-  .btn-primary,
-  #mobile-menu-button,
-  #header-nav-links {
-    display: none !important;
-  }
-  
-  header {
-    position: static !important;
-    border-bottom: 2px solid #000;
-  }
-  
-  section {
-    page-break-inside: avoid;
-  }
-  
-  .card {
-    border: 1px solid #000;
-    box-shadow: none;
-  }
-}
-
-/* Loading states and animations */
+/* Disable animations for users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
   
-  .profile-image:hover,
-  .card:hover,
-  .project-card:hover,
-  .btn-primary:hover {
-    transform: none !important;
+  .float,
+  .breathe,
+  .hero-background {
+    animation: none !important;
   }
 }
 
-/* Focus styles for accessibility */
-*:focus-visible {
-  outline: 2px solid #d97706;
-  outline-offset: 2px;
-  border-radius: 0.125rem;
+/* Dark mode */
+:root.dark {
+  --bg-primary: #0f0f0f;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #2a2a2a;
+  --text-primary: #ffffff;
+  --text-secondary: #e5e5e5;
+  --text-tertiary: #a3a3a3;
+  --border-color: #404040;
+  --accent-color: #f59e0b;
+  --accent-hover: #d97706;
+  --shadow-color: rgba(0, 0, 0, 0.5);
 }
 
-/* Skip link for accessibility */
-.skip-link {
+/* Restore transitions for dark mode but exclude toggle icon */
+:root.dark * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Ensure dark mode applies to the entire page */
+:root.dark body {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Header Dark Mode */
+:root.dark header {
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  backdrop-filter: blur(12px) !important; /* Keep consistent with light mode */
+}
+
+header {
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Fix header transparency in dark mode */
+:root.dark header.bg-stone-50\/80 {
+  background-color: rgba(26, 26, 26, 0.8) !important;
+  backdrop-filter: blur(12px) !important; /* Consistent with light mode */
+}
+
+/* Navigation Dark Mode */
+:root.dark .nav-link {
+  color: var(--text-secondary);
+  /* Ensure identical layout properties */
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+  box-sizing: border-box;
+  /* Ensure identical text rendering in dark mode */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-variant: normal;
+  letter-spacing: normal;
+  word-spacing: normal;
+}
+
+:root.dark .nav-link:hover {
+  color: var(--accent-color);
+}
+
+.nav-link {
+  color: var(--text-secondary);
+  /* Force consistent text rendering */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-variant: normal;
+  letter-spacing: normal;
+  word-spacing: normal;
+}
+
+.nav-link:hover {
+  color: var(--accent-color);
+}
+
+/* Enhanced navigation highlighting for current page */
+:root.dark .nav-link.text-amber-600 {
+  color: var(--accent-color) !important;
+  background: rgba(245, 158, 11, 0.15) !important;
+  border-radius: 0.375rem;
+  font-weight: 600 !important;
+}
+
+:root.dark .nav-link.text-amber-600:hover {
+  transform: translateY(-1px);
+}
+
+/* Enhanced current page highlighting for light mode too */
+.nav-link.text-amber-600 {
+  background: rgba(217, 119, 6, 0.1) !important;
+  border-radius: 0.375rem;
+  font-weight: 600 !important;
+}
+
+.nav-link.text-amber-600:hover {
+  transform: translateY(-1px);
+}
+
+/* Disabled navigation link for current page */
+.nav-link.disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.nav-link.disabled:hover {
+  transform: none;
+}
+
+/* Cards Dark Mode */
+:root.dark .card {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color);
+}
+
+:root.dark .card:hover {
+  box-shadow: 0 20px 25px -5px var(--shadow-color), 0 10px 10px -5px var(--shadow-color);
+}
+
+/* Enhanced card background fixes for dark mode */
+:root.dark .project-card,
+:root.dark .publication-card,
+:root.dark .community-card,
+:root.dark .grant-card {
+  background: var(--bg-tertiary) !important;
+  background-color: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Ensure all card-like elements have proper backgrounds */
+:root.dark [class*="card"] {
+  background: var(--bg-tertiary) !important;
+  background-color: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Publication card specific styling */
+:root.dark .publication-card {
+  border-top: 4px solid #0ea5e9 !important;
+}
+
+/* Process circles and "How I Work" section styling for dark mode */
+:root.dark .bg-amber-600 {
+  background-color: #f59e0b !important; /* Brighter amber for better visibility */
+}
+
+:root.dark .bg-stone-100 {
+  background-color: var(--bg-secondary) !important;
+}
+
+/* Ensure process circles are visible */
+:root.dark div[class*="bg-amber-600"] {
+  background-color: #f59e0b !important;
+  color: #000000 !important; /* Black text for better contrast */
+}
+
+/* Fix "What I Do" section card contrast */
+:root.dark .card {
+  background: var(--bg-tertiary) !important;
+  background-color: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color);
+}
+
+/* Enhanced "What I Do" section styling */
+:root.dark section .card {
+  background: var(--bg-tertiary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+:root.dark .card h3 {
+  color: var(--text-primary) !important;
+}
+
+:root.dark .card p {
+  color: var(--text-secondary) !important;
+}
+
+/* Fix highlighted/callout sections with bg-amber-50 */
+:root.dark .bg-amber-50 {
+  background-color: rgba(245, 158, 11, 0.1) !important;
+  border-color: #f59e0b !important;
+}
+
+:root.dark [class*="bg-amber-50"] {
+  background-color: rgba(245, 158, 11, 0.1) !important;
+  border-color: #f59e0b !important;
+  color: var(--text-primary) !important;
+}
+
+/* Fix border-amber-500 elements */
+:root.dark .border-amber-500 {
+  border-color: #f59e0b !important;
+}
+
+:root.dark [class*="border-amber-500"] {
+  border-color: #f59e0b !important;
+}
+
+/* Ensure text in highlighted sections is readable */
+:root.dark .bg-amber-50 p,
+:root.dark [class*="bg-amber-50"] p {
+  color: var(--text-primary) !important;
+}
+
+/* Fix list bullets and ensure they're visible */
+:root.dark .list-disc {
+  color: var(--text-primary) !important;
+}
+
+:root.dark .list-disc li {
+  color: var(--text-primary) !important;
+}
+
+:root.dark .list-disc li::marker {
+  color: var(--accent-color) !important;
+}
+
+:root.dark ul li::marker {
+  color: var(--accent-color) !important;
+}
+
+/* Ensure list-inside bullets are visible */
+:root.dark .list-inside li {
+  color: var(--text-primary) !important;
+}
+
+:root.dark .list-inside li::marker {
+  color: var(--accent-color) !important;
+}
+:root.dark .community-card {
+  border-left: 4px solid #14b8a6 !important;
+}
+
+/* Hero background fixes for dark mode - consolidated and cleaned up */
+:root.dark .hero-background,
+:root.dark section#hero div.hero-background,
+:root.dark section#hero div[style*="hero-background.webp"] {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 100%), url("images/hero-background.webp") !important;
+  background-color: transparent !important;
+}
+
+/* Remove unwanted solid backgrounds from other hero elements (non-background) */
+:root.dark .hero-section:not(.hero-background) {
+  background: none !important;
+  background-color: transparent !important;
+}
+
+:root.dark .hero-content:not(.hero-background) {
+  background: none !important;
+  background-color: transparent !important;
+}
+
+/* Theme toggle styling cleaned up - no more icon animation prevention needed */
+
+/* Fix Tailwind gradient backgrounds in dark mode */
+:root.dark .bg-gradient-to-r {
+  background: var(--bg-tertiary) !important;
+}
+
+:root.dark [class*="bg-gradient-to-"] {
+  background: var(--bg-tertiary) !important;
+}
+
+/* Specifically fix amber gradient backgrounds */
+:root.dark .from-amber-50 {
+  background: var(--bg-tertiary) !important;
+}
+
+:root.dark .to-stone-50 {
+  background: var(--bg-tertiary) !important;
+}
+
+/* Ensure gradient backgrounds in community section are visible in dark mode */
+:root.dark .bg-gradient-to-r.from-amber-50.to-stone-50 {
+  background: linear-gradient(to right, rgba(245, 158, 11, 0.1), rgba(156, 163, 175, 0.05)) !important;
+}
+
+/* Dr. Mark Wernsdorfer header styling for dark mode */
+:root.dark .text-stone-800.hover\\:text-amber-600 {
+  color: var(--text-primary) !important;
+}
+
+:root.dark .text-stone-800.hover\\:text-amber-600:hover {
+  color: var(--accent-color) !important;
+  text-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
+  transition: all 0.3s ease;
+}
+
+/* Enhanced header name styling */
+:root.dark header a[href*="index.html"] {
+  color: var(--text-primary) !important;
+}
+
+:root.dark header a[href*="index.html"]:hover {
+  color: var(--accent-color) !important;
+  text-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
+}
+
+/* Enhanced theme toggle styling - Fixed width flip switch */
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px !important; /* Fixed width */
+  height: 28px !important; /* Fixed height */
+  background-color: #e5e7eb;
+  border: 2px solid #d1d5db;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+.theme-toggle:before {
+  content: '';
   position: absolute;
-  top: -40px;
-  left: 6px;
-  background: #d97706;
-  color: white;
-  padding: 8px;
-  text-decoration: none;
-  border-radius: 0.25rem;
-  z-index: 1000;
+  width: 20px;
+  height: 20px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.skip-link:focus {
-  top: 6px;
+.theme-toggle:hover {
+  background-color: #d1d5db;
+  border-color: #9ca3af;
 }
 
-/* Additional Mobile Responsiveness Improvements */
+:root.dark .theme-toggle {
+  background-color: #374151 !important;
+  border-color: #4b5563 !important;
+}
 
-/* Touch-friendly interactions */
-@media (hover: none) and (pointer: coarse) {
-  .btn-primary:hover,
-  .card:hover,
-  .project-card:hover {
-    transform: none !important;
+:root.dark .theme-toggle:before {
+  background-color: #f59e0b !important;
+  transform: translateX(20px);
+}
+
+:root.dark .theme-toggle:hover {
+  background-color: #4b5563 !important;
+  border-color: #6b7280 !important;
+}
+
+/* Form button styling in dark mode */
+:root.dark button[type="submit"],
+:root.dark .bg-amber-500 {
+  background-color: #f59e0b !important;
+  color: #000000 !important;
+  border: 2px solid #f59e0b !important;
+  font-weight: 600 !important;
+}
+
+:root.dark button[type="submit"]:hover,
+:root.dark .bg-amber-500:hover,
+:root.dark .hover\\:bg-amber-600:hover {
+  background-color: #d97706 !important;
+  color: #ffffff !important;
+  border-color: #d97706 !important;
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.4) !important;
+}
+
+/* Language switcher improvements in dark mode */
+:root.dark .language-switcher a {
+  background-color: rgba(245, 158, 11, 0.1) !important;
+  color: var(--accent-color) !important;
+  border: 1px solid var(--accent-color) !important;
+}
+
+:root.dark .language-switcher a:hover {
+  background-color: var(--accent-color) !important;
+  color: #000000 !important;
+}
+
+/* Contact section link improvements */
+:root.dark .bg-stone-100.hover\\:bg-amber-50 {
+  background-color: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+:root.dark .bg-stone-100.hover\\:bg-amber-50:hover {
+  background-color: rgba(245, 158, 11, 0.1) !important;
+  color: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+}
+
+/* Mobile menu button improvements */
+:root.dark #mobile-menu-button {
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+:root.dark #mobile-menu-button:hover {
+  color: var(--accent-color) !important;
+  background-color: rgba(245, 158, 11, 0.1) !important;
+  border-color: var(--accent-color) !important;
+  transform: scale(1.05);
+}
+
+/* Enhanced mobile navigation in dark mode */
+@media (max-width: 1279px) {
+  :root.dark #header-nav-links {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-color) !important;
+    backdrop-filter: blur(20px);
   }
-  
-  .btn-primary:active {
-    transform: scale(0.98);
-    transition: transform 0.1s ease;
+
+  :root.dark #header-nav-links .nav-link {
+    color: var(--text-secondary) !important;
+    border: 1px solid transparent !important;
+    transition: all 0.3s ease;
+  }
+
+  :root.dark #header-nav-links .nav-link:hover {
+    color: var(--accent-color) !important;
+    border-color: transparent !important;
+  }
+
+  :root.dark #header-nav-links a:hover {
+    border-color: transparent !important;
+    color: var(--accent-color) !important;
   }
 }
 
-/* Improved mobile typography scaling */
-@media (max-width: 320px) {
-  /* Very small screens (iPhone SE, older phones) */
-  body {
-    font-size: 14px;
-  }
-  
-  #hero h1 {
-    font-size: 1.75rem !important;
-  }
-  
-  #hero h2 {
-    font-size: 1rem !important;
-  }
-  
-  .btn-primary {
-    font-size: 0.75rem;
-    padding: 0.625rem 1rem;
-  }
-  
-  .card {
-    padding: 0.875rem;
-  }
+/* Final dark mode refinements */
+:root.dark .border-stone-200 {
+  border-color: var(--border-color) !important;
 }
 
-/* Improved section spacing for mobile */
-@media (max-width: 768px) {
-  section[id] {
-    scroll-margin-top: 80px; /* Account for fixed header */
-  }
-  
-  /* Better padding for sections */
-  section.px-4,
-  section.px-6 {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-  }
-  
-  section.py-12,
-  section.py-16 {
-    padding-top: 2rem !important;
-    padding-bottom: 2rem !important;
-  }
+:root.dark .bg-stone-50\/80 {
+  background-color: rgba(26, 26, 26, 0.9) !important;
 }
 
-/* Enhanced mobile navigation */
-@media (max-width: 1023px) {
-  /* Ensure mobile menu appears above other content while keeping header sticky */
-  header {
-    position: sticky !important; /* Keep header sticky on mobile */
-    top: 0 !important;
-    z-index: 50 !important;
-  }
-  
-  #header-nav-links {
-    max-height: 400px;
-    overflow-y: auto;
-  }
-  
-  /* Close button styling */
-  #mobile-menu-button[aria-expanded="true"] .material-icons-outlined {
-    transform: rotate(180deg);
-    transition: transform 0.3s ease;
-  }
+:root.dark .backdrop-blur-md {
+  backdrop-filter: blur(12px) !important; /* Match light mode exactly */
 }
 
-/* Responsive image improvements */
-@media (max-width: 768px) {
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  .profile-image {
-    display: block;
-    margin: 0 auto;
-  }
-  
-  /* Project and community images */
-  .project-card-image,
-  .community-image {
-    border-radius: 0.5rem;
-  }
+/* Enhanced gradient backgrounds for dark mode */
+:root.dark .bg-gradient-to-r.from-amber-50.to-stone-50 {
+  background: linear-gradient(to right, rgba(245, 158, 11, 0.05), rgba(64, 64, 64, 0.05)) !important;
 }
 
-/* Accessibility improvements for mobile */
-@media (max-width: 768px) {
-  /* Larger touch targets */
-  a, button {
-    min-height: 44px;
-    min-width: 44px;
-  }
-  
-  /* Better focus indicators for mobile */
-  *:focus-visible {
-    outline: 3px solid #d97706;
-    outline-offset: 2px;
-  }
-  
-  /* Improved readability */
-  p, li {
-    line-height: 1.6;
-  }
+/* Ensure all text inputs and textareas work in dark mode */
+:root.dark input[type="text"],
+:root.dark input[type="email"],
+:root.dark textarea {
+  background-color: var(--bg-secondary) !important;
+  border: 2px solid var(--border-color) !important;
+  color: var(--text-primary) !important;
+  transition: all 0.3s ease;
+}
+
+:root.dark input[type="text"]:focus,
+:root.dark input[type="email"]:focus,
+:root.dark textarea:focus {
+  border-color: var(--accent-color) !important;
+  background-color: var(--bg-tertiary) !important;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1) !important;
+  outline: none !important;
+}
+
+/* Footer improvements in dark mode */
+:root.dark footer.bg-stone-800 {
+  background-color: #0a0a0a !important;
+  border-top: 1px solid var(--border-color);
+}
+
+:root.dark footer .text-stone-300 {
+  color: var(--text-secondary) !important;
+}
+
+:root.dark footer .text-stone-400 {
+  color: var(--text-tertiary) !important;
+}
+
+:root.dark footer .hover\\:text-amber-600:hover {
+  color: var(--accent-color) !important;
 }
