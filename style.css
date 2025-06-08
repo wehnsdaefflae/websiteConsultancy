@@ -7,7 +7,7 @@
   line-height: inherit;
 }
 
-/* Hover Underline Animation */
+/* Optimized Hover Underline Animation with Hardware Acceleration */
 .hover-underline-animation {
   display: inline-block;
   position: relative;
@@ -17,30 +17,47 @@
   content: "";
   position: absolute;
   width: 100%;
-  transform: scaleX(0);
+  transform: scaleX(0) translateZ(0);
   height: 2px;
   bottom: -2px;
   left: 0;
-  background-color: #d97706;
+  background-color: var(--accent-color);
   transform-origin: bottom right;
-  transition: transform 0.25s ease-out;
+  transition: transform var(--transition-fast);
+  will-change: transform;
 }
 
 .hover-underline-animation:hover::after {
-  transform: scaleX(1);
+  transform: scaleX(1) translateZ(0);
   transform-origin: bottom left;
 }
 
-/* Base Typography and Spacing */
+/* Base Typography and Spacing - Optimized */
 :root {
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-  --space-3xl: 4rem;
-  --vh: 1vh; /* Viewport height unit for mobile browsers */
+  /* Spacing scale using mathematical progression */
+  --space-xs: 0.25rem;    /* 4px */
+  --space-sm: 0.5rem;     /* 8px */
+  --space-md: 1rem;       /* 16px */
+  --space-lg: 1.5rem;     /* 24px */
+  --space-xl: 2rem;       /* 32px */
+  --space-2xl: 3rem;      /* 48px */
+  --space-3xl: 4rem;      /* 64px */
+  
+  /* Responsive viewport height for mobile browsers */
+  --vh: 1vh;
+  
+  /* Typography scale */
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2.25rem;
+  
+  /* Common transition timing */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.6s ease;
   
   /* Light mode colors */
   --bg-primary: #fafaf9;
@@ -69,252 +86,241 @@
   --shadow-color: rgba(0, 0, 0, 0.5);
 }
 
-/* Comprehensive dark mode background overrides */
+/* Optimized dark mode base styles with reduced specificity */
 :root.dark {
-  background-color: var(--bg-primary) !important;
+  /* Global dark mode overrides */
+  --bg-override-primary: var(--bg-primary);
+  --bg-override-secondary: var(--bg-secondary);
+  --bg-override-tertiary: var(--bg-tertiary);
 }
 
-:root.dark html {
-  background-color: var(--bg-primary) !important;
-}
-
-:root.dark body {
-  background-color: var(--bg-primary) !important;
-  color: var(--text-primary) !important;
-}
-
+:root.dark html,
+:root.dark body,
 :root.dark main {
-  background-color: var(--bg-primary) !important;
+  background-color: var(--bg-override-primary);
+  color: var(--text-primary);
 }
 
-:root.dark section {
-  background-color: var(--bg-primary) !important;
+:root.dark section:not(#hero) {
+  background-color: var(--bg-override-primary);
+  color: var(--text-primary);
 }
 
-/* Exception: Hero section should not have solid background */
+/* Preserve hero section transparency with specificity */
 :root.dark section#hero {
-  background-color: transparent !important;
+  background-color: transparent;
 }
 
-:root.dark div {
-  background-color: inherit;
+:root.dark section#hero *:not(.btn-primary):not(button):not(a[class*="btn"]) {
+  background-color: transparent;
 }
 
-/* Exception: Hero section divs should not inherit solid backgrounds */
-:root.dark section#hero div {
-  background-color: transparent !important;
-}
-
-/* Ensure all hero section child elements have transparent backgrounds */
-:root.dark section#hero * {
-  background-color: transparent !important;
-}
-
-/* Ensure button backgrounds work properly in hero */
+/* Enhanced button targeting in hero */
 :root.dark section#hero .btn-primary,
 :root.dark section#hero button,
 :root.dark section#hero a[class*="btn"] {
-  background-color: #d97706 !important;
+  background-color: var(--accent-color);
 }
 
-:root.dark section#hero .border-stone-100 {
-  background-color: transparent !important;
+/* Consolidated background color system */
+:root.dark .bg-white { 
+  background-color: var(--bg-override-tertiary);
 }
 
-/* Override any white/light backgrounds */
-:root.dark .bg-white {
-  background-color: var(--bg-tertiary) !important;
+:root.dark .bg-stone-50,
+:root.dark .bg-stone-100,
+:root.dark .bg-gray-50,
+:root.dark .bg-gray-100 { 
+  background-color: var(--bg-override-secondary);
 }
 
-:root.dark .bg-stone-50 {
-  background-color: var(--bg-primary) !important;
-}
-
-:root.dark .bg-stone-100 {
-  background-color: var(--bg-secondary) !important;
-}
-
-:root.dark .bg-gray-50 {
-  background-color: var(--bg-secondary) !important;
-}
-
-:root.dark .bg-gray-100 {
-  background-color: var(--bg-secondary) !important;
-}
-
-/* Preserve specific element backgrounds that should remain solid */
+/* Consolidated component styling system */
 :root.dark .card,
 :root.dark .nav,
 :root.dark .header,
-:root.dark [class*="card"] {
-  background-color: var(--bg-tertiary) !important;
-}
-
-/* Fix modal and popup backgrounds */
+:root.dark [class*="card"],
 :root.dark .modal,
 :root.dark .popup,
 :root.dark .dropdown {
-  background-color: var(--bg-tertiary) !important;
-  border-color: var(--border-color) !important;
+  background-color: var(--bg-override-tertiary);
+  border-color: var(--border-color);
 }
 
-/* Override Tailwind text colors for dark mode */
+/* Enhanced text color hierarchy without !important */
 :root.dark .text-stone-400 {
-  color: var(--text-tertiary) !important;
+  color: var(--text-tertiary);
 }
 
-/* Additional comprehensive dark mode fixes */
-
-/* Enhanced text contrast fixes for dark mode */
+/* Comprehensive text color mapping system */
 :root.dark .text-stone-50,
 :root.dark .text-stone-100,
-:root.dark .text-stone-200 {
-  color: var(--text-primary) !important;
-}
-
-:root.dark .text-stone-300,
-:root.dark .text-stone-400 {
-  color: var(--text-secondary) !important;
-}
-
+:root.dark .text-stone-200,
 :root.dark .text-gray-50,
 :root.dark .text-gray-100,
 :root.dark .text-gray-200 {
-  color: var(--text-primary) !important;
+  color: var(--text-primary);
 }
 
-:root.dark .text-gray-300,
-:root.dark .text-gray-400 {
-  color: var(--text-secondary) !important;
-}
-
-/* Enhanced dark mode contrast for bullet points and lists with text-stone-600 */
-:root.dark ul.text-stone-600,
-:root.dark .text-stone-600 ul,
-:root.dark ul .text-stone-600 {
-  color: var(--text-secondary) !important;
-}
-
-:root.dark ul.text-stone-600 li,
-:root.dark .text-stone-600 ul li,
-:root.dark ul .text-stone-600 li {
-  color: var(--text-secondary) !important;
-}
-
+:root.dark .text-stone-300,
+:root.dark .text-stone-400,
 :root.dark .text-stone-500,
 :root.dark .text-stone-600,
 :root.dark .text-stone-700,
-:root.dark .text-stone-800 {
-  color: var(--text-secondary) !important;
+:root.dark .text-stone-800,
+:root.dark .text-gray-300,
+:root.dark .text-gray-400 {
+  color: var(--text-secondary);
 }
 
-/* Ensure all headings are properly visible */
+/* Enhanced typography system with reduced specificity */
 :root.dark h1,
 :root.dark h2, 
 :root.dark h3,
 :root.dark h4,
 :root.dark h5,
-:root.dark h6 {
-  color: var(--text-primary) !important;
-}
-
-/* Fix heading classes specifically */
+:root.dark h6,
 :root.dark .heading-2,
 :root.dark .heading-3 {
-  color: var(--text-primary) !important;
+  color: var(--text-primary);
 }
 
-/* Ensure body text classes are readable */
+:root.dark p,
 :root.dark .body-large,
 :root.dark .body-regular,
 :root.dark .body-small {
-  color: var(--text-secondary) !important;
-}
-
-/* Fix any remaining text color issues */
-:root.dark p {
-  color: var(--text-secondary) !important;
+  color: var(--text-secondary);
 }
 
 :root.dark strong {
-  color: var(--text-primary) !important;
+  color: var(--text-primary);
 }
 
-/* Fix link colors in dark mode */
+/* Optimized list styling system */
+:root.dark ul.text-stone-600,
+:root.dark .text-stone-600 ul,
+:root.dark ul .text-stone-600,
+:root.dark ul.text-stone-600 li,
+:root.dark .text-stone-600 ul li,
+:root.dark ul .text-stone-600 li {
+  color: var(--text-secondary);
+}
+
+/* Enhanced link system with proper cascade */
 :root.dark a {
-  color: var(--accent-color) !important;
+  color: var(--accent-color);
 }
 
 :root.dark a:hover {
-  color: var(--accent-hover) !important;
+  color: var(--accent-hover);
 }
 
-/* Fix section backgrounds */
-:root.dark section {
-  background-color: var(--bg-primary) !important;
+/* Optimized section background system using higher specificity */
+:root.dark section:not(#hero) {
+  background-color: var(--bg-primary);
 }
 
-/* Fix container backgrounds but allow cards to override */
 :root.dark .container {
-  background-color: var(--bg-primary) !important;
+  background-color: var(--bg-primary);
 }
 
-/* Ensure proper button styling in dark mode */
+/* Enhanced button styling system using consolidated variables */
 :root.dark .btn {
-  background-color: var(--accent-color) !important;
-  color: white !important;
-  border-color: var(--accent-color) !important;
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-color: var(--btn-primary-border);
 }
 
 :root.dark .btn:hover {
-  background-color: #d97706 !important;
-  border-color: #d97706 !important;
+  background-color: var(--btn-primary-bg-hover);
+  border-color: var(--btn-primary-border-hover);
 }
 
-/* Enhanced button styling for better dark mode contrast */
-:root.dark .btn-primary {
-  background-color: #f59e0b !important;
-  color: #000000 !important;
-  border: 2px solid #f59e0b !important;
-  font-weight: 700 !important;
+/* Consolidated button system - dark mode variables */
+:root.dark {
+  --btn-primary-bg: #f59e0b;
+  --btn-primary-text: #000000;
+  --btn-primary-border: #f59e0b;
+  --btn-primary-bg-hover: #d97706;
+  --btn-primary-text-hover: #ffffff;
+  --btn-primary-border-hover: #d97706;
+  --btn-primary-shadow-hover: 0 0 20px rgba(245, 158, 11, 0.4);
 }
 
-:root.dark .btn-primary:hover {
-  background-color: #d97706 !important;
-  color: #ffffff !important;
-  border-color: #d97706 !important;
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.4) !important;
+/* Enhanced button styling system using CSS cascade instead of !important */
+:root.dark .btn-primary,
+:root.dark .bg-amber-600,
+:root.dark button[type="submit"],
+:root.dark .bg-amber-500 {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border: 2px solid var(--btn-primary-border);
+  font-weight: 600;
 }
 
-/* Contact button styling in dark mode */
-:root.dark .bg-amber-600 {
-  background-color: #f59e0b !important;
-  color: #000000 !important;
-  border: 2px solid #f59e0b !important;
-}
-
+:root.dark .btn-primary:hover,
 :root.dark .bg-amber-600:hover,
-:root.dark .hover\\:bg-amber-700:hover {
-  background-color: #d97706 !important;
-  color: #ffffff !important;
-  border-color: #d97706 !important;
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.4) !important;
+:root.dark .hover\\:bg-amber-700:hover,
+:root.dark .bg-amber-500:hover,
+:root.dark .hover\\:bg-amber-600:hover,
+:root.dark button[type="submit"]:hover {
+  background-color: var(--btn-primary-bg-hover);
+  color: var(--btn-primary-text-hover);
+  border-color: var(--btn-primary-border-hover);
+  box-shadow: var(--btn-primary-shadow-hover);
 }
 
-/* Fix form elements in dark mode */
-:root.dark input,
-:root.dark textarea,
-:root.dark select {
-  background-color: var(--bg-secondary) !important;
-  color: var(--text-primary) !important;
-  border-color: var(--border-color) !important;
+/* Enhanced form elements system with performance optimization */
+:root {
+  /* Form-specific variables */
+  --form-bg: var(--bg-primary);
+  --form-bg-focus: var(--bg-tertiary);
+  --form-border: var(--border-color);
+  --form-border-focus: var(--accent-color);
+  --form-text: var(--text-primary);
+  --form-placeholder: var(--text-tertiary);
+  --form-shadow-focus: rgba(217, 119, 6, 0.1);
 }
 
-:root.dark input:focus,
-:root.dark textarea:focus,
-:root.dark select:focus {
-  border-color: var(--accent-color) !important;
-  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2) !important;
+:root.dark {
+  --form-bg: var(--bg-secondary);
+  --form-bg-focus: var(--bg-tertiary);
+  --form-border: var(--border-color);
+  --form-border-focus: var(--accent-color);
+  --form-text: var(--text-primary);
+  --form-placeholder: var(--text-tertiary);
+  --form-shadow-focus: rgba(245, 158, 11, 0.1);
+}
+
+/* Optimized form elements with hardware acceleration */
+input,
+textarea,
+select {
+  background-color: var(--form-bg);
+  color: var(--form-text);
+  border: 2px solid var(--form-border);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: var(--font-size-base);
+  transition: all var(--transition-normal);
+  width: 100%;
+  font-family: inherit;
+  /* Performance optimization */
+  will-change: border-color, box-shadow, background-color;
+  transform: translateZ(0);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--form-border-focus);
+  background-color: var(--form-bg-focus);
+  box-shadow: 0 0 0 3px var(--form-shadow-focus);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--form-placeholder);
 }
 
 /* Navigation Links - Template Style */
@@ -363,7 +369,7 @@
     border-top: 1px solid #e7e5e4;
     border-bottom: 1px solid #e7e5e4;
     padding: 1.5rem;
-    display: flex !important; /* Override Tailwind hidden class */
+    display: flex; /* Override Tailwind hidden class */
     flex-direction: column;
     gap: 0.75rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -371,7 +377,7 @@
   }
   
   #header-nav-links.hidden {
-    display: none !important; /* Only hide when explicitly hidden */
+    display: none; /* Only hide when explicitly hidden */
   }
   
   #header-nav-links .nav-link,
@@ -392,72 +398,72 @@
 
 @media (min-width: 1280px) {
   #header-nav-links {
-    position: static !important;
-    background: transparent !important;
-    backdrop-filter: none !important;
-    border: none !important;
-    padding: 0 !important;
-    display: flex !important;
-    flex-direction: row !important;
-    gap: 2.5rem !important;
-    margin-right: 2rem !important; /* Add spacing to the right of nav links */
+    position: static;
+    background: transparent;
+    backdrop-filter: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 2.5rem;
+    margin-right: 2rem; /* Add spacing to the right of nav links */
     /* Force consistent positioning */
-    width: auto !important;
-    min-width: fit-content !important;
-    flex-shrink: 0 !important;
+    width: auto;
+    min-width: fit-content;
+    flex-shrink: 0;
     /* Ensure identical layout in both themes */
-    align-items: center !important;
-    justify-content: flex-start !important;
+    align-items: center;
+    justify-content: flex-start;
   }
   
   #header-nav-links.hidden {
-    display: flex !important;
+    display: flex;
   }
   
   /* Ensure navigation positioning is pixel-perfect identical in both themes */
   nav#header-nav-links {
-    position: relative !important;
-    transform: translateX(0) !important;
-    left: auto !important;
-    right: auto !important;
-    margin-left: 0 !important;
+    position: relative;
+    transform: translateX(0);
+    left: auto;
+    right: auto;
+    margin-left: 0;
   }
   
   /* Ensure nav links maintain consistent spacing and positioning */
   nav#header-nav-links .nav-link {
-    display: inline-block !important;
-    vertical-align: middle !important;
-    margin: 0 !important;
-    border: none !important;
-    outline: none !important;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+    border: none;
+    outline: none;
   }
 }
 
-/* Header sticky positioning - override flexbox interference */
-header {
+/* Header sticky positioning - optimized with higher specificity */
+body > header {
   /* Force sticky positioning */
-  position: sticky !important;
-  top: 0 !important;
-  z-index: 50 !important;
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
 
 /* Fix flexbox container that prevents sticky positioning */
 .layout-container {
   /* Remove height constraints that prevent sticky */
-  height: auto !important;
-  min-height: 100vh !important;
+  height: auto;
+  min-height: 100vh;
 }
 
 /* Ensure parent containers support sticky positioning */
 div.relative.flex.size-full.min-h-screen.flex-col {
   /* Remove overflow hidden that can break sticky */
-  overflow: visible !important;
+  overflow: visible;
 }
 
 /* Ensure body supports sticky positioning */
 body {
   overflow-x: hidden;
-  height: auto !important;
+  height: auto;
 }
 
 /* Section Spacing - Template Style */
@@ -466,78 +472,131 @@ body {
   margin: 2rem 0;
 }
 
-/* Card System - Template Style */
+/* Optimized Card System using CSS custom properties */
 .card {
-  background: white;
-  border: 1px solid #e7e5e4;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
   border-radius: 0.75rem;
-  padding: 2rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  padding: var(--space-xl);
+  box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color);
+  transition: all var(--transition-normal);
+  /* Hardware acceleration */
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
 }
 
 .card:hover {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px var(--shadow-color), 0 10px 10px -5px var(--shadow-color);
+  transform: translateY(-2px) translateZ(0);
 }
 
-/* Typography - Template Style */
+/* Specialized card variants */
+.project-card {
+  background: var(--bg-tertiary);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color);
+  transition: all var(--transition-normal);
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
+}
+
+.project-card:hover {
+  transform: translateY(-4px) scale(1.02) translateZ(0);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.publication-card {
+  background: var(--bg-tertiary);
+  border-top: 4px solid #0ea5e9;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color);
+  transition: all var(--transition-normal);
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
+}
+
+.publication-card:hover {
+  transform: translateY(-2px) scale(1.05) translateZ(0);
+  box-shadow: 0 20px 25px -5px var(--shadow-color), 0 10px 10px -5px var(--shadow-color);
+}
+
+.community-card {
+  background: var(--bg-tertiary);
+  border: 2px dashed #14b8a6;
+  border-radius: 0.75rem;
+  padding: var(--space-xl);
+  box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color);
+  transition: all var(--transition-normal);
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
+}
+
+.community-card:hover {
+  border-color: #0f766e;
+  transform: translateY(-2px) translateZ(0);
+  box-shadow: 0 20px 25px -5px var(--shadow-color), 0 10px 10px -5px var(--shadow-color);
+}
+
+/* Typography System - Optimized with CSS custom properties */
 .heading-2 {
-  font-size: 2.25rem;
+  font-size: var(--font-size-3xl);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.025em;
-  color: #1c1917;
+  color: var(--text-primary);
 }
 
 .heading-3 {
-  font-size: 1.5rem;
+  font-size: var(--font-size-2xl);
   font-weight: 600;
   line-height: 1.3;
-  color: #1c1917;
+  color: var(--text-primary);
 }
 
 .body-large {
-  font-size: 1.125rem;
+  font-size: var(--font-size-lg);
   line-height: 1.7;
-  color: #57534e;
+  color: var(--text-secondary);
 }
 
 .body-regular {
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   line-height: 1.6;
-  color: #57534e;
+  color: var(--text-secondary);
 }
 
 .body-small {
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
   line-height: 1.6;
-  color: #78716c;
+  color: var(--text-tertiary);
 }
 
-/* Hero Section Background Positioning - Responsive Design */
-section#hero div.relative {
-  background-position: center center !important;
-  background-size: cover !important; /* Changed from 150% auto to cover for mobile */
-  background-repeat: no-repeat !important;
+/* Enhanced Hero Section Background Positioning - Enhanced Specificity System */
+/* Base hero background styling with enhanced cascade specificity */
+body section#hero div.relative[style*="background-image"] {
+  background-position: center center;
+  background-size: cover; /* Changed from 150% auto to cover for mobile */
+  background-repeat: no-repeat;
   transition: background-position 0.3s ease-in-out;
 }
 
-/* For screens 640px+ where text is right-aligned, shift background left by ~20% */
+/* Enhanced desktop background positioning (640px+) */
 @media (min-width: 640px) {
-  section#hero div.relative {
-    background-position: 100% center !important; /* 100% as you specified */
-    background-size: 150% auto !important; /* Keep larger size for desktop effect */
-    background-repeat: no-repeat !important;
+  body section#hero div.relative[style*="background-image"] {
+    background-position: 100% center; /* 100% as you specified */
+    background-size: 150% auto; /* Keep larger size for desktop effect */
+    background-repeat: no-repeat;
   }
 }
 
-/* Mobile screens (below 640px) use center positioning and cover to prevent borders */
+/* Enhanced mobile background positioning (below 640px) */
 @media (max-width: 639px) {
-  section#hero div.relative {
-    background-position: center center !important;
-    background-size: cover !important; /* Use cover to fill completely on mobile */
-    background-repeat: no-repeat !important;
+  body section#hero div.relative[style*="background-image"] {
+    background-position: center center;
+    background-size: cover; /* Use cover to fill completely on mobile */
+    background-repeat: no-repeat;
   }
 }
 
@@ -594,8 +653,28 @@ section#hero div.relative {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive image adjustments */
+/* Consolidated responsive design system */
+:root {
+  /* Responsive breakpoints */
+  --breakpoint-mobile: 480px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1025px;
+  --breakpoint-xl-desktop: 1280px;
+  
+  /* Responsive spacing modifiers */
+  --space-mobile-multiplier: 0.75;
+  --space-tablet-multiplier: 0.875;
+  --space-desktop-multiplier: 1;
+}
+
+/* Enhanced mobile-first responsive optimization */
 @media (max-width: 480px) {
+  :root {
+    --space-lg: calc(1.5rem * var(--space-mobile-multiplier));
+    --space-xl: calc(2rem * var(--space-mobile-multiplier));
+    --space-2xl: calc(3rem * var(--space-mobile-multiplier));
+  }
+  
   .profile-image {
     max-width: 200px;
     height: 200px;
@@ -604,67 +683,13 @@ section#hero div.relative {
   .project-card-image {
     aspect-ratio: 4 / 3;
   }
-}
-
-@media (max-width: 768px) {
-  .profile-image {
-    max-width: 240px;
-    height: 240px;
+  
+  .btn-primary {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.875rem;
+    border-radius: 0.5rem;
   }
   
-  .project-card-image {
-    aspect-ratio: 3 / 2;
-  }
-}
-
-@media (min-width: 1025px) {
-  .profile-image:hover {
-    transform: scale(1.05);
-  }
-  
-  .community-image:hover {
-    transform: scale(1.02);
-  }
-}
-
-/* Form Elements - Template Style */
-.input-field {
-  background: #fafaf9;
-  border: 1px solid #d6d3d1;
-  border-radius: 0.5rem;
-  padding: 0.75rem 1rem;
-  color: #1c1917;
-  font-size: 1rem;
-  transition: all 0.2s ease;
-  width: 100%;
-}
-
-.input-field:focus {
-  outline: none;
-  border-color: #d97706;
-  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
-  background: white;
-}
-
-.input-field::placeholder {
-  color: #a8a29e;
-}
-
-/* Mobile font size improvements */
-@media (max-width: 768px) {
-  .input-field {
-    font-size: 16px; /* Prevents zoom on iOS */
-    padding: 0.875rem 1rem;
-  }
-  
-  textarea.input-field {
-    font-size: 16px;
-    min-height: 120px;
-  }
-}
-
-/* Enhanced mobile form styling */
-@media (max-width: 480px) {
   .input-field {
     font-size: 16px;
     padding: 1rem;
@@ -677,53 +702,119 @@ section#hero div.relative {
   }
 }
 
-@media (min-width: 1025px) {
-  .input-field:hover {
-    border-color: #a8a29e;
-    background: #fff;
-  }
-}
-
-/* Form Messages */
-.form-message {
-  font-size: 0.875rem;
-  line-height: 1.5;
-}
-
 @media (max-width: 768px) {
+  :root {
+    --space-lg: calc(1.5rem * var(--space-tablet-multiplier));
+    --space-xl: calc(2rem * var(--space-tablet-multiplier));
+  }
+  
+  .profile-image {
+    max-width: 240px;
+    height: 240px;
+  }
+  
+  .project-card-image {
+    aspect-ratio: 3 / 2;
+  }
+  
+  .btn-primary {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.875rem;
+  }
+  
+  .input-field {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 0.875rem 1rem;
+  }
+  
+  textarea.input-field {
+    font-size: 16px;
+    min-height: 120px;
+  }
+  
   .form-message {
     font-size: 1rem;
   }
 }
 
-/* Button System - Template Style */
+@media (min-width: 1025px) {
+  .profile-image:hover {
+    transform: scale(1.05);
+  }
+  
+  .community-image:hover {
+    transform: scale(1.02);
+  }
+  
+  .input-field:hover {
+    border-color: var(--form-border);
+    background: var(--form-bg-focus);
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px) translateZ(0);
+  }
+}
+
+/* Optimized input field system replacing legacy styles */
+.input-field {
+  background: var(--form-bg);
+  border: 2px solid var(--form-border);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: var(--form-text);
+  font-size: var(--font-size-base);
+  transition: all var(--transition-normal);
+  width: 100%;
+  /* Performance optimization */
+  will-change: border-color, box-shadow, background-color;
+  transform: translateZ(0);
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--form-border-focus);
+  box-shadow: 0 0 0 3px var(--form-shadow-focus);
+  background: var(--form-bg-focus);
+}
+
+.input-field::placeholder {
+  color: var(--form-placeholder);
+}
+
+/* Mobile font size improvements are now consolidated above */
+
+/* Optimized Button System using CSS custom properties */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0.75rem 2rem;
-  background: #d97706;
+  background: var(--accent-color);
   color: white;
   border: none;
   border-radius: 0.375rem;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal);
   cursor: pointer;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color);
   min-height: 44px; /* Touch target size for accessibility */
   white-space: nowrap;
+  /* Hardware acceleration for better performance */
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
 }
 
 .btn-primary:hover {
-  background: #b45309;
-  transform: translateY(-1px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  background: var(--accent-hover);
+  transform: translateY(-1px) translateZ(0);
+  box-shadow: 0 20px 25px -5px var(--shadow-color), 0 10px 10px -5px var(--shadow-color);
 }
 
 .btn-primary:active {
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
 }
 
 .btn-primary:disabled {
@@ -732,78 +823,22 @@ section#hero div.relative {
   transform: none;
 }
 
-/* Responsive button adjustments */
-@media (max-width: 480px) {
-  .btn-primary {
-    padding: 0.75rem 1.25rem;
-    font-size: 0.875rem;
-    border-radius: 0.5rem;
-  }
+.btn-primary:focus-visible {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 2px;
 }
 
-@media (max-width: 768px) {
-  .btn-primary {
-    padding: 0.875rem 1.5rem;
-    font-size: 0.875rem;
-  }
+/* Button responsive styles are now consolidated above */
+.form-message {
+  font-size: 0.875rem;
+  line-height: 1.5;
 }
 
-@media (min-width: 1025px) {
-  .btn-primary:hover {
-    transform: translateY(-2px);
-  }
-}
-
-/* Service Cards Grid */
+/* Services Grid Layout */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-}
-
-/* Project Cards */
-.project-card {
-  background: white;
-  border-radius: 0.75rem;
-  overflow: hidden;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.project-card:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-}
-
-/* Publications Cards */
-.publication-card {
-  background: white;
-  border-top: 4px solid #0ea5e9;
-  border-radius: 0.75rem;
-  overflow: hidden;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.publication-card:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
-
-/* Community Cards */
-.community-card {
-  background: white;
-  border: 2px dashed #14b8a6;
-  border-radius: 0.75rem;
-  padding: 2rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.community-card:hover {
-  border-color: #0f766e;
-  transform: translateY(-2px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  gap: var(--space-xl);
 }
 
 /* Enhanced Landing Page Animations */
@@ -823,84 +858,104 @@ section#hero div.relative {
   animation: fadeInUp 0.6s ease-out 0.6s both;
 }
 
+/* Enhanced animation performance with better hardware acceleration */
 @keyframes fadeInScale {
   from {
     opacity: 0;
-    transform: translateY(50px) scale(0.95);
+    transform: translate3d(0, 50px, 0) scale3d(0.95, 0.95, 1);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
   }
 }
 
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-30px);
+    transform: translate3d(-30px, 0, 0);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(30px);
+    transform: translate3d(30px, 0, 0);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translate3d(0, 20px, 0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
-/* Floating animation for cards */
+/* Hardware-accelerated floating animation */
 @keyframes float {
   0%, 100% {
-    transform: translateY(0px);
+    transform: translate3d(0, 0, 0);
   }
   50% {
-    transform: translateY(-6px);
+    transform: translate3d(0, -6px, 0);
   }
 }
 
-/* Subtle breathing animation for important elements */
+/* Optimized breathing animation */
 @keyframes breathe {
   0%, 100% {
-    transform: scale(1);
+    transform: scale3d(1, 1, 1);
   }
   50% {
-    transform: scale(1.02);
+    transform: scale3d(1.02, 1.02, 1);
   }
+}
+
+/* Hardware acceleration for better performance */
+.hero-title,
+.hero-subtitle,
+.hero-description,
+.hero-buttons,
+.card,
+.btn-primary {
+  will-change: transform, opacity;
+  transform: translateZ(0); /* Force hardware acceleration */
 }
 
 .breathe {
   animation: breathe 4s ease-in-out infinite;
 }
 
-/* Enhanced focus states for accessibility */
-:focus-visible {
-  outline: 3px solid var(--accent-color) !important;
-  outline-offset: 2px !important;
-  border-radius: 0.25rem !important;
+/* Enhanced focus states for accessibility using CSS specificity */
+*:focus-visible,
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
 }
 
-:root.dark :focus-visible {
-  outline-color: var(--accent-color) !important;
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2) !important;
+:root.dark *:focus-visible,
+:root.dark button:focus-visible,
+:root.dark a:focus-visible,
+:root.dark input:focus-visible,
+:root.dark textarea:focus-visible {
+  outline-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
 }
 
 /* Smooth transitions for all interactive elements */
@@ -913,64 +968,46 @@ a, button, .nav-link, .btn-primary, .card {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
   }
   
   .float,
   .breathe,
   .hero-background {
-    animation: none !important;
+    animation: none;
   }
 }
 
-/* Dark mode */
-:root.dark {
-  --bg-primary: #0f0f0f;
-  --bg-secondary: #1a1a1a;
-  --bg-tertiary: #2a2a2a;
-  --text-primary: #ffffff;
-  --text-secondary: #e5e5e5;
-  --text-tertiary: #a3a3a3;
-  --border-color: #404040;
-  --accent-color: #f59e0b;
-  --accent-hover: #d97706;
-  --shadow-color: rgba(0, 0, 0, 0.5);
-}
-
-/* Restore transitions for dark mode but exclude toggle icon */
-:root.dark * {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-
+/* Dark mode transitions and body styling */
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
 }
 
-/* Ensure dark mode applies to the entire page */
+/* Ensure dark mode applies to the entire page using higher specificity */
 :root.dark body {
-  background-color: var(--bg-primary) !important;
-  color: var(--text-primary) !important;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
-/* Header Dark Mode */
+/* Header Dark Mode with enhanced specificity */
 :root.dark header {
-  background-color: var(--bg-secondary) !important;
-  border-color: var(--border-color) !important;
-  backdrop-filter: blur(12px) !important; /* Keep consistent with light mode */
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+  backdrop-filter: blur(12px); /* Keep consistent with light mode */
 }
 
-header {
-  background-color: var(--bg-secondary) !important;
-  border-color: var(--border-color) !important;
+body > header {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
 }
 
-/* Fix header transparency in dark mode */
+/* Fix header transparency in dark mode with increased specificity */
 :root.dark header.bg-stone-50\/80 {
-  background-color: rgba(26, 26, 26, 0.8) !important;
-  backdrop-filter: blur(12px) !important; /* Consistent with light mode */
+  background-color: rgba(26, 26, 26, 0.8);
+  backdrop-filter: blur(12px); /* Consistent with light mode */
 }
 
 /* Navigation Dark Mode */
@@ -1010,12 +1047,12 @@ header {
   color: var(--accent-color);
 }
 
-/* Enhanced navigation highlighting for current page */
+/* Enhanced navigation highlighting for current page using higher specificity */
 :root.dark .nav-link.text-amber-600 {
-  color: var(--accent-color) !important;
-  background: rgba(245, 158, 11, 0.15) !important;
+  color: var(--accent-color);
+  background: rgba(245, 158, 11, 0.15);
   border-radius: 0.375rem;
-  font-weight: 600 !important;
+  font-weight: 600;
 }
 
 :root.dark .nav-link.text-amber-600:hover {
@@ -1023,13 +1060,13 @@ header {
 }
 
 /* Enhanced current page highlighting for light mode too */
-.nav-link.text-amber-600 {
-  background: rgba(217, 119, 6, 0.1) !important;
+a.nav-link.text-amber-600 {
+  background: rgba(217, 119, 6, 0.1);
   border-radius: 0.375rem;
-  font-weight: 600 !important;
+  font-weight: 600;
 }
 
-.nav-link.text-amber-600:hover {
+a.nav-link.text-amber-600:hover {
   transform: translateY(-1px);
 }
 
@@ -1043,11 +1080,11 @@ header {
   transform: none;
 }
 
-/* Cards Dark Mode */
+/* Optimized Cards Dark Mode using enhanced specificity */
 :root.dark .card {
-  background: var(--bg-tertiary) !important;
-  border-color: var(--border-color) !important;
-  color: var(--text-primary) !important;
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
   box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color);
 }
 
@@ -1055,198 +1092,167 @@ header {
   box-shadow: 0 20px 25px -5px var(--shadow-color), 0 10px 10px -5px var(--shadow-color);
 }
 
-/* Enhanced card background fixes for dark mode */
+/* Consolidated card background fixes for dark mode */
 :root.dark .project-card,
 :root.dark .publication-card,
 :root.dark .community-card,
-:root.dark .grant-card {
-  background: var(--bg-tertiary) !important;
-  background-color: var(--bg-tertiary) !important;
-  border-color: var(--border-color) !important;
-  color: var(--text-primary) !important;
-}
-
-/* Ensure all card-like elements have proper backgrounds */
+:root.dark .grant-card,
 :root.dark [class*="card"] {
-  background: var(--bg-tertiary) !important;
-  background-color: var(--bg-tertiary) !important;
-  color: var(--text-primary) !important;
+  background: var(--bg-tertiary);
+  background-color: var(--bg-tertiary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
 }
 
-/* Publication card specific styling */
-:root.dark .publication-card {
-  border-top: 4px solid #0ea5e9 !important;
+/* Enhanced Publication Card Dark Mode Styling */
+:root.dark body .publication-card {
+  border-top: 4px solid #0ea5e9;
 }
 
-/* Process circles and "How I Work" section styling for dark mode */
-:root.dark .bg-amber-600 {
-  background-color: #f59e0b !important; /* Brighter amber for better visibility */
+/* Enhanced Process Circles Dark Mode System - Higher Specificity */
+:root.dark body .bg-amber-600,
+:root.dark body [class*="bg-amber-600"] {
+  background-color: #f59e0b; /* Brighter amber for better visibility */
 }
 
-:root.dark .bg-stone-100 {
-  background-color: var(--bg-secondary) !important;
+:root.dark body .bg-stone-100,
+:root.dark body [class*="bg-stone-100"] {
+  background-color: var(--bg-secondary);
 }
 
-/* Ensure process circles are visible */
-:root.dark div[class*="bg-amber-600"] {
-  background-color: #f59e0b !important;
-  color: #000000 !important; /* Black text for better contrast */
+/* Enhanced Process Circles Visibility System */
+:root.dark body div[class*="bg-amber-600"] {
+  background-color: #f59e0b;
+  color: #000000; /* Black text for better contrast */
 }
 
-/* Fix "What I Do" section card contrast */
-:root.dark .card {
-  background: var(--bg-tertiary) !important;
-  background-color: var(--bg-tertiary) !important;
-  border-color: var(--border-color) !important;
-  color: var(--text-primary) !important;
+/* Enhanced Card System Dark Mode - Consolidated Approach */
+:root.dark body .card,
+:root.dark body section .card {
+  background: var(--bg-tertiary);
+  background-color: var(--bg-tertiary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
   box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color);
+  border: 1px solid var(--border-color);
 }
 
-/* Enhanced "What I Do" section styling */
-:root.dark section .card {
-  background: var(--bg-tertiary) !important;
-  border: 1px solid var(--border-color) !important;
+/* Enhanced Card Text System Dark Mode */
+:root.dark body .card h3 {
+  color: var(--text-primary);
 }
 
-:root.dark .card h3 {
-  color: var(--text-primary) !important;
+:root.dark body .card p {
+  color: var(--text-secondary);
 }
 
-:root.dark .card p {
-  color: var(--text-secondary) !important;
+/* Enhanced Highlighted Sections System - Amber Background */
+:root.dark body .bg-amber-50,
+:root.dark body [class*="bg-amber-50"] {
+  background-color: rgba(245, 158, 11, 0.1);
+  border-color: #f59e0b;
+  color: var(--text-primary);
 }
 
-/* Fix highlighted/callout sections with bg-amber-50 */
-:root.dark .bg-amber-50 {
-  background-color: rgba(245, 158, 11, 0.1) !important;
-  border-color: #f59e0b !important;
+/* Enhanced Border System - Amber Borders */
+:root.dark body .border-amber-500,
+:root.dark body [class*="border-amber-500"] {
+  border-color: #f59e0b;
 }
 
-:root.dark [class*="bg-amber-50"] {
-  background-color: rgba(245, 158, 11, 0.1) !important;
-  border-color: #f59e0b !important;
-  color: var(--text-primary) !important;
+/* Enhanced Text Readability in Highlighted Sections */
+:root.dark body .bg-amber-50 p,
+:root.dark body [class*="bg-amber-50"] p {
+  color: var(--text-primary);
 }
 
-/* Fix border-amber-500 elements */
-:root.dark .border-amber-500 {
-  border-color: #f59e0b !important;
+/* Enhanced List System Dark Mode - Consolidated Approach */
+:root.dark body .list-disc,
+:root.dark body .list-disc li,
+:root.dark body .list-inside li {
+  color: var(--text-primary);
 }
 
-:root.dark [class*="border-amber-500"] {
-  border-color: #f59e0b !important;
+/* Enhanced List Marker System */
+:root.dark body .list-disc li::marker,
+:root.dark body .list-inside li::marker,
+:root.dark body ul li::marker {
+  color: var(--accent-color);
+}
+/* Enhanced Community Card System */
+:root.dark body .community-card {
+  border-left: 4px solid #14b8a6;
 }
 
-/* Ensure text in highlighted sections is readable */
-:root.dark .bg-amber-50 p,
-:root.dark [class*="bg-amber-50"] p {
-  color: var(--text-primary) !important;
+/* Enhanced Hero Background System - Final Optimization */
+:root.dark body .hero-background,
+:root.dark body section#hero div.hero-background,
+:root.dark body section#hero div[style*="hero-background.webp"] {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 100%), url("images/hero-background.webp");
+  background-color: transparent;
 }
 
-/* Fix list bullets and ensure they're visible */
-:root.dark .list-disc {
-  color: var(--text-primary) !important;
-}
-
-:root.dark .list-disc li {
-  color: var(--text-primary) !important;
-}
-
-:root.dark .list-disc li::marker {
-  color: var(--accent-color) !important;
-}
-
-:root.dark ul li::marker {
-  color: var(--accent-color) !important;
-}
-
-/* Ensure list-inside bullets are visible */
-:root.dark .list-inside li {
-  color: var(--text-primary) !important;
-}
-
-:root.dark .list-inside li::marker {
-  color: var(--accent-color) !important;
-}
-:root.dark .community-card {
-  border-left: 4px solid #14b8a6 !important;
-}
-
-/* Hero background fixes for dark mode - consolidated and cleaned up */
-:root.dark .hero-background,
-:root.dark section#hero div.hero-background,
-:root.dark section#hero div[style*="hero-background.webp"] {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 100%), url("images/hero-background.webp") !important;
-  background-color: transparent !important;
-}
-
-/* Remove unwanted solid backgrounds from other hero elements (non-background) */
-:root.dark .hero-section:not(.hero-background) {
-  background: none !important;
-  background-color: transparent !important;
-}
-
-:root.dark .hero-content:not(.hero-background) {
-  background: none !important;
-  background-color: transparent !important;
+/* Enhanced Hero Content System - Remove Unwanted Backgrounds */
+:root.dark body .hero-section:not(.hero-background),
+:root.dark body .hero-content:not(.hero-background) {
+  background: none;
+  background-color: transparent;
 }
 
 /* Theme toggle styling cleaned up - no more icon animation prevention needed */
 
-/* Fix Tailwind gradient backgrounds in dark mode */
-:root.dark .bg-gradient-to-r {
-  background: var(--bg-tertiary) !important;
+/* Enhanced Gradient Background System Dark Mode */
+:root.dark body .bg-gradient-to-r,
+:root.dark body [class*="bg-gradient-to-"],
+:root.dark body .from-amber-50,
+:root.dark body .to-stone-50 {
+  background: var(--bg-tertiary);
 }
 
-:root.dark [class*="bg-gradient-to-"] {
-  background: var(--bg-tertiary) !important;
+/* Enhanced Gradient System - Community Section */
+:root.dark body .bg-gradient-to-r.from-amber-50.to-stone-50 {
+  background: linear-gradient(to right, rgba(245, 158, 11, 0.1), rgba(156, 163, 175, 0.05));
 }
 
-/* Specifically fix amber gradient backgrounds */
-:root.dark .from-amber-50 {
-  background: var(--bg-tertiary) !important;
+/* Enhanced Header Text System - Dr. Mark Wernsdorfer */
+:root.dark body .text-stone-800.hover\\:text-amber-600,
+:root.dark body header a[href*="index.html"] {
+  color: var(--text-primary);
 }
 
-:root.dark .to-stone-50 {
-  background: var(--bg-tertiary) !important;
-}
-
-/* Ensure gradient backgrounds in community section are visible in dark mode */
-:root.dark .bg-gradient-to-r.from-amber-50.to-stone-50 {
-  background: linear-gradient(to right, rgba(245, 158, 11, 0.1), rgba(156, 163, 175, 0.05)) !important;
-}
-
-/* Dr. Mark Wernsdorfer header styling for dark mode */
-:root.dark .text-stone-800.hover\\:text-amber-600 {
-  color: var(--text-primary) !important;
-}
-
-:root.dark .text-stone-800.hover\\:text-amber-600:hover {
-  color: var(--accent-color) !important;
+:root.dark body .text-stone-800.hover\\:text-amber-600:hover,
+:root.dark body header a[href*="index.html"]:hover {
+  color: var(--accent-color);
   text-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
   transition: all 0.3s ease;
 }
 
-/* Enhanced header name styling */
-:root.dark header a[href*="index.html"] {
-  color: var(--text-primary) !important;
+/* Optimized theme toggle with CSS variables */
+:root {
+  --theme-toggle-bg: #e5e7eb;
+  --theme-toggle-border: #d1d5db;
+  --theme-toggle-knob: #ffffff;
+  --theme-toggle-bg-hover: #d1d5db;
+  --theme-toggle-border-hover: #9ca3af;
 }
 
-:root.dark header a[href*="index.html"]:hover {
-  color: var(--accent-color) !important;
-  text-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
+:root.dark {
+  --theme-toggle-bg: #374151;
+  --theme-toggle-border: #4b5563;
+  --theme-toggle-knob: #f59e0b;
+  --theme-toggle-bg-hover: #4b5563;
+  --theme-toggle-border-hover: #6b7280;
 }
 
-/* Enhanced theme toggle styling - Fixed width flip switch */
 .theme-toggle {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px !important; /* Fixed width */
-  height: 28px !important; /* Fixed height */
-  background-color: #e5e7eb;
-  border: 2px solid #d1d5db;
+  width: 48px;
+  height: 28px;
+  background-color: var(--theme-toggle-bg);
+  border: 2px solid var(--theme-toggle-border);
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -1260,7 +1266,7 @@ header {
   position: absolute;
   width: 20px;
   height: 20px;
-  background-color: #ffffff;
+  background-color: var(--theme-toggle-knob);
   border-radius: 50%;
   top: 2px;
   left: 2px;
@@ -1269,160 +1275,153 @@ header {
 }
 
 .theme-toggle:hover {
-  background-color: #d1d5db;
-  border-color: #9ca3af;
-}
-
-:root.dark .theme-toggle {
-  background-color: #374151 !important;
-  border-color: #4b5563 !important;
+  background-color: var(--theme-toggle-bg-hover);
+  border-color: var(--theme-toggle-border-hover);
 }
 
 :root.dark .theme-toggle:before {
-  background-color: #f59e0b !important;
   transform: translateX(20px);
 }
 
-:root.dark .theme-toggle:hover {
-  background-color: #4b5563 !important;
-  border-color: #6b7280 !important;
-}
-
-/* Form button styling in dark mode */
+/* Form button styling consolidated */
 :root.dark button[type="submit"],
 :root.dark .bg-amber-500 {
-  background-color: #f59e0b !important;
-  color: #000000 !important;
-  border: 2px solid #f59e0b !important;
-  font-weight: 600 !important;
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border: 2px solid var(--btn-primary-border);
+  font-weight: 600;
 }
 
 :root.dark button[type="submit"]:hover,
 :root.dark .bg-amber-500:hover,
 :root.dark .hover\\:bg-amber-600:hover {
-  background-color: #d97706 !important;
-  color: #ffffff !important;
-  border-color: #d97706 !important;
-  box-shadow: 0 0 15px rgba(245, 158, 11, 0.4) !important;
+  background-color: var(--btn-primary-bg-hover);
+  color: var(--btn-primary-text-hover);
+  border-color: var(--btn-primary-border-hover);
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
 }
 
-/* Language switcher improvements in dark mode */
+/* Optimized language switcher system */
+:root.dark {
+  --language-switcher-bg: rgba(245, 158, 11, 0.1);
+  --language-switcher-border: var(--accent-color);
+  --language-switcher-text: var(--accent-color);
+  --language-switcher-bg-hover: var(--accent-color);
+  --language-switcher-text-hover: #000000;
+}
+
 :root.dark .language-switcher a {
-  background-color: rgba(245, 158, 11, 0.1) !important;
-  color: var(--accent-color) !important;
-  border: 1px solid var(--accent-color) !important;
+  background-color: var(--language-switcher-bg);
+  color: var(--language-switcher-text);
+  border: 1px solid var(--language-switcher-border);
 }
 
 :root.dark .language-switcher a:hover {
-  background-color: var(--accent-color) !important;
-  color: #000000 !important;
+  background-color: var(--language-switcher-bg-hover);
+  color: var(--language-switcher-text-hover);
 }
 
-/* Contact section link improvements */
-:root.dark .bg-stone-100.hover\\:bg-amber-50 {
-  background-color: var(--bg-tertiary) !important;
-  color: var(--text-primary) !important;
-  border: 1px solid var(--border-color) !important;
+/* Enhanced Contact Section System */
+:root.dark body .bg-stone-100.hover\\:bg-amber-50 {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
 }
 
-:root.dark .bg-stone-100.hover\\:bg-amber-50:hover {
-  background-color: rgba(245, 158, 11, 0.1) !important;
-  color: var(--accent-color) !important;
-  border-color: var(--accent-color) !important;
+:root.dark body .bg-stone-100.hover\\:bg-amber-50:hover {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: var(--accent-color);
+  border-color: var(--accent-color);
 }
 
-/* Mobile menu button improvements */
-:root.dark #mobile-menu-button {
-  color: var(--text-primary) !important;
+/* Enhanced Mobile Menu Button System */
+:root.dark body #mobile-menu-button {
+  color: var(--text-primary);
   border: 1px solid var(--border-color);
   border-radius: 0.375rem;
   padding: 0.5rem;
   transition: all 0.3s ease;
 }
 
-:root.dark #mobile-menu-button:hover {
-  color: var(--accent-color) !important;
-  background-color: rgba(245, 158, 11, 0.1) !important;
-  border-color: var(--accent-color) !important;
+:root.dark body #mobile-menu-button:hover {
+  color: var(--accent-color);
+  background-color: rgba(245, 158, 11, 0.1);
+  border-color: var(--accent-color);
   transform: scale(1.05);
 }
 
-/* Enhanced mobile navigation in dark mode */
+/* Enhanced Mobile Navigation System Dark Mode */
 @media (max-width: 1279px) {
-  :root.dark #header-nav-links {
-    background-color: var(--bg-secondary) !important;
-    border-color: var(--border-color) !important;
+  :root.dark body #header-nav-links {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
     backdrop-filter: blur(20px);
   }
 
-  :root.dark #header-nav-links .nav-link {
-    color: var(--text-secondary) !important;
-    border: 1px solid transparent !important;
+  :root.dark body #header-nav-links .nav-link {
+    color: var(--text-secondary);
+    border: 1px solid transparent;
     transition: all 0.3s ease;
   }
 
-  :root.dark #header-nav-links .nav-link:hover {
-    color: var(--accent-color) !important;
-    border-color: transparent !important;
-  }
-
-  :root.dark #header-nav-links a:hover {
-    border-color: transparent !important;
-    color: var(--accent-color) !important;
+  :root.dark body #header-nav-links .nav-link:hover,
+  :root.dark body #header-nav-links a:hover {
+    color: var(--accent-color);
+    border-color: transparent;
   }
 }
 
-/* Final dark mode refinements */
-:root.dark .border-stone-200 {
-  border-color: var(--border-color) !important;
+/* Enhanced Border System Final */
+:root.dark body .border-stone-200 {
+  border-color: var(--border-color);
 }
 
-:root.dark .bg-stone-50\/80 {
-  background-color: rgba(26, 26, 26, 0.9) !important;
+:root.dark body .bg-stone-50\/80 {
+  background-color: rgba(26, 26, 26, 0.9);
 }
 
-:root.dark .backdrop-blur-md {
-  backdrop-filter: blur(12px) !important; /* Match light mode exactly */
+:root.dark body .backdrop-blur-md {
+  backdrop-filter: blur(12px); /* Match light mode exactly */
 }
 
-/* Enhanced gradient backgrounds for dark mode */
-:root.dark .bg-gradient-to-r.from-amber-50.to-stone-50 {
-  background: linear-gradient(to right, rgba(245, 158, 11, 0.05), rgba(64, 64, 64, 0.05)) !important;
+/* Enhanced Gradient Backgrounds Dark Mode */
+:root.dark body .bg-gradient-to-r.from-amber-50.to-stone-50 {
+  background: linear-gradient(to right, rgba(245, 158, 11, 0.05), rgba(64, 64, 64, 0.05));
 }
 
-/* Ensure all text inputs and textareas work in dark mode */
-:root.dark input[type="text"],
-:root.dark input[type="email"],
-:root.dark textarea {
-  background-color: var(--bg-secondary) !important;
-  border: 2px solid var(--border-color) !important;
-  color: var(--text-primary) !important;
+/* Enhanced Form Input System Dark Mode */
+:root.dark body input[type="text"],
+:root.dark body input[type="email"],
+:root.dark body textarea {
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  color: var(--text-primary);
   transition: all 0.3s ease;
 }
 
-:root.dark input[type="text"]:focus,
-:root.dark input[type="email"]:focus,
-:root.dark textarea:focus {
-  border-color: var(--accent-color) !important;
-  background-color: var(--bg-tertiary) !important;
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1) !important;
-  outline: none !important;
+:root.dark body input[type="text"]:focus,
+:root.dark body input[type="email"]:focus,
+:root.dark body textarea:focus {
+  border-color: var(--accent-color);
+  background-color: var(--bg-tertiary);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+  outline: none;
 }
 
-/* Footer improvements in dark mode */
-:root.dark footer.bg-stone-800 {
-  background-color: #0a0a0a !important;
+/* Enhanced Footer System Dark Mode */
+:root.dark body footer.bg-stone-800 {
+  background-color: #0a0a0a;
   border-top: 1px solid var(--border-color);
 }
 
-:root.dark footer .text-stone-300 {
-  color: var(--text-secondary) !important;
+:root.dark body footer .text-stone-300 {
+  color: var(--text-secondary);
 }
 
-:root.dark footer .text-stone-400 {
-  color: var(--text-tertiary) !important;
+:root.dark body footer .text-stone-400 {
+  color: var(--text-tertiary);
 }
 
-:root.dark footer .hover\\:text-amber-600:hover {
-  color: var(--accent-color) !important;
+:root.dark body footer .hover\\:text-amber-600:hover {
+  color: var(--accent-color);
 }
