@@ -496,14 +496,73 @@ body {
   border-radius: 0.75rem;
   overflow: hidden;
   box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color);
-  transition: all var(--transition-normal);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform, box-shadow;
   transform: translateZ(0);
 }
 
 .project-card:hover {
-  transform: translateY(-4px) scale(1.02) translateZ(0);
+  transform: translateY(-6px) scale(1.02) translateZ(0);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Enhanced smooth project cards styling for projects page */
+.project-card-smooth {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform, box-shadow, filter;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  position: relative;
+}
+
+.project-card-smooth::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.05) 0%, rgba(217, 119, 6, 0.02) 100%);
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.project-card-smooth:hover {
+  transform: translateY(-8px) scale(1.02) translateZ(0);
+  box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.25), 0 20px 40px -8px rgba(0, 0, 0, 0.1);
+  filter: brightness(1.02);
+}
+
+.project-card-smooth:hover::before {
+  opacity: 1;
+}
+
+/* Add smooth transition for card content */
+.project-card-smooth > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Dark mode styles for smooth project cards */
+:root.dark .project-card-smooth {
+  background: var(--bg-tertiary);
+  box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color);
+}
+
+:root.dark .project-card-smooth::before {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(245, 158, 11, 0.03) 100%);
+}
+
+:root.dark .project-card-smooth:hover {
+  box-shadow: 0 32px 64px -12px var(--shadow-color), 0 20px 40px -8px var(--shadow-color);
+  filter: brightness(1.05);
 }
 
 .publication-card {
@@ -1013,8 +1072,15 @@ a, button, .nav-link, .btn-primary, .card {
   
   .float,
   .breathe,
-  .hero-background {
+  .hero-background,
+  .project-card-smooth {
     animation: none;
+    transform: none;
+  }
+  
+  .project-card-smooth:hover {
+    transform: none;
+    filter: none;
   }
 }
 
