@@ -675,6 +675,44 @@ body section#hero div.relative[style*="background-image"] {
     --space-2xl: calc(3rem * var(--space-mobile-multiplier));
   }
   
+  /* Fix header container overflow on very small screens */
+  header.sticky {
+    padding-left: 0.75rem; /* Reduce padding on very small screens */
+    padding-right: 0.75rem;
+  }
+  
+  /* Reduce gaps in header on very small screens */
+  header .flex.items-center.gap-2 {
+    gap: 0.25rem; /* Reduce gap between header elements */
+  }
+  
+  /* Ensure mobile menu button stays in viewport */
+  #mobile-menu-button {
+    min-width: auto;
+    padding: 0.375rem; /* Reduce padding */
+  }
+  
+  #mobile-menu-button .material-icons-outlined {
+    font-size: 1.25rem; /* Slightly smaller icon */
+  }
+  
+  /* Reduce theme toggle size */
+  .theme-toggle {
+    width: 40px;
+    height: 24px;
+  }
+  
+  .theme-toggle:before {
+    width: 16px;
+    height: 16px;
+    top: 2px;
+    left: 2px;
+  }
+  
+  :root.dark .theme-toggle:before {
+    transform: translateX(16px);
+  }
+  
   .profile-image {
     max-width: 200px;
     height: 200px;
@@ -1008,6 +1046,31 @@ body > header {
 :root.dark header.bg-stone-50\/80 {
   background-color: rgba(26, 26, 26, 0.8);
   backdrop-filter: blur(12px); /* Consistent with light mode */
+}
+
+/* Enhanced mobile header container to prevent overflow */
+@media (max-width: 640px) {
+  header {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+  
+  /* Ensure header content doesn't overflow */
+  header > div:last-child {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  
+  /* Make language switcher more compact on mobile */
+  .language-switcher {
+    gap: 0.125rem;
+  }
+  
+  .language-switcher a,
+  .language-switcher span {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
 }
 
 /* Navigation Dark Mode */
@@ -1350,6 +1413,47 @@ a.nav-link.text-amber-600:hover {
   transform: scale(1.05);
 }
 
+/* Ensure mobile menu button stays within viewport */
+#mobile-menu-button {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 51;
+}
+
+/* Additional mobile header fixes */
+@media (max-width: 375px) {
+  /* For very small screens (iPhone SE, etc.) */
+  header {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  header .flex.items-center.gap-2.sm\\:gap-4 {
+    gap: 0.125rem;
+  }
+  
+  .theme-toggle {
+    width: 36px;
+    height: 20px;
+  }
+  
+  .theme-toggle:before {
+    width: 14px;
+    height: 14px;
+    top: 1px;
+    left: 1px;
+  }
+  
+  :root.dark .theme-toggle:before {
+    transform: translateX(14px);
+  }
+  
+  /* Hide language switcher on very small screens if needed */
+  .language-switcher {
+    display: none;
+  }
+}
+
 /* Enhanced Mobile Navigation System Dark Mode */
 @media (max-width: 1279px) {
   :root.dark body #header-nav-links {
@@ -1424,4 +1528,63 @@ a.nav-link.text-amber-600:hover {
 
 :root.dark body footer .hover\\:text-amber-600:hover {
   color: var(--accent-color);
+}
+
+/* Logo responsive text layout - Allow line breaks on narrow screens */
+@media (max-width: 640px) {
+  /* Keep the logo container horizontal (SVG + text side by side) */
+  header .flex.items-center.gap-2.text-stone-800 {
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  /* Remove whitespace-nowrap on smaller screens to allow text wrapping */
+  header a.logo-text.whitespace-nowrap {
+    white-space: normal;
+    line-height: 1.1;
+    text-align: left;
+    min-width: 0;
+    display: inline;
+  }
+  
+  /* Make each line of the logo display as block to stack vertically */
+  .logo-first-line,
+  .logo-second-line {
+    display: block;
+    line-height: 1;
+  }
+  
+  /* Adjust spacing between logo lines */
+  .logo-first-line {
+    margin-bottom: 0.125rem;
+  }
+  
+  /* Keep icon size consistent - don't shrink on mobile */
+  header .flex.items-center.gap-2.text-stone-800 .size-6 {
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Further optimize for very small screens */
+  header a.logo-text.whitespace-nowrap {
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+  
+  /* Keep the logo container horizontal with tighter spacing */
+  header .flex.items-center.gap-2.text-stone-800 {
+    gap: 0.375rem;
+  }
+  
+  /* Tighter spacing between logo lines on very small screens */
+  .logo-first-line {
+    margin-bottom: 0;
+  }
+  
+  /* Keep icon size consistent on very small screens too */
+  header .flex.items-center.gap-2.text-stone-800 .size-6 {
+    flex-shrink: 0;
+  }
 }
