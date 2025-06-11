@@ -36,31 +36,52 @@
 </script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<!-- Enhanced scroll progress indicator -->
+<div class="scroll-indicator" id="scroll-progress">
+  <div class="scroll-progress-inner"></div>
+</div>
 <meta name="theme-color" content="#d97706"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
 <meta name="apple-mobile-web-app-title" content="Dr. Mark Wernsdorfer"/>
 <meta name="mobile-web-app-capable" content="yes"/>
-<meta name="description" content="Contact Dr. Mark Wernsdorfer for AI consulting, research collaboration, and technology advisory services. Available for remote and on-site consultations."/>
+<meta name="description" content="Schedule a consultation with Dr. Mark Wernsdorfer for AI strategy, implementation, and research guidance. Transform your business with proven AI methodologies."/>
 <meta name="keywords" content="AI consultant contact, technology advisory, research collaboration, artificial intelligence expert, machine learning consulting"/>
 <meta name="author" content="Dr. Mark Wernsdorfer"/>
 <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
 <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Playfair+Display%3Awght%40400%3B500%3B700%3B900&amp;family=Roboto+Slab%3Awght%40300%3B400%3B500%3B700&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-<title>Contact - Dr. Mark Wernsdorfer</title>
-<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<title>Schedule a Consultation - Dr. Mark Wernsdorfer</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link rel="stylesheet" href="../style.css" />
-<script defer src="../javascript.js"></script>
+<!-- Modular CSS Files -->
+<link rel="stylesheet" href="../css/design-tokens.css" />
+<link rel="stylesheet" href="../css/base.css" />
+<link rel="stylesheet" href="../css/layout.css" />
+<link rel="stylesheet" href="../css/components.css" />
+<link rel="stylesheet" href="../css/animations.css" />
+<link rel="stylesheet" href="../css/theme.css" />
+<link rel="stylesheet" href="../css/theme-classes.css" />
+<link rel="stylesheet" href="../css/mobile.css" />
+<link rel="stylesheet" href="../css/utilities.css" />
+<link rel="stylesheet" href="../css/inline-styles.css" />
+<!-- Modular JavaScript Files -->
+<script defer src="../js/theme.js"></script>
+<script defer src="../js/core.js"></script>
+<script defer src="../js/navigation.js"></script>
+<script defer src="../js/animations.js"></script>
+<script defer src="../js/interactions.js"></script>
 </head>
 
-<body class="bg-stone-50 text-stone-800" style='font-family: "Roboto Slab", "Noto Sans", sans-serif;'>
+<body class="font-roboto-slab" style="background: var(--bg-primary); color: var(--text-primary);">
+<a href="#main-content" class="skip-link visually-hidden">Skip to main content</a>
 <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
 <div class="layout-container flex h-full grow flex-col">
-<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-stone-200 bg-stone-50/80 px-4 sm:px-6 lg:px-10 py-3 sm:py-4 backdrop-blur-md">
-<div class="flex items-center gap-2 sm:gap-3 text-stone-800 flex-shrink-0">
-<div class="size-6 sm:size-8 text-amber-600 flex-shrink-0">
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid themed-border header-bg px-4 sm:px-6 lg:px-10 py-3 sm:py-4 backdrop-blur-md">
+<div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+<div class="size-8 text-accent flex-shrink-0">
 <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_6_535)">
 <path d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z" fill="currentColor"></path>
@@ -70,170 +91,333 @@
 </defs>
 </svg>
 </div>
-<a href="../index.html" class="text-stone-800 text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight whitespace-nowrap hover:text-amber-600 transition-colors logo-text" style='font-family: "Playfair Display", serif;'><span class="logo-first-line">Dr. Mark</span> <span class="logo-second-line">Wernsdorfer</span></a>
+<a href="../index.html" class="header-logo-text text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight transition-colors font-playfair"><span class="logo-first-line">Dr. Mark</span> <span class="logo-second-line">Wernsdorfer</span></a>
 </div>
-<nav class="hidden xl:flex items-center gap-6 xl:gap-10" id="header-nav-links">
-<a class="nav-link hover-underline-animation" href="about.html">About</a>
-<a class="nav-link hover-underline-animation" href="services.html">Services</a>
-<a class="nav-link hover-underline-animation" href="projects.html">Projects</a>
-<a class="nav-link hover-underline-animation" href="grants.html">Grants</a>
-<a class="nav-link hover-underline-animation" href="publications.html">Publications</a>
-<a class="nav-link hover-underline-animation" href="community.html">Community</a>
+<nav class="hidden lg:flex items-center gap-6 xl:gap-10" id="header-nav-links">
+<a class="nav-link hover-underline-animation nav-text" href="about.html">About</a>
+<a class="nav-link hover-underline-animation nav-text" href="services.html">Services</a>
+<a class="nav-link hover-underline-animation nav-text" href="projects.html">Portfolio</a>
+<a class="nav-link hover-underline-animation nav-text" href="publications.html">Insights</a>
+<a class="nav-link hover-underline-animation nav-text" href="community.html">Community</a>
+<a class="nav-link hover-underline-animation nav-text" href="grants.html">Grants</a>
 </nav>
-<div class="flex items-center gap-2 sm:gap-4">                <button onclick="toggleDarkMode()" class="theme-toggle" aria-label="Toggle dark mode"></button>
+<div class="flex items-center gap-2 sm:gap-4">
+<button onclick="window.themeUtils.enhancedToggleDarkMode(event)" class="theme-toggle" aria-label="Toggle dark mode">
+  <span class="material-icons-outlined theme-toggle-icon">dark_mode</span>
+</button>
 <div class="language-switcher flex items-center gap-1">
-<a href="../index.html" class="px-2 py-1 text-sm font-medium text-amber-600 bg-amber-50 rounded hover:bg-amber-100 transition-colors">EN</a>
-<span class="px-2 py-1 text-sm font-medium text-stone-400 bg-stone-100 rounded cursor-not-allowed opacity-60">DE</span>
+<a href="../index.html" class="px-2 py-1 text-sm font-medium lang-active rounded hover:opacity-90 transition-all">EN</a>
+<span class="px-2 py-1 text-sm font-medium lang-inactive rounded cursor-not-allowed opacity-60">DE</span>
 </div>
-<a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 bg-stone-300 text-stone-500 text-sm sm:text-base font-semibold tracking-wide cursor-not-allowed opacity-60" aria-disabled="true">
+<a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 btn-disabled text-sm sm:text-base font-semibold tracking-wide" aria-disabled="true">
 <span class="truncate">Contact</span>
 </a>
-<a class="sm:hidden flex min-w-[60px] items-center justify-center overflow-hidden rounded-md h-9 px-3 bg-stone-300 text-stone-500 text-sm font-semibold tracking-wide cursor-not-allowed opacity-60" aria-disabled="true">
+<a class="sm:hidden flex items-center justify-center overflow-hidden rounded-md h-9 px-3 btn-disabled text-sm font-semibold tracking-wide" aria-disabled="true">
 <span class="material-icons text-lg">email</span>
 </a>
-<button id="mobile-menu-button" class="xl:hidden p-2 text-stone-800 hover:text-amber-600 transition-colors">
-<span class="material-icons-outlined text-2xl sm:text-3xl">menu_open</span>
-</button>
 </div>
 </header>
 
-<main class="flex-1">
-        <section class="px-4 sm:px-6 lg:px-10 py-8 sm:py-16 max-w-[960px] mx-auto">
-            <div class="text-center space-y-4 mb-12">
-                <h1 class="text-stone-800 text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight tracking-tight" style='font-family: "Playfair Display", serif;'>Get in Touch</h1>
-                <p class="text-stone-600 text-base sm:text-lg lg:text-xl font-normal leading-relaxed max-w-[720px] mx-auto">Ready to explore how AI can transform your business or research? Let's connect and discuss your unique challenges and opportunities.</p>
-            </div>
-            
-            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12">
-                <!-- Contact Form -->
-                <div class="bg-white rounded-lg border border-stone-200 p-6 sm:p-8 shadow-sm">
-                    <h2 class="text-stone-800 text-xl sm:text-2xl font-bold mb-6" style='font-family: "Playfair Display", serif;'>Send a Message</h2>
-                    <form class="space-y-6" onsubmit="handleFormSubmit(event)">
-                        <div class="grid sm:grid-cols-2 gap-4">
-                            <div>
-                                <label for="name" class="block text-stone-700 text-sm font-medium mb-2">Your Name</label>
-                                <input type="text" id="name" name="name" required placeholder="Enter your name" 
-                                       class="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
-                            </div>
-                            <div>
-                                <label for="email" class="block text-stone-700 text-sm font-medium mb-2">Your Email</label>
-                                <input type="email" id="email" name="email" required placeholder="Enter your email" 
-                                       class="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <label for="subject" class="block text-stone-700 text-sm font-medium mb-2">Subject</label>
-                            <select id="subject" name="subject" required 
-                                    class="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
-                                <option value="">Select a subject</option>
-                                <option value="ai-consulting">AI Consulting & Strategy</option>
-                                <option value="research-collaboration">Research Collaboration</option>
-                                <option value="technology-advisory">Technology Advisory</option>
-                                <option value="workshops-training">Workshops & Training</option>
-                                <option value="speaking-engagement">Speaking Engagement</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        
-                        <div>
-                            <label for="message" class="block text-stone-700 text-sm font-medium mb-2">Your Message</label>
-                            <textarea id="message" name="message" required rows="6" placeholder="Tell me about your project, challenges, or how I can help..." 
-                                      class="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"></textarea>
-                        </div>
-                        
-                        <button type="submit" disabled class="w-full bg-stone-300 text-stone-500 py-3 px-6 rounded-md font-semibold cursor-not-allowed opacity-60" aria-disabled="true">
-                            Send Message
-                        </button>
-                    </form>
-                    
-                    <p class="text-stone-500 text-sm mt-4 leading-relaxed">
-                        Your information will be used solely to respond to your inquiry and will be handled with complete confidentiality.
-                    </p>
-                </div>
-                
-                <!-- Contact Information -->
-                <div class="space-y-8">
-                    <div>
-                        <h2 class="text-stone-800 text-xl sm:text-2xl font-bold mb-4" style='font-family: "Playfair Display", serif;'>Let's Connect</h2>
-                        <p class="text-stone-600 text-base leading-relaxed">Whether you're looking to implement AI solutions, explore research opportunities, or need strategic guidance on emerging technologies, I'm here to help. Let's discuss how we can work together to achieve your goals.</p>
-                    </div>
-                    
-                    <div class="grid gap-6">
-                        <div class="flex items-start gap-4 p-4 bg-stone-50 rounded-lg">
-                            <div class="text-amber-600 mt-1">
-                                <span class="material-icons text-xl">email</span>
-                            </div>
-                            <div>
-                                <h3 class="text-stone-800 font-semibold mb-1">Email</h3>
-                                <p class="text-stone-600 text-sm">For detailed project discussions and formal inquiries</p>
-                                <small class="text-stone-500">Response within 24 hours</small>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start gap-4 p-4 bg-stone-50 rounded-lg">
-                            <div class="text-amber-600 mt-1">
-                                <span class="material-icons text-xl">location_on</span>
-                            </div>
-                            <div>
-                                <h3 class="text-stone-800 font-semibold mb-1">Location</h3>
-                                <p class="text-stone-600 text-sm">Available for remote consultations worldwide</p>
-                                <small class="text-stone-500">On-site visits for larger projects</small>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start gap-4 p-4 bg-stone-50 rounded-lg">
-                            <div class="text-amber-600 mt-1">
-                                <span class="material-icons text-xl">schedule</span>
-                            </div>
-                            <div>
-                                <h3 class="text-stone-800 font-semibold mb-1">Response Time</h3>
-                                <p class="text-stone-600 text-sm">Quick turnaround for initial consultations</p>
-                                <small class="text-stone-500">Typically within 24 hours</small>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-8">
-                        <h3 class="text-stone-800 font-semibold mb-4">Connect on Social Media</h3>
-                        <div class="flex gap-4">
-                            <a href="https://linkedin.com/in/wernsdorfer" target="_blank" rel="noopener noreferrer" 
-                               class="flex items-center gap-2 px-4 py-2 bg-stone-100 hover:bg-amber-50 text-stone-700 hover:text-amber-600 rounded-md transition-colors">
-                                <span class="material-icons text-lg">work</span>
-                                LinkedIn
-                            </a>
-                            <a href="https://github.com/wehnsdaefflae" target="_blank" rel="noopener noreferrer" 
-                               class="flex items-center gap-2 px-4 py-2 bg-stone-100 hover:bg-amber-50 text-stone-700 hover:text-amber-600 rounded-md transition-colors">
-                                <span class="material-icons text-lg">code</span>
-                                GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+<main class="flex-1" id="main-content" role="main">
+<!-- Hero Section -->
+<section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 hero-section">
+<div class="max-w-[960px] mx-auto text-center space-y-6 sm:space-y-8">
+<h1 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight font-playfair">
+Schedule a Consultation
+</h1>
+<p class="text-secondary text-lg sm:text-xl font-normal leading-relaxed max-w-[800px] mx-auto">
+Transform your business with AI solutions that work. Let's discuss your unique challenges and develop a strategy that delivers measurable results.
+</p>
+<div class="flex flex-wrap justify-center gap-6 text-sm sm:text-base text-secondary">
+<div class="flex items-center gap-2">
+<span class="material-icons text-accent">schedule</span>
+<span>24-hour response</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-icons text-accent">video_call</span>
+<span>Remote & on-site</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-icons text-accent">psychology</span>
+<span>15+ years expertise</span>
+</div>
+</div>
+</div>
+</section>
 
-<footer class="bg-stone-800 text-stone-300">
+<!-- Consultation Types -->
+<section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 bg-secondary">
+<div class="max-w-[960px] mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-primary text-2xl sm:text-3xl font-bold mb-4 font-playfair">How Can I Help You?</h2>
+      <p class="text-secondary text-lg max-w-[720px] mx-auto">
+        Choose the consultation type that best fits your needs, or let's discuss a custom approach.
+      </p>
+    </div>
+
+    <div class="consultation-grid mb-12">
+      <div class="consultation-card">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="material-icons text-2xl text-accent">insights</span>
+          <h3 class="text-lg font-semibold text-primary">AI Strategy Session</h3>
+        </div>
+        <p class="text-secondary mb-4 text-sm">
+          90-minute deep dive into your AI opportunities, challenges, and roadmap development.
+        </p>
+        <ul class="consultation-list text-secondary text-sm">
+          <li>Current state assessment</li>
+          <li>Opportunity identification</li>
+          <li>Strategic roadmap</li>
+          <li>ROI projections</li>
+        </ul>
+      </div>
+
+      <div class="consultation-card">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="material-icons text-2xl text-accent">build</span>
+          <h3 class="text-lg font-semibold text-primary">Implementation Review</h3>
+        </div>
+        <p class="text-secondary mb-4 text-sm">
+          Technical review of existing AI systems and implementation guidance for improvements.
+        </p>
+        <ul class="consultation-list text-secondary text-sm">
+          <li>System architecture review</li>
+          <li>Performance optimization</li>
+          <li>Best practices guidance</li>
+          <li>Risk assessment</li>
+        </ul>
+      </div>
+
+      <div class="consultation-card">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="material-icons text-2xl text-accent">school</span>
+          <h3 class="text-lg font-semibold text-primary">Research Collaboration</h3>
+        </div>
+        <p class="text-secondary mb-4 text-sm">
+          Partner with an experienced researcher to validate approaches and explore new methodologies.
+        </p>
+        <ul class="consultation-list text-secondary text-sm">
+          <li>Research methodology design</li>
+          <li>Academic partnerships</li>
+          <li>Publication support</li>
+          <li>Validation studies</li>
+        </ul>
+      </div>
+    </div>
+</div>
+</section>
+
+<!-- Contact Section -->
+<section class="px-4 sm:px-6 lg:px-10 py-8 sm:py-16 max-w-[960px] mx-auto">
+<div class="grid lg:grid-cols-2 gap-8 lg:gap-12">
+<!-- Contact Form -->
+<div class="contact-form">
+<h2 class="text-primary text-xl sm:text-2xl font-bold mb-6 font-playfair">Start the Conversation</h2>
+<form class="space-y-6" onsubmit="handleFormSubmit(event)">
+<div class="grid sm:grid-cols-2 gap-4">
+<div>
+<label for="name" class="block text-secondary text-sm font-medium mb-2">Your Name</label>
+<input type="text" id="name" name="name" required placeholder="Enter your name">
+</div>
+<div>
+<label for="email" class="block text-secondary text-sm font-medium mb-2">Your Email</label>
+<input type="email" id="email" name="email" required placeholder="Enter your email">
+</div>
+</div>
+
+<div>
+<label for="company" class="block text-secondary text-sm font-medium mb-2">Company/Organization</label>
+<input type="text" id="company" name="company" placeholder="Your company or organization">
+</div>
+
+<div>
+<label for="subject" class="block text-secondary text-sm font-medium mb-2">Consultation Type</label>
+<select id="subject" name="subject" required>
+<option value="">Select consultation type</option>
+<option value="ai-strategy">AI Strategy & Roadmap</option>
+<option value="implementation">Implementation Support</option>
+<option value="research-collaboration">Research Collaboration</option>
+<option value="technology-advisory">Technology Advisory</option>
+<option value="workshops-training">Workshops & Training</option>
+<option value="due-diligence">Due Diligence & Assessment</option>
+<option value="other">Other/Custom</option>
+</select>
+</div>
+
+<div>
+<label for="timeline" class="block text-secondary text-sm font-medium mb-2">Project Timeline</label>
+<select id="timeline" name="timeline">
+<option value="">Select timeline</option>
+<option value="immediate">Immediate (within 2 weeks)</option>
+<option value="short-term">Short-term (1-3 months)</option>
+<option value="medium-term">Medium-term (3-6 months)</option>
+<option value="long-term">Long-term (6+ months)</option>
+<option value="exploratory">Exploratory (no specific timeline)</option>
+</select>
+</div>
+
+<div>
+<label for="message" class="block text-secondary text-sm font-medium mb-2">Project Details</label>
+<textarea id="message" name="message" required rows="6" placeholder="Describe your project, current challenges, goals, and what you hope to achieve through consultation..."></textarea>
+</div>
+
+<button type="submit" class="w-full btn-primary px-6 py-3 text-base font-semibold">
+Schedule Consultation
+</button>
+</form>
+
+<p class="text-secondary text-sm mt-4 leading-relaxed">
+Your information is confidential and will only be used to understand your needs and schedule our consultation.
+</p>
+</div>
+
+<!-- Contact Information -->
+<div class="space-y-8">
+<div>
+<h2 class="text-primary text-xl sm:text-2xl font-bold mb-4 font-playfair">What to Expect</h2>
+<p class="text-secondary text-base leading-relaxed mb-6">
+Every consultation is tailored to your specific situation. Here's how we'll work together to achieve your AI goals.
+</p>
+</div>
+
+<div class="grid gap-6">
+<div class="contact-info-card">
+<div class="text-accent mt-1">
+<span class="material-icons text-xl">search</span>
+</div>
+<div>
+<h3 class="text-primary font-semibold mb-1">Discovery Phase</h3>
+<p class="text-secondary text-sm">Deep dive into your current state, challenges, and objectives</p>
+<small class="text-tertiary">Usually 30-60 minutes</small>
+</div>
+</div>
+
+<div class="contact-info-card">
+<div class="text-accent mt-1">
+<span class="material-icons text-xl">psychology</span>
+</div>
+<div>
+<h3 class="text-primary font-semibold mb-1">Expert Analysis</h3>
+<p class="text-secondary text-sm">Applying the Method to your unique situation</p>
+<small class="text-tertiary">Real-time problem solving</small>
+</div>
+</div>
+
+<div class="contact-info-card">
+<div class="text-accent mt-1">
+<span class="material-icons text-xl">map</span>
+</div>
+<div>
+<h3 class="text-primary font-semibold mb-1">Strategic Roadmap</h3>
+<p class="text-secondary text-sm">Clear next steps and actionable recommendations</p>
+<small class="text-tertiary">Written follow-up provided</small>
+</div>
+</div>
+
+<div class="contact-info-card">
+<div class="text-accent mt-1">
+<span class="material-icons text-xl">support</span>
+</div>
+<div>
+<h3 class="text-primary font-semibold mb-1">Ongoing Support</h3>
+<p class="text-secondary text-sm">Follow-up sessions and implementation guidance available</p>
+<small class="text-tertiary">Flexible engagement models</small>
+</div>
+</div>
+</div>
+
+<div class="mt-8 contact-info-highlight">
+<h3 class="text-primary font-semibold mb-2">Direct Contact</h3>
+<p class="text-secondary text-sm mb-3">
+For urgent matters or immediate consultation scheduling:
+</p>
+<a href="mailto:wernsdorfer@gmail.com" class="text-accent hover:text-accent-dark font-medium inline-flex items-center gap-2 transition-colors">
+<span class="material-icons text-lg">email</span>
+wernsdorfer@gmail.com
+</a>
+</div>
+
+<div class="mt-8">
+<h3 class="text-primary font-semibold mb-4">Connect & Follow</h3>
+<div class="flex gap-4">
+<a href="https://linkedin.com/in/wernsdorfer" target="_blank" rel="noopener noreferrer" 
+   class="flex items-center gap-2 px-4 py-2 contact-info-card hover:border-accent text-secondary hover:text-accent rounded-md transition-all">
+<span class="material-icons text-lg">work</span>
+LinkedIn
+</a>
+<a href="https://github.com/wehnsdaefflae" target="_blank" rel="noopener noreferrer" 
+   class="flex items-center gap-2 px-4 py-2 contact-info-card hover:border-accent text-secondary hover:text-accent rounded-md transition-all">
+<span class="material-icons text-lg">code</span>
+GitHub
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+<footer class="footer-bg footer-text">
 <div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-12 text-center space-y-4 sm:space-y-6">
 <div class="flex flex-col sm:flex-row items-center justify-center gap-y-2 gap-x-4 sm:gap-x-6">
-<a class="text-stone-400 hover:text-amber-600 text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Privacy Policy</a>
-<a class="text-stone-400 hover:text-amber-600 text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Terms of Service</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Privacy Policy</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Terms of Service</a>
 </div>
-<div class="flex flex-wrap justify-center gap-4">
-<a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-stone-400 hover:text-amber-600 transition-colors">
-<span class="material-icons text-xl sm:text-2xl">business</span>
+<div class="flex flex-wrap justify-center gap-6">
+<a href="https://github.com/wehnsdaefflae" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
+<span class="material-icons text-xl sm:text-2xl">code</span>
+<span class="text-sm">GitHub</span>
 </a>
-<a href="mailto:wernsdorfer@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email" class="text-stone-400 hover:text-amber-600 transition-colors">
+<a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
+<span class="material-icons text-xl sm:text-2xl">business</span>
+<span class="text-sm">LinkedIn</span>
+</a>
+<a href="mailto:wernsdorfer@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
 <span class="material-icons text-xl sm:text-2xl">email</span>
+<span class="text-sm">Email</span>
 </a>
 </div>
 <p class="text-sm sm:text-base font-normal leading-normal">© 2025 Dr. Mark Wernsdorfer. All rights reserved.</p>
-<p class="text-xs sm:text-sm text-stone-400" style='font-family: "Playfair Display", serif;'>
-Bridging AI theory and practice with precision.
+<p class="text-xs sm:text-sm footer-link font-playfair">
+Bridging deep AI theory with practical business solutions.
 </p>
 </div>
 </footer>
+
+<!-- Enhanced Mobile Bottom Navigation with glass morphism -->
+<nav class="mobile-bottom-nav lg:hidden fixed bottom-0 left-0 right-0 z-50 mobile-nav-bg backdrop-blur-xl themed-border border-t shadow-2xl">
+  <div class="mobile-nav-grid relative">
+    <!-- Background glow effect -->
+    <div class="absolute inset-0 bg-gradient-to-r from-amber-50/50 via-orange-50/30 to-amber-50/50 dark:from-amber-800/20 dark:via-orange-900/10 dark:to-amber-800/20 opacity-60 dark:opacity-40"></div>
+    
+    <a href="../index.html" class="mobile-nav-item mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+      <div class="absolute inset-0 bg-gradient-to-br from-amber-100/30 dark:from-amber-800/20 to-orange-100/30 dark:to-orange-900/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <span class="material-icons-outlined text-xl relative z-10 transition-all duration-300 group-hover:scale-110">home</span>
+      <span class="text-xs font-medium relative z-10 enhanced-readability">Home</span>
+    </a>
+    <a href="about.html" class="mobile-nav-item text-secondary relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+      <div class="absolute inset-0 bg-gradient-to-br from-blue-100/30 dark:from-blue-800/20 to-indigo-100/30 dark:to-indigo-900/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <span class="material-icons-outlined text-xl relative z-10 transition-all duration-300 group-hover:scale-110">person</span>
+      <span class="text-xs font-medium relative z-10 enhanced-readability">About</span>
+    </a>
+    <a href="services.html" class="mobile-nav-item text-secondary relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+      <div class="absolute inset-0 bg-gradient-to-br from-green-100/30 dark:from-green-800/20 to-emerald-100/30 dark:to-emerald-900/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <span class="material-icons-outlined text-xl relative z-10 transition-all duration-300 group-hover:scale-110">work</span>
+      <span class="text-xs font-medium relative z-10 enhanced-readability">Services</span>
+    </a>
+    <a href="projects.html" class="mobile-nav-item text-secondary relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+      <div class="absolute inset-0 bg-gradient-to-br from-purple-100/30 dark:from-purple-800/20 to-pink-100/30 dark:to-pink-900/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <span class="material-icons-outlined text-xl relative z-10 transition-all duration-300 group-hover:scale-110">folder</span>
+      <span class="text-xs font-medium relative z-10 enhanced-readability">Portfolio</span>
+    </a>
+    <a href="contact.html" class="mobile-nav-item active mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+      <div class="absolute inset-0 bg-gradient-to-br from-orange-100/30 dark:from-orange-800/20 to-red-100/30 dark:to-red-900/10 rounded-xl opacity-0 group-hover:opacity-100 group-[.active]:opacity-100 transition-opacity duration-300"></div>
+      <span class="material-icons-outlined text-xl relative z-10 transition-all duration-300 group-hover:scale-110">contact_mail</span>
+      <span class="text-xs font-medium relative z-10 enhanced-readability">Contact</span>
+    </a>
+  </div>
+</nav>
+
 </div>
 </div>
 

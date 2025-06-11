@@ -21,8 +21,12 @@
       document.documentElement.classList.add('dark');
     }
     
-    // Set initial theme without needing icon updates
+    // Set initial icon to prevent flicker
     document.addEventListener('DOMContentLoaded', function() {
+      const icons = document.querySelectorAll('.theme-toggle-icon');
+      icons.forEach(icon => {
+        icon.textContent = isDark ? 'light_mode' : 'dark_mode';
+      });
       // Enable transitions after setup
       setTimeout(() => {
         document.documentElement.classList.add('transitions-enabled');
@@ -32,6 +36,10 @@
 </script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<!-- Enhanced scroll progress indicator -->
+<div class="scroll-indicator" id="scroll-progress">
+  <div class="scroll-progress-inner"></div>
+</div>
 <meta name="theme-color" content="#d97706"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
@@ -40,22 +48,52 @@
 <meta name="description" content="Dr. Mark Wernsdorfer - Interdisciplinary AI Consultant specializing in bridging foundational AI research with real-world impact through technical expertise, philosophical insight, and practical innovation."/>
 <meta name="keywords" content="AI consultant, machine learning, artificial intelligence, cognitive science, philosophy of mind, AI strategy, technical advisory"/>
 <meta name="author" content="Dr. Mark Wernsdorfer"/>
+<meta property="og:title" content="Dr. Mark Wernsdorfer - Interdisciplinary AI Consultant"/>
+<meta property="og:description" content="Strategic AI consulting to solve complex challenges in business, research, and digital literacy."/>
+<meta property="og:image" content="images/profile-mark-wernsdorfer.webp"/>
+<meta property="og:url" content="https://markwernsdorfer.com"/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Dr. Mark Wernsdorfer - AI Consultant"/>
+<meta name="twitter:description" content="Strategic AI consulting to solve complex challenges in business, research, and digital literacy."/>
+<meta name="twitter:image" content="images/profile-mark-wernsdorfer.webp"/>
+<link rel="canonical" href="https://markwernsdorfer.com"/>
 <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
 <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Playfair+Display%3Awght%40400%3B500%3B700%3B900&amp;family=Roboto+Slab%3Awght%40300%3B400%3B500%3B700&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link rel="preload" as="image" href="images/hero-background.webp" type="image/webp"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 <title>Dr. Mark Wernsdorfer - Interdisciplinary AI Consultant</title>
-<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link rel="stylesheet" href="style.css" />
-<script defer src="javascript.js"></script>
+
+<!-- Modular CSS Files -->
+<link rel="stylesheet" href="css/design-tokens.css" />
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/layout.css" />
+<link rel="stylesheet" href="css/components.css" />
+<link rel="stylesheet" href="css/animations.css" />
+<link rel="stylesheet" href="css/theme.css" />
+<link rel="stylesheet" href="css/theme-classes.css" />
+<link rel="stylesheet" href="css/mobile.css" />
+<link rel="stylesheet" href="css/utilities.css" />
+<link rel="stylesheet" href="css/inline-styles.css" />
+
+<!-- Modular JavaScript Files -->
+<script defer src="js/theme.js"></script>
+<script defer src="js/core.js"></script>
+<script defer src="js/navigation.js"></script>
+<script defer src="js/animations.js"></script>
+<script defer src="js/interactions.js"></script>
 </head>
-<body class="bg-stone-50 text-stone-800" style='font-family: "Roboto Slab", "Noto Sans", sans-serif;'>
+<body class="font-roboto-slab" style="background: var(--bg-primary); color: var(--text-primary);">
+<a href="#main-content" class="skip-link visually-hidden">Skip to main content</a>
 <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
 <div class="layout-container flex h-full grow flex-col">
-<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-stone-200 bg-stone-50/80 px-4 sm:px-6 lg:px-10 py-3 sm:py-4 backdrop-blur-md">
-<div class="flex items-center gap-2 sm:gap-3 text-stone-800 flex-shrink-0">
-<div class="size-6 sm:size-8 text-amber-600 flex-shrink-0">
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid themed-border header-bg px-4 sm:px-6 lg:px-10 py-3 sm:py-4 backdrop-blur-md">
+<div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+<div class="size-8 text-accent flex-shrink-0">
 <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_6_535)">
 <path d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z" fill="currentColor"></path>
@@ -65,54 +103,64 @@
 </defs>
 </svg>
 </div>
-<a href="index.html" class="text-stone-800 text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight whitespace-nowrap hover:text-amber-600 transition-colors logo-text" style='font-family: "Playfair Display", serif;'><span class="logo-first-line">Dr. Mark</span> <span class="logo-second-line">Wernsdorfer</span></a>
+<a href="index.html" class="header-logo-text text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight transition-colors font-playfair"><span class="logo-first-line">Dr. Mark</span> <span class="logo-second-line">Wernsdorfer</span></a>
 </div>
-<nav class="hidden xl:flex items-center gap-6 xl:gap-10" id="header-nav-links">
-<a class="nav-link hover-underline-animation" href="en/about.html">About</a>
-<a class="nav-link hover-underline-animation" href="en/services.html">Services</a>
-<a class="nav-link hover-underline-animation" href="en/projects.html">Projects</a>
-<a class="nav-link hover-underline-animation" href="en/grants.html">Grants</a>
-<a class="nav-link hover-underline-animation" href="en/publications.html">Publications</a>
-<a class="nav-link hover-underline-animation" href="en/community.html">Community</a>
+<nav class="hidden lg:flex items-center gap-6 xl:gap-10" id="header-nav-links">
+<a class="nav-link hover-underline-animation nav-text" href="en/about.html">About</a>
+<a class="nav-link hover-underline-animation nav-text" href="en/services.html">Services</a>
+<a class="nav-link hover-underline-animation nav-text" href="en/projects.html">Portfolio</a>
+<a class="nav-link hover-underline-animation nav-text" href="en/publications.html">Insights</a>
+<a class="nav-link hover-underline-animation nav-text" href="en/community.html">Community</a>
+<a class="nav-link hover-underline-animation nav-text" href="en/grants.html">Grants</a>
 </nav>
 <div class="flex items-center gap-2 sm:gap-4">
-<button onclick="toggleDarkMode()" class="theme-toggle" aria-label="Toggle dark mode"></button>
+<button onclick="window.themeUtils.enhancedToggleDarkMode(event)" class="theme-toggle" aria-label="Toggle dark mode">
+  <span class="material-icons-outlined theme-toggle-icon">dark_mode</span>
+</button>
 <div class="language-switcher flex items-center gap-1">
-<a href="index.html" class="px-2 py-1 text-sm font-medium text-amber-600 bg-amber-50 rounded hover:bg-amber-100 transition-colors">EN</a>
-<span class="px-2 py-1 text-sm font-medium text-stone-400 bg-stone-100 rounded cursor-not-allowed opacity-60">DE</span>
+<a href="index.html" class="px-2 py-1 text-sm font-medium lang-active rounded hover:opacity-90 transition-all">EN</a>
+<span class="px-2 py-1 text-sm font-medium lang-inactive rounded cursor-not-allowed opacity-60">DE</span>
 </div>
-<a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 bg-amber-600 text-stone-50 text-sm sm:text-base font-semibold tracking-wide shadow-lg hover:bg-amber-700 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600" href="en/contact.html">
+<a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 btn-primary text-sm sm:text-base font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="en/contact.html">
 <span class="truncate">Contact</span>
 </a>
-<a class="sm:hidden flex min-w-[60px] items-center justify-center overflow-hidden rounded-md h-9 px-3 bg-amber-600 text-stone-50 text-sm font-semibold tracking-wide shadow-lg hover:bg-amber-700 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600" href="en/contact.html">
+<a class="sm:hidden flex items-center justify-center overflow-hidden rounded-md h-9 px-3 btn-primary text-sm font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="en/contact.html" aria-label="Contact">
 <span class="material-icons text-lg">email</span>
 </a>
-<button id="mobile-menu-button" class="xl:hidden p-2 text-stone-800 hover:text-amber-600 transition-colors">
-<span class="material-icons-outlined text-2xl sm:text-3xl">menu_open</span>
-</button>
 </div>
 </header>
-<main class="flex-1">
+<main class="flex-1" id="main-content" role="main">
+<!-- Enhanced Hero Section with better visual effects -->
 <section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-8 sm:py-12 md:py-16 lg:py-24" id="hero">
 <div class="layout-content-container flex flex-col max-w-[960px] mx-auto">
-<div class="@container">                <div class="hero-background relative flex min-h-[400px] sm:min-h-[480px] md:min-h-[560px] lg:min-h-[640px] flex-col gap-6 sm:gap-8 rounded-xl sm:rounded-2xl items-center sm:items-end justify-center p-6 sm:p-8 md:p-12 shadow-2xl overflow-hidden" style='background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 100%), url("images/hero-background.webp");'>
-<div class="flex flex-col gap-3 sm:gap-4 text-center sm:text-right z-10 max-w-full sm:max-w-lg lg:max-w-xl">
-<h1 class="hero-title text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black leading-tight tracking-tighter" style='font-family: "Playfair Display", serif;'>
-Dr. Mark Wernsdorfer
+<div class="@container">
+<div class="hero-background relative flex min-h-[400px] sm:min-h-[480px] md:min-h-[560px] lg:min-h-[640px] flex-col gap-6 sm:gap-8 rounded-xl sm:rounded-2xl items-center justify-center p-6 sm:p-8 md:p-12 shadow-2xl overflow-hidden hero-bg-image">
+<!-- Floating particles effect -->
+<div class="absolute inset-0 z-0">
+<div class="floating-element absolute w-2 h-2 bg-accent-light rounded-full opacity-30" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+<div class="floating-element absolute w-1 h-1 bg-white rounded-full opacity-40" style="top: 40%; left: 80%; animation-delay: 1s;"></div>
+<div class="floating-element absolute w-3 h-3 bg-accent-light rounded-full opacity-20" style="top: 70%; left: 15%; animation-delay: 2s;"></div>
+<div class="floating-element absolute w-1 h-1 bg-yellow-200 rounded-full opacity-50" style="top: 60%; left: 90%; animation-delay: 3s;"></div>
+<div class="floating-element absolute w-2 h-2 bg-orange-300 rounded-full opacity-25" style="top: 30%; left: 70%; animation-delay: 4s;"></div>
+<div class="floating-element absolute w-1 h-1 bg-accent-light rounded-full opacity-35" style="top: 80%; left: 60%; animation-delay: 5s;"></div>
+</div>
+<div class="flex flex-col gap-3 sm:gap-4 text-center z-10 max-w-full lg:max-w-4xl">
+<h1 class="hero-title text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight tracking-tighter" style='font-family: "Playfair Display", serif;'>
+Bridging Deep AI Theory with Practical Business Solutions
 </h1>
-<h2 class="hero-subtitle text-white text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold leading-relaxed" style='font-family: "Playfair Display", serif;'>
-Interdisciplinary AI Consultant
+<h2 class="hero-subtitle text-white text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium leading-relaxed" style='font-family: "Inter", sans-serif;'>
+Strategic AI consulting to solve complex challenges in business, research, and digital literacy.
 </h2>
-<p class="hero-description text-stone-100 text-sm sm:text-base md:text-lg lg:text-xl font-light leading-relaxed">
-Bridging foundational AI research with real-world impact through deep technical expertise, philosophical insight, and practical innovation.
+<p class="hero-description text-white text-base sm:text-lg md:text-xl font-light leading-relaxed max-w-3xl mx-auto">
+Dr. Mark Wernsdorfer combines foundational AI research with real-world impact through deep technical expertise, philosophical insight, and practical innovation.
 </p>
 </div>
-<div class="hero-buttons flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center sm:justify-end mt-4 z-10 w-full sm:w-auto">
-<a class="btn-primary text-center min-h-[44px] flex items-center justify-center" href="en/services.html">
-<span class="truncate">Explore Services</span>
+<div class="hero-buttons flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mt-6 z-10 w-full sm:w-auto">
+<a class="btn-primary text-center min-h-[50px] flex items-center justify-center text-lg font-semibold px-8" href="en/contact.html">
+<span class="truncate">Schedule a Consultation</span>
 </a>
-<a class="flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-12 px-6 sm:px-8 bg-transparent border-2 border-stone-100 text-stone-100 text-sm sm:text-base font-semibold tracking-wide shadow-xl hover:bg-stone-100 hover:text-stone-800 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-100" href="en/projects.html">
-<span class="truncate">View Projects</span>
+<a class="btn-hero-secondary flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-12 px-6 sm:px-8 text-sm sm:text-base font-semibold tracking-wide shadow-xl transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white" href="en/services.html">
+<span class="truncate">Explore Services</span>
 </a>
 </div>
 </div>
@@ -120,57 +168,525 @@ Bridging foundational AI research with real-world impact through deep technical 
 </div>
 </section>
 
-<!-- Quick Overview Section -->
-<section class="section-animated px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 bg-stone-100">
-<div class="max-w-[960px] mx-auto space-y-8 sm:space-y-10">
-<h2 class="text-stone-800 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-center" style='font-family: "Playfair Display", serif;'>What I Do</h2>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-<div class="card text-center">
-<div class="text-amber-600 text-4xl mb-4"><span class="material-icons-outlined">psychology</span></div>
-<h3 class="heading-3 mb-3">Strategic AI Advisory</h3>
-<p class="body-regular">Navigate the AI landscape with expert guidance on strategy, implementation, and ethical considerations.</p>
-<a href="en/services.html" class="inline-block mt-4 text-amber-600 hover:text-amber-700 font-medium">Learn More →</a>
+<!-- Enhanced Trust Bar Carousel / "As Seen In" Section -->
+<section class="py-12 sm:py-16 section-bg-gradient themed-border border-b relative overflow-hidden">
+<!-- Background decorative elements -->
+<div class="absolute inset-0 bg-gradient-to-r from-amber-50/20 to-orange-50/20 dark:from-amber-900/10 dark:to-orange-900/10"></div>
+<div class="absolute top-0 left-1/4 w-64 h-64 bg-gradient-to-br from-amber-100/15 to-orange-100/15 dark:from-amber-800/8 dark:to-orange-800/8 rounded-full blur-3xl"></div>
+<div class="absolute bottom-0 right-1/4 w-64 h-64 bg-gradient-to-tl from-yellow-100/15 to-amber-100/15 dark:from-yellow-800/8 dark:to-amber-800/8 rounded-full blur-3xl"></div>
+
+<div class="w-full relative z-10">
+<div class="text-center mb-12 sm:mb-16 px-4">
+<h3 class="trust-text text-base sm:text-lg font-bold tracking-wider uppercase font-inter">
+Trusted by Leading Institutions
+</h3>
 </div>
-<div class="card text-center">
-<div class="text-amber-600 text-4xl mb-4"><span class="material-icons-outlined">engineering</span></div>
-<h3 class="heading-3 mb-3">Custom ML Solutions</h3>
-<p class="body-regular">Develop and deploy machine learning models tailored to your specific business needs and challenges.</p>
-<a href="en/projects.html" class="inline-block mt-4 text-amber-600 hover:text-amber-700 font-medium">View Projects →</a>
+
+<!-- Carousel Container -->
+<div class="relative w-full">
+<!-- Navigation Buttons -->
+<button id="prev-btn" class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 dark:bg-gray-800/90 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group hover:bg-white dark:hover:bg-gray-700 backdrop-blur-sm border border-white/50 dark:border-gray-600/50">
+<span class="material-icons-outlined text-gray-700 dark:text-gray-300 group-hover:text-amber-600 transition-colors">chevron_left</span>
+</button>
+<button id="next-btn" class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 dark:bg-gray-800/90 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group hover:bg-white dark:hover:bg-gray-700 backdrop-blur-sm border border-white/50 dark:border-gray-600/50">
+<span class="material-icons-outlined text-gray-700 dark:text-gray-300 group-hover:text-amber-600 transition-colors">chevron_right</span>
+</button>
+
+<!-- Carousel Track -->
+<div class="logos-carousel overflow-hidden bg-white/30 dark:bg-white/5 backdrop-blur-md border-y border-white/50 dark:border-white/20 shadow-2xl py-8">
+<div class="logos-track flex gap-6 px-6 animate-scroll" id="logos-track">
+<!-- First set of logos -->
+<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<div class="h-24 w-full flex items-center justify-center mb-3 relative">
+<div class="absolute inset-0 bg-gradient-to-br from-amber-100/40 to-orange-100/40 dark:from-amber-800/30 dark:to-orange-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<img src="logos/Fraunhofer-Gesellschaft_2009_logo.svg" alt="Fraunhofer Institute" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
 </div>
-<div class="card text-center">
-<div class="text-amber-600 text-4xl mb-4"><span class="material-icons-outlined">school</span></div>
-<h3 class="heading-3 mb-3">Training & Education</h3>
-<p class="body-regular">Build AI literacy within your organization through workshops, training sessions, and hands-on guidance.</p>
-<a href="en/about.html" class="inline-block mt-4 text-amber-600 hover:text-amber-700 font-medium">About Me →</a>
+<div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">Fraunhofer Institute</div>
+</div>
+
+<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<div class="h-24 w-full flex items-center justify-center mb-3 relative">
+<div class="absolute inset-0 bg-gradient-to-br from-blue-100/40 to-indigo-100/40 dark:from-blue-800/30 dark:to-indigo-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<img src="logos/universitaetsklinikum-leipzig-logo-vector.svg" alt="University Hospital Leipzig" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
+</div>
+<div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">University Hospital Leipzig</div>
+</div>
+
+<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<div class="h-24 w-full flex items-center justify-center mb-3 relative">
+<div class="absolute inset-0 bg-gradient-to-br from-red-100/40 to-yellow-100/40 dark:from-red-800/30 dark:to-yellow-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<img src="logos/BMBF_Logo.svg" alt="BMBF Germany" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
+</div>
+<div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">BMBF Germany</div>
+</div>
+
+<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<div class="h-24 w-full flex items-center justify-center mb-3 relative">
+<div class="absolute inset-0 bg-gradient-to-br from-purple-100/40 to-pink-100/40 dark:from-purple-800/30 dark:to-pink-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<img src="logos/media-lab-bayern-2024.svg" alt="Media Lab Bayern" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
+</div>
+<div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">Media Lab Bayern</div>
+</div>
+
+<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<div class="h-24 w-full flex items-center justify-center mb-3 relative">
+<div class="absolute inset-0 bg-gradient-to-br from-orange-100/40 to-amber-100/40 dark:from-orange-800/30 dark:to-amber-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<img src="logos/FAU_Kernmarke_H_RGB_blue.svg" alt="FAU Erlangen-Nürnberg" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
+</div>
+<div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">FAU Erlangen-Nürnberg</div>
+</div>
+
+<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<div class="h-24 w-full flex items-center justify-center mb-3 relative">
+<div class="absolute inset-0 bg-gradient-to-br from-green-100/40 to-emerald-100/40 dark:from-green-800/30 dark:to-emerald-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<img src="logos/PrototypeFund_Logo.svg" alt="Prototype Fund" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
+</div>
+<div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">Prototype Fund</div>
+</div>
+
+<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<div class="h-24 w-full flex items-center justify-center mb-3 relative">
+<div class="absolute inset-0 bg-gradient-to-br from-blue-100/40 to-white/40 dark:from-blue-800/30 dark:to-white/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<img src="logos/BayerischeStaatskanzlei-Logo.png" alt="Bayerische Staatskanzlei" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
+</div>
+<div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">Bayerische Staatskanzlei</div>
+</div>
+
+<!-- Duplicate set for seamless loop -->
+<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<div class="h-24 w-full flex items-center justify-center mb-3 relative">
+<div class="absolute inset-0 bg-gradient-to-br from-amber-100/40 to-orange-100/40 dark:from-amber-800/30 dark:to-orange-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<img src="logos/Fraunhofer-Gesellschaft_2009_logo.svg" alt="Fraunhofer Institute" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
+</div>
+<div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">Fraunhofer Institute</div>
+</div>
+
+<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<div class="h-24 w-full flex items-center justify-center mb-3 relative">
+<div class="absolute inset-0 bg-gradient-to-br from-blue-100/40 to-indigo-100/40 dark:from-blue-800/30 dark:to-indigo-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<img src="logos/universitaetsklinikum-leipzig-logo-vector.svg" alt="University Hospital Leipzig" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
+</div>
+<div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">University Hospital Leipzig</div>
+</div>
+
+<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<div class="h-24 w-full flex items-center justify-center mb-3 relative">
+<div class="absolute inset-0 bg-gradient-to-br from-red-100/40 to-yellow-100/40 dark:from-red-800/30 dark:to-yellow-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<img src="logos/BMBF_Logo.svg" alt="BMBF Germany" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
+</div>
+<div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">BMBF Germany</div>
+</div>
+
+<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<div class="h-24 w-full flex items-center justify-center mb-3 relative">
+<div class="absolute inset-0 bg-gradient-to-br from-purple-100/40 to-pink-100/40 dark:from-purple-800/30 dark:to-pink-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<img src="logos/media-lab-bayern-2024.svg" alt="Media Lab Bayern" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
+</div>
+<div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">Media Lab Bayern</div>
+</div>
+
+<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<div class="h-24 w-full flex items-center justify-center mb-3 relative">
+<div class="absolute inset-0 bg-gradient-to-br from-orange-100/40 to-amber-100/40 dark:from-orange-800/30 dark:to-amber-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<img src="logos/FAU_Kernmarke_H_RGB_blue.svg" alt="FAU Erlangen-Nürnberg" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
+</div>
+<div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">FAU Erlangen-Nürnberg</div>
+</div>
+
+<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<div class="h-24 w-full flex items-center justify-center mb-3 relative">
+<div class="absolute inset-0 bg-gradient-to-br from-green-100/40 to-emerald-100/40 dark:from-green-800/30 dark:to-emerald-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<img src="logos/PrototypeFund_Logo.svg" alt="Prototype Fund" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
+</div>
+<div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">Prototype Fund</div>
+</div>
+
+<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<div class="h-24 w-full flex items-center justify-center mb-3 relative">
+<div class="absolute inset-0 bg-gradient-to-br from-blue-100/40 to-white/40 dark:from-blue-800/30 dark:to-white/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<img src="logos/BayerischeStaatskanzlei-Logo.png" alt="Bayerische Staatskanzlei" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
+</div>
+<div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">Bayerische Staatskanzlei</div>
 </div>
 </div>
-<div class="text-center mt-8">
-<a href="en/contact.html" class="btn-primary">Get Started Today</a>
+</div>
+
+<!-- Dot indicators -->
+<div class="flex justify-center gap-3 mt-8">
+<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400 active" data-slide="0"></div>
+<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400" data-slide="1"></div>
+<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400" data-slide="2"></div>
+<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400" data-slide="3"></div>
+<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400" data-slide="4"></div>
+<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400" data-slide="5"></div>
+<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400" data-slide="6"></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Enhanced Services Overview Section with glass morphism -->
+<section class="section-services px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-8 sm:py-12 lg:py-16 relative overflow-hidden">
+<!-- Background decoration -->
+<div class="absolute inset-0 bg-gradient-to-r from-amber-50/30 to-orange-50/30 dark:from-amber-900/10 dark:to-orange-900/10 opacity-50 dark:opacity-30"></div>
+<div class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-amber-100/20 to-orange-100/20 dark:from-amber-800/10 dark:to-orange-800/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+<div class="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-yellow-100/20 to-amber-100/20 dark:from-yellow-800/10 dark:to-amber-800/10 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+
+<div class="max-w-[960px] mx-auto space-y-6 sm:space-y-8 relative z-10">
+<div class="text-center">
+<h2 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 enhanced-readability" style='font-family: "Playfair Display", serif;'>How I Help Transform Your Business</h2>
+<p class="text-secondary text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed enhanced-readability">
+Strategic AI consulting that bridges the gap between cutting-edge research and practical business applications.
+</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 stagger-animation">
+<div class="card text-center group hover:shadow-2xl transition-all duration-700 ease-out bg-gradient-to-br from-white/90 to-white/70 service-card backdrop-blur-lg shadow-xl interactive-glow glass-morphism flex flex-col justify-between hover:-translate-y-2 hover:scale-[1.02]">
+<div class="relative mb-6">
+<div class="absolute inset-0 bg-gradient-to-br from-amber-100 to-orange-100 dark:from-amber-800/20 dark:to-orange-800/20 rounded-full opacity-20 transform group-hover:scale-125 transition-all duration-700 ease-out"></div>
+<div class="text-accent text-5xl relative z-10 group-hover:scale-110 transition-all duration-500 ease-out"><span class="material-icons-outlined">psychology</span></div>
+</div>
+<h3 class="text-xl font-bold mb-4 text-primary enhanced-readability" style='font-family: "Playfair Display", serif;'>Strategic AI Advisory</h3>
+<p class="text-secondary leading-relaxed mb-6 enhanced-readability">Navigate the AI landscape with expert guidance on strategy, implementation, and ethical considerations for sustainable business growth.</p>
+<a href="en/services.html" class="btn-primary px-6 py-3 text-sm">
+Learn More
+</a>
+</div>
+<div class="card text-center group hover:shadow-2xl transition-all duration-700 ease-out bg-gradient-to-br from-white/90 to-white/70 service-card backdrop-blur-lg shadow-xl interactive-glow glass-morphism flex flex-col justify-between hover:-translate-y-2 hover:scale-[1.02]">
+<div class="relative mb-6">
+<div class="absolute inset-0 bg-gradient-to-br from-amber-100 to-orange-100 dark:from-amber-800/20 dark:to-orange-800/20 rounded-full opacity-20 transform group-hover:scale-125 transition-all duration-700 ease-out"></div>
+<div class="text-amber-600 text-5xl relative z-10 group-hover:scale-110 transition-all duration-500 ease-out"><span class="material-icons-outlined">engineering</span></div>
+</div>
+<h3 class="text-xl font-bold mb-4 text-primary enhanced-readability" style='font-family: "Playfair Display", serif;'>Custom ML Solutions</h3>
+<p class="text-secondary leading-relaxed mb-6 enhanced-readability">Develop and deploy machine learning models tailored to your specific business needs, from proof-of-concept to production.</p>
+<a href="en/projects.html" class="btn-primary px-6 py-3 text-sm">
+View Projects
+</a>
+</div>
+<div class="card text-center group hover:shadow-2xl transition-all duration-700 ease-out bg-gradient-to-br from-white/90 to-white/70 service-card backdrop-blur-lg shadow-xl interactive-glow glass-morphism flex flex-col justify-between hover:-translate-y-2 hover:scale-[1.02]">
+<div class="relative mb-6">
+<div class="absolute inset-0 bg-gradient-to-br from-amber-100 to-orange-100 dark:from-amber-800/20 dark:to-orange-800/20 rounded-full opacity-20 transform group-hover:scale-125 transition-all duration-700 ease-out"></div>
+<div class="text-amber-600 text-5xl relative z-10 group-hover:scale-110 transition-all duration-500 ease-out"><span class="material-icons-outlined">business_center</span></div>
+</div>
+<h3 class="text-xl font-bold mb-4 text-primary enhanced-readability" style='font-family: "Playfair Display", serif;'>AI for SMEs</h3>
+<p class="text-secondary leading-relaxed mb-6 enhanced-readability">Specialized AI solutions for small and medium enterprises, making advanced technology accessible and affordable.</p>
+<a href="en/services.html" class="btn-primary px-6 py-3 text-sm">
+My Services
+</a>
+</div>
+<div class="card text-center group hover:shadow-2xl transition-all duration-700 ease-out bg-gradient-to-br from-white/90 to-white/70 service-card backdrop-blur-lg shadow-xl interactive-glow glass-morphism flex flex-col justify-between hover:-translate-y-2 hover:scale-[1.02]">
+<div class="relative mb-6">
+<div class="absolute inset-0 bg-gradient-to-br from-amber-100 to-orange-100 dark:from-amber-800/20 dark:to-orange-800/20 rounded-full opacity-20 transform group-hover:scale-125 transition-all duration-700 ease-out"></div>
+<div class="text-amber-600 text-5xl relative z-10 group-hover:scale-110 transition-all duration-500 ease-out"><span class="material-icons-outlined">school</span></div>
+</div>
+<h3 class="text-xl font-bold mb-4 text-primary enhanced-readability" style='font-family: "Playfair Display", serif;'>AI Literacy & Training</h3>
+<p class="text-secondary leading-relaxed mb-6 enhanced-readability">Build AI literacy within your organization through comprehensive workshops, training sessions, and hands-on guidance.</p>
+<a href="en/about.html" class="btn-primary px-6 py-3 text-sm">
+About me
+</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Enhanced Featured Projects Section -->
+<section class="section-projects px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-8 sm:py-12 lg:py-16 relative overflow-hidden">
+<!-- Decorative background elements -->
+<div class="absolute inset-0 bg-gradient-to-r from-amber-50/30 to-orange-50/30 dark:from-amber-900/10 dark:to-orange-900/10 opacity-50 dark:opacity-30"></div>
+<div class="absolute top-1/3 left-0 w-72 h-72 bg-gradient-to-br from-amber-100/20 to-orange-100/20 dark:from-amber-800/10 dark:to-orange-800/10 rounded-full blur-3xl transform -translate-x-1/2"></div>
+<div class="absolute bottom-1/3 right-0 w-72 h-72 bg-gradient-to-tr from-orange-100/20 to-amber-100/20 dark:from-orange-800/10 dark:to-amber-800/10 rounded-full blur-3xl transform translate-x-1/2"></div>
+
+<div class="max-w-[960px] mx-auto space-y-10 sm:space-y-12 relative z-10">
+<div class="text-center">
+<h2 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4" style='font-family: "Playfair Display", serif;'>Featured AI Solutions</h2>
+<p class="text-secondary text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
+Real-world AI solutions that demonstrate the intersection of cutting-edge research and practical impact.
+</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10">
+<!-- Enhanced DoppelCheck Project -->
+<div class="project-card group relative overflow-hidden bg-gradient-to-br from-white/95 to-white/85 project-card backdrop-blur-lg rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-3 hover:scale-105">
+<div class="absolute inset-0 bg-gradient-to-br from-stone-500/5 to-slate-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<div class="relative z-10 p-6">
+<div class="aspect-video bg-gradient-to-br from-slate-600 to-slate-700 rounded-xl mb-6 flex items-center justify-center overflow-hidden relative">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
+<div class="text-white text-6xl opacity-90 relative z-10 transform group-hover:scale-110 transition-transform duration-500"><span class="material-icons-outlined">fact_check</span></div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-2 text-sm">
+<span class="px-3 py-1 bg-gradient-to-r from-amber-400 to-orange-400 text-white font-medium rounded-full shadow-lg">
+<span class="material-icons-outlined text-sm mr-1">emoji_events</span>
+Award Finalist 2024
+</span>
+</div>
+<h3 class="text-xl sm:text-2xl font-bold text-primary group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors" style='font-family: "Playfair Display", serif;'>DoppelCheck</h3>
+<p class="text-secondary leading-relaxed">AI browser tool for automatic identification of disinformation and misinformation. Finalist for International Award for Innovation in Journalism 2024.</p>
+<div class="flex flex-wrap gap-2 text-xs">
+<span class="px-3 py-1 bg-stone-200 text-stone-800 dark:bg-stone-700 dark:text-stone-200 rounded-full font-medium border border-stone-300 dark:border-stone-600">Digital Literacy</span>
+<span class="px-3 py-1 bg-stone-200 text-stone-800 dark:bg-stone-700 dark:text-stone-200 rounded-full font-medium border border-stone-300 dark:border-stone-600">Browser Extension</span>
+<span class="px-3 py-1 bg-stone-200 text-stone-800 dark:bg-stone-700 dark:text-stone-200 rounded-full font-medium border border-stone-300 dark:border-stone-600">AI Detection</span>
+</div>
+<a href="en/projects.html" class="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold text-sm rounded-xl hover:from-amber-600 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg mt-6">
+Learn More <span class="material-icons-outlined ml-2 text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+
+<!-- Enhanced AMPEL Project -->
+<div class="project-card group relative overflow-hidden bg-gradient-to-br from-white/95 to-white/85 project-card backdrop-blur-lg rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-3 hover:scale-105">
+<div class="absolute inset-0 bg-gradient-to-br from-stone-500/5 to-slate-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<div class="relative z-10 p-6">
+<div class="aspect-video bg-gradient-to-br from-slate-600 to-slate-700 rounded-xl mb-6 flex items-center justify-center overflow-hidden relative">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
+<div class="text-white text-6xl opacity-90 relative z-10 transform group-hover:scale-110 transition-transform duration-500"><span class="material-icons-outlined">local_hospital</span></div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-2 text-sm">
+<span class="px-3 py-1 bg-gradient-to-r from-green-400 to-emerald-400 text-white font-medium rounded-full shadow-lg">
+<span class="material-icons-outlined text-sm mr-1">trending_up</span>
+€3M+ Funding
+</span>
+</div>
+<h3 class="text-xl sm:text-2xl font-bold text-primary group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors" style='font-family: "Playfair Display", serif;'>AMPEL</h3>
+<p class="text-secondary leading-relaxed">AI-driven Clinical Decision Support System for real-time laboratory diagnostics, improving patient safety at University Hospital Leipzig.</p>
+<div class="flex flex-wrap gap-2 text-xs">
+<span class="px-3 py-1 bg-stone-200 text-stone-800 dark:bg-stone-700 dark:text-stone-200 rounded-full font-medium border border-stone-300 dark:border-stone-600">Healthcare AI</span>
+<span class="px-3 py-1 bg-stone-200 text-stone-800 dark:bg-stone-700 dark:text-stone-200 rounded-full font-medium border border-stone-300 dark:border-stone-600">Clinical Decision Support</span>
+<span class="px-3 py-1 bg-stone-200 text-stone-800 dark:bg-stone-700 dark:text-stone-200 rounded-full font-medium border border-stone-300 dark:border-stone-600">Real-time ML</span>
+</div>
+<a href="en/projects.html" class="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold text-sm rounded-xl hover:from-amber-600 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg mt-6">
+Learn More <span class="material-icons-outlined ml-2 text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+
+<!-- Enhanced ARTeFact Project -->
+<div class="project-card group relative overflow-hidden bg-gradient-to-br from-white/95 to-white/85 project-card backdrop-blur-lg rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-3 hover:scale-105">
+<div class="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<div class="relative z-10 p-6">
+<div class="aspect-video bg-gradient-to-br from-slate-600 to-slate-700 rounded-xl mb-6 flex items-center justify-center overflow-hidden relative">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
+<div class="text-white text-6xl opacity-90 relative z-10 transform group-hover:scale-110 transition-transform duration-500"><span class="material-icons-outlined">palette</span></div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-2 text-sm">
+<span class="px-3 py-1 bg-gradient-to-r from-purple-400 to-pink-400 text-white font-medium rounded-full shadow-lg">
+<span class="material-icons-outlined text-sm mr-1">auto_awesome</span>
+AI Ethics & Art
+</span>
+</div>
+<h3 class="text-xl sm:text-2xl font-bold text-primary group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors" style='font-family: "Playfair Display", serif;'>ARTeFact (Spiegelbox)</h3>
+<p class="text-secondary leading-relaxed">Interactive AI installation exploring the ethical implications of AI empathy exploitation through creative and philosophical approaches.</p>
+<div class="flex flex-wrap gap-2 text-xs">
+<span class="px-3 py-1 bg-stone-200 text-stone-800 dark:bg-stone-700 dark:text-stone-200 rounded-full font-medium border border-stone-300 dark:border-stone-600">AI Ethics</span>
+<span class="px-3 py-1 bg-stone-200 text-stone-800 dark:bg-stone-700 dark:text-stone-200 rounded-full font-medium border border-stone-300 dark:border-stone-600">Interactive Art</span>
+<span class="px-3 py-1 bg-stone-200 text-stone-800 dark:bg-stone-700 dark:text-stone-200 rounded-full font-medium border border-stone-300 dark:border-stone-600">Human-AI Interaction</span>
+</div>
+<a href="en/projects.html" class="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold text-sm rounded-xl hover:from-amber-600 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg mt-6">
+Learn More <span class="material-icons-outlined ml-2 text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class="text-center mt-12">
+<a href="en/projects.html" class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-lg rounded-xl hover:from-amber-600 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-2xl">
+<span class="material-icons-outlined mr-2">folder_open</span>
+View All Projects
+</a>
+</div>
+</div>
+</section>
+
+<!-- Enhanced About Dr. Wernsdorfer Section -->
+<section class="section-about px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-8 sm:py-12 lg:py-16 relative overflow-hidden">
+<!-- Decorative background -->
+<div class="absolute inset-0 bg-gradient-to-r from-amber-50/40 to-orange-50/40 dark:from-amber-900/20 dark:to-orange-900/20 opacity-60 dark:opacity-40"></div>
+<div class="absolute top-1/4 right-0 w-96 h-96 bg-gradient-to-bl from-amber-100/30 to-orange-100/30 dark:from-amber-800/10 dark:to-orange-800/10 rounded-full blur-3xl transform translate-x-1/3"></div>
+<div class="absolute bottom-1/4 left-0 w-96 h-96 bg-gradient-to-tr from-yellow-100/30 to-amber-100/30 dark:from-yellow-800/10 dark:to-amber-800/10 rounded-full blur-3xl transform -translate-x-1/3"></div>
+
+<div class="max-w-[960px] mx-auto relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
+<div class="space-y-6 sm:space-y-8">
+<div>
+<h2 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4" style='font-family: "Playfair Display", serif;'>About Dr. Wernsdorfer</h2>
+<p class="text-secondary text-lg sm:text-xl leading-relaxed">
+A distinguished interdisciplinary AI professional who bridges the gap between foundational research and practical applications.
+</p>
+</div>
+<div class="space-y-6">
+<div class="bg-white/80 about-info-card backdrop-blur-sm rounded-2xl p-6 shadow-lg">
+<p class="text-secondary leading-relaxed">
+Dr. Mark Wernsdorfer combines a unique background in Artificial Intelligence, Machine Learning, Philosophy of Mind, and Cognitive Science. His career is characterized by deep theoretical investigation into AI foundations and the development of impactful, real-world applications.
+</p>
+</div>
+<div class="bg-white/80 about-info-card backdrop-blur-sm rounded-2xl p-6 shadow-lg">
+<p class="text-secondary leading-relaxed">
+From clinical decision support systems that improve patient safety to AI tools fighting disinformation, his work demonstrates how philosophical understanding of AI's capabilities can guide practical innovation.
+</p>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+<div class="flex flex-col items-center text-center p-4 bg-gradient-to-br from-amber-100/80 to-orange-100/80 dark:from-amber-800/30 dark:to-orange-800/30 rounded-xl border border-amber-200 dark:border-amber-700/50 shadow-lg transform hover:scale-105 transition-transform duration-300">
+<span class="material-icons-outlined text-3xl text-accent dark:text-accent mb-2">school</span>
+<span class="font-semibold text-primary">PhD in Cognitive Systems</span>
+</div>
+<div class="flex flex-col items-center text-center p-4 bg-gradient-to-br from-blue-100/80 to-indigo-100/80 dark:from-blue-800/30 dark:to-indigo-800/30 rounded-xl border border-blue-200 dark:border-blue-700/50 shadow-lg transform hover:scale-105 transition-transform duration-300">
+<span class="material-icons-outlined text-3xl text-blue-600 dark:text-blue-400 mb-2">workspace_premium</span>
+<span class="font-semibold text-primary">Springer Best Paper Award</span>
+</div>
+<div class="flex flex-col items-center text-center p-4 bg-gradient-to-br from-green-100/80 to-emerald-100/80 dark:from-green-800/30 dark:to-emerald-800/30 rounded-xl border border-green-200 dark:border-green-700/50 shadow-lg transform hover:scale-105 transition-transform duration-300">
+<span class="material-icons-outlined text-3xl text-green-600 dark:text-green-400 mb-2">business</span>
+<span class="font-semibold text-primary">€3M+ in AI Project Funding</span>
+</div>
+</div>
+</div>
+<div class="relative order-first lg:order-last">
+<div class="relative">
+<!-- Background decorative elements -->
+<div class="absolute -inset-4 bg-gradient-to-r from-amber-200 to-orange-200 rounded-3xl opacity-20 blur-2xl"></div>
+<div class="absolute -inset-2 bg-gradient-to-br from-amber-100 to-orange-100 rounded-3xl opacity-40"></div>
+<!-- Main image container -->
+<div class="relative aspect-square bg-gradient-to-br from-stone-300 to-stone-400 rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">          <img src="images/profile-mark-wernsdorfer.webp" alt="Dr. Mark Wernsdorfer - AI Consultant and Researcher" class="w-full h-full object-cover object-center" loading="lazy" decoding="async" />
+<!-- Overlay gradient -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+</div>
+<!-- Floating badge -->
+<div class="absolute -bottom-6 -right-6 bg-gradient-to-r from-amber-500 to-orange-500 text-white p-6 rounded-2xl shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-300">
+<span class="material-icons-outlined text-3xl">psychology</span>
+</div>
+<!-- Additional floating elements -->
+<div class="absolute top-4 -left-4 w-8 h-8 bg-gradient-to-br from-yellow-300 to-amber-300 rounded-full opacity-60 animate-pulse"></div>
+<div class="absolute bottom-1/3 -right-2 w-4 h-4 bg-gradient-to-br from-orange-300 to-red-300 rounded-full opacity-40 animate-pulse" style="animation-delay: 1s;"></div>
+<div class="absolute top-1/3 -left-2 w-6 h-6 bg-gradient-to-br from-amber-200 to-yellow-200 rounded-full opacity-50 animate-pulse" style="animation-delay: 2s;"></div>
+</div>
+<!-- Button positioned underneath the image -->
+<div class="flex justify-center mt-12">
+<a href="en/about.html" class="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-lg rounded-xl hover:from-amber-600 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-xl">
+<span class="material-icons-outlined mr-2">person</span>
+More About Dr. Wernsdorfer
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Enhanced Call to Action Section -->
+<section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-8 sm:py-12 lg:py-16 bg-secondary relative overflow-hidden">
+<!-- Background effects -->
+<div class="absolute inset-0 bg-gradient-to-r from-purple-100/20 to-blue-100/20 dark:from-purple-900/20 dark:to-blue-900/20"></div>
+<div class="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-accent/10 to-orange-500/10 rounded-full blur-3xl"></div>
+<div class="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-tr from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"></div>
+<!-- Animated particles -->
+<div class="absolute inset-0">
+<div class="floating-element absolute w-1 h-1 bg-accent-light rounded-full opacity-40" style="top: 20%; left: 20%; animation-delay: 0s;"></div>
+<div class="floating-element absolute w-2 h-2 bg-accent-light rounded-full opacity-30" style="top: 60%; left: 10%; animation-delay: 1s;"></div>
+<div class="floating-element absolute w-1 h-1 bg-accent-light rounded-full opacity-50" style="top: 30%; left: 80%; animation-delay: 2s;"></div>
+<div class="floating-element absolute w-2 h-2 bg-accent-light rounded-full opacity-25" style="top: 80%; left: 90%; animation-delay: 3s;"></div>
+<div class="floating-element absolute w-1 h-1 bg-accent-light rounded-full opacity-35" style="top: 70%; left: 70%; animation-delay: 4s;"></div>
+</div>
+
+<div class="max-w-[960px] mx-auto text-center space-y-6 sm:space-y-8 relative z-10">
+<h2 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight" style='font-family: "Playfair Display", serif;'>
+Ready to Transform Your Business with AI?
+</h2>
+<p class="text-secondary text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
+Let's discuss how strategic AI implementation can solve your complex challenges and drive sustainable growth.
+</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
+<a href="en/contact.html" class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-lg rounded-xl hover:from-amber-400 hover:to-orange-400 transition-all duration-300 transform hover:scale-110 hover:shadow-2xl shadow-xl min-w-[240px]">
+<span class="material-icons-outlined mr-3 text-xl">calendar_today</span>
+Schedule a Consultation
+</a>
+<div class="text-secondary text-sm">or</div>
+<a href="en/services.html" class="inline-flex items-center justify-center px-6 py-3 border-2 border-primary text-primary font-semibold text-lg rounded-xl hover:border-accent hover:text-accent hover:bg-accent/10 transition-all duration-300 min-w-[200px]">
+<span class="material-icons-outlined mr-2">explore</span>
+Explore Services
+</a>
+</div>
+<!-- Trust indicators -->
+<div class="flex justify-center items-center gap-8 mt-12 opacity-60">
+<div class="flex items-center gap-2 text-sm text-secondary">
+<span class="material-icons-outlined text-green-400">verified</span>
+<span>Trusted by 50+ Clients</span>
+</div>
+<div class="flex items-center gap-2 text-sm text-secondary">
+<span class="material-icons-outlined text-blue-400">star</span>
+<span>Award-Winning Solutions</span>
+</div>
+<div class="flex items-center gap-2 text-sm text-secondary">
+<span class="material-icons-outlined text-purple-400">security</span>
+<span>Confidential & Secure</span>
+</div>
 </div>
 </div>
 </section>
 
 </main>
-<footer class="bg-stone-800 text-stone-300">
+<footer class="footer-bg footer-text">
 <div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-12 text-center space-y-4 sm:space-y-6">
 <div class="flex flex-col sm:flex-row items-center justify-center gap-y-2 gap-x-4 sm:gap-x-6">
-<a class="text-stone-400 hover:text-amber-600 text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Privacy Policy</a>
-<a class="text-stone-400 hover:text-amber-600 text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Terms of Service</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="en/contact.html">Contact Details</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Privacy Policy</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Terms of Service</a>
 </div>
-<div class="flex flex-wrap justify-center gap-4">
-<a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-stone-400 hover:text-amber-600 transition-colors">
-<span class="material-icons text-xl sm:text-2xl">business</span>
+<div class="flex flex-wrap justify-center gap-6">
+<a href="https://github.com/wehnsdaefflae" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
+<span class="material-icons text-xl sm:text-2xl">code</span>
+<span class="text-sm">GitHub</span>
 </a>
-<a href="mailto:contact@markwernsdorfer.com" target="_blank" rel="noopener noreferrer" aria-label="Email" class="text-stone-400 hover:text-amber-600 transition-colors">
+<a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
+<span class="material-icons text-xl sm:text-2xl">business</span>
+<span class="text-sm">LinkedIn</span>
+</a>
+<a href="mailto:wernsdorfer@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
 <span class="material-icons text-xl sm:text-2xl">email</span>
+<span class="text-sm">Email</span>
 </a>
 </div>
 <p class="text-sm sm:text-base font-normal leading-normal">© 2025 Dr. Mark Wernsdorfer. All rights reserved.</p>
-<p class="text-xs sm:text-sm text-stone-400" style='font-family: "Playfair Display", serif;'>
-Bridging AI theory and practice with precision.
+<p class="text-xs sm:text-sm footer-link" style='font-family: "Playfair Display", serif;'>
+Bridging deep AI theory with practical business solutions.
 </p>
 </div>
 </footer>
+
+<!-- Enhanced Mobile Bottom Navigation with glass morphism -->
+<nav class="mobile-bottom-nav lg:hidden fixed bottom-0 left-0 right-0 z-50 mobile-nav-bg backdrop-blur-xl themed-border border-t shadow-2xl">
+  <div class="mobile-nav-grid relative">
+    <!-- Background glow effect -->
+    <div class="absolute inset-0 bg-gradient-to-r from-amber-50/50 via-orange-50/30 to-amber-50/50 dark:from-amber-800/20 dark:via-orange-900/10 dark:to-amber-800/20 opacity-60 dark:opacity-40"></div>
+    
+    <a href="index.html" class="mobile-nav-item active mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+      <div class="absolute inset-0 bg-gradient-to-br from-amber-100/30 dark:from-amber-800/20 to-orange-100/30 dark:to-orange-900/10 rounded-xl opacity-0 group-hover:opacity-100 group-[.active]:opacity-100 transition-opacity duration-300"></div>
+      <span class="material-icons-outlined text-xl relative z-10 transition-all duration-300 group-hover:scale-110">home</span>
+      <span class="text-xs font-medium relative z-10 enhanced-readability">Home</span>
+    </a>
+    <a href="en/about.html" class="mobile-nav-item text-secondary relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+      <div class="absolute inset-0 bg-gradient-to-br from-blue-100/30 dark:from-blue-800/20 to-indigo-100/30 dark:to-indigo-900/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <span class="material-icons-outlined text-xl relative z-10 transition-all duration-300 group-hover:scale-110">person</span>
+      <span class="text-xs font-medium relative z-10 enhanced-readability">About</span>
+    </a>
+    <a href="en/services.html" class="mobile-nav-item text-secondary relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+      <div class="absolute inset-0 bg-gradient-to-br from-green-100/30 dark:from-green-800/20 to-emerald-100/30 dark:to-emerald-900/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <span class="material-icons-outlined text-xl relative z-10 transition-all duration-300 group-hover:scale-110">work</span>
+      <span class="text-xs font-medium relative z-10 enhanced-readability">Services</span>
+    </a>
+    <a href="en/projects.html" class="mobile-nav-item text-secondary relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+      <div class="absolute inset-0 bg-gradient-to-br from-purple-100/30 dark:from-purple-800/20 to-pink-100/30 dark:to-pink-900/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <span class="material-icons-outlined text-xl relative z-10 transition-all duration-300 group-hover:scale-110">folder</span>
+      <span class="text-xs font-medium relative z-10 enhanced-readability">Portfolio</span>
+    </a>
+    <a href="en/contact.html" class="mobile-nav-item text-secondary relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+      <div class="absolute inset-0 bg-gradient-to-br from-orange-100/30 dark:from-orange-800/20 to-red-100/30 dark:to-red-900/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <span class="material-icons-outlined text-xl relative z-10 transition-all duration-300 group-hover:scale-110">contact_mail</span>
+      <span class="text-xs font-medium relative z-10 enhanced-readability">Contact</span>
+    </a>
+  </div>
+</nav>
+
 </div>
 </div>
 </body>

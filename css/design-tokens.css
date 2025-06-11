@@ -1,0 +1,127 @@
+/* ==========================================================================
+   Design System - CSS Custom Properties (Design Tokens)
+   ========================================================================== */
+
+:root {
+  /* Enhanced spacing scale */
+  --space-xs: 0.25rem;    /* 4px */
+  --space-sm: 0.5rem;     /* 8px */
+  --space-md: 1rem;       /* 16px */
+  --space-lg: 1.5rem;     /* 24px */
+  --space-xl: 2rem;       /* 32px */
+  --space-2xl: 3rem;      /* 48px */
+  --space-3xl: 4rem;      /* 64px */
+  --space-4xl: 6rem;      /* 96px */
+  --space-5xl: 8rem;      /* 128px */
+  
+  /* Enhanced typography scale */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2.25rem;
+  --font-size-4xl: 3rem;
+  --font-size-5xl: 4rem;
+  
+  /* Enhanced transitions and animations */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* Enhanced shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-glow: 0 0 40px rgba(217, 119, 6, 0.2);
+  --shadow-glow-strong: 0 0 60px rgba(217, 119, 6, 0.4);
+  
+  /* Enhanced gradients */
+  --gradient-primary: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%);
+  --gradient-secondary: linear-gradient(135deg, #fafaf9 0%, #f5f5f4 100%);
+  --gradient-hero: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.8) 100%);
+  --gradient-card: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+  
+  /* Light theme colors - enhanced */
+  --bg-primary: linear-gradient(135deg, #fafaf9 0%, #f5f5f4 50%, #fafaf9 100%);
+  --bg-secondary: #f5f5f4;
+  --bg-tertiary: #e7e5e4;
+  --bg-glass: rgba(255, 255, 255, 0.8);
+  
+  --text-primary: #1c1917;
+  --text-secondary: #44403c;
+  --text-tertiary: #78716c;
+  
+  --border-color: rgba(68, 64, 60, 0.2);
+  --border-hover: rgba(217, 119, 6, 0.4);
+  
+  /* Enhanced button styles for light theme */
+  --btn-primary-bg: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%);
+  --btn-primary-text: #ffffff;
+  --btn-primary-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
+  --btn-primary-shadow-hover: 0 8px 25px rgba(217, 119, 6, 0.5);
+  
+  /* Form elements */
+  --form-bg: #ffffff;
+  --form-text: #1c1917;
+  --form-border: rgba(68, 64, 60, 0.3);
+  --form-focus-border: rgba(217, 119, 6, 0.6);
+  --bg-tertiary: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.9);
+  --text-primary: #1c1917;
+  --text-secondary: #57534e;
+  --text-tertiary: #78716c;
+  --border-color: #e7e5e4;
+  --accent-color: #d97706;
+  --accent-hover: #b45309;
+  --accent-light: #fbbf24;
+  --accent-dark: #92400e;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  
+  /* Form colors */
+  --form-bg: var(--bg-primary);
+  --form-bg-focus: var(--bg-tertiary);
+  --form-border: var(--border-color);
+  --form-border-focus: var(--accent-color);
+  --form-text: var(--text-primary);
+  --form-placeholder: var(--text-tertiary);
+  --form-shadow-focus: rgba(217, 119, 6, 0.1);
+  
+  /* Enhanced button variables */
+  --btn-primary-bg: var(--gradient-primary);
+  --btn-primary-text: #ffffff;
+  --btn-primary-shadow: var(--shadow-lg);
+  --btn-primary-shadow-hover: var(--shadow-glow-strong);
+}
+
+/* Enhanced dark theme */
+:root.dark {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #262626;
+  --bg-glass: rgba(26, 26, 26, 0.9);
+  --text-primary: #ffffff;
+  --text-secondary: #e5e5e5;
+  --text-tertiary: #a3a3a3;
+  --border-color: #404040;
+  --accent-color: #f59e0b;
+  --accent-hover: #ffffff;
+  --accent-light: #fbbf24;
+  --accent-dark: #d97706;
+  --shadow-color: rgba(0, 0, 0, 0.6);
+  
+  --gradient-primary: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #fcd34d 100%);
+  --gradient-secondary: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  --gradient-card: linear-gradient(135deg, rgba(38, 38, 38, 0.9) 0%, rgba(26, 26, 26, 0.7) 100%);
+  --shadow-glow: 0 0 40px rgba(245, 158, 11, 0.3);
+  --shadow-glow-strong: 0 0 60px rgba(245, 158, 11, 0.5);
+  
+  /* Form colors for dark theme */
+  --form-bg: var(--bg-secondary);
+  --form-bg-focus: var(--bg-tertiary);
+  --form-shadow-focus: rgba(245, 158, 11, 0.1);
+}

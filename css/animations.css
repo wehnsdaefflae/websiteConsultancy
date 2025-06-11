@@ -1,0 +1,488 @@
+/* ==========================================================================
+   Animations and Keyframes
+   ========================================================================== */
+
+/* Core Keyframe Animations */
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes heroShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-10deg) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-15px) rotate(2deg); }
+  50% { transform: translateY(-10px) rotate(-1deg); }
+  75% { transform: translateY(-20px) rotate(1deg); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-8px) rotate(1deg); }
+  66% { transform: translateY(-12px) rotate(-0.5deg); }
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   Animation Classes
+   ========================================================================== */
+
+/* Floating elements */
+.floating-element {
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-element:nth-child(even) {
+  animation: floatSlow 8s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+/* Text animations */
+.text-shimmer {
+  animation: gradientShift 3s ease-in-out infinite;
+}
+
+.gradient-animated {
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease infinite;
+}
+
+/* Hero animations */
+.hero-title {
+  animation: heroShimmer 4s ease-in-out infinite, fadeInUp 1s ease-out both;
+}
+
+.hero-subtitle {
+  animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+.hero-description {
+  animation: fadeInUp 1s ease-out 1s both;
+}
+
+.hero-buttons {
+  animation: fadeInUp 1s ease-out 1.5s both;
+}
+
+/* Enhanced background pulse */
+.hero-background::after {
+  animation: pulse 4s ease-in-out infinite;
+}
+
+/* Loading states */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+.loading-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.loading-pulse {
+  animation: pulse 2s infinite;
+}
+
+.loading-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Animation utility classes - Service cards excluded to prevent hover conflicts */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+/* Service cards are explicitly excluded from entrance animations */
+.service-card {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: slideInLeft 0.8s ease forwards;
+}
+
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(50px);
+  animation: slideInRight 0.8s ease forwards;
+}
+
+.zoom-in {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: zoomIn 0.8s ease forwards;
+}
+
+.rotate-in {
+  opacity: 0;
+  transform: rotate(-10deg) scale(0.8);
+  animation: rotateIn 0.8s ease forwards;
+}
+
+/* Scroll-triggered animations */
+.section-animated {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all var(--transition-slow);
+}
+
+.section-animated.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Reduced Motion Support
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-element,
+  .gradient-animated,
+  .text-shimmer,
+  .hero-background::after {
+    animation: none;
+  }
+  
+  .hero-title,
+  .hero-subtitle,
+  .hero-description,
+  .hero-buttons {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .section-animated {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Scroll Progress Indicator */
+.scroll-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  z-index: 60;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.scroll-progress-inner {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-light));
+  width: 0%;
+  transition: width 0.2s ease;
+}
+
+:root.dark .scroll-indicator {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--accent-color);
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 1000;
+  border-radius: 4px;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  border: 0 !important;
+}
+
+/* ==========================================================================
+   Enhanced Service Page Specific Animations and Effects
+   ========================================================================== */
+
+/* Service card enhanced animations */
+@keyframes service-card-glow {
+  0% { box-shadow: var(--shadow-lg); }
+  50% { box-shadow: var(--shadow-glow); }
+  100% { box-shadow: var(--shadow-lg); }
+}
+
+/* Service card enhanced animations - constant glow on hover instead of pulsing */
+.service-card:hover {
+  box-shadow: var(--shadow-glow) !important;
+}
+
+/* Process step floating animation */
+@keyframes process-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+.process-step:hover .process-number {
+  animation: process-float 2s ease-in-out infinite;
+}
+
+/* Specialty item pulse effect */
+@keyframes specialty-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.specialty-item:hover {
+  animation: specialty-pulse 1.5s ease-in-out infinite;
+}
+
+/* Service icon rotation effect */
+@keyframes service-icon-rotate {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(5deg) scale(1.05); }
+  75% { transform: rotate(-5deg) scale(1.05); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+.service-card:hover .service-icon {
+  animation: service-icon-rotate 0.6s ease-in-out;
+}
+
+/* Enhanced button hover effects */
+.btn-secondary:hover {
+  box-shadow: 0 8px 25px rgba(217, 119, 6, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Card gradient overlay animation for better visual depth */
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(217, 119, 6, 0.02) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  pointer-events: none;
+}
+
+.card:hover::after {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Contact Page Specific Animations and Interactions
+   ========================================================================== */
+
+.consultation-card {
+  transition: all var(--transition-normal);
+  transform-style: preserve-3d;
+}
+
+.consultation-card:hover {
+  transform: translateY(-8px) rotateX(5deg);
+}
+
+.contact-form {
+  transition: all var(--transition-normal);
+}
+
+.contact-form:hover {
+  transform: translateY(-2px);
+}
+
+.contact-info-card {
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-info-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.1), transparent);
+  transition: left var(--transition-slow);
+}
+
+.contact-info-card:hover::before {
+  left: 100%;
+}
+
+.contact-info-highlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-info-highlight::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(217, 119, 6, 0.1) 50%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.contact-info-highlight:hover::after {
+  opacity: 1;
+}
+
+/* Form interaction enhancements */
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+  transform: scale(1.02);
+}
+
+.contact-form label {
+  transition: all var(--transition-fast);
+}
+
+.contact-form input:focus + label,
+.contact-form textarea:focus + label,
+.contact-form select:focus + label {
+  color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Logo Carousel Animation
+   ========================================================================== */
+
+/* Manual carousel - no auto-animation */
+.animate-scroll {
+  /* Removed automatic animation - now controlled by JavaScript */
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Active dot indicator styling */
+.carousel-dot.active {
+  background-color: #f59e0b !important; /* amber-500 */
+  transform: scale(1.2);
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.3);
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll {
+    transition: none !important;
+  }
+  
+  .carousel-dot {
+    transition: none !important;
+  }
+}

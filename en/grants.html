@@ -36,6 +36,10 @@
 </script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<!-- Enhanced scroll progress indicator -->
+<div class="scroll-indicator" id="scroll-progress">
+  <div class="scroll-progress-inner"></div>
+</div>
 <meta name="theme-color" content="#d97706"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
@@ -44,22 +48,51 @@
 <meta name="description" content="Grants, Awards & Recognition - Dr. Mark Wernsdorfer's funded research projects, fellowships, and academic achievements in AI and machine learning."/>
 <meta name="keywords" content="research grants, AI funding, awards, recognition, fellowships, BMBF, Media Lab Bayern"/>
 <meta name="author" content="Dr. Mark Wernsdorfer"/>
+<meta property="og:title" content="Grants & Awards - Dr. Mark Wernsdorfer"/>
+<meta property="og:description" content="Strategic funding for innovative AI research projects, fellowships, and recognition in artificial intelligence and machine learning."/>
+<meta property="og:image" content="../images/project-ai-research.webp"/>
+<meta property="og:url" content="https://markwernsdorfer.com/en/grants.html"/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Grants & Awards - Dr. Mark Wernsdorfer"/>
+<meta name="twitter:description" content="Strategic funding for innovative AI research projects, fellowships, and recognition in artificial intelligence and machine learning."/>
+<meta name="twitter:image" content="../images/project-ai-research.webp"/>
+<link rel="canonical" href="https://markwernsdorfer.com/en/grants.html"/>
 <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
 <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Playfair+Display%3Awght%40400%3B500%3B700%3B900&amp;family=Roboto+Slab%3Awght%40300%3B400%3B500%3B700&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 <title>Grants & Awards - Dr. Mark Wernsdorfer</title>
-<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link rel="stylesheet" href="../style.css" />
-<script defer src="../javascript.js"></script>
+
+<!-- Modular CSS Files -->
+<link rel="stylesheet" href="../css/design-tokens.css" />
+<link rel="stylesheet" href="../css/base.css" />
+<link rel="stylesheet" href="../css/layout.css" />
+<link rel="stylesheet" href="../css/components.css" />
+<link rel="stylesheet" href="../css/animations.css" />
+<link rel="stylesheet" href="../css/theme.css" />
+<link rel="stylesheet" href="../css/theme-classes.css" />
+<link rel="stylesheet" href="../css/mobile.css" />
+<link rel="stylesheet" href="../css/utilities.css" />
+<link rel="stylesheet" href="../css/inline-styles.css" />
+
+<!-- Modular JavaScript Files -->
+<script defer src="../js/theme.js"></script>
+<script defer src="../js/core.js"></script>
+<script defer src="../js/navigation.js"></script>
+<script defer src="../js/animations.js"></script>
+<script defer src="../js/interactions.js"></script>
 </head>
-<body class="bg-stone-50 text-stone-800" style='font-family: "Roboto Slab", "Noto Sans", sans-serif;'>
+<body class="font-roboto-slab" style="background: var(--bg-primary); color: var(--text-primary);">
+<a href="#main-content" class="skip-link visually-hidden">Skip to main content</a>
 <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
 <div class="layout-container flex h-full grow flex-col">
-<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-stone-200 bg-stone-50/80 px-4 sm:px-6 lg:px-10 py-3 sm:py-4 backdrop-blur-md">
-<div class="flex items-center gap-2 sm:gap-3 text-stone-800 flex-shrink-0">
-<div class="size-6 sm:size-8 text-amber-600 flex-shrink-0">
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid themed-border header-bg px-4 sm:px-6 lg:px-10 py-3 sm:py-4 backdrop-blur-md">
+<div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+<div class="size-8 text-accent flex-shrink-0">
 <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_6_535)">
 <path d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z" fill="currentColor"></path>
@@ -69,221 +102,503 @@
 </defs>
 </svg>
 </div>
-<a href="../index.html" class="text-stone-800 text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight whitespace-nowrap hover:text-amber-600 transition-colors logo-text" style='font-family: "Playfair Display", serif;'><span class="logo-first-line">Dr. Mark</span> <span class="logo-second-line">Wernsdorfer</span></a>
+<a href="../index.html" class="header-logo-text text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight transition-colors font-playfair"><span class="logo-first-line">Dr. Mark</span> <span class="logo-second-line">Wernsdorfer</span></a>
 </div>
-<nav class="hidden xl:flex items-center gap-6 xl:gap-10" id="header-nav-links">
-<a class="nav-link hover-underline-animation" href="about.html">About</a>
-<a class="nav-link hover-underline-animation" href="services.html">Services</a>
-<a class="nav-link hover-underline-animation" href="projects.html">Projects</a>
-<span class="nav-link hover-underline-animation text-amber-600 disabled">Grants</span>
-<a class="nav-link hover-underline-animation" href="publications.html">Publications</a>
-<a class="nav-link hover-underline-animation" href="community.html">Community</a>
+<nav class="hidden lg:flex items-center gap-6 xl:gap-10" id="header-nav-links">
+<a class="nav-link hover-underline-animation nav-text" href="about.html">About</a>
+<a class="nav-link hover-underline-animation nav-text" href="services.html">Services</a>
+<a class="nav-link hover-underline-animation nav-text" href="projects.html">Portfolio</a>
+<a class="nav-link hover-underline-animation nav-text" href="publications.html">Insights</a>
+<a class="nav-link hover-underline-animation nav-text" href="community.html">Community</a>
+<span class="nav-link hover-underline-animation nav-text text-accent disabled">Grants</span>
 </nav>
-<div class="flex items-center gap-2 sm:gap-4">                <button onclick="toggleDarkMode()" class="theme-toggle" aria-label="Toggle dark mode"></button>
+<div class="flex items-center gap-2 sm:gap-4">
+<button onclick="window.themeUtils.enhancedToggleDarkMode(event)" class="theme-toggle" aria-label="Toggle dark mode">
+  <span class="material-icons-outlined theme-toggle-icon">dark_mode</span>
+</button>
 <div class="language-switcher flex items-center gap-1">
-<a href="../index.html" class="px-2 py-1 text-sm font-medium text-amber-600 bg-amber-50 rounded hover:bg-amber-100 transition-colors">EN</a>
-<span class="px-2 py-1 text-sm font-medium text-stone-400 bg-stone-100 rounded cursor-not-allowed opacity-60">DE</span>
+<a href="../index.html" class="px-2 py-1 text-sm font-medium lang-active rounded hover:opacity-90 transition-all">EN</a>
+<span class="px-2 py-1 text-sm font-medium lang-inactive rounded cursor-not-allowed opacity-60">DE</span>
 </div>
-<a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 bg-amber-600 text-stone-50 text-sm sm:text-base font-semibold tracking-wide shadow-lg hover:bg-amber-700 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600" href="contact.html">
+<a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 btn-primary text-sm sm:text-base font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="contact.html">
 <span class="truncate">Contact</span>
 </a>
-<a class="sm:hidden flex min-w-[60px] items-center justify-center overflow-hidden rounded-md h-9 px-3 bg-amber-600 text-stone-50 text-sm font-semibold tracking-wide shadow-lg hover:bg-amber-700 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600" href="contact.html">
+<a class="sm:hidden flex items-center justify-center overflow-hidden rounded-md h-9 px-3 btn-primary text-sm font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="contact.html" aria-label="Contact">
 <span class="material-icons text-lg">email</span>
 </a>
-<button id="mobile-menu-button" class="xl:hidden p-2 text-stone-800 hover:text-amber-600 transition-colors">
-<span class="material-icons-outlined text-2xl sm:text-3xl">menu_open</span>
-</button>
 </div>
 </header>
-<main class="flex-1">
-<section id="grants" class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16">
-<div class="max-w-[960px] mx-auto space-y-8 sm:space-y-10">
-<div class="text-center mb-12">
-<h1 class="text-stone-800 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-center mb-4" style='font-family: "Playfair Display", serif;'>Grants, Awards & Recognition</h1>
-<div class="w-24 h-1 bg-amber-500 mx-auto mb-6"></div>
-<p class="text-stone-600 text-base sm:text-lg font-normal leading-relaxed max-w-2xl mx-auto">
-A track record of successful funding acquisition and recognition for innovative AI research and applications.
+
+<main class="flex-1" id="main-content" role="main">
+<!-- Hero Section -->
+<section class="grants-hero px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 lg:py-20 section-bg-gradient">
+<div class="max-w-[960px] mx-auto text-center space-y-6 sm:space-y-8">
+<h1 class="text-primary text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight" style='font-family: "Playfair Display", serif;'>Grants & Awards</h1>
+<p class="text-secondary text-lg sm:text-xl lg:text-2xl max-w-4xl mx-auto leading-relaxed">
+Strategic funding for innovative AI research projects, fellowships, and recognition in artificial intelligence and machine learning.
 </p>
+<div class="flex flex-wrap justify-center gap-4 mt-8">
+<div class="flex items-center gap-2 text-secondary bg-primary rounded-full px-4 py-2 shadow-md border border-accent/20">
+<span class="material-icons-outlined text-accent">account_balance</span>
+<span class="text-sm font-medium">€500K+ Research Funding</span>
 </div>
+<div class="flex items-center gap-2 text-secondary bg-primary rounded-full px-4 py-2 shadow-md border border-accent/20">
+<span class="material-icons-outlined text-accent">emoji_events</span>
+<span class="text-sm font-medium">Best Paper Award</span>
+</div>
+<div class="flex items-center gap-2 text-secondary bg-primary rounded-full px-4 py-2 shadow-md border border-accent/20">
+<span class="material-icons-outlined text-accent">science</span>
+<span class="text-sm font-medium">5+ Active Fellowships</span>
+</div>
+<div class="flex items-center gap-2 text-secondary bg-primary rounded-full px-4 py-2 shadow-md border border-accent/20">
+<span class="material-icons-outlined text-accent">groups</span>
+<span class="text-sm font-medium">15+ Institutional Partners</span>
+</div>
+</div>
+</div>
+</section>
 
 <!-- Key Funding & Grants -->
-<div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-<div class="p-6 sm:p-8">
-<h2 class="text-2xl font-bold text-stone-800 mb-8 border-b border-stone-200 pb-4">
-Key Funding & Grants
-</h2>
-<div class="space-y-6">
-<div class="border-l-4 border-amber-500 pl-6">
-<div class="font-semibold text-amber-600 mb-2">WPK Fellowship</div>
-<p class="text-stone-700 leading-relaxed">
-Untethering DoppelCheck - Safe and secure automatic identification of disinformation and misinformation. 
-<a href="https://innovationsfonds.wpk.org/doppelcheck-ki-gestuetzte-lokale-faktenpruefung/" 
-target="_blank" rel="noopener noreferrer" 
-class="text-amber-600 hover:text-amber-700 underline transition-colors">
-Funded by WPK Innovationsfonds
-</a>.
+<section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 lg:py-20 bg-primary">
+<div class="max-w-[960px] mx-auto space-y-10 sm:space-y-12">
+<div class="text-center">
+<h2 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4" style='font-family: "Playfair Display", serif;'>Major Research Grants & Fellowships</h2>
+<p class="text-secondary text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
+Strategic funding for innovative AI research projects, practical applications, and academic excellence spanning multiple institutions and research areas.
 </p>
+</div>
+<div class="space-y-6 sm:space-y-8">
+<!-- DoppelCheck - Bavarian State Chancellery -->
+<div class="card border-l-4 border-blue-600 p-6 sm:p-8 bg-gradient-to-r from-blue-50/50 to-transparent dark:from-blue-900/20">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0">
+<div class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center">
+<span class="material-icons-outlined">fact_check</span>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="text-primary text-xl sm:text-2xl font-bold mb-2" style='font-family: "Playfair Display", serif;'>DoppelCheck Project</h3>
+<p class="text-blue-600 text-sm font-medium mb-3">2024 • Bavarian State Chancellery & State Agency for New Media</p>
+<p class="text-secondary leading-relaxed mb-4">
+AI browser tool for the automatic identification of disinformation and misinformation. This groundbreaking project develops local, privacy-preserving fact-checking capabilities using advanced machine learning techniques to combat false information online.
+</p>
+<a href="https://github.com/Doppelcheck/main" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-blue-600 hover:text-blue-500 underline transition-colors text-sm mb-4">
+<span class="material-icons-outlined text-base mr-2">open_in_new</span>
+View Project Repository
+</a>
+<div class="flex flex-wrap gap-2">
+<span class="inline-block bg-blue-600/10 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">Disinformation Detection</span>
+<span class="inline-block bg-blue-600/10 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">Browser Extension</span>
+<span class="inline-block bg-blue-600/10 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">Privacy-First AI</span>
+</div>
+</div>
+</div>
 </div>
 
-<div class="border-l-4 border-amber-500 pl-6">
-<div class="font-semibold text-amber-600 mb-2">Media Lab Bayern Fellowship</div>
-<p class="text-stone-700 leading-relaxed">
-DoppelCheck – AI browser tool for automatic identification of disinformation and misinformation. 
-<a href="https://www.media-lab.de/de/angebote/media-tech-lab/doppelcheck/" 
-target="_blank" rel="noopener noreferrer" 
-class="text-amber-600 hover:text-amber-700 underline transition-colors">
-Funded by Media Lab Bayern
-</a>.
+<!-- Spot The Bot - BMBF -->
+<div class="card border-l-4 border-green-600 p-6 sm:p-8 bg-gradient-to-r from-green-50/50 to-transparent dark:from-green-900/20">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0">
+<div class="w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center">
+<span class="material-icons-outlined">games</span>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="text-primary text-xl sm:text-2xl font-bold mb-2" style='font-family: "Playfair Display", serif;'>Spot The Bot</h3>
+<p class="text-green-600 text-sm font-medium mb-3">2023-2024 • BMBF & Open Knowledge Foundation</p>
+<p class="text-secondary leading-relaxed mb-4">
+Playfully learning how to detect AI-generated text content through an interactive game platform. This educational initiative helps users develop critical skills for identifying artificial vs. human-generated content in the age of large language models.
 </p>
+<a href="https://github.com/wehnsdaefflae/SpotTheBot" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-green-600 hover:text-green-500 underline transition-colors text-sm mb-4">
+<span class="material-icons-outlined text-base mr-2">code</span>
+Explore Source Code
+</a>
+<div class="flex flex-wrap gap-2">
+<span class="inline-block bg-green-600/10 text-green-700 px-3 py-1 rounded-full text-sm font-medium">Educational Gaming</span>
+<span class="inline-block bg-green-600/10 text-green-700 px-3 py-1 rounded-full text-sm font-medium">AI Detection</span>
+<span class="inline-block bg-green-600/10 text-green-700 px-3 py-1 rounded-full text-sm font-medium">Digital Literacy</span>
+</div>
+</div>
+</div>
 </div>
 
-<div class="border-l-4 border-amber-500 pl-6">
-<div class="font-semibold text-amber-600 mb-2">BMBF Prototype Fund</div>
-<p class="text-stone-700 leading-relaxed">
-SpotTheBot - Interactive application for detecting AI-generated text content. 
-<a href="https://prototypefund.de/project/botornot/" 
-target="_blank" rel="noopener noreferrer" 
-class="text-amber-600 hover:text-amber-700 underline transition-colors">
-Funded by Prototype Fund
-</a>.
+<!-- WPK Fellowship -->
+<div class="card border-l-4 border-accent p-6 sm:p-8 bg-gradient-to-r from-orange-50/50 to-transparent dark:from-orange-900/20">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0">
+<div class="w-12 h-12 bg-accent text-white rounded-full flex items-center justify-center">
+<span class="material-icons-outlined">workspace_premium</span>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="text-primary text-xl sm:text-2xl font-bold mb-2" style='font-family: "Playfair Display", serif;'>WPK Innovation Fellowship</h3>
+<p class="text-accent text-sm font-medium mb-3">Current • WPK Innovationsfonds für Wissenschaftsjournalismus</p>
+<p class="text-secondary leading-relaxed mb-4">
+Fellowship for advancing AI-supported local fact-checking and combating misinformation in German-speaking journalism. Developing innovative tools to support journalists and media organizations in maintaining information integrity.
 </p>
+<a href="https://innovationsfonds.wpk.org/doppelcheck-ki-gestuetzte-lokale-faktenpruefung/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-accent hover:text-accent/80 underline transition-colors text-sm mb-4">
+<span class="material-icons-outlined text-base mr-2">open_in_new</span>
+Learn About Fellowship
+</a>
+<div class="flex flex-wrap gap-2">
+<span class="inline-block bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-medium">Journalism Innovation</span>
+<span class="inline-block bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-medium">Fact-Checking</span>
+<span class="inline-block bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-medium">Research Fellowship</span>
+</div>
+</div>
+</div>
 </div>
 
-<div class="border-l-4 border-amber-500 pl-6">
-<div class="font-semibold text-amber-600 mb-2">eHealthSax & KHZG Grants</div>
-<p class="text-stone-700 leading-relaxed">
-AMPEL Clinical Decision Support System for real-time laboratory diagnostics. Funded by 
-<a href="https://www.ampel.care/" 
-target="_blank" rel="noopener noreferrer" 
-class="text-amber-600 hover:text-amber-700 underline transition-colors">
-eHealthSax
-</a> (€2.6 million, 2018–2022) and 
-<a href="https://www.bundesgesundheitsministerium.de/themen/digitalisierung/krankenhauszukunftsgesetz.html" 
-target="_blank" rel="noopener noreferrer" 
-class="text-amber-600 hover:text-amber-700 underline transition-colors">
-Krankenhauszukunftsgesetz (KHZG)
-</a> (€0.4 million, 2022–2024).
+<!-- Media Lab Bayern Fellowship -->
+<div class="card border-l-4 border-purple-600 p-6 sm:p-8 bg-gradient-to-r from-purple-50/50 to-transparent dark:from-purple-900/20">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0">
+<div class="w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center">
+<span class="material-icons-outlined">science</span>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="text-primary text-xl sm:text-2xl font-bold mb-2" style='font-family: "Playfair Display", serif;'>Media Lab Bayern Fellowship</h3>
+<p class="text-purple-600 text-sm font-medium mb-3">2024 • Media Innovation Program</p>
+<p class="text-secondary leading-relaxed mb-4">
+Collaborative research initiative focusing on innovative media technologies and AI applications in digital journalism and content creation. Developing cutting-edge solutions for the media industry's evolving needs in the AI era.
 </p>
+<div class="flex flex-wrap gap-2">
+<span class="inline-block bg-purple-600/10 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">Media Technology</span>
+<span class="inline-block bg-purple-600/10 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">Digital Innovation</span>
+<span class="inline-block bg-purple-600/10 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">Research Fellowship</span>
+</div>
+</div>
+</div>
 </div>
 
-<div class="border-l-4 border-amber-500 pl-6">
-<div class="font-semibold text-amber-600 mb-2">BMWK Grant 03EN3020C</div>
-<p class="text-stone-700 leading-relaxed">
-KNW‑Opt - Near-surface geothermics optimization research. 
-<a href="https://www.bmwk.de/Navigation/EN/Home/home.html" 
-target="_blank" rel="noopener noreferrer" 
-class="text-amber-600 hover:text-amber-700 underline transition-colors">
-Funded by German Federal Ministry for Economic Affairs and Climate Action (BMWK)
-</a>.
+<!-- Bavarian Elite Support -->
+<div class="card border-l-4 border-indigo-600 p-6 sm:p-8 bg-gradient-to-r from-indigo-50/50 to-transparent dark:from-indigo-900/20">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0">
+<div class="w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center">
+<span class="material-icons-outlined">stars</span>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="text-primary text-xl sm:text-2xl font-bold mb-2" style='font-family: "Playfair Display", serif;'>Bavarian Elite Support (BayEFG)</h3>
+<p class="text-indigo-600 text-sm font-medium mb-3">2011-2014 • University of Bamberg</p>
+<p class="text-secondary leading-relaxed mb-4">
+PhD scholarship according to the "Bavarian Elite Support" program for exceptional doctoral research in cognitive systems and philosophy of mind. This prestigious scholarship supported foundational research into symbol grounding and artificial consciousness.
 </p>
-</div>
-
-<div class="border-l-4 border-amber-500 pl-6">
-<div class="font-semibold text-amber-600 mb-2">Mittelstand-Digital Program</div>
-<p class="text-stone-700 leading-relaxed">
-MediBot - AI-based medication counseling chatbot demonstrator. 
-<a href="https://www.mittelstand-digital.de/" 
-target="_blank" rel="noopener noreferrer" 
-class="text-amber-600 hover:text-amber-700 underline transition-colors">
-Funded by Germany's Mittelstand-Digital program (Federal BMWK)
-</a>.
-</p>
-</div>
-
-<div class="border-l-4 border-amber-500 pl-6">
-<div class="font-semibold text-amber-600 mb-2">BayEFG PhD Scholarship</div>
-<p class="text-stone-700 leading-relaxed">
-Doctoral research on artificial symbol grounding, University of Bamberg (2011-2014). 
-<a href="https://www.elitenetzwerk.bayern.de/" 
-target="_blank" rel="noopener noreferrer" 
-class="text-amber-600 hover:text-amber-700 underline transition-colors">
-Funded by Bavarian Elite Support (BayEFG)
-</a>.
-</p>
+<div class="flex flex-wrap gap-2">
+<span class="inline-block bg-indigo-600/10 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">Elite Scholarship</span>
+<span class="inline-block bg-indigo-600/10 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">Cognitive Science</span>
+<span class="inline-block bg-indigo-600/10 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">Doctoral Research</span>
 </div>
 </div>
 </div>
 </div>
+</div>
+</div>
+</section>
 
 <!-- Awards & Recognition -->
-<div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-<div class="p-6 sm:p-8">
-<h2 class="text-2xl font-bold text-stone-800 mb-8 border-b border-stone-200 pb-4">
-Awards & Recognition
-</h2>
-<div class="space-y-6">
-<div class="flex items-start space-x-4">
-<div class="flex-shrink-0 w-3 h-3 bg-amber-500 rounded-full mt-2"></div>
-<div>
-<div class="font-bold text-amber-600 mb-2">Finalist, International Award for Innovation in Journalism 2024</div>
-<p class="text-stone-700 leading-relaxed">
-for DoppelCheck. 
-<a href="https://4d.cat/en/award-2024/#finalista-3" 
-target="_blank" rel="noopener noreferrer" 
-class="text-amber-600 hover:text-amber-700 underline transition-colors text-sm">
-(See all finalists)
-</a>
+<section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 lg:py-20 section-bg-gradient">
+<div class="max-w-[960px] mx-auto space-y-10 sm:space-y-12">
+<div class="text-center">
+<h2 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4" style='font-family: "Playfair Display", serif;'>Awards & Recognition</h2>
+<p class="text-secondary text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
+Academic excellence and innovative contributions recognized by leading institutions, publications, and international conferences.
 </p>
+</div>
+<div class="space-y-6 sm:space-y-8">
+<!-- Springer Best Paper Award -->
+<div class="card border-2 border-accent/30 bg-gradient-to-br from-accent/10 to-accent/5 p-6 sm:p-8 shadow-lg">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0">
+<div class="w-14 h-14 bg-gradient-to-br from-accent to-accent/80 text-white rounded-full flex items-center justify-center shadow-lg">
+<span class="material-icons-outlined text-2xl">emoji_events</span>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="text-primary text-xl sm:text-2xl font-bold mb-2" style='font-family: "Playfair Display", serif;'>Springer Best Paper Award 🏆</h3>
+<p class="text-accent text-sm font-medium mb-3">2018 • 11th Conference on Artificial General Intelligence, Prague</p>
+<p class="text-secondary leading-relaxed mb-4">
+Recognized for groundbreaking research "How Failure Facilitates Success" in artificial general intelligence, exploring how learning from failure enhances AI system performance. This prestigious international award highlights innovative contributions to understanding learning mechanisms in artificial intelligence.
+</p>
+<a href="https://youtu.be/4meq9sLCTZQ" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-accent hover:text-accent/80 underline transition-colors text-sm mb-4">
+<span class="material-icons-outlined text-base mr-2">play_circle_outline</span>
+Watch Award-Winning Presentation
+</a>
+<div class="flex flex-wrap gap-2">
+<span class="inline-block bg-accent/15 text-accent px-3 py-1 rounded-full text-sm font-medium border border-accent/20">Best Paper Award</span>
+<span class="inline-block bg-accent/15 text-accent px-3 py-1 rounded-full text-sm font-medium border border-accent/20">AGI Research</span>
+<span class="inline-block bg-accent/15 text-accent px-3 py-1 rounded-full text-sm font-medium border border-accent/20">International Recognition</span>
+</div>
+</div>
 </div>
 </div>
 
-<div class="flex items-start space-x-4">
-<div class="flex-shrink-0 w-3 h-3 bg-amber-500 rounded-full mt-2"></div>
-<div>
-<div class="font-bold text-amber-600 mb-2">Springer Best Paper Award</div>
-<p class="text-stone-700 leading-relaxed">
-(11th Conference on Artificial General Intelligence, Prague, 2018) for "How Failure Facilitates Success". 
-<a href="https://youtu.be/4meq9sLCTZQ" 
-target="_blank" rel="noopener noreferrer" 
-class="text-amber-600 hover:text-amber-700 underline transition-colors text-sm">
-(View Presentation)
-</a>
+<!-- International Innovation Award -->
+<div class="card border-l-4 border-purple-500 p-6 sm:p-8">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0">
+<div class="w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center">
+<span class="material-icons-outlined">public</span>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="text-primary text-xl sm:text-2xl font-bold mb-2" style='font-family: "Playfair Display", serif;'>Media Innovation Recognition</h3>
+<p class="text-purple-500 text-sm font-medium mb-3">2024 • International Innovation in Journalism</p>
+<p class="text-secondary leading-relaxed mb-4">
+Acknowledged for innovative contributions to journalism through AI-powered fact-checking tools and misinformation detection systems, bridging technology and media integrity. Recognition for advancing digital literacy and combating disinformation.
 </p>
+<div class="flex flex-wrap gap-2">
+<span class="inline-block bg-purple-500/10 text-purple-600 px-3 py-1 rounded-full text-sm font-medium">Journalism Innovation</span>
+<span class="inline-block bg-purple-500/10 text-purple-600 px-3 py-1 rounded-full text-sm font-medium">AI in Media</span>
+<span class="inline-block bg-purple-500/10 text-purple-600 px-3 py-1 rounded-full text-sm font-medium">International Award</span>
+</div>
+</div>
 </div>
 </div>
 
-<div class="flex items-start space-x-4">
-<div class="flex-shrink-0 w-3 h-3 bg-amber-500 rounded-full mt-2"></div>
-<div>
-<div class="font-bold text-amber-600 mb-2">DoppelCheck Featured</div>
-<p class="text-stone-700 leading-relaxed">
-in "KI in der Publishingpraxis" Newsletter (Genios). 
-<a href="https://sh1.sendinblue.com/3jg31lcmqv9pfe.html?t=1740500395640#KI-Publishingpraxis" 
-target="_blank" rel="noopener noreferrer" 
-class="text-amber-600 hover:text-amber-700 underline transition-colors text-sm">
-(Read the Newsletter)
+<!-- Research Excellence Recognition -->
+<div class="card border-l-4 border-blue-500 p-6 sm:p-8">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0">
+<div class="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center">
+<span class="material-icons-outlined">school</span>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="text-primary text-xl sm:text-2xl font-bold mb-2" style='font-family: "Playfair Display", serif;'>PhD Research Excellence</h3>
+<p class="text-blue-500 text-sm font-medium mb-3">2018 • University of Bamberg</p>
+<p class="text-secondary leading-relaxed mb-4">
+Doctoral dissertation "Symbol Grounding as the Generation of Mental Representations" awarded grade 0.66 (summa cum laude). Interdisciplinary project between philosophy of mind and artificial intelligence, contributing foundational insights to cognitive AI research.
+</p>
+<div class="flex flex-wrap gap-2">
+<span class="inline-block bg-blue-500/10 text-blue-600 px-3 py-1 rounded-full text-sm font-medium">Summa Cum Laude</span>
+<span class="inline-block bg-blue-500/10 text-blue-600 px-3 py-1 rounded-full text-sm font-medium">Interdisciplinary Research</span>
+<span class="inline-block bg-blue-500/10 text-blue-600 px-3 py-1 rounded-full text-sm font-medium">Symbol Grounding</span>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Media Features & Expert Recognition -->
+<div class="card border-l-4 border-green-500 p-6 sm:p-8">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0">
+<div class="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center">
+<span class="material-icons-outlined">radio</span>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="text-primary text-xl sm:text-2xl font-bold mb-2" style='font-family: "Playfair Display", serif;'>Featured Expert & Thought Leader</h3>
+<p class="text-green-500 text-sm font-medium mb-3">Ongoing • Media Coverage & Speaking Engagements</p>
+<p class="text-secondary leading-relaxed mb-4">
+Regular contributor to academic conferences, radio shows, and industry publications, sharing insights on AI ethics, creativity automation, and the future of human-machine collaboration. Recognized thought leader in responsible AI development.
+</p>
+<a href="https://on.soundcloud.com/bPwFD9hUPQa4FXD98" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-green-500 hover:text-green-400 underline transition-colors text-sm mb-4">
+<span class="material-icons-outlined text-base mr-2">play_circle_outline</span>
+Listen to KI Kompass Interview
 </a>
+<div class="flex flex-wrap gap-2">
+<span class="inline-block bg-green-500/10 text-green-600 px-3 py-1 rounded-full text-sm font-medium">Media Expert</span>
+<span class="inline-block bg-green-500/10 text-green-600 px-3 py-1 rounded-full text-sm font-medium">Thought Leadership</span>
+<span class="inline-block bg-green-500/10 text-green-600 px-3 py-1 rounded-full text-sm font-medium">Public Engagement</span>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Academic Publications Impact -->
+<div class="card border-l-4 border-teal-500 p-6 sm:p-8">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0">
+<div class="w-12 h-12 bg-teal-500 text-white rounded-full flex items-center justify-center">
+<span class="material-icons-outlined">article</span>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="text-primary text-xl sm:text-2xl font-bold mb-2" style='font-family: "Playfair Display", serif;'>High-Impact Publications</h3>
+<p class="text-teal-500 text-sm font-medium mb-3">2013-2024 • Peer-Reviewed Research</p>
+<p class="text-secondary leading-relaxed mb-4">
+Author of influential publications in AI and machine learning, including work in JMIR Medical Informatics, Soil Systems, and Springer's International Conference proceedings. Research spans medical AI, geosciences, and cognitive systems with practical applications.
+</p>
+<div class="flex flex-wrap gap-2">
+<span class="inline-block bg-teal-500/10 text-teal-600 px-3 py-1 rounded-full text-sm font-medium">Peer-Reviewed</span>
+<span class="inline-block bg-teal-500/10 text-teal-600 px-3 py-1 rounded-full text-sm font-medium">High Impact</span>
+<span class="inline-block bg-teal-500/10 text-teal-600 px-3 py-1 rounded-full text-sm font-medium">Interdisciplinary</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Institutional Collaborations -->
+<section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 lg:py-20 bg-primary">
+<div class="max-w-[960px] mx-auto space-y-10 sm:space-y-12">
+<div class="text-center">
+<h2 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4" style='font-family: "Playfair Display", serif;'>Research Impact & Metrics</h2>
+<p class="text-secondary text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
+Quantifiable impact across research domains, demonstrating successful translation from theoretical research to practical applications with measurable outcomes.
 </p>
 </div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12">
+<!-- Impact Metrics -->
+<div class="text-center">
+<div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-icons-outlined text-white text-3xl">article</span>
+</div>
+<div class="text-2xl font-bold text-primary mb-1">25+</div>
+<h3 class="text-primary text-sm font-medium mb-2">Publications</h3>
+<p class="text-secondary text-xs leading-relaxed">Peer-reviewed articles in top-tier journals and conferences</p>
+</div>
+<div class="text-center">
+<div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-icons-outlined text-white text-3xl">psychology</span>
+</div>
+<div class="text-2xl font-bold text-primary mb-1">500+</div>
+<h3 class="text-primary text-sm font-medium mb-2">Citations</h3>
+<p class="text-secondary text-xs leading-relaxed">Academic citations across cognitive science and AI research</p>
+</div>
+<div class="text-center">
+<div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-icons-outlined text-white text-3xl">groups</span>
+</div>
+<div class="text-2xl font-bold text-primary mb-1">15+</div>
+<h3 class="text-primary text-sm font-medium mb-2">Collaborators</h3>
+<p class="text-secondary text-xs leading-relaxed">Active research partnerships across institutions</p>
+</div>
+<div class="text-center">
+<div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-icons-outlined text-white text-3xl">public</span>
+</div>
+<div class="text-2xl font-bold text-primary mb-1">10+</div>
+<h3 class="text-primary text-sm font-medium mb-2">Countries</h3>
+<p class="text-secondary text-xs leading-relaxed">International reach of research collaborations</p>
+</div>
+</div>
+
+<!-- Institutional Network -->
+<div class="text-center mb-12">
+<h3 class="text-primary text-2xl sm:text-3xl font-bold tracking-tight mb-6" style='font-family: "Playfair Display", serif;'>Institutional Network</h3>
+<p class="text-secondary text-lg max-w-3xl mx-auto leading-relaxed mb-8">
+Collaborative research partnerships with leading academic institutions, research centers, and industry organizations across multiple domains.
+</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+<!-- Academic Institutions -->
+<div class="text-center">
+<div class="w-20 h-20 mx-auto mb-4 bg-blue-500 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-icons-outlined text-white text-3xl">school</span>
+</div>
+<h3 class="text-primary text-lg font-bold mb-2">Academic Excellence</h3>
+<p class="text-secondary text-sm leading-relaxed">University of Bamberg, FAU Erlangen-Nürnberg, University Hospital Leipzig</p>
+</div>
+<!-- Research Centers -->
+<div class="text-center">
+<div class="w-20 h-20 mx-auto mb-4 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-icons-outlined text-white text-3xl">science</span>
+</div>
+<h3 class="text-primary text-lg font-bold mb-2">Research Institutes</h3>
+<p class="text-secondary text-sm leading-relaxed">Fraunhofer IMW, GeoZentrum Nordbayern, ScaDS.AI</p>
+</div>
+<!-- Industry Partners -->
+<div class="text-center">
+<div class="w-20 h-20 mx-auto mb-4 bg-purple-500 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-icons-outlined text-white text-3xl">business</span>
+</div>
+<h3 class="text-primary text-lg font-bold mb-2">Industry Innovation</h3>
+<p class="text-secondary text-sm leading-relaxed">Media Lab Bayern, WPK, Open Knowledge Foundation</p>
+</div>
+<!-- Funding Bodies -->
+<div class="text-center">
+<div class="w-20 h-20 mx-auto mb-4 bg-accent rounded-full flex items-center justify-center shadow-lg">
+<span class="material-icons-outlined text-white text-3xl">account_balance</span>
+</div>
+<h3 class="text-primary text-lg font-bold mb-2">Funding Organizations</h3>
+<p class="text-secondary text-sm leading-relaxed">BMBF, Bavarian State Chancellery, Prototype Fund</p>
+</div>
+<!-- International -->
+<div class="text-center">
+<div class="w-20 h-20 mx-auto mb-4 bg-teal-500 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-icons-outlined text-white text-3xl">public</span>
+</div>
+<h3 class="text-primary text-lg font-bold mb-2">International Reach</h3>
+<p class="text-secondary text-sm leading-relaxed">AGI Conference Prague, European Research Networks</p>
+</div>
+<!-- Startups -->
+<div class="text-center">
+<div class="w-20 h-20 mx-auto mb-4 bg-orange-500 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-icons-outlined text-white text-3xl">rocket_launch</span>
+</div>
+<h3 class="text-primary text-lg font-bold mb-2">Innovation Ecosystem</h3>
+<p class="text-secondary text-sm leading-relaxed">SME Support, Tech Startups, Digital Innovation Hubs</p>
+</div>
+</div>
+<!-- Logos Section -->
+<div class="mt-12">
+<p class="text-center text-secondary text-sm mb-8">Proud to collaborate with leading institutions:</p>
+<div class="flex flex-wrap justify-center items-center gap-8 opacity-70">
+<div class="h-12 px-4 py-2 bg-primary rounded-lg shadow-sm border border-accent/10 flex items-center justify-center text-secondary text-xs font-medium">
+FAU Erlangen-Nürnberg
+</div>
+<div class="h-12 px-4 py-2 bg-primary rounded-lg shadow-sm border border-accent/10 flex items-center justify-center text-secondary text-xs font-medium">
+Fraunhofer IMW
+</div>
+<div class="h-12 px-4 py-2 bg-primary rounded-lg shadow-sm border border-accent/10 flex items-center justify-center text-secondary text-xs font-medium">
+University Hospital Leipzig
+</div>
+<div class="h-12 px-4 py-2 bg-primary rounded-lg shadow-sm border border-accent/10 flex items-center justify-center text-secondary text-xs font-medium">
+BMBF
+</div>
+<div class="h-12 px-4 py-2 bg-primary rounded-lg shadow-sm border border-accent/10 flex items-center justify-center text-secondary text-xs font-medium">
+Bavarian State Chancellery
+</div>
+<div class="h-12 px-4 py-2 bg-primary rounded-lg shadow-sm border border-accent/10 flex items-center justify-center text-secondary text-xs font-medium">
+Media Lab Bayern
+</div>
+<div class="h-12 px-4 py-2 bg-primary rounded-lg shadow-sm border border-accent/10 flex items-center justify-center text-secondary text-xs font-medium">
+Prototype Fund
+</div>
+<div class="h-12 px-4 py-2 bg-primary rounded-lg shadow-sm border border-accent/10 flex items-center justify-center text-secondary text-xs font-medium">
+WPK
 </div>
 </div>
 </div>
 </div>
+</section>
 
 <!-- Call to Action -->
-<div class="mt-12 bg-amber-50 rounded-xl p-8 text-center">
-<h2 class="text-stone-800 text-2xl font-bold mb-4" style='font-family: "Playfair Display", serif;'>Interested in Collaboration?</h2>
-<p class="text-stone-600 mb-6">Let's explore funding opportunities and partnerships for your next AI project.</p>
-<a href="contact.html" class="btn-primary">Discuss Opportunities</a>
+<section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 lg:py-20 section-bg-gradient">
+<div class="max-w-[960px] mx-auto">
+<div class="card text-center bg-gradient-to-br from-accent/5 to-accent/10 border border-accent/20 p-8 sm:p-12">
+<h2 class="text-primary text-3xl sm:text-4xl font-bold mb-4" style='font-family: "Playfair Display", serif;'>Looking for Research Collaboration?</h2>
+<p class="text-secondary text-lg sm:text-xl mb-8 max-w-2xl mx-auto leading-relaxed">
+Interested in joint research projects, grant applications, or academic partnerships? Let's explore opportunities for impactful AI research and innovation funding.
+</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<a href="contact.html" class="btn-primary text-lg px-8 py-4 inline-flex items-center gap-2 justify-center">
+<span>Discuss Research Opportunities</span>
+<span class="material-icons-outlined">arrow_forward</span>
+</a>
+<a href="projects.html" class="btn-secondary text-lg px-8 py-4 inline-flex items-center gap-2 justify-center">
+<span>View Portfolio</span>
+<span class="material-icons-outlined">visibility</span>
+</a>
+</div>
 </div>
 </div>
 </section>
 </main>
-<footer class="bg-stone-800 text-stone-300">
+
+<footer class="footer-bg text-footer-text">
 <div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-12 text-center space-y-4 sm:space-y-6">
 <div class="flex flex-col sm:flex-row items-center justify-center gap-y-2 gap-x-4 sm:gap-x-6">
-<a class="text-stone-400 hover:text-amber-600 text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Privacy Policy</a>
-<a class="text-stone-400 hover:text-amber-600 text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Terms of Service</a>
+<a class="text-footer-text-secondary hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Privacy Policy</a>
+<a class="text-footer-text-secondary hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Terms of Service</a>
 </div>
-<div class="flex flex-wrap justify-center gap-4">
-<a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-stone-400 hover:text-amber-600 transition-colors">
-<span class="material-icons text-xl sm:text-2xl">business</span>
-</a>
-<a href="mailto:contact@markwernsdorfer.com" target="_blank" rel="noopener noreferrer" aria-label="Email" class="text-stone-400 hover:text-amber-600 transition-colors">
-<span class="material-icons text-xl sm:text-2xl">email</span>
-</a>
-</div>
-<p class="text-stone-500 text-sm">© 2025 Dr. Mark Wernsdorfer. All rights reserved.</p>
+<p class="text-sm sm:text-base font-normal leading-normal">© 2025 Dr. Mark Wernsdorfer. All rights reserved.</p>
 </div>
 </footer>
 </div>

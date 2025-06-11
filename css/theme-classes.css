@@ -1,0 +1,736 @@
+/* ==========================================================================
+   Theme-Aware Utility Classes
+   ========================================================================== */
+
+/* Text Colors - More specific selectors to override Tailwind */
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-tertiary { color: var(--text-tertiary); }
+.text-accent { color: var(--accent-color); }
+.text-accent-dark { color: var(--accent-dark); }
+.text-accent-light { color: var(--accent-light); }
+
+/* Logo text with theme-aware colors - more specific */
+header .text-primary {
+  color: var(--text-primary);
+  transition: color var(--transition-normal);
+}
+
+/* Header logo with higher specificity to override Tailwind */
+.layout-container header .header-logo-text,
+header a.header-logo-text,
+header .header-logo-text {
+  color: var(--text-primary);
+}
+
+/* Tag contrast improvements with higher specificity */
+.project-card .text-blue-950 {
+  color: #172554;
+}
+.project-card .text-purple-950 {
+  color: #2e1065;
+}
+.project-card .text-indigo-950 {
+  color: #1e1b4b;
+}
+.project-card .text-green-950 {
+  color: #052e16;
+}
+.project-card .text-teal-950 {
+  color: #042f2e;
+}
+.project-card .text-emerald-950 {
+  color: #022c22;
+}
+.project-card .text-pink-950 {
+  color: #4a044e;
+}
+.project-card .text-violet-950 {
+  color: #2e1065;
+}
+
+/* Enhanced accent-based tag styling for project cards */
+.project-card .tag-accent {
+  background: var(--accent-light);
+  color: var(--accent-dark);
+  border-color: var(--accent-color);
+}
+
+:root.dark .project-card .tag-accent {
+  background: rgba(245, 158, 11, 0.2);
+  color: var(--accent-light);
+  border-color: var(--accent-color);
+}
+
+/* Background Colors - Remove !important */
+.bg-primary { background: var(--bg-primary); }
+.bg-secondary { background: var(--bg-secondary); }
+.bg-tertiary { background: var(--bg-tertiary); }
+.bg-glass { background: var(--bg-glass); }
+.bg-accent { background: var(--accent-color); }
+.bg-accent-light { background: var(--accent-light); }
+.bg-dark { background: var(--bg-dark, #1a1a1a); }
+
+/* Border Colors - Remove !important */
+.border-primary { border-color: var(--border-color); }
+.border-secondary { border-color: var(--border-secondary, var(--border-color)); }
+.border-hover:hover { border-color: var(--border-hover); }
+
+/* Button Styles - Remove !important */
+.btn-primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  box-shadow: var(--btn-primary-shadow);
+}
+.btn-primary:hover {
+  box-shadow: var(--btn-primary-shadow-hover);
+}
+
+/* Hero button secondary with specificity */
+.layout-container .btn-hero-secondary,
+body .btn-hero-secondary {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  transition: all var(--transition-normal);
+}
+.layout-container .btn-hero-secondary:hover,
+body .btn-hero-secondary:hover {
+  background: white;
+  color: var(--text-primary);
+}
+
+/* Dark mode specific styles for hero secondary button */
+:root.dark .layout-container .btn-hero-secondary:hover,
+:root.dark body .btn-hero-secondary:hover {
+  background: white;
+  color: #1c1917; /* Force dark text in dark mode hover state */
+}
+
+/* Form Styles with higher specificity */
+body .form-input,
+.layout-container .form-input {
+  background: var(--form-bg);
+  color: var(--form-text);
+  border-color: var(--form-border);
+}
+body .form-input:focus,
+.layout-container .form-input:focus {
+  border-color: var(--form-focus-border);
+}
+
+/* Navigation Specific with higher specificity */
+.layout-container .nav-text,
+body .nav-text { 
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+.layout-container .nav-text:hover,
+body .nav-text:hover { 
+  color: var(--accent-color); 
+}
+
+.layout-container .logo-text,
+body .logo-text { 
+  color: var(--text-primary);
+  transition: color var(--transition-fast);
+}
+.layout-container .logo-text:hover,
+body .logo-text:hover { 
+  color: var(--accent-color); 
+}
+
+/* Header specific with higher specificity */
+.layout-container header.header-bg,
+body header.header-bg {
+  background: rgba(250, 250, 249, 0.8);
+  border-color: var(--border-color);
+}
+
+:root.dark .layout-container header.header-bg,
+:root.dark body header.header-bg {
+  background: rgba(26, 26, 26, 0.8);
+}
+
+/* Mobile nav specific with higher specificity */
+.layout-container .mobile-nav-bg,
+body .mobile-nav-bg {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--border-color);
+}
+
+:root.dark .layout-container .mobile-nav-bg,
+:root.dark body .mobile-nav-bg {
+  background: rgba(20, 20, 20, 0.9);
+}
+
+.layout-container .mobile-nav-text,
+body .mobile-nav-text {
+  color: var(--text-secondary);
+}
+
+.layout-container .mobile-nav-text.active,
+body .mobile-nav-text.active {
+  color: var(--accent-color);
+}
+
+/* Trust section with higher specificity */
+.layout-container .trust-text,
+body .trust-text {
+  color: var(--text-secondary);
+}
+
+.layout-container .trust-text-muted,
+body .trust-text-muted {
+  color: var(--text-tertiary);
+}
+
+/* Trust items with higher specificity */
+.layout-container .trust-item-hover:hover,
+body .trust-item-hover:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+:root.dark .layout-container .trust-item-hover:hover,
+:root.dark body .trust-item-hover:hover {
+  background: rgba(38, 38, 38, 0.5);
+}
+
+/* Service cards with higher specificity */
+.layout-container .service-card-bg,
+body .service-card-bg {
+  background: var(--gradient-card);
+  border-color: var(--border-color);
+}
+
+/* Service cards enhanced with higher specificity */
+.layout-container .service-card,
+body .service-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+:root.dark .layout-container .service-card,
+:root.dark body .service-card {
+  background: linear-gradient(135deg, rgba(38, 38, 38, 0.8) 0%, rgba(41, 37, 36, 0.6) 100%);
+  border: 1px solid rgba(64, 64, 64, 0.3);
+}
+
+/* Project cards with higher specificity */
+.layout-container .project-card-bg,
+body .project-card-bg {
+  background: var(--gradient-card);
+  border-color: var(--border-color);
+}
+
+/* Project cards enhanced with higher specificity */
+.layout-container .project-card,
+body .project-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+:root.dark .layout-container .project-card,
+:root.dark body .project-card {
+  background: linear-gradient(135deg, rgba(38, 38, 38, 0.9) 0%, rgba(41, 37, 36, 0.8) 100%);
+  border: 1px solid rgba(64, 64, 64, 0.4);
+}
+
+/* About section cards with higher specificity */
+.layout-container .about-info-card,
+body .about-info-card {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+:root.dark .layout-container .about-info-card,
+:root.dark body .about-info-card {
+  background: rgba(38, 38, 38, 0.8);
+  border: 1px solid rgba(64, 64, 64, 0.5);
+}
+
+/* Section backgrounds with proper theming and higher specificity */
+.layout-container .section-bg-light,
+body .section-bg-light {
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+}
+
+.layout-container .section-bg-gradient,
+body .section-bg-gradient {
+  background: linear-gradient(135deg, 
+    rgba(250, 250, 249, 1) 0%, 
+    rgba(255, 255, 255, 1) 50%, 
+    rgba(245, 245, 244, 1) 100%);
+}
+
+:root.dark .layout-container .section-bg-gradient,
+:root.dark body .section-bg-gradient {
+  background: linear-gradient(135deg, 
+    rgba(12, 12, 12, 1) 0%, 
+    rgba(26, 26, 26, 1) 50%, 
+    rgba(15, 15, 15, 1) 100%);
+}
+
+/* Section backgrounds with higher specificity */
+.layout-container .section-services,
+body .section-services {
+  background: linear-gradient(135deg, #fafaf9 0%, #ffffff 50%, #f5f5f4 100%);
+}
+:root.dark .layout-container .section-services,
+:root.dark body .section-services {
+  background: linear-gradient(135deg, #171717 0%, #262626 50%, #0f0f0f 100%);
+}
+
+.layout-container .section-projects,
+body .section-projects {
+  background: linear-gradient(135deg, #ffffff 0%, #fafaf9 50%, #ffffff 100%);
+}
+:root.dark .layout-container .section-projects,
+:root.dark body .section-projects {
+  background: linear-gradient(135deg, #1c1917 0%, #171717 50%, #1c1917 100%);
+}
+
+.layout-container .section-about,
+body .section-about {
+  background: linear-gradient(135deg, #fafaf9 0%, #ffffff 50%, #fef3c7 100%);
+}
+:root.dark .layout-container .section-about,
+:root.dark body .section-about {
+  background: linear-gradient(135deg, #171717 0%, #1c1917 50%, #1c1917 100%);
+}
+
+/* Footer with higher specificity */
+.layout-container .footer-bg,
+body .footer-bg {
+  background: var(--bg-tertiary);
+}
+
+.layout-container .footer-text,
+body .footer-text {
+  color: var(--text-tertiary);
+}
+
+.layout-container .footer-link,
+body .footer-link {
+  color: var(--text-tertiary);
+  transition: color var(--transition-fast);
+}
+
+.layout-container .footer-link:hover,
+body .footer-link:hover {
+  color: var(--accent-color);
+}
+
+/* Utility classes for consistent theming with higher specificity */
+.layout-container .themed-border,
+body .themed-border {
+  border-color: var(--border-color);
+}
+
+.layout-container .themed-shadow,
+body .themed-shadow {
+  box-shadow: var(--shadow-lg);
+}
+
+.layout-container .themed-shadow-glow,
+body .themed-shadow-glow {
+  box-shadow: var(--shadow-glow);
+}
+
+/* Language switcher with higher specificity */
+.layout-container .lang-active,
+body .lang-active {
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+  color: white;
+}
+
+.layout-container .lang-inactive,
+body .lang-inactive {
+  background: var(--bg-tertiary);
+  color: var(--text-tertiary);
+}
+
+/* Award-Winning Projects badge contrast fix with higher specificity */
+.layout-container .award-badge,
+body .award-badge {
+  color: #ffffff; /* Pure white for maximum contrast against amber gradient */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  font-weight: 600;
+}
+
+:root.dark .layout-container .award-badge,
+:root.dark body .award-badge {
+  color: #0c0a09; /* amber-950 for maximum contrast against bright amber gradient */
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+  font-weight: 700;
+}
+
+/* Timeline styles with higher specificity */
+.layout-container .timeline-item,
+body .timeline-item {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.layout-container .timeline-year,
+body .timeline-year {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  margin-bottom: 0.25rem;
+}
+
+.layout-container .timeline-type,
+body .timeline-type {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.layout-container .timeline-content,
+body .timeline-content {
+  padding-left: 0;
+}
+
+.layout-container .timeline-title,
+body .timeline-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.layout-container .timeline-description,
+body .timeline-description {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Approach cards with higher specificity */
+.layout-container .approach-card,
+body .approach-card {
+  padding: 2rem;
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-normal);
+  text-align: center;
+}
+
+.layout-container .approach-card:hover,
+body .approach-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Skills section styling with higher specificity */
+.layout-container .skills-section,
+body .skills-section {
+  background: var(--bg-secondary);
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+}
+
+.layout-container .skill-item,
+body .skill-item {
+  margin-bottom: 1.5rem;
+}
+
+.layout-container .skill-header,
+body .skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.layout-container .skill-name,
+body .skill-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.layout-container .skill-level,
+body .skill-level {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+}
+
+.layout-container .skill-bar,
+body .skill-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.layout-container .skill-progress,
+body .skill-progress {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-light));
+  border-radius: 4px;
+  transition: width var(--transition-slow);
+}
+
+.layout-container .skill-details,
+body .skill-details {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   Service-specific theme classes for enhanced consistency
+   ========================================================================== */
+
+/* Service Cards with Enhanced Theme Support */
+.service-card {
+  background: var(--gradient-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+:root.dark .service-card {
+  background: linear-gradient(135deg, rgba(38, 38, 38, 0.9) 0%, rgba(26, 26, 26, 0.7) 100%);
+  border-color: rgba(64, 64, 64, 0.3);
+}
+
+.service-card:hover {
+  border-color: var(--accent-color);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Service card content styling */
+.service-title {
+  color: var(--text-primary);
+}
+
+.service-description {
+  color: var(--text-secondary);
+}
+
+.service-list li {
+  color: var(--text-secondary);
+}
+
+.service-list li::before {
+  color: var(--accent-color);
+}
+
+/* Process step styling */
+.process-title {
+  color: var(--text-primary);
+}
+
+.process-description {
+  color: var(--text-secondary);
+}
+
+/* Specialty items */
+.specialty-item {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+}
+
+:root.dark .specialty-item {
+  background: rgba(38, 38, 38, 0.6);
+  border-color: rgba(64, 64, 64, 0.3);
+}
+
+.specialty-item:hover {
+  border-color: var(--accent-color);
+}
+
+/* Button secondary styling for theme consistency */
+.btn-secondary {
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.btn-secondary:hover {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
+}
+
+/* Portfolio specific themed classes */
+.portfolio-hero {
+  background: var(--bg-primary);
+}
+
+.portfolio-section-bg {
+  background: var(--bg-secondary);
+}
+
+.portfolio-text-primary {
+  color: var(--text-primary);
+}
+
+.portfolio-text-secondary {
+  color: var(--text-secondary);
+}
+
+.portfolio-accent {
+  color: var(--accent-color);
+}
+
+/* Portfolio button styling consistency */
+.btn-secondary {
+  background: transparent;
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
+  border-radius: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  transition: all var(--transition-normal);
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-secondary:hover {
+  background: var(--accent-color);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Filter button states */
+.filter-btn {
+  background: transparent;
+  border: 2px solid var(--border-color);
+  color: var(--text-secondary);
+  transition: all var(--transition-normal);
+}
+
+.filter-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--text-primary);
+}
+
+.filter-btn.active {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
+}
+
+/* Enhanced card styling for portfolio */
+.portfolio-stats-card {
+  background: var(--gradient-card);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all var(--transition-normal);
+}
+
+.portfolio-stats-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--accent-color);
+}
+
+/* ==========================================================================
+   Publications Page Specific Theming
+   ========================================================================== */
+
+/* Award-winning research panel highlighting */
+.award-winning-research {
+  background: var(--gradient-card);
+  position: relative;
+  box-shadow: 
+    0 8px 32px rgba(217, 119, 6, 0.15),
+    0 4px 16px rgba(217, 119, 6, 0.1);
+}
+
+:root.dark .award-winning-research {
+  box-shadow: 
+    0 8px 32px rgba(245, 158, 11, 0.25),
+    0 4px 16px rgba(245, 158, 11, 0.15);
+}
+
+.award-winning-research:hover {
+  box-shadow: 
+    0 12px 48px rgba(217, 119, 6, 0.25),
+    0 6px 24px rgba(217, 119, 6, 0.15);
+}
+
+:root.dark .award-winning-research:hover {
+  box-shadow: 
+    0 12px 48px rgba(245, 158, 11, 0.35),
+    0 6px 24px rgba(245, 158, 11, 0.25);
+}
+
+/* Award badge styling */
+.award-badge {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+}
+
+:root.dark .award-badge {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+  color: #0c0a09; /* amber-950 for maximum contrast */
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+  font-weight: 700;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced publication tags with better dark mode contrast */
+.publication-tag-enhanced {
+  background: #fed7aa; /* amber-200 */
+  color: #92400e; /* amber-800 */
+  border: 1px solid #fbbf24; /* amber-400 */
+  transition: all var(--transition-fast);
+  font-weight: 500;
+}
+
+.publication-tag-enhanced:hover {
+  background: #f59e0b; /* amber-500 */
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.3);
+}
+
+:root.dark .publication-tag-enhanced {
+  background: #451a03; /* amber-950 */
+  color: #fbbf24; /* amber-400 */
+  border-color: #92400e; /* amber-800 */
+}
+
+:root.dark .publication-tag-enhanced:hover {
+  background: #92400e; /* amber-800 */
+  color: #fef3c7; /* amber-50 */
+  border-color: #f59e0b; /* amber-500 */
+}
+
+/* Publication card styling */
+.publication-card {
+  background: var(--gradient-card);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-normal);
+}
+
+.publication-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+/* Publication hero section */
+.publications-hero {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+}
+
+:root.dark .publications-hero {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+}
+
+/* ==========================================================================
+   End Publications Page Specific Theming
+   ========================================================================== */
+
+

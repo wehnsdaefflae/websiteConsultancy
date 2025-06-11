@@ -1,0 +1,714 @@
+/* ==========================================================================
+   Mobile-Specific Styles and Responsive Design
+   ========================================================================== */
+
+/* ==========================================================================
+   Mobile Bottom Navigation
+   ========================================================================== */
+
+.mobile-bottom-nav {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-lg);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5rem 0;
+}
+
+/* Hide mobile nav on desktop */
+@media (min-width: 1024px) {
+  .mobile-bottom-nav {
+    display: none !important;
+  }
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  min-height: 60px;
+}
+
+.mobile-nav-item.active {
+  color: var(--accent-color);
+  transform: translateY(-4px);
+}
+
+.mobile-nav-item.active .material-icons-outlined {
+  color: var(--accent-color);
+  transform: scale(1.2);
+}
+
+.mobile-nav-item span:last-child {
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Mobile navigation hover effects */
+.mobile-nav-item:hover {
+  background: rgba(217, 119, 6, 0.1);
+  transform: translateY(-2px);
+}
+
+.mobile-nav-item:active {
+  transform: translateY(0) scale(0.95);
+}
+
+/* Mobile navigation grid layout */
+.mobile-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: 100%;
+  position: relative;
+}
+
+/* Dark mode support for mobile navigation */
+:root.dark .mobile-bottom-nav {
+  background: rgba(20, 20, 20, 0.95);
+  border-top: 1px solid var(--border-color);
+}
+
+/* ==========================================================================
+   Mobile-Specific Layout Adjustments
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* Header adjustments */
+  header {
+    padding: 1rem 1.5rem;
+    min-height: 80px;
+    /* Allow wrapping for logo text on small screens */
+    white-space: normal;
+  }
+  
+  /* Logo container adjustments for small screens */
+  header .flex.items-center.gap-2.sm\\:gap-3.flex-shrink-0 {
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  /* Logo text responsive styling */
+  .logo-text,
+  .header-logo-text {
+    font-size: 1.25rem;
+    line-height: 1.2;
+    /* Allow line breaks - override whitespace-nowrap */
+    white-space: normal !important;
+    /* Make text stack vertically */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  /* Individual logo line styling */
+  .logo-first-line,
+  .logo-second-line {
+    display: block;
+    line-height: 1.1;
+  }
+  
+  .logo-first-line {
+    margin-bottom: 0.125rem;
+  }
+  
+  /* Hero section mobile optimization */
+  .hero-background {
+    background-attachment: scroll;
+    min-height: 400px;
+    padding: 2rem 1rem;
+  }
+  
+  .hero-background::after {
+    animation-duration: 6s;
+  }
+  
+  /* Floating elements mobile adjustments */
+  .floating-element {
+    animation-duration: 8s;
+    opacity: 0.3;
+  }
+  
+  /* Card grid mobile layout */
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .card,
+  .project-card {
+    transform: translateZ(0);
+    padding: 1.5rem;
+  }
+  
+  /* Typography scaling for mobile */
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+    line-height: 1.1;
+  }
+  
+  .hero-subtitle {
+    font-size: clamp(1rem, 4vw, 1.25rem);
+  }
+  
+  .hero-description {
+    font-size: clamp(0.875rem, 3vw, 1rem);
+  }
+  
+  /* Button adjustments for mobile */
+  .btn-primary {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+    /* Removed min-width to allow contact buttons to shrink on very small screens */
+  }
+  
+  /* Hide desktop-only elements */
+  .desktop-only {
+    display: none !important;
+  }
+  
+  /* Mobile-specific spacing */
+  .section-padding {
+    padding: 3rem 1rem;
+  }
+  
+  /* Enhanced touch targets */
+  .mobile-nav-item,
+  .btn-primary,
+  .card {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra small mobile adjustments */
+  header {
+    padding: 0.75rem 1rem;
+  }
+  
+  /* Compact logo text for very small screens */
+  .logo-text,
+  .header-logo-text {
+    font-size: 1rem;
+    line-height: 1.1;
+  }
+  
+  .logo-first-line {
+    margin-bottom: 0.0625rem;
+    font-size: 0.95rem;
+  }
+  
+  .logo-second-line {
+    font-size: 0.9rem;
+  }
+  
+  .hero-background {
+    min-height: 350px;
+    padding: 1.5rem 0.75rem;
+  }
+  
+  .card,
+  .project-card {
+    padding: 1.25rem;
+    margin: 0 0.5rem;
+  }
+  
+  .btn-primary {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+    /* Removed min-width to allow contact buttons to shrink on very small screens */
+  }
+  
+  .mobile-bottom-nav {
+    padding: 0.25rem 0;
+  }
+  
+  .mobile-nav-item {
+    padding: 6px 8px;
+    min-height: 55px;
+  }
+  
+  .mobile-nav-item span:last-child {
+    font-size: 10px;
+  }
+}
+
+/* ==========================================================================
+   Tablet-Specific Adjustments
+   ========================================================================== */
+
+@media (min-width: 769px) and (max-width: 1023px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  
+  .hero-background {
+    min-height: 500px;
+  }
+  
+  .mobile-bottom-nav {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Mobile Performance Optimizations
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* Reduce blur effects on mobile for better performance */
+  .card,
+  .project-card {
+    backdrop-filter: blur(10px) saturate(150%);
+  }
+  
+  header {
+    backdrop-filter: blur(15px) saturate(160%);
+  }
+  
+  /* Simplify animations on mobile */
+  .floating-element {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  
+  /* Optimize shadow rendering */
+  .card:hover,
+  .project-card:hover {
+    box-shadow: var(--shadow-lg);
+  }
+  
+  /* Reduce motion for better battery life */
+  .hero-background::after {
+    animation-duration: 8s;
+  }
+}
+
+/* ==========================================================================
+   Touch Device Optimizations
+   ========================================================================== */
+
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices */
+  .card:hover,
+  .project-card:hover,
+  .service-card:hover,
+  .btn-primary:hover {
+    transform: none;
+    box-shadow: inherit;
+  }
+  
+  /* Enhanced touch targets */
+  .mobile-nav-item {
+    min-height: 48px;
+    min-width: 48px;
+  }
+  
+  .btn-primary {
+    min-height: 48px;
+    padding: 0.875rem 1.5rem;
+  }
+  
+  /* Remove complex animations on touch devices */
+  .floating-element {
+    animation: none;
+    opacity: 0.2;
+  }
+  
+  /* Simplify transitions */
+  * {
+    transition-duration: 0.2s;
+  }
+}
+
+/* ==========================================================================
+   Landscape Mobile Adjustments
+   ========================================================================== */
+
+@media (max-width: 768px) and (orientation: landscape) {
+  .hero-background {
+    min-height: 300px;
+    padding: 1.5rem 1rem;
+  }
+  
+  .mobile-bottom-nav {
+    padding: 0.25rem 0;
+  }
+  
+  .mobile-nav-item {
+    min-height: 50px;
+    padding: 4px 8px;
+  }
+  
+  .mobile-nav-item span:last-child {
+    font-size: 9px;
+  }
+}
+
+/* ==========================================================================
+   Portfolio Mobile Responsiveness
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* Portfolio grid mobile adjustments */
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  /* Portfolio filter buttons mobile layout */
+  .portfolio-filter-btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    min-width: auto;
+  }
+  
+  /* Portfolio card mobile optimizations */
+  .portfolio-card {
+    margin-bottom: 1rem;
+  }
+  
+  .portfolio-content {
+    padding: 1.25rem;
+  }
+  
+  .portfolio-title {
+    font-size: 1.25rem;
+    line-height: 1.3;
+  }
+  
+  .portfolio-description {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  .portfolio-links {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .portfolio-link {
+    justify-content: center;
+    padding: 0.75rem 1rem;
+  }
+  
+  .meta-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .meta-value {
+    max-width: 100%;
+    text-align: left;
+  }
+  
+  /* Filter buttons mobile scroll */
+  .flex.flex-wrap.justify-center.gap-2.sm\\:gap-4.mt-12 {
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 0 1rem;
+    gap: 1rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .flex.flex-wrap.justify-center.gap-2.sm\\:gap-4.mt-12::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .portfolio-filter-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra small screens */
+  .portfolio-content {
+    padding: 1rem;
+  }
+  
+  .portfolio-title {
+    font-size: 1.1rem;
+  }
+  
+  .portfolio-subtitle {
+    font-size: 0.8rem;
+  }
+  
+  .portfolio-description {
+    font-size: 0.85rem;
+  }
+  
+  .portfolio-tags .tag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+  }
+}
+
+/* ==========================================================================
+   End Portfolio Mobile Responsiveness
+   ========================================================================== */
+
+/* ==========================================================================
+   Contact Page Mobile Optimizations
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .consultation-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .consultation-card {
+    padding: 1rem;
+    transform: none !important;
+  }
+  
+  .consultation-card:hover {
+    transform: translateY(-4px) !important;
+  }
+  
+  .contact-form {
+    padding: 1.5rem;
+    transform: none !important;
+  }
+  
+  .contact-form:hover {
+    transform: none !important;
+  }
+  
+  .contact-info-card {
+    padding: 0.75rem;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .contact-info-card .material-icons {
+    margin-bottom: 0.5rem;
+  }
+  
+  .hero-section {
+    padding: 2rem 1rem;
+  }
+  
+  .hero-section h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  
+  .hero-section p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .consultation-card h3 {
+    font-size: 1rem;
+  }
+  
+  .consultation-card p {
+    font-size: 0.875rem;
+  }
+  
+  .consultation-card ul {
+    font-size: 0.8rem;
+  }
+  
+  .contact-form h2 {
+    font-size: 1.25rem;
+  }
+  
+  .contact-form .grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-info-highlight {
+    padding: 1rem;
+  }
+  
+  .hero-section .flex {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .hero-section .material-icons {
+    font-size: 1.25rem;
+  }
+}
+
+/* Enhanced touch targets for mobile */
+@media (hover: none) and (pointer: coarse) {
+  .contact-form input,
+  .contact-form textarea,
+  .contact-form select,
+  .contact-form button {
+    min-height: 48px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  .consultation-card {
+    padding: 1.5rem;
+  }
+  
+  .contact-info-card {
+    padding: 1rem;
+    min-height: 48px;
+  }
+  
+  .mobile-nav-item {
+    min-height: 60px;
+    min-width: 60px;
+  }
+}
+
+/* Improve readability on small screens */
+@media (max-width: 375px) {
+  .hero-section h1 {
+    font-size: 1.75rem;
+  }
+  
+  .contact-form {
+    padding: 1rem;
+  }
+  
+  .consultation-card {
+    padding: 0.75rem;
+  }
+  
+  .contact-info-card {
+    padding: 0.5rem;
+  }
+}
+
+/* ==========================================================================
+   Featured AI Solutions & About Section Mobile Adjustments
+   ========================================================================== */
+
+/* Hide illustrations in Featured AI Solutions cards on smaller than desktop screens */
+@media (max-width: 1023px) {
+  /* Target the illustration containers in Featured AI Solutions section */
+  .section-projects .project-card .aspect-video {
+    display: none;
+  }
+  
+  /* Adjust project card layout when illustration is hidden */
+  .section-projects .project-card {
+    padding-top: 1.5rem;
+  }
+  
+  /* Ensure proper spacing for the content when illustration is hidden */
+  .section-projects .project-card .space-y-4 {
+    margin-top: 0;
+  }
+  
+  /* Remove the margin-bottom that was added for the illustration */
+  .section-projects .project-card .relative.z-10.p-6 {
+    padding-top: 1.5rem;
+  }
+}
+
+/* Fix text alignment in project card tags with material icons */
+.section-projects .project-card .space-y-4 .flex.items-center.gap-2 span {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  gap: 0.25rem;
+}
+
+.section-projects .project-card .space-y-4 .flex.items-center.gap-2 span .material-icons-outlined {
+  vertical-align: middle;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  font-size: 1rem;
+  height: 1rem;
+  width: 1rem;
+}
+
+/* Enhanced fix for material icons in gradient tags */
+.section-projects .project-card .space-y-4 .flex.items-center.gap-2 span.bg-gradient-to-r {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  line-height: 1.2;
+}
+
+.section-projects .project-card .space-y-4 .flex.items-center.gap-2 span.bg-gradient-to-r .material-icons-outlined {
+  vertical-align: middle;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  height: 1rem;
+  width: 1rem;
+  margin-right: 0.25rem;
+}
+
+/* Additional responsive improvements for Featured AI Solutions section */
+@media (max-width: 1023px) {
+  /* Ensure proper spacing and alignment on smaller screens */
+  .section-projects .project-card {
+    padding: 1rem;
+  }
+  
+  .section-projects .project-card .space-y-4 > * + * {
+    margin-top: 0.75rem;
+  }
+  
+  .section-projects .project-card .space-y-4 .flex.items-center.gap-2 {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .section-projects .project-card .space-y-4 .flex.items-center.gap-2 span {
+    font-size: 0.75rem;
+    padding: 0.375rem 0.75rem;
+  }
+}
+
+/* Position the "More About Dr. Wernsdorfer" button underneath the image */
+.section-about a[href="en/about.html"] {
+  /* Button is now positioned in HTML under the image - just ensure proper styling */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive adjustments for button under image */
+@media (max-width: 1023px) {
+  .section-about a[href="en/about.html"] {
+    /* Maintain centering on smaller screens */
+    width: fit-content;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-about a[href="en/about.html"] {
+    /* Slightly smaller on mobile */
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+  }
+}

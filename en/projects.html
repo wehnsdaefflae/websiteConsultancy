@@ -36,6 +36,10 @@
 </script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<!-- Enhanced scroll progress indicator -->
+<div class="scroll-indicator" id="scroll-progress">
+  <div class="scroll-progress-inner"></div>
+</div>
 <meta name="theme-color" content="#d97706"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
@@ -44,22 +48,50 @@
 <meta name="description" content="AI Projects by Dr. Mark Wernsdorfer - DoppelCheck, SpotTheBot, AMPEL clinical decision support, and other innovative AI applications."/>
 <meta name="keywords" content="AI projects, machine learning applications, DoppelCheck, SpotTheBot, AMPEL, clinical decision support"/>
 <meta name="author" content="Dr. Mark Wernsdorfer"/>
+<meta property="og:title" content="Portfolio - Dr. Mark Wernsdorfer"/>
+<meta property="og:description" content="Explore innovative AI projects that bridge deep theoretical research with real-world applications, demonstrating practical impact across diverse domains."/>
+<meta property="og:image" content="../images/profile-mark-wernsdorfer.webp"/>
+<meta property="og:url" content="https://markwernsdorfer.com/en/projects.html"/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Portfolio - Dr. Mark Wernsdorfer"/>
+<meta name="twitter:description" content="Explore innovative AI projects that bridge deep theoretical research with real-world applications, demonstrating practical impact across diverse domains."/>
+<meta name="twitter:image" content="../images/profile-mark-wernsdorfer.webp"/>
+<link rel="canonical" href="https://markwernsdorfer.com/en/projects.html"/>
 <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
 <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Playfair+Display%3Awght%40400%3B500%3B700%3B900&amp;family=Roboto+Slab%3Awght%40300%3B400%3B500%3B700&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-<title>Projects - Dr. Mark Wernsdorfer</title>
-<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<title>Portfolio - Dr. Mark Wernsdorfer</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link rel="stylesheet" href="../style.css" />
-<script defer src="../javascript.js"></script>
+<!-- Modular CSS Files -->
+<link rel="stylesheet" href="../css/design-tokens.css" />
+<link rel="stylesheet" href="../css/base.css" />
+<link rel="stylesheet" href="../css/layout.css" />
+<link rel="stylesheet" href="../css/components.css" />
+<link rel="stylesheet" href="../css/animations.css" />
+<link rel="stylesheet" href="../css/theme.css" />
+<link rel="stylesheet" href="../css/theme-classes.css" />
+<link rel="stylesheet" href="../css/mobile.css" />
+<link rel="stylesheet" href="../css/utilities.css" />
+<link rel="stylesheet" href="../css/inline-styles.css" />
+
+<!-- Modular JavaScript Files -->
+<script defer src="../js/theme.js"></script>
+<script defer src="../js/core.js"></script>
+<script defer src="../js/navigation.js"></script>
+<script defer src="../js/animations.js"></script>
+<script defer src="../js/interactions.js"></script>
 </head>
-<body class="bg-stone-50 text-stone-800" style='font-family: "Roboto Slab", "Noto Sans", sans-serif;'>
+<body class="font-roboto-slab" style="background: var(--bg-primary); color: var(--text-primary);">
+<a href="#main-content" class="skip-link visually-hidden">Skip to main content</a>
 <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
 <div class="layout-container flex h-full grow flex-col">
-<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-stone-200 bg-stone-50/80 px-4 sm:px-6 lg:px-10 py-3 sm:py-4 backdrop-blur-md">
-<div class="flex items-center gap-2 sm:gap-3 text-stone-800 flex-shrink-0">
-<div class="size-6 sm:size-8 text-amber-600 flex-shrink-0">
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid themed-border header-bg px-4 sm:px-6 lg:px-10 py-3 sm:py-4 backdrop-blur-md">
+<div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+<div class="size-8 text-accent flex-shrink-0">
 <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_6_535)">
 <path d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z" fill="currentColor"></path>
@@ -69,173 +101,422 @@
 </defs>
 </svg>
 </div>
-<a href="../index.html" class="text-stone-800 text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight whitespace-nowrap hover:text-amber-600 transition-colors logo-text" style='font-family: "Playfair Display", serif;'><span class="logo-first-line">Dr. Mark</span> <span class="logo-second-line">Wernsdorfer</span></a>
+<a href="../index.html" class="header-logo-text text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight transition-colors font-playfair"><span class="logo-first-line">Dr. Mark</span> <span class="logo-second-line">Wernsdorfer</span></a>
 </div>
-<nav class="hidden xl:flex items-center gap-6 xl:gap-10" id="header-nav-links">
-<a class="nav-link hover-underline-animation" href="about.html">About</a>
-<a class="nav-link hover-underline-animation" href="services.html">Services</a>
-<span class="nav-link hover-underline-animation text-amber-600 disabled">Projects</span>
-<a class="nav-link hover-underline-animation" href="grants.html">Grants</a>
-<a class="nav-link hover-underline-animation" href="publications.html">Publications</a>
-<a class="nav-link hover-underline-animation" href="community.html">Community</a>
+<nav class="hidden lg:flex items-center gap-6 xl:gap-10" id="header-nav-links">
+<a class="nav-link hover-underline-animation nav-text" href="about.html">About</a>
+<a class="nav-link hover-underline-animation nav-text" href="services.html">Services</a>
+<span class="nav-link hover-underline-animation nav-text text-accent disabled">Portfolio</span>
+<a class="nav-link hover-underline-animation nav-text" href="publications.html">Insights</a>
+<a class="nav-link hover-underline-animation nav-text" href="community.html">Community</a>
+<a class="nav-link hover-underline-animation nav-text" href="grants.html">Grants</a>
 </nav>
-<div class="flex items-center gap-2 sm:gap-4">                <button onclick="toggleDarkMode()" class="theme-toggle" aria-label="Toggle dark mode"></button>
+<div class="flex items-center gap-2 sm:gap-4">
+<button onclick="window.themeUtils.enhancedToggleDarkMode(event)" class="theme-toggle" aria-label="Toggle dark mode">
+  <span class="material-icons-outlined theme-toggle-icon">dark_mode</span>
+</button>
 <div class="language-switcher flex items-center gap-1">
-<a href="../index.html" class="px-2 py-1 text-sm font-medium text-amber-600 bg-amber-50 rounded hover:bg-amber-100 transition-colors">EN</a>
-<span class="px-2 py-1 text-sm font-medium text-stone-400 bg-stone-100 rounded cursor-not-allowed opacity-60">DE</span>
+<a href="../index.html" class="px-2 py-1 text-sm font-medium lang-active rounded hover:opacity-90 transition-all">EN</a>
+<span class="px-2 py-1 text-sm font-medium lang-inactive rounded cursor-not-allowed opacity-60">DE</span>
 </div>
-<a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 bg-amber-600 text-stone-50 text-sm sm:text-base font-semibold tracking-wide shadow-lg hover:bg-amber-700 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600" href="contact.html">
+<a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 btn-primary text-sm sm:text-base font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="contact.html">
 <span class="truncate">Contact</span>
 </a>
-<a class="sm:hidden flex min-w-[60px] items-center justify-center overflow-hidden rounded-md h-9 px-3 bg-amber-600 text-stone-50 text-sm font-semibold tracking-wide shadow-lg hover:bg-amber-700 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600" href="contact.html">
+<a class="sm:hidden flex items-center justify-center overflow-hidden rounded-md h-9 px-3 btn-primary text-sm font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="contact.html" aria-label="Contact">
 <span class="material-icons text-lg">email</span>
 </a>
-<button id="mobile-menu-button" class="xl:hidden p-2 text-stone-800 hover:text-amber-600 transition-colors">
-<span class="material-icons-outlined text-2xl sm:text-3xl">menu_open</span>
-</button>
 </div>
 </header>
-<main class="flex-1">
-<section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 bg-stone-100" id="projects">
-<div class="max-w-[960px] mx-auto space-y-8 sm:space-y-10">
-<h1 class="text-stone-800 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-center" style='font-family: "Playfair Display", serif;'>Key Projects & Innovations</h1>
-<p class="text-stone-600 text-base sm:text-lg font-normal leading-relaxed text-center max-w-2xl mx-auto">
-Showcasing a portfolio of innovative AI applications that demonstrate the intersection of cutting-edge research and practical implementation.
+<main class="flex-1" id="main-content" role="main">
+<!-- Hero Section -->
+<section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16" id="portfolio">
+<div class="layout-content-container flex flex-col max-w-[960px] mx-auto">
+<div class="space-y-8 sm:space-y-10">
+<div class="text-center space-y-4">
+<h1 class="themed-text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight font-playfair">Portfolio & Case Studies</h1>
+<p class="themed-text-secondary text-lg sm:text-xl font-normal leading-relaxed max-w-3xl mx-auto">
+Explore innovative AI projects that bridge deep theoretical research with real-world applications, demonstrating practical impact across diverse domains.
 </p>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-
-<div class="flex flex-col gap-4 project-card-smooth">
-<div class="w-full bg-center bg-no-repeat aspect-video bg-cover">
-<iframe class="w-full h-full rounded-t-xl" src="https://www.youtube.com/embed/HXEUSEPjV7w" title="DoppelCheck Explainer Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
+</div>    <!-- Filter Tabs -->
+    <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mt-12">
+      <button class="portfolio-filter-btn filter-btn active" data-filter="all">All Projects</button>
+      <button class="portfolio-filter-btn filter-btn" data-filter="ai-tools">AI Tools</button>
+      <button class="portfolio-filter-btn filter-btn" data-filter="research">Research</button>
+      <button class="portfolio-filter-btn filter-btn" data-filter="healthcare">Healthcare</button>
+      <button class="portfolio-filter-btn filter-btn" data-filter="education">Education</button>
+    </div>    <!-- Featured Projects Grid -->
+    <div class="portfolio-grid mt-12">
+      <!-- DoppelCheck Project -->
+      <div class="portfolio-item portfolio-card" data-category="ai-tools education">
+<div class="portfolio-image">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover bg-tertiary rounded-t-xl relative overflow-hidden">
+<iframe class="w-full h-full" src="https://www.youtube.com/embed/HXEUSEPjV7w" title="DoppelCheck Explainer Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
 </div>
-<div class="p-6">
-<h2 class="text-stone-800 text-xl font-semibold leading-normal mb-2" style='font-family: "Playfair Display", serif;'>DoppelCheck - AI for Disinformation Detection</h2>
-<div class="text-stone-500 text-sm mb-4">
-<p><span class="font-medium">Role:</span> Project Lead & Sole Developer</p>
-<p><span class="font-medium">Affiliation:</span> Media Lab Bayern Fellow</p>
+<div class="portfolio-overlay">
+<div class="portfolio-tags">
+<span class="tag">AI Detection</span>
+<span class="tag">Digital Literacy</span>
+<span class="tag">Open Source</span>
 </div>
-<p class="text-stone-600 text-base font-normal leading-relaxed mb-4">
-AI browser tool for the automatic identification of disinformation and misinformation. This open-source project promotes digital literacy and critical information assessment with local server processing for privacy.
+</div>
+</div>
+<div class="portfolio-content">
+<div class="portfolio-header">
+<h3 class="portfolio-title">DoppelCheck</h3>
+<div class="portfolio-subtitle">AI-Powered Disinformation Detection</div>
+</div>
+<p class="portfolio-description">
+A comprehensive browser extension that leverages advanced machine learning to identify disinformation and misinformation in real-time, promoting digital literacy with privacy-first local processing.
 </p>
-<div class="flex flex-wrap gap-2">
-<a href="https://doppelcheck.com/" target="_blank" rel="noopener noreferrer" class="text-amber-600 hover:text-amber-700 text-sm font-medium">Website</a>
-<a href="https://github.com/Doppelcheck/main" target="_blank" rel="noopener noreferrer" class="text-amber-600 hover:text-amber-700 text-sm font-medium">GitHub</a>
+<div class="portfolio-meta">
+<div class="meta-item">
+<span class="meta-label">Role:</span>
+<span class="meta-value">Project Lead & Sole Developer</span>
+</div>
+<div class="meta-item">
+<span class="meta-label">Institution:</span>
+<span class="meta-value">Media Lab Bayern Fellow</span>
+</div>
+<div class="meta-item">
+<span class="meta-label">Impact:</span>
+<span class="meta-value">Open-source tool for digital literacy</span>
 </div>
 </div>
-</div>
-
-<div class="flex flex-col gap-4 project-card-smooth">                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover" style='background-image: url("../images/project-ai-research.webp");'></div>
-<div class="p-6">
-<h2 class="text-stone-800 text-xl font-semibold leading-normal mb-2" style='font-family: "Playfair Display", serif;'>SpotTheBot - Recognizing AI-Generated Text</h2>
-<div class="text-stone-500 text-sm mb-4">
-<p><span class="font-medium">Role:</span> Project Lead & Sole Developer</p>
-<p><span class="font-medium">Funding:</span> BMBF & Open Knowledge Foundation</p>
-</div>
-<p class="text-stone-600 text-base font-normal leading-relaxed mb-4">
-A project aimed at playfully learning how to detect AI-generated text content, enhancing digital literacy through an interactive AI application.
-</p>
-<div class="flex flex-wrap gap-2">
-<a href="https://spotthebot.de/" target="_blank" rel="noopener noreferrer" class="text-amber-600 hover:text-amber-700 text-sm font-medium">Website</a>
-<a href="https://github.com/wehsnaefflae/SpotTheBot" target="_blank" rel="noopener noreferrer" class="text-amber-600 hover:text-amber-700 text-sm font-medium">GitHub</a>
-</div>
-</div>
-</div>
-
-<div class="flex flex-col gap-4 project-card-smooth">
-<div class="w-full bg-center bg-no-repeat aspect-video bg-cover">
-<iframe class="w-full h-full rounded-t-xl" src="https://www.youtube.com/embed/X7Depq6QZ1c" title="ARTeFact - Spiegelbox Highlights" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
-</div>
-<div class="p-6">
-<h2 class="text-stone-800 text-xl font-semibold leading-normal mb-2" style='font-family: "Playfair Display", serif;'>ARTeFact - Interactive AI Installation</h2>
-<div class="text-stone-500 text-sm mb-4">
-<p><span class="font-medium">Role:</span> Sole AI Developer & Designer</p>
-<p><span class="font-medium">Venue:</span> Globe Theatre Leipzig</p>
-</div>
-<p class="text-stone-600 text-base font-normal leading-relaxed mb-4">
-"Spiegelbox" was an interactive installation using AI to show the dangers of exploiting empathy with AI, showcased at the ARTeFact science show.
-</p>
-<div class="flex flex-wrap gap-2">
-<a href="https://www.globe-festival.de/globe23" target="_blank" rel="noopener noreferrer" class="text-amber-600 hover:text-amber-700 text-sm font-medium">Globe Festival</a>
-</div>
-</div>
-</div>
-
-<div class="flex flex-col gap-4 project-card-smooth">                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover" style='background-image: url("../images/project-medical-ai.webp");'></div>
-<div class="p-6">
-<h2 class="text-stone-800 text-xl font-semibold leading-normal mb-2" style='font-family: "Playfair Display", serif;'>AMPEL – Clinical Decision Support</h2>
-<div class="text-stone-500 text-sm mb-4">
-<p><span class="font-medium">Role:</span> Key AI Architect & Co-developer</p>
-<p><span class="font-medium">Institution:</span> Universitätsklinikum Leipzig</p>
-</div>
-<p class="text-stone-600 text-base font-normal leading-relaxed mb-4">
-AI-driven Clinical Decision Support System (CDSS) for real-time laboratory diagnostics, leading the design and implementation of machine learning algorithms.
-</p>
-<div class="flex flex-wrap gap-2">
-<a href="https://www.ampel.care/" target="_blank" rel="noopener noreferrer" class="text-amber-600 hover:text-amber-700 text-sm font-medium">Website</a>
+<div class="portfolio-links">
+<a href="https://doppelcheck.com/" target="_blank" class="portfolio-link">
+<span class="material-icons">launch</span>
+Visit Project
+</a>
+<a href="https://github.com/Doppelcheck/main" target="_blank" class="portfolio-link">
+<span class="material-icons">code</span>
+View Code
+</a>
 </div>
 </div>
 </div>
 
-<div class="flex flex-col gap-4 project-card-smooth">                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover" style='background-image: url("../images/project-knowledge-optimization.webp");'></div>
-<div class="p-6">
-<h2 class="text-stone-800 text-xl font-semibold leading-normal mb-2" style='font-family: "Playfair Display", serif;'>KNW‑Opt - Geothermics Optimization</h2>
-<div class="text-stone-500 text-sm mb-4">
-<p><span class="font-medium">Role:</span> Co-developer</p>
-<p><span class="font-medium">Institution:</span> FAU Erlangen-Nürnberg</p>
+<!-- AMPEL Medical Project -->
+<div class="portfolio-item" data-category="healthcare research">
+<div class="portfolio-card group">
+<div class="portfolio-image">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-t-xl" style='background-image: url("../images/project-medical-ai.webp");'></div>
+<div class="portfolio-overlay">
+<div class="portfolio-tags">
+<span class="tag">Medical AI</span>
+<span class="tag">Clinical Decision</span>
+<span class="tag">Real-time</span>
 </div>
-<p class="text-stone-600 text-base font-normal leading-relaxed mb-4">
-Research on shallow geothermal energy, including modeling, simulation, and parameter optimization using data-driven models for predicting soil thermal conductivity.
+</div>
+</div>
+<div class="portfolio-content">
+<div class="portfolio-header">
+<h3 class="portfolio-title">AMPEL</h3>
+<div class="portfolio-subtitle">Clinical Decision Support System</div>
+</div>
+<p class="portfolio-description">
+Advanced AI-driven Clinical Decision Support System for real-time laboratory diagnostics, revolutionizing medical decision-making through intelligent data analysis and predictive insights.
 </p>
-<div class="flex flex-wrap gap-2">
-<a href="https://www.enargus.de/detail/?id=1418226" target="_blank" rel="noopener noreferrer" class="text-amber-600 hover:text-amber-700 text-sm font-medium">Enargus</a>
+<div class="portfolio-meta">
+<div class="meta-item">
+<span class="meta-label">Role:</span>
+<span class="meta-value">Key AI Architect & Co-developer</span>
+</div>
+<div class="meta-item">
+<span class="meta-label">Institution:</span>
+<span class="meta-value">University Hospital Leipzig</span>
+</div>
+<div class="meta-item">
+<span class="meta-label">Impact:</span>
+<span class="meta-value">Enhanced patient care through AI</span>
+</div>
+</div>
+<div class="portfolio-links">
+<a href="https://www.ampel.care/" target="_blank" class="portfolio-link">
+<span class="material-icons">launch</span>
+Visit Project
+</a>
+</div>
 </div>
 </div>
 </div>
 
-<div class="flex flex-col gap-4 project-card-smooth">                        <div class="w-full bg-center bg-no-repeat aspect-video bg-cover" style='background-image: url("../images/project-symbol-grounding.webp");'></div>
-<div class="p-6">
-<h2 class="text-stone-800 text-xl font-semibold leading-normal mb-2" style='font-family: "Playfair Display", serif;'>Symbol Grounding - Doctoral Research</h2>
-<div class="text-stone-500 text-sm mb-4">
-<p><span class="font-medium">Role:</span> Principal Investigator</p>
-<p><span class="font-medium">Institution:</span> University of Bamberg</p>
+<!-- ARTeFact Installation -->
+<div class="portfolio-item" data-category="ai-tools education">
+<div class="portfolio-card group">
+<div class="portfolio-image">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover bg-tertiary rounded-t-xl relative overflow-hidden">
+<iframe class="w-full h-full" src="https://www.youtube.com/embed/X7Depq6QZ1c" title="ARTeFact - Spiegelbox Highlights" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
 </div>
-<p class="text-stone-600 text-base font-normal leading-relaxed mb-4">
-Foundational research on the symbol grounding problem in AI, leading to the PhD Thesis "Symbol Grounding as the Generation of Mental Representations" (2019).
+<div class="portfolio-overlay">
+<div class="portfolio-tags">
+<span class="tag">Interactive AI</span>
+<span class="tag">Art Installation</span>
+<span class="tag">Ethics</span>
+</div>
+</div>
+</div>
+<div class="portfolio-content">
+<div class="portfolio-header">
+<h3 class="portfolio-title">ARTeFact</h3>
+<div class="portfolio-subtitle">Interactive AI Art Installation</div>
+</div>
+<p class="portfolio-description">
+"Spiegelbox" - An innovative interactive installation exploring the ethical dimensions of AI empathy exploitation, demonstrating the intersection of technology, art, and philosophical inquiry.
 </p>
-<div class="flex flex-wrap gap-2">
-<a href="https://d-nb.info/1182477194" target="_blank" rel="noopener noreferrer" class="text-amber-600 hover:text-amber-700 text-sm font-medium">Thesis</a>
+<div class="portfolio-meta">
+<div class="meta-item">
+<span class="meta-label">Role:</span>
+<span class="meta-value">Sole AI Developer & Designer</span>
+</div>
+<div class="meta-item">
+<span class="meta-label">Venue:</span>
+<span class="meta-value">Globe Theatre Leipzig</span>
+</div>
+<div class="meta-item">
+<span class="meta-label">Focus:</span>
+<span class="meta-value">AI Ethics & Human Experience</span>
+</div>
+</div>
+<div class="portfolio-links">
+<a href="https://www.globe-festival.de/globe23" target="_blank" class="portfolio-link">
+<span class="material-icons">launch</span>
+Festival Info
+</a>
+</div>
 </div>
 </div>
 </div>
 
+<!-- SpotTheBot Project -->
+<div class="portfolio-item" data-category="ai-tools education">
+<div class="portfolio-card group">
+<div class="portfolio-image">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-t-xl" style='background-image: url("../images/project-ai-research.webp");'></div>
+<div class="portfolio-overlay">
+<div class="portfolio-tags">
+<span class="tag">Text Detection</span>
+<span class="tag">Digital Literacy</span>
+<span class="tag">BMBF Funded</span>
+</div>
+</div>
+</div>
+<div class="portfolio-content">
+<div class="portfolio-header">
+<h3 class="portfolio-title">SpotTheBot</h3>
+<div class="portfolio-subtitle">AI-Generated Text Recognition</div>
+</div>
+<p class="portfolio-description">
+An innovative educational platform that gamifies the process of detecting AI-generated text, enhancing digital literacy through interactive learning experiences and practical skill development.
+</p>
+<div class="portfolio-meta">
+<div class="meta-item">
+<span class="meta-label">Role:</span>
+<span class="meta-value">Project Lead & Sole Developer</span>
+</div>
+<div class="meta-item">
+<span class="meta-label">Funding:</span>
+<span class="meta-value">BMBF & Open Knowledge Foundation</span>
+</div>
+<div class="meta-item">
+<span class="meta-label">Purpose:</span>
+<span class="meta-value">Educational AI literacy tool</span>
+</div>
+</div>
+<div class="portfolio-links">
+<a href="https://spotthebot.de/" target="_blank" class="portfolio-link">
+<span class="material-icons">launch</span>
+Try SpotTheBot
+</a>
+<a href="https://github.com/wehsnaefflae/SpotTheBot" target="_blank" class="portfolio-link">
+<span class="material-icons">code</span>
+View Code
+</a>
+</div>
+</div>
+</div>
+</div>
+
+<!-- KNW-Opt Geothermics -->
+<div class="portfolio-item" data-category="research">
+<div class="portfolio-card group">
+<div class="portfolio-image">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-t-xl" style='background-image: url("../images/project-knowledge-optimization.webp");'></div>
+<div class="portfolio-overlay">
+<div class="portfolio-tags">
+<span class="tag">Geothermics</span>
+<span class="tag">Optimization</span>
+<span class="tag">Simulation</span>
+</div>
+</div>
+</div>
+<div class="portfolio-content">
+<div class="portfolio-header">
+<h3 class="portfolio-title">KNW-Opt</h3>
+<div class="portfolio-subtitle">Geothermal Energy Optimization</div>
+</div>
+<p class="portfolio-description">
+Advanced research on shallow geothermal energy systems, utilizing machine learning for predictive modeling and parameter optimization to enhance sustainable energy solutions.
+</p>
+<div class="portfolio-meta">
+<div class="meta-item">
+<span class="meta-label">Role:</span>
+<span class="meta-value">Co-developer & Researcher</span>
+</div>
+<div class="meta-item">
+<span class="meta-label">Institution:</span>
+<span class="meta-value">FAU Erlangen-Nürnberg</span>
+</div>
+<div class="meta-item">
+<span class="meta-label">Domain:</span>
+<span class="meta-value">Sustainable Energy & AI</span>
+</div>
+</div>
+<div class="portfolio-links">
+<a href="https://www.enargus.de/detail/?id=1418226" target="_blank" class="portfolio-link">
+<span class="material-icons">launch</span>
+Research Details
+</a>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Symbol Grounding Research -->
+<div class="portfolio-item" data-category="research">
+<div class="portfolio-card group">
+<div class="portfolio-image">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-t-xl" style='background-image: url("../images/project-symbol-grounding.webp");'></div>
+<div class="portfolio-overlay">
+<div class="portfolio-tags">
+<span class="tag">PhD Research</span>
+<span class="tag">Cognitive Science</span>
+<span class="tag">Philosophy</span>
+</div>
+</div>
+</div>
+<div class="portfolio-content">
+<div class="portfolio-header">
+<h3 class="portfolio-title">Symbol Grounding</h3>
+<div class="portfolio-subtitle">Foundational AI Research</div>
+</div>
+<p class="portfolio-description">
+Groundbreaking doctoral research addressing the fundamental symbol grounding problem in AI, exploring how artificial systems can develop genuine understanding and semantic representation.
+</p>
+<div class="portfolio-meta">
+<div class="meta-item">
+<span class="meta-label">Role:</span>
+<span class="meta-value">Principal Investigator</span>
+</div>
+<div class="meta-item">
+<span class="meta-label">Institution:</span>
+<span class="meta-value">University of Bamberg</span>
+</div>
+<div class="meta-item">
+<span class="meta-label">Outcome:</span>
+<span class="meta-value">PhD Thesis (2019)</span>
+</div>
+</div>
+<div class="portfolio-links">
+<a href="https://d-nb.info/1182477194" target="_blank" class="portfolio-link">
+<span class="material-icons">launch</span>
+Read Thesis
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Impact Statistics -->
+<div class="mt-16 card rounded-2xl p-8 sm:p-12">
+<div class="text-center space-y-8">
+<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold font-playfair">Project Impact & Recognition</h2>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="text-center">
+<div class="text-3xl sm:text-4xl font-bold text-accent">€2.8M+</div>
+<div class="themed-text-secondary text-sm">Research Funding Secured</div>
+</div>
+<div class="text-center">
+<div class="text-3xl sm:text-4xl font-bold text-accent">15+</div>
+<div class="themed-text-secondary text-sm">Years of Experience</div>
+</div>
+<div class="text-center">
+<div class="text-3xl sm:text-4xl font-bold text-accent">6</div>
+<div class="themed-text-secondary text-sm">Major Projects Delivered</div>
+</div>
+<div class="text-center">
+<div class="text-3xl sm:text-4xl font-bold text-accent">3</div>
+<div class="themed-text-secondary text-sm">Open Source Tools</div>
+</div>
+</div>
+</div>
 </div>
 
 <!-- Call to Action -->
-<div class="mt-12 bg-amber-50 rounded-xl p-8 text-center">
-<h2 class="text-stone-800 text-2xl font-bold mb-4" style='font-family: "Playfair Display", serif;'>Ready to Build Something Amazing?</h2>
-<p class="text-stone-600 mb-6">Let's discuss how we can bring your AI vision to life with innovative, practical solutions.</p>
-<a href="contact.html" class="btn-primary">Start Your Project</a>
+<div class="text-center mt-16 space-y-6">
+<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold font-playfair">Ready to Create Your Next Innovation?</h2>
+<p class="themed-text-secondary text-lg max-w-2xl mx-auto">
+Let's collaborate to bring your AI vision to life. From research to production, I'll help you build solutions that make a real impact.
+</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+<a href="contact.html" class="btn-primary text-lg px-8 py-4">Start Your Project</a>
+<a href="services.html" class="btn-secondary text-lg px-8 py-4">Explore Services</a>
+</div>
+</div>
 </div>
 </div>
 </section>
 </main>
-<footer class="bg-stone-800 text-stone-300">
+<footer class="footer-bg footer-text">
 <div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-12 text-center space-y-4 sm:space-y-6">
 <div class="flex flex-col sm:flex-row items-center justify-center gap-y-2 gap-x-4 sm:gap-x-6">
-<a class="text-stone-400 hover:text-amber-600 text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Privacy Policy</a>
-<a class="text-stone-400 hover:text-amber-600 text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Terms of Service</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="contact.html">Contact Details</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Privacy Policy</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Terms of Service</a>
 </div>
-<div class="flex flex-wrap justify-center gap-4">
-<a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-stone-400 hover:text-amber-600 transition-colors">
+<div class="flex flex-wrap justify-center gap-6">
+<a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
 <span class="material-icons text-xl sm:text-2xl">business</span>
+<span class="text-sm">LinkedIn</span>
 </a>
-<a href="mailto:contact@markwernsdorfer.com" target="_blank" rel="noopener noreferrer" aria-label="Email" class="text-stone-400 hover:text-amber-600 transition-colors">
+<a href="mailto:contact@markwernsdorfer.com" target="_blank" rel="noopener noreferrer" aria-label="Email" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
 <span class="material-icons text-xl sm:text-2xl">email</span>
+<span class="text-sm">Email</span>
 </a>
 </div>
-<p class="text-stone-500 text-sm">© 2025 Dr. Mark Wernsdorfer. All rights reserved.</p>
+<p class="footer-text text-sm">© 2025 Dr. Mark Wernsdorfer. All rights reserved.</p>
+<p class="footer-text text-xs sm:text-sm" style='font-family: "Playfair Display", serif;'>
+Bridging AI theory and practice with precision.
+</p>
 </div>
 </footer>
+
+<!-- Mobile Bottom Navigation (only visible on mobile/tablet) -->
+<nav class="mobile-bottom-nav lg:hidden">
+  <div class="mobile-nav-grid">
+    <a href="../index.html" class="mobile-nav-item mobile-nav-text">
+      <span class="material-icons-outlined">home</span>
+      <span>Home</span>
+    </a>
+    <a href="about.html" class="mobile-nav-item mobile-nav-text">
+      <span class="material-icons-outlined">person</span>
+      <span>About</span>
+    </a>
+    <a href="services.html" class="mobile-nav-item mobile-nav-text">
+      <span class="material-icons-outlined">work</span>
+      <span>Services</span>
+    </a>
+    <a href="projects.html" class="mobile-nav-item active mobile-nav-text">
+      <span class="material-icons-outlined">folder</span>
+      <span>Portfolio</span>
+    </a>
+    <a href="contact.html" class="mobile-nav-item mobile-nav-text">
+      <span class="material-icons-outlined">contact_mail</span>
+      <span>Contact</span>
+    </a>
+  </div>
+</nav>
+
 </div>
 </div>
 </body>

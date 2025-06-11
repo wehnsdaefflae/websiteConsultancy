@@ -1,0 +1,382 @@
+/* ==========================================================================
+   Theme System - Dark Mode and Color Themes
+   ========================================================================== */
+
+/* Dark theme color overrides */
+:root.dark {
+  /* Dark theme colors */
+  --bg-primary: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 50%, #0f0f0f 100%);
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #2a2a2a;
+  --bg-glass: rgba(26, 26, 26, 0.8);
+  
+  --text-primary: #f5f5f4;
+  --text-secondary: #d6d3d1;
+  --text-tertiary: #a8a29e;
+  
+  --border-color: rgba(64, 64, 64, 0.3);
+  --border-hover: rgba(245, 158, 11, 0.4);
+  
+  /* Enhanced button styles for dark theme */
+  --btn-primary-bg: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%);
+  --btn-primary-text: #ffffff;
+  --btn-primary-shadow: 0 4px 15px rgba(217, 119, 6, 0.4);
+  --btn-primary-shadow-hover: 0 8px 25px rgba(217, 119, 6, 0.6);
+  
+  /* Form elements */
+  --form-bg: #1a1a1a;
+  --form-text: #f5f5f4;
+  --form-border: rgba(64, 64, 64, 0.5);
+  --form-focus-border: rgba(245, 158, 11, 0.6);
+  
+  /* Enhanced gradients for dark theme */
+  --gradient-primary: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%);
+  --gradient-secondary: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  --gradient-hero: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0.9) 100%);
+  --gradient-card: linear-gradient(135deg, rgba(38, 38, 38, 0.9) 0%, rgba(26, 26, 26, 0.7) 100%);
+  
+  --shadow-glow: 0 0 40px rgba(245, 158, 11, 0.3);
+  --shadow-glow-strong: 0 0 60px rgba(245, 158, 11, 0.5);
+}
+
+/* Dark theme specific component adjustments */
+:root.dark header {
+  background: rgba(26, 26, 26, 0.8);
+  border-bottom-color: rgba(64, 64, 64, 0.3);
+}
+
+:root.dark .card {
+  background: var(--gradient-card);
+  border-color: rgba(64, 64, 64, 0.3);
+}
+
+:root.dark .card:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+:root.dark .mobile-bottom-nav {
+  background: rgba(10, 10, 10, 0.9);
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+:root.dark .glass-morphism {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root.dark .scroll-indicator {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+:root.dark .interactive-glow:hover {
+  box-shadow: 
+    0 0 20px rgba(245, 158, 11, 0.4),
+    0 0 40px rgba(245, 158, 11, 0.2),
+    0 0 60px rgba(245, 158, 11, 0.1);
+}
+
+:root.dark body::before {
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(245, 158, 11, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(245, 158, 11, 0.03) 0%, transparent 50%);
+}
+
+/* ==========================================================================
+   Theme Toggle Component
+   ========================================================================== */
+
+.theme-toggle {
+  background: var(--bg-tertiary);
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  border-radius: 50%;
+}
+
+.theme-toggle:hover {
+  transform: rotate(180deg) scale(1.1);
+  border-color: var(--accent-color);
+  box-shadow: var(--shadow-glow);
+}
+
+.theme-toggle:hover::before {
+  opacity: 0.1;
+}
+
+.theme-toggle-icon {
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+  z-index: 1;
+}
+
+/* ==========================================================================
+   Theme Transition Effects
+   ========================================================================== */
+
+.theme-transitioning * {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Enhanced theme transition for smooth color changes */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  transition: background 0.3s ease;
+}
+
+.card,
+.project-card,
+header,
+.mobile-bottom-nav {
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ==========================================================================
+   High Contrast Mode Support
+   ========================================================================== */
+
+@media (prefers-contrast: high) {
+  :root {
+    --border-color: #000000;
+    --text-primary: #000000;
+    --bg-primary: #ffffff;
+  }
+  
+  :root.dark {
+    --border-color: #ffffff;
+    --text-primary: #ffffff;
+    --bg-primary: #000000;
+  }
+  
+  .card,
+  .project-card {
+    border: 2px solid;
+  }
+  
+  .btn-primary {
+    border: 2px solid;
+  }
+}
+
+/* ==========================================================================
+   Dark Mode Overrides for Hardcoded White Backgrounds
+   ========================================================================== */
+
+/* Trust bar section */
+:root.dark section[class*="from-white"] {
+  background: linear-gradient(to right, #1a1a1a, #0f0f0f) !important;
+}
+
+/* Service cards with white backgrounds */
+:root.dark .card[class*="from-white"] {
+  background: linear-gradient(to bottom right, rgba(38, 38, 38, 0.9), rgba(26, 26, 26, 0.7)) !important;
+  border-color: rgba(64, 64, 64, 0.3) !important;
+}
+
+/* Project cards with white backgrounds */
+:root.dark .project-card[class*="from-white"] {
+  background: linear-gradient(to bottom right, rgba(38, 38, 38, 0.95), rgba(26, 26, 26, 0.85)) !important;
+  border-color: rgba(64, 64, 64, 0.3) !important;
+}
+
+/* About section elements with semi-transparent backgrounds */
+:root.dark .about-card,
+:root.dark .trust-item {
+  background-color: rgba(38, 38, 38, 0.8);
+  border-color: rgba(64, 64, 64, 0.5);
+}
+
+/* Trust item hover state */
+:root.dark .trust-item:hover {
+  background-color: #2a2a2a;
+}
+
+/* Specific decorative elements in About section */
+:root.dark .about-decorative {
+  background-image: linear-gradient(to bottom right, rgba(55, 55, 55, 0.8), rgba(40, 40, 40, 0.8));
+  border-color: rgba(64, 64, 64, 0.5);
+}
+
+/* Mobile navigation background */
+:root.dark .mobile-bottom-nav {
+    background-color: rgba(10, 10, 10, 0.9); 
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Ensure text colors are appropriate for dark backgrounds */
+:root.dark .about-card p,
+:root.dark .about-card span,
+:root.dark .trust-item div {
+  color: var(--text-secondary);
+}
+
+:root.dark .trust-item div {
+    color: var(--text-tertiary);
+}
+
+:root.dark .trust-item:hover .font-semibold {
+    color: var(--text-primary);
+}
+
+:root.dark .about-decorative span {
+    color: var(--text-primary);
+}
+
+:root.dark .material-icons-outlined.text-amber-600,
+:root.dark .material-icons-outlined.text-blue-600,
+:root.dark .material-icons-outlined.text-green-600 {
+    color: var(--accent-color); 
+}
+
+:root.dark .mobile-bottom-nav .mobile-nav-item span {
+    color: var(--text-secondary);
+}
+
+:root.dark .mobile-bottom-nav .mobile-nav-item.active span {
+    color: var(--accent-color);
+}
+
+/* ==========================================================================
+   Dark Theme Project Card Enhancements
+   ========================================================================== */
+
+:root.dark .project-card {
+  background: var(--gradient-card);
+  border-color: rgba(245, 158, 11, 0.1);
+}
+
+:root.dark .project-card:hover {
+  border-color: rgba(245, 158, 11, 0.3);
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.4),
+    0 10px 10px -5px rgba(0, 0, 0, 0.2),
+    0 0 30px rgba(245, 158, 11, 0.1);
+}
+
+/* Enhanced award badge for dark mode */
+:root.dark .award-badge {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(251, 191, 36, 0.1));
+  color: var(--accent-light);
+  border-color: rgba(245, 158, 11, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+/* Portfolio specific dark theme adjustments */
+:root.dark .portfolio-card {
+  background: linear-gradient(135deg, rgba(38, 38, 38, 0.95) 0%, rgba(26, 26, 26, 0.85) 100%);
+  border-color: rgba(64, 64, 64, 0.4);
+}
+
+:root.dark .portfolio-card:hover {
+  border-color: rgba(245, 158, 11, 0.6);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 40px rgba(245, 158, 11, 0.1);
+}
+
+:root.dark .portfolio-filter-btn {
+  border-color: rgba(64, 64, 64, 0.6);
+  color: var(--text-secondary);
+}
+
+:root.dark .portfolio-filter-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--text-primary);
+}
+
+:root.dark .portfolio-tags .tag {
+  background: rgba(0, 0, 0, 0.8);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+:root.dark .portfolio-link {
+  border-color: rgba(245, 158, 11, 0.6);
+  color: var(--accent-light);
+}
+
+:root.dark .portfolio-link:hover {
+  background: var(--accent-color);
+  color: white;
+}
+
+:root.dark .meta-item {
+  border-color: rgba(64, 64, 64, 0.3);
+}
+
+:root.dark .portfolio-meta {
+  border-color: rgba(64, 64, 64, 0.3);
+}
+
+/* Enhanced Dark Mode Support for Contact Page */
+:root.dark .hero-section {
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid rgba(64, 64, 64, 0.5);
+}
+
+:root.dark .consultation-card {
+  background: var(--bg-tertiary);
+  border-color: rgba(64, 64, 64, 0.5);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+:root.dark .consultation-card:hover {
+  background: var(--bg-secondary);
+  border-color: var(--accent-color);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+}
+
+:root.dark .contact-form {
+  background: var(--bg-tertiary);
+  border-color: rgba(64, 64, 64, 0.5);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+:root.dark .contact-info-card {
+  background: var(--bg-tertiary);
+  border-color: rgba(64, 64, 64, 0.5);
+}
+
+:root.dark .contact-info-card:hover {
+  background: var(--bg-secondary);
+  border-color: var(--accent-color);
+}
+
+:root.dark .contact-info-highlight {
+  background: var(--bg-tertiary);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+}
+
+/* Improved readability for dark mode forms */
+:root.dark .contact-form input::placeholder,
+:root.dark .contact-form textarea::placeholder,
+:root.dark .contact-form select option {
+  color: var(--text-tertiary);
+}
+
+:root.dark .contact-form input:focus,
+:root.dark .contact-form textarea:focus,
+:root.dark .contact-form select:focus {
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3);
+}

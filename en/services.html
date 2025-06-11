@@ -21,8 +21,12 @@
       document.documentElement.classList.add('dark');
     }
     
-    // Set initial theme without needing icon updates
+    // Set initial icon to prevent flicker
     document.addEventListener('DOMContentLoaded', function() {
+      const icons = document.querySelectorAll('.theme-toggle-icon');
+      icons.forEach(icon => {
+        icon.textContent = isDark ? 'light_mode' : 'dark_mode';
+      });
       // Enable transitions after setup
       setTimeout(() => {
         document.documentElement.classList.add('transitions-enabled');
@@ -32,6 +36,10 @@
 </script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<!-- Enhanced scroll progress indicator -->
+<div class="scroll-indicator" id="scroll-progress">
+  <div class="scroll-progress-inner"></div>
+</div>
 <meta name="theme-color" content="#d97706"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
@@ -40,22 +48,49 @@
 <meta name="description" content="AI Consulting Services by Dr. Mark Wernsdorfer - Strategic AI advisory, custom ML solutions, implementation guidance, and specialized training."/>
 <meta name="keywords" content="AI consulting services, machine learning solutions, AI strategy, technical advisory, AI implementation"/>
 <meta name="author" content="Dr. Mark Wernsdorfer"/>
+<meta property="og:title" content="Services - Dr. Mark Wernsdorfer"/>
+<meta property="og:description" content="Expert AI consulting services including strategic advisory, custom ML solutions, and implementation guidance for your organization."/>
+<meta property="og:image" content="../images/profile-mark-wernsdorfer.webp"/>
+<meta property="og:url" content="https://markwernsdorfer.com/en/services.html"/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Services - Dr. Mark Wernsdorfer"/>
+<meta name="twitter:description" content="Expert AI consulting services including strategic advisory, custom ML solutions, and implementation guidance for your organization."/>
+<meta name="twitter:image" content="../images/profile-mark-wernsdorfer.webp"/>
+<link rel="canonical" href="https://markwernsdorfer.com/en/services.html"/>
 <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
 <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Playfair+Display%3Awght%40400%3B500%3B700%3B900&amp;family=Roboto+Slab%3Awght%40300%3B400%3B500%3B700&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 <title>Services - Dr. Mark Wernsdorfer</title>
-<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link rel="stylesheet" href="../style.css" />
-<script defer src="../javascript.js"></script>
+<!-- Modular CSS Files -->
+<link rel="stylesheet" href="../css/design-tokens.css" />
+<link rel="stylesheet" href="../css/base.css" />
+<link rel="stylesheet" href="../css/layout.css" />
+<link rel="stylesheet" href="../css/components.css" />
+<link rel="stylesheet" href="../css/animations.css" />
+<link rel="stylesheet" href="../css/theme.css" />
+<link rel="stylesheet" href="../css/theme-classes.css" />
+<link rel="stylesheet" href="../css/mobile.css" />
+<link rel="stylesheet" href="../css/utilities.css" />
+<link rel="stylesheet" href="../css/inline-styles.css" />
+<!-- Modular JavaScript Files -->
+<script defer src="../js/theme.js"></script>
+<script defer src="../js/core.js"></script>
+<script defer src="../js/navigation.js"></script>
+<script defer src="../js/animations.js"></script>
+<script defer src="../js/interactions.js"></script>
 </head>
-<body class="bg-stone-50 text-stone-800" style='font-family: "Roboto Slab", "Noto Sans", sans-serif;'>
+<body class="font-roboto-slab services-page-bg" style="background: var(--bg-primary); color: var(--text-primary);">
+<a href="#main-content" class="skip-link visually-hidden">Skip to main content</a>
 <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
 <div class="layout-container flex h-full grow flex-col">
-<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-stone-200 bg-stone-50/80 px-4 sm:px-6 lg:px-10 py-3 sm:py-4 backdrop-blur-md">
-<div class="flex items-center gap-2 sm:gap-3 text-stone-800 flex-shrink-0">
-<div class="size-6 sm:size-8 text-amber-600 flex-shrink-0">
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid themed-border header-bg px-4 sm:px-6 lg:px-10 py-3 sm:py-4 backdrop-blur-md">
+<div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+<div class="size-8 text-accent flex-shrink-0">
 <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_6_535)">
 <path d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z" fill="currentColor"></path>
@@ -65,154 +100,353 @@
 </defs>
 </svg>
 </div>
-<a href="../index.html" class="text-stone-800 text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight whitespace-nowrap hover:text-amber-600 transition-colors logo-text" style='font-family: "Playfair Display", serif;'><span class="logo-first-line">Dr. Mark</span> <span class="logo-second-line">Wernsdorfer</span></a>
+<a href="../index.html" class="header-logo-text text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight transition-colors font-playfair"><span class="logo-first-line">Dr. Mark</span> <span class="logo-second-line">Wernsdorfer</span></a>
 </div>
-<nav class="hidden xl:flex items-center gap-6 xl:gap-10" id="header-nav-links">
-<a class="nav-link hover-underline-animation" href="about.html">About</a>
-<span class="nav-link hover-underline-animation text-amber-600 disabled">Services</span>
-<a class="nav-link hover-underline-animation" href="projects.html">Projects</a>
-<a class="nav-link hover-underline-animation" href="grants.html">Grants</a>
-<a class="nav-link hover-underline-animation" href="publications.html">Publications</a>
-<a class="nav-link hover-underline-animation" href="community.html">Community</a>
+<nav class="hidden lg:flex items-center gap-6 xl:gap-10" id="header-nav-links">
+<a class="nav-link hover-underline-animation nav-text" href="about.html">About</a>
+<span class="nav-link hover-underline-animation nav-text text-accent disabled">Services</span>
+<a class="nav-link hover-underline-animation nav-text" href="projects.html">Portfolio</a>
+<a class="nav-link hover-underline-animation nav-text" href="publications.html">Insights</a>
+<a class="nav-link hover-underline-animation nav-text" href="community.html">Community</a>
+<a class="nav-link hover-underline-animation nav-text" href="grants.html">Grants</a>
 </nav>
 <div class="flex items-center gap-2 sm:gap-4">
-<button onclick="toggleDarkMode()" class="theme-toggle" aria-label="Toggle dark mode"></button>
+<button onclick="window.themeUtils.enhancedToggleDarkMode(event)" class="theme-toggle" aria-label="Toggle dark mode">
+  <span class="material-icons-outlined theme-toggle-icon">dark_mode</span>
+</button>
 <div class="language-switcher flex items-center gap-1">
-<a href="../index.html" class="px-2 py-1 text-sm font-medium text-amber-600 bg-amber-50 rounded hover:bg-amber-100 transition-colors">EN</a>
-<span class="px-2 py-1 text-sm font-medium text-stone-400 bg-stone-100 rounded cursor-not-allowed opacity-60">DE</span>
+<a href="../index.html" class="px-2 py-1 text-sm font-medium lang-active rounded hover:opacity-90 transition-all">EN</a>
+<span class="px-2 py-1 text-sm font-medium lang-inactive rounded cursor-not-allowed opacity-60">DE</span>
 </div>
-<a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 bg-amber-600 text-stone-50 text-sm sm:text-base font-semibold tracking-wide shadow-lg hover:bg-amber-700 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600" href="contact.html">
+<a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 btn-primary text-sm sm:text-base font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="contact.html">
 <span class="truncate">Contact</span>
 </a>
-<a class="sm:hidden flex min-w-[60px] items-center justify-center overflow-hidden rounded-md h-9 px-3 bg-amber-600 text-stone-50 text-sm font-semibold tracking-wide shadow-lg hover:bg-amber-700 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600" href="contact.html">
+<a class="sm:hidden flex items-center justify-center overflow-hidden rounded-md h-9 px-3 btn-primary text-sm font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="contact.html" aria-label="Contact">
 <span class="material-icons text-lg">email</span>
 </a>
-<button id="mobile-menu-button" class="xl:hidden p-2 text-stone-800 hover:text-amber-600 transition-colors">
-<span class="material-icons-outlined text-2xl sm:text-3xl">menu_open</span>
-</button>
 </div>
 </header>
-<main class="flex-1">
+<main class="flex-1" id="main-content" role="main">
 <section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16" id="services">
-<div class="max-w-[960px] mx-auto space-y-8 sm:space-y-10">
-<h1 class="text-stone-800 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-center" style='font-family: "Playfair Display", serif;'>Consulting Services</h1>
-<p class="text-stone-600 text-base sm:text-lg font-normal leading-relaxed text-center max-w-2xl mx-auto">
-Offering a comprehensive range of AI consulting services designed to empower your organization with intelligent, practical solutions that drive real business value.
+<div class="layout-content-container flex flex-col max-w-[960px] mx-auto">
+<div class="space-y-8 sm:space-y-10">
+<div class="text-center space-y-4">
+<h1 class="themed-text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight font-playfair">AI Consulting Services</h1>
+<p class="themed-text-secondary text-lg sm:text-xl font-normal leading-relaxed max-w-3xl mx-auto">
+Bridging deep AI theory with practical business solutions through expert consulting services designed to unlock your organization's AI potential.
 </p>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-<div class="flex flex-col gap-4 sm:gap-5 rounded-xl border border-stone-200 bg-white p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-<div class="text-amber-600 text-3xl sm:text-4xl"><span class="material-icons-outlined">lightbulb</span></div>
-<div class="flex flex-col gap-2">
-<h2 class="text-stone-800 text-lg sm:text-xl font-semibold leading-tight" style='font-family: "Playfair Display", serif;'>Strategic AI Advisory</h2>
-<p class="text-stone-600 text-sm sm:text-base font-normal leading-relaxed">Providing strategic AI advisory for businesses and research institutions, helping you navigate the AI landscape, identify high-impact opportunities, and develop a clear roadmap for AI integration that aligns with your core objectives.</p>
-<ul class="text-stone-600 text-sm space-y-1 mt-2">
-<li>• AI strategy development and roadmapping</li>
-<li>• Technology assessment and vendor evaluation</li>
-<li>• ROI analysis and business case development</li>
-<li>• Ethical AI framework design</li>
+</div>
+
+<!-- Hero Section with Key Value Proposition -->
+<div class="card rounded-2xl p-8 sm:p-12 mt-12">
+<div class="text-center space-y-6">
+<h2 class="text-2xl sm:text-3xl font-bold font-playfair themed-text-primary">The Advantage</h2>
+<p class="themed-text-secondary text-lg leading-relaxed max-w-4xl mx-auto">
+Unlike traditional AI consultants, I bring a unique combination of <strong>deep theoretical expertise</strong>, <strong>hands-on technical experience</strong>, and <strong>philosophical grounding</strong> that ensures your AI initiatives are not just technically sound, but ethically responsible and genuinely transformative.
+</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+<div class="text-center">
+<div class="w-16 h-16 text-accent rounded-full flex items-center justify-center mx-auto mb-4" style="background: var(--gradient-primary);">
+<span class="material-icons text-white text-2xl">psychology</span>
+</div>
+<h3 class="font-semibold themed-text-primary mb-2">Theoretical Depth</h3>
+<p class="themed-text-secondary text-sm">PhD in Philosophy & Cognitive Science brings unique conceptual clarity to AI challenges</p>
+</div>
+<div class="text-center">
+<div class="w-16 h-16 text-accent rounded-full flex items-center justify-center mx-auto mb-4" style="background: var(--gradient-primary);">
+<span class="material-icons text-white text-2xl">engineering</span>
+</div>
+<h3 class="font-semibold themed-text-primary mb-2">Technical Excellence</h3>
+<p class="themed-text-secondary text-sm">15+ years developing ML solutions from research prototypes to production systems</p>
+</div>
+<div class="text-center">
+<div class="w-16 h-16 text-accent rounded-full flex items-center justify-center mx-auto mb-4" style="background: var(--gradient-primary);">
+<span class="material-icons text-white text-2xl">balance</span>
+</div>
+<h3 class="font-semibold themed-text-primary mb-2">Ethical Foundation</h3>
+<p class="themed-text-secondary text-sm">Ensuring AI solutions are responsible, transparent, and aligned with human values</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Core Services -->
+<div class="mt-16">
+<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold tracking-tight text-center mb-12 font-playfair">Core Consulting Services</h2>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 services-grid">
+<!-- Strategic AI Advisory -->
+<div class="service-card group">
+<div class="service-icon">
+<span class="material-icons-outlined">lightbulb</span>
+</div>
+<div class="service-content">
+<h3 class="service-title">Strategic AI Advisory</h3>
+<p class="service-description">
+Transform your organization with AI strategy that bridges theory and practice. I help you navigate the complex AI landscape with philosophical rigor and practical wisdom.
+</p>
+<ul class="service-list">
+<li>AI readiness assessment and strategic roadmapping</li>
+<li>Technology evaluation with theoretical grounding</li>
+<li>ROI analysis and business case development</li>
+<li>Ethical AI frameworks and governance structures</li>
+<li>Innovation pipeline development</li>
 </ul>
+<div class="service-highlight">
+<strong>Unique Approach:</strong> Symbol grounding theory ensures your AI initiatives have genuine semantic understanding, not just statistical patterns.
 </div>
 </div>
-<div class="flex flex-col gap-4 sm:gap-5 rounded-xl border border-stone-200 bg-white p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-<div class="text-amber-600 text-3xl sm:text-4xl"><span class="material-icons-outlined">construction</span></div>
-<div class="flex flex-col gap-2">
-<h2 class="text-stone-800 text-lg sm:text-xl font-semibold leading-tight" style='font-family: "Playfair Display", serif;'>Custom Machine Learning Solutions</h2>
-<p class="text-stone-600 text-sm sm:text-base font-normal leading-relaxed">Developing and implementing custom machine learning models and AI applications tailored to your specific data and business needs, from predictive analytics to natural language processing and computer vision.</p>
-<ul class="text-stone-600 text-sm space-y-1 mt-2">
-<li>• Predictive modeling and analytics</li>
-<li>• Natural language processing applications</li>
-<li>• Computer vision and image analysis</li>
-<li>• Recommender systems and optimization</li>
+</div>
+
+<!-- Research-to-Production Translation -->
+<div class="service-card group">
+<div class="service-icon">
+<span class="material-icons-outlined">science</span>
+</div>
+<div class="service-content">
+<h3 class="service-title">Research-to-Production Translation</h3>
+<p class="service-description">
+Bridge the gap between cutting-edge AI research and practical business applications with expertise gained from 15+ years in both academic and industry settings.
+</p>
+<ul class="service-list">
+<li>Academic research commercialization</li>
+<li>Prototype to production system development</li>
+<li>Technical feasibility analysis</li>
+<li>Interdisciplinary project coordination</li>
+<li>Grant application and funding strategy</li>
 </ul>
+<div class="service-highlight">
+<strong>Track Record:</strong> €2.8M+ in successful research funding, multiple publications in top-tier venues.
 </div>
 </div>
-<div class="flex flex-col gap-4 sm:gap-5 rounded-xl border border-stone-200 bg-white p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-<div class="text-amber-600 text-3xl sm:text-4xl"><span class="material-icons-outlined">integration_instructions</span></div>
-<div class="flex flex-col gap-2">
-<h2 class="text-stone-800 text-lg sm:text-xl font-semibold leading-tight" style='font-family: "Playfair Display", serif;'>AI Implementation & Integration</h2>
-<p class="text-stone-600 text-sm sm:text-base font-normal leading-relaxed">Translating complex technical AI developments into practical business applications, ensuring effective integration into existing workflows, and providing technical guidance for seamless AI adoption in your organization.</p>
-<ul class="text-stone-600 text-sm space-y-1 mt-2">
-<li>• System architecture and design</li>
-<li>• Legacy system integration</li>
-<li>• Performance optimization and scaling</li>
-<li>• Quality assurance and testing</li>
+</div>
+
+<!-- Domain-Specific AI Solutions -->
+<div class="service-card group">
+<div class="service-icon">
+<span class="material-icons-outlined">biotech</span>
+</div>
+<div class="service-content">
+<h3 class="service-title">Domain-Specific AI Solutions</h3>
+<p class="service-description">
+Specialized AI applications for complex domains including healthcare, laboratory medicine, geosciences, and cultural heritage preservation.
+</p>
+<ul class="service-list">
+<li>Medical AI and laboratory diagnostics</li>
+<li>Geoscience data analysis and modeling</li>
+<li>Digital humanities and cultural preservation</li>
+<li>Art authentication and analysis</li>
+<li>Scientific workflow automation</li>
 </ul>
+<div class="service-highlight">
+<strong>Experience:</strong> ARTeFact art authentication, AMPEL medical alerting, DoppelCheck quality assurance systems.
 </div>
 </div>
-<div class="flex flex-col gap-4 sm:gap-5 rounded-xl border border-stone-200 bg-white p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-<div class="text-amber-600 text-3xl sm:text-4xl"><span class="material-icons-outlined">school</span></div>
-<div class="flex flex-col gap-2">
-<h2 class="text-stone-800 text-lg sm:text-xl font-semibold leading-tight" style='font-family: "Playfair Display", serif;'>Domain Expertise & Training</h2>
-<p class="text-stone-600 text-sm sm:text-base font-normal leading-relaxed">Offering specialized AI solutions for domains like laboratory medicine and geosciences, supporting SMEs in responsible AI practices, and facilitating AI literacy through customized training sessions and hands-on workshops.</p>
-<ul class="text-stone-600 text-sm space-y-1 mt-2">
-<li>• Industry-specific AI applications</li>
-<li>• Team training and workshops</li>
-<li>• AI literacy programs</li>
-<li>• Best practices and governance</li>
+</div>
+
+<!-- Responsible AI Implementation -->
+<div class="service-card group">
+<div class="service-icon">
+<span class="material-icons-outlined">verified_user</span>
+</div>
+<div class="service-content">
+<h3 class="service-title">Responsible AI Implementation</h3>
+<p class="service-description">
+Ensure your AI systems are not just effective, but ethical, transparent, and aligned with human values through philosophically-informed implementation practices.
+</p>
+<ul class="service-list">
+<li>Explainable AI (XAI) system design</li>
+<li>Bias detection and mitigation strategies</li>
+<li>Privacy-preserving ML techniques</li>
+<li>AI audit and compliance frameworks</li>
+<li>Stakeholder engagement and communication</li>
 </ul>
+<div class="service-highlight">
+<strong>Philosophy:</strong> Phenomenological approach ensures AI systems respect human experience and understanding.
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Specialized Offerings -->
+<div class="mt-16 card rounded-2xl p-8 sm:p-12">
+<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold tracking-tight text-center mb-8 font-playfair">Specialized Offerings</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-6">
+<div class="specialty-item">
+<h3 class="text-lg font-semibold themed-text-primary mb-2 flex items-center">
+<span class="material-icons text-accent mr-2">school</span>
+AI Literacy & Training
+</h3>
+<p class="themed-text-secondary">Executive workshops, technical training, and AI literacy programs tailored to your team's needs and expertise level.</p>
+</div>
+<div class="specialty-item">
+<h3 class="text-lg font-semibold themed-text-primary mb-2 flex items-center">
+<span class="material-icons text-accent mr-2">gavel</span>
+Expert Testimony & Advisory
+</h3>
+<p class="themed-text-secondary">Technical expert witness services, regulatory advisory, and policy consultation for AI-related legal and compliance matters.</p>
+</div>
+</div>
+<div class="space-y-6">
+<div class="specialty-item">
+<h3 class="text-lg font-semibold themed-text-primary mb-2 flex items-center">
+<span class="material-icons text-accent mr-2">hub</span>
+Innovation Partnerships
+</h3>
+<p class="themed-text-secondary">Long-term strategic partnerships for ongoing AI innovation, research collaboration, and technology development.</p>
+</div>
+<div class="specialty-item">
+<h3 class="text-lg font-semibold themed-text-primary mb-2 flex items-center">
+<span class="material-icons text-accent mr-2">diversity_3</span>
+Interdisciplinary Projects
+</h3>
+<p class="themed-text-secondary">Complex projects requiring coordination between technical, philosophical, artistic, and business perspectives.</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- The Wernsdorfer Method -->
+<div class="mt-16 rounded-2xl p-8 sm:p-12 text-white" style="background: var(--gradient-primary);">
+<div class="text-center space-y-6">
+<h2 class="text-2xl sm:text-3xl font-bold font-playfair">The Method</h2>
+<p class="text-lg leading-relaxed max-w-4xl mx-auto opacity-90">
+A unique consulting approach that combines rigorous philosophical analysis, deep technical expertise, and practical business acumen to deliver AI solutions that are both innovative and responsible.
+</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+<div class="text-center">
+<div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+<span class="material-icons text-white method-icon">psychology</span>
+</div>
+<h3 class="text-xl font-semibold mb-3">Symbol Grounding</h3>
+<p class="opacity-90">Ensuring AI systems have genuine understanding, not just pattern matching, through philosophical foundations in cognitive science.</p>
+</div>
+<div class="text-center">
+<div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+<span class="material-icons text-white method-icon">visibility</span>
+</div>
+<h3 class="text-xl font-semibold mb-3">Phenomenology</h3>
+<p class="opacity-90">Designing AI systems that respect and enhance human experience rather than replacing human judgment.</p>
+</div>
+<div class="text-center">
+<div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+<span class="material-icons text-white method-icon">palette</span>
+</div>
+<h3 class="text-xl font-semibold mb-3">Art & Ethics Integration</h3>
+<p class="opacity-90">Incorporating aesthetic and ethical dimensions to create AI solutions that are both beautiful and morally sound.</p>
+</div>
+</div>
+<div class="mt-8">
+<a href="about.html" class="inline-flex items-center px-6 py-3 bg-white rounded-lg font-semibold transition-colors" style="color: var(--accent-color);" onmouseover="this.style.background='var(--bg-secondary)'" onmouseout="this.style.background='white'">
+Learn More About My Approach
+<span class="material-icons ml-2">arrow_forward</span>
+</a>
 </div>
 </div>
 </div>
 
 <!-- Process Section -->
-<div class="mt-16 bg-stone-100 rounded-xl p-8">
-<h2 class="text-stone-800 text-2xl sm:text-3xl font-bold tracking-tight text-center mb-8" style='font-family: "Playfair Display", serif;'>How I Work</h2>
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-<div class="text-center">
-<div class="w-16 h-16 bg-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
-<span class="text-white text-2xl font-bold">1</span>
+<div class="mt-16">
+<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold tracking-tight text-center mb-12 font-playfair">How We'll Work Together</h2>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 process-steps">
+<div class="process-step">
+<div class="process-number">1</div>
+<h3 class="process-title">Deep Discovery</h3>
+<p class="process-description">Comprehensive analysis of your needs, challenges, and philosophical assumptions about AI through structured consultations.</p>
 </div>
-<h3 class="font-semibold text-stone-800 mb-2">Discovery</h3>
-<p class="text-stone-600 text-sm">Understanding your needs, challenges, and objectives through detailed consultation.</p>
+<div class="process-step">
+<div class="process-number">2</div>
+<h3 class="process-title">Strategic Design</h3>
+<p class="process-description">Developing theoretically-grounded, practically-viable AI strategies aligned with your values and business objectives.</p>
 </div>
-<div class="text-center">
-<div class="w-16 h-16 bg-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
-<span class="text-white text-2xl font-bold">2</span>
+<div class="process-step">
+<div class="process-number">3</div>
+<h3 class="process-title">Responsible Implementation</h3>
+<p class="process-description">Building and deploying solutions with continuous attention to ethical implications and human-centered design.</p>
 </div>
-<h3 class="font-semibold text-stone-800 mb-2">Strategy</h3>
-<p class="text-stone-600 text-sm">Developing a comprehensive AI strategy aligned with your business goals.</p>
-</div>
-<div class="text-center">
-<div class="w-16 h-16 bg-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
-<span class="text-white text-2xl font-bold">3</span>
-</div>
-<h3 class="font-semibold text-stone-800 mb-2">Implementation</h3>
-<p class="text-stone-600 text-sm">Building and deploying solutions with hands-on guidance and technical expertise.</p>
-</div>
-<div class="text-center">
-<div class="w-16 h-16 bg-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
-<span class="text-white text-2xl font-bold">4</span>
-</div>
-<h3 class="font-semibold text-stone-800 mb-2">Support</h3>
-<p class="text-stone-600 text-sm">Ongoing support, optimization, and training to ensure long-term success.</p>
+<div class="process-step">
+<div class="process-number">4</div>
+<h3 class="process-title">Ongoing Partnership</h3>
+<p class="process-description">Long-term support, optimization, and evolution of your AI capabilities as technology and needs change.</p>
 </div>
 </div>
 </div>
 
-<div class="text-center mt-12">
-<a href="contact.html" class="btn-primary">Discuss Your Project</a>
-<p class="text-stone-600 text-sm mt-4">Ready to transform your business with AI? Let's start the conversation.</p>
+<!-- CTA Section -->
+<div class="text-center mt-16 space-y-6">
+<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold font-playfair">Ready to Transform Your AI Strategy?</h2>
+<p class="themed-text-secondary text-lg max-w-2xl mx-auto">
+Let's discuss how we can bridge theory and practice to create AI solutions that truly serve your organization and stakeholders.
+</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+<a href="contact.html" class="btn-primary text-lg px-8 py-4">Schedule a Consultation</a>
+<a href="about.html" class="btn-secondary text-lg px-8 py-4">Learn About My Background</a>
+</div>
+<p class="themed-text-tertiary text-sm mt-4">Initial consultation available to discuss your specific needs and how my unique approach can benefit your organization.</p>
+</div>
 </div>
 </div>
 </section>
 </main>
-<footer class="bg-stone-800 text-stone-300">
+</main>
+<footer class="footer-bg footer-text">
 <div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-12 text-center space-y-4 sm:space-y-6">
 <div class="flex flex-col sm:flex-row items-center justify-center gap-y-2 gap-x-4 sm:gap-x-6">
-<a class="text-stone-400 hover:text-amber-600 text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Privacy Policy</a>
-<a class="text-stone-400 hover:text-amber-600 text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Terms of Service</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="contact.html">Contact Details</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Privacy Policy</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Terms of Service</a>
 </div>
-<div class="flex flex-wrap justify-center gap-4">
-<a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-stone-400 hover:text-amber-600 transition-colors">
+<div class="flex flex-wrap justify-center gap-6">
+<a href="https://github.com/wehnsdaefflae" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
+<span class="material-icons text-xl sm:text-2xl">code</span>
+<span class="text-sm">GitHub</span>
+</a>
+<a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
 <span class="material-icons text-xl sm:text-2xl">business</span>
+<span class="text-sm">LinkedIn</span>
 </a>
-<a href="mailto:contact@markwernsdorfer.com" target="_blank" rel="noopener noreferrer" aria-label="Email" class="text-stone-400 hover:text-amber-600 transition-colors">
+<a href="mailto:wernsdorfer@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
 <span class="material-icons text-xl sm:text-2xl">email</span>
+<span class="text-sm">Email</span>
 </a>
 </div>
-<p class="text-stone-500 text-sm">© 2025 Dr. Mark Wernsdorfer. All rights reserved.</p>
+<p class="text-sm sm:text-base font-normal leading-normal">© 2025 Dr. Mark Wernsdorfer. All rights reserved.</p>
+<p class="text-xs sm:text-sm footer-link font-playfair">
+Bridging deep AI theory with practical business solutions.
+</p>
 </div>
 </footer>
+
+<!-- Enhanced Mobile Bottom Navigation with glass morphism -->
+<nav class="mobile-bottom-nav lg:hidden fixed bottom-0 left-0 right-0 z-50 mobile-nav-bg backdrop-blur-xl themed-border border-t shadow-2xl">
+  <div class="mobile-nav-grid relative">
+    <!-- Background glow effect -->
+    <div class="absolute inset-0 bg-gradient-to-r from-amber-50/50 via-orange-50/30 to-amber-50/50 dark:from-amber-800/20 dark:via-orange-900/10 dark:to-amber-800/20 opacity-60 dark:opacity-40"></div>
+    
+    <a href="../index.html" class="mobile-nav-item mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+      <span class="material-icons-outlined text-xl group-hover:scale-110 transition-transform">home</span>
+      <span class="text-xs">Home</span>
+    </a>
+    <a href="about.html" class="mobile-nav-item mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+      <span class="material-icons-outlined text-xl group-hover:scale-110 transition-transform">person</span>
+      <span class="text-xs">About</span>
+    </a>
+    <a href="services.html" class="mobile-nav-item active mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+      <span class="material-icons-outlined text-xl group-hover:scale-110 transition-transform">work</span>
+      <span class="text-xs">Services</span>
+    </a>
+    <a href="projects.html" class="mobile-nav-item mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+      <span class="material-icons-outlined text-xl group-hover:scale-110 transition-transform">folder</span>
+      <span class="text-xs">Portfolio</span>
+    </a>
+    <a href="contact.html" class="mobile-nav-item mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+      <span class="material-icons-outlined text-xl group-hover:scale-110 transition-transform">contact_mail</span>
+      <span class="text-xs">Contact</span>
+    </a>
+  </div>
+</nav>
+
 </div>
 </div>
 </body>

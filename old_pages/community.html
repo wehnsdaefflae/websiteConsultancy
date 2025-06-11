@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  // Prevent flicker by setting theme immediately
+  (function() {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    let isDark = false;
+    if (savedTheme === null) {
+      isDark = prefersDark;
+    } else {
+      isDark = savedTheme === 'dark';
+    }
+    
+    // Disable transitions during initial theme setup
+    document.documentElement.classList.remove('transitions-enabled');
+    
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    }
+    
+    // Set initial icon to prevent flicker
+    document.addEventListener('DOMContentLoaded', function() {
+      const icons = document.querySelectorAll('.theme-toggle-icon');
+      icons.forEach(icon => {
+        icon.textContent = isDark ? 'light_mode' : 'dark_mode';
+      });
+      // Enable transitions after setup
+      setTimeout(() => {
+        document.documentElement.classList.add('transitions-enabled');
+      }, 100);
+    });
+  })();
+</script>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="theme-color" content="#d97706"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="apple-mobile-web-app-title" content="Dr. Mark Wernsdorfer"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="description" content="Community engagement, workshops, art projects, and public outreach activities by Dr. Mark Wernsdorfer exploring AI, creativity, and human-machine interaction."/>
+<meta name="keywords" content="AI workshops, community outreach, art and AI, creative projects, public speaking, educational workshops"/>
+<meta name="author" content="Dr. Mark Wernsdorfer"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Playfair+Display%3Awght%40400%3B500%3B700%3B900&amp;family=Roboto+Slab%3Awght%40300%3B400%3B500%3B700&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<title>Community & Outreach - Dr. Mark Wernsdorfer</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link rel="stylesheet" href="../style.css" />
+<script defer src="../javascript.js"></script>
+</head>
+<body class="bg-stone-50 text-stone-800" style='font-family: "Roboto Slab", "Noto Sans", sans-serif;'>
+<div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-stone-200 bg-stone-50/80 px-4 sm:px-6 lg:px-10 py-3 sm:py-4 backdrop-blur-md">
+<div class="flex items-center gap-2 sm:gap-3 text-stone-800 flex-shrink-0">
+<div class="size-6 sm:size-8 text-amber-600 flex-shrink-0">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_535)">
+<path d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z" fill="currentColor"></path>
+</g>
+<defs>
+<clipPath id="clip0_6_535"><rect fill="white" height="48" width="48"></rect></clipPath>
+</defs>
+</svg>
+</div>
+<a href="../index.html" class="text-stone-800 text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight whitespace-nowrap hover:text-amber-600 transition-colors logo-text" style='font-family: "Playfair Display", serif;'><span class="logo-first-line">Dr. Mark</span> <span class="logo-second-line">Wernsdorfer</span></a>
+</div>
+<nav class="hidden xl:flex items-center gap-6 xl:gap-10" id="header-nav-links">
+<a class="nav-link hover-underline-animation" href="about.html">About</a>
+<a class="nav-link hover-underline-animation" href="services.html">Services</a>
+<a class="nav-link hover-underline-animation" href="projects.html">Projects</a>
+<a class="nav-link hover-underline-animation" href="grants.html">Grants</a>
+<a class="nav-link hover-underline-animation" href="publications.html">Publications</a>
+<span class="nav-link hover-underline-animation text-amber-600 disabled">Community</span>
+</nav>
+<div class="flex items-center gap-2 sm:gap-4">                <button onclick="toggleDarkMode()" class="theme-toggle" aria-label="Toggle dark mode"></button>
+<div class="language-switcher flex items-center gap-1">
+<a href="../index.html" class="px-2 py-1 text-sm font-medium text-amber-600 bg-amber-50 rounded hover:bg-amber-100 transition-colors">EN</a>
+<span class="px-2 py-1 text-sm font-medium text-stone-400 bg-stone-100 rounded cursor-not-allowed opacity-60">DE</span>
+</div>
+<a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 bg-amber-600 text-stone-50 text-sm sm:text-base font-semibold tracking-wide shadow-lg hover:bg-amber-700 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600" href="contact.html">
+<span class="truncate">Contact</span>
+</a>
+<a class="sm:hidden flex min-w-[60px] items-center justify-center overflow-hidden rounded-md h-9 px-3 bg-amber-600 text-stone-50 text-sm font-semibold tracking-wide shadow-lg hover:bg-amber-700 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600" href="contact.html">
+<span class="material-icons text-lg">email</span>
+</a>
+<button id="mobile-menu-button" class="xl:hidden p-2 text-stone-800 hover:text-amber-600 transition-colors">
+<span class="material-icons-outlined text-2xl sm:text-3xl">menu_open</span>
+</button>
+</div>
+</header>
+<main class="flex-1">
+<section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 bg-stone-100" id="community">
+<div class="max-w-[960px] mx-auto space-y-8 sm:space-y-10">
+<h1 class="text-stone-800 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-center" style='font-family: "Playfair Display", serif;'>Community & Outreach</h1>
+<p class="text-stone-700 text-base sm:text-lg font-normal leading-relaxed text-center max-w-[720px] mx-auto">
+Bridging the gap between academic research and public understanding through workshops, creative collaborations, and innovative art projects exploring AI and human creativity.
+</p>
+<div class="space-y-8 sm:space-y-10">
+                        <!-- Public Speaking -->
+                        <div class="mb-8">
+                            <h2 class="text-stone-800 text-xl sm:text-2xl font-semibold mb-4" style='font-family: "Playfair Display", serif;'>Public Speaking & Workshops</h2>
+                            <div class="space-y-6">
+                                <div class="bg-stone-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+                                    <h3 class="text-stone-800 text-lg font-semibold mb-2" style='font-family: "Playfair Display", serif;'>"Democracy in Times of AI" (November 2024)</h3>
+                                    <p class="text-stone-700 text-base font-normal leading-relaxed mb-3">
+                                        KulturWIRtschaft in der Allgäuhalle - Exploring the implications of AI on democratic processes and civic engagement.
+                                    </p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Democracy</span>
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">AI Ethics</span>
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Public Speaking</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-stone-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+                                    <h3 class="text-stone-800 text-lg font-semibold mb-2" style='font-family: "Playfair Display", serif;'>DoppelCheck & SpotTheBot Presentations (2024)</h3>
+                                    <p class="text-stone-700 text-base font-normal leading-relaxed mb-3">
+                                        Public demonstrations of AI-powered misinformation detection tools, showcasing practical applications of research.
+                                    </p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Misinformation Detection</span>
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">AI Tools</span>
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Public Demos</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Educational Workshops -->
+                        <div class="mb-8">
+                            <h2 class="text-stone-800 text-xl sm:text-2xl font-semibold mb-4" style='font-family: "Playfair Display", serif;'>Educational Workshops</h2>
+                            <div class="space-y-6">
+                                <div class="bg-stone-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+                                    <h3 class="text-stone-800 text-lg font-semibold mb-2" style='font-family: "Playfair Display", serif;'>Großes Wechselspiel (November 2023)</h3>
+                                    <p class="text-stone-700 text-base font-normal leading-relaxed mb-3">
+                                        Workshop for Art Teachers, LJKE Bavaria, exploring cardboard construction and generative AI in educational contexts.
+                                    </p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Art Education</span>
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Teacher Training</span>
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Generative AI</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-stone-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+                                    <h3 class="text-stone-800 text-lg font-semibold mb-2" style='font-family: "Playfair Display", serif;'>Kitsch, KI, Kawaii (June 2023)</h3>
+                                    <p class="text-stone-700 text-base font-normal leading-relaxed mb-3">
+                                        Collaborative workshop with Sebastian Magnus at Burg Giebichenstein University of Art and Design Halle, examining aesthetic AI outputs.
+                                    </p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Art & Design</span>
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">AI Aesthetics</span>
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">University Workshop</span>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        <!-- Media & Presentations -->
+                        <div class="mb-8">
+                            <h2 class="text-stone-800 text-xl sm:text-2xl font-semibold mb-4" style='font-family: "Playfair Display", serif;'>Media & Conference Presentations</h2>
+                            <div class="space-y-6">
+                                <div class="bg-stone-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+                                    <h3 class="text-stone-800 text-lg font-semibold mb-2" style='font-family: "Playfair Display", serif;'>KI Kompass Radio Show (June 2022)</h3>
+                                    <p class="text-stone-700 text-base font-normal leading-relaxed mb-3">
+                                        In-depth discussion on the automation of creativity by AI and the ethical dangers of biased data in machine learning systems.
+                                    </p>
+                                    <a href="https://on.soundcloud.com/bPwFD9hUPQa4FXD98" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-amber-600 hover:text-amber-700 underline transition-colors text-sm mb-3">
+                                        <span class="material-icons text-base mr-1">play_circle_outline</span>
+                                        Listen on SoundCloud
+                                    </a>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Radio Interview</span>
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">AI Ethics</span>
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Creative AI</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-stone-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+                                    <h3 class="text-stone-800 text-lg font-semibold mb-2" style='font-family: "Playfair Display", serif;'>AGI Conference Presentations (August 2018)</h3>
+                                    <p class="text-stone-700 text-base font-normal leading-relaxed mb-3">
+                                        Two presentations at the 11th Conference on Artificial General Intelligence in Prague, exploring language comprehension and learning from failure.
+                                    </p>
+                                    <div class="grid sm:grid-cols-2 gap-3 mb-3">
+                                        <a href="https://youtu.be/sQgLWik6TXo" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-amber-600 hover:text-amber-700 underline transition-colors text-sm">
+                                            <span class="material-icons text-base mr-1">play_circle_outline</span>
+                                            Language Comprehension
+                                        </a>
+                                        <a href="https://youtu.be/4meq9sLCTZQ" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-amber-600 hover:text-amber-700 underline transition-colors text-sm">
+                                            <span class="material-icons text-base mr-1">play_circle_outline</span>
+                                            How Failure Facilitates Success 🏆
+                                        </a>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">AGI Conference</span>
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Best Paper Award</span>
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Language Processing</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Creative Projects -->
+                        <div class="mb-8">
+                            <h2 class="text-stone-800 text-xl sm:text-2xl font-semibold mb-4" style='font-family: "Playfair Display", serif;'>Conceptual Art & Creative Projects</h2>
+                            <div class="space-y-6">
+                                <div class="bg-gradient-to-r from-amber-50 to-stone-50 rounded-lg p-6 border-l-4 border-amber-500 hover:shadow-md transition-shadow duration-200">
+                                    <h3 class="text-stone-800 text-lg font-semibold mb-2" style='font-family: "Playfair Display", serif;'>Spiegelbox (October 2023)</h3>
+                                    <p class="text-stone-700 text-base font-normal leading-relaxed mb-3">
+                                        Interactive installation at ARTeFact Exhibition (ScaDS.AI) exploring AI capabilities, human-machine interaction, and ethical considerations.
+                                    </p>
+                                    <a href="https://youtu.be/X7Depq6QZ1c" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-amber-600 hover:text-amber-700 underline transition-colors text-sm mb-3">
+                                        <span class="material-icons text-base mr-1">play_circle_outline</span>
+                                        View Event Highlight
+                                    </a>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Interactive Art</span>
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">AI Ethics</span>
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Exhibition</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-stone-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+                                    <h3 class="text-stone-800 text-lg font-semibold mb-2" style='font-family: "Playfair Display", serif;'>Keeping up with AI (February 2023)</h3>
+                                    <p class="text-stone-700 text-base font-normal leading-relaxed mb-3">
+                                        Collaborative live drawing performance with Sebastian Magnus at Villa Concordia, exploring human creativity vs. AI-generated content.
+                                    </p>
+                                    <a href="https://www.villa-concordia.de/aktuelles/veranstaltungen/detail/villa-wild-13-vom-gruenen-und-wachsen" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-amber-600 hover:text-amber-700 underline transition-colors text-sm mb-3">
+                                        <span class="material-icons text-base mr-1">open_in_new</span>
+                                        Learn More About the Project
+                                    </a>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Live Performance</span>
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Human vs AI</span>
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Art Collaboration</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-stone-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+                                    <h3 class="text-stone-800 text-lg font-semibold mb-2" style='font-family: "Playfair Display", serif;'>berganza.live (2022)</h3>
+                                    <p class="text-stone-700 text-base font-normal leading-relaxed mb-3">
+                                        Early experiment with large language models in literary contexts - an interactive chatbot for philosophical and creative conversations.
+                                    </p>
+                                    <div class="flex flex-wrap gap-3 mb-3">
+                                        <a href="https://berganza.live/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-amber-600 hover:text-amber-700 underline transition-colors text-sm">
+                                            <span class="material-icons text-base mr-1">launch</span>
+                                            Visit berganza.live
+                                        </a>
+                                        <a href="https://github.com/wehnsdaefflae/berganza" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-amber-600 hover:text-amber-700 underline transition-colors text-sm">
+                                            <span class="material-icons text-base mr-1">code</span>
+                                            View on GitHub
+                                        </a>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Literary AI</span>
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Early LLM</span>
+                                        <span class="inline-block bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">Interactive Project</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+<footer class="bg-stone-800 text-stone-300">
+<div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-12 text-center space-y-4 sm:space-y-6">
+<div class="flex flex-col sm:flex-row items-center justify-center gap-y-2 gap-x-4 sm:gap-x-6">
+<a class="text-stone-400 hover:text-amber-600 text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Privacy Policy</a>
+<a class="text-stone-400 hover:text-amber-600 text-sm sm:text-base font-normal leading-normal transition-colors" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-wrap justify-center gap-4">
+<a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-stone-400 hover:text-amber-600 transition-colors">
+<span class="material-icons text-xl sm:text-2xl">business</span>
+</a>
+<a href="mailto:contact@markwernsdorfer.com" target="_blank" rel="noopener noreferrer" aria-label="Email" class="text-stone-400 hover:text-amber-600 transition-colors">
+<span class="material-icons text-xl sm:text-2xl">email</span>
+</a>
+</div>
+<p class="text-sm sm:text-base font-normal leading-normal">© 2025 Dr. Mark Wernsdorfer. All rights reserved.</p>
+<p class="text-xs sm:text-sm text-stone-400" style='font-family: "Playfair Display", serif;'>
+Bridging AI theory and practice with precision.
+</p>
+</div>
+</footer>
+</div>
+</div>
+</body>
+</html>

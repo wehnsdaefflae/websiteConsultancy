@@ -1,0 +1,31 @@
+/* Additional utility classes for inline styles consolidation */
+
+.font-playfair {
+  font-family: "Playfair Display", serif;
+}
+
+.font-roboto-slab {
+  font-family: "Roboto Slab", "Noto Sans", sans-serif;
+}
+
+.font-inter {
+  font-family: "Inter", sans-serif;
+}
+
+/* Hero background utilities */
+.hero-bg-image {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 100%), url("../images/hero-background.webp");
+}
+
+/* Floating animation delays */
+.floating-delay-0 { animation-delay: 0s; }
+.floating-delay-1 { animation-delay: 1s; }
+.floating-delay-2 { animation-delay: 2s; }
+.floating-delay-3 { animation-delay: 3s; }
+.floating-delay-4 { animation-delay: 4s; }
+.floating-delay-5 { animation-delay: 5s; }
+
+/* Logo styling */
+.logo-styling {
+  font-family: "Playfair Display", serif;
+}
