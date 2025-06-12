@@ -46,11 +46,27 @@
 .mobile-nav-item.active {
   color: var(--accent-color);
   transform: translateY(-4px);
+  font-weight: 600;
 }
 
 .mobile-nav-item.active .material-icons-outlined {
   color: var(--accent-color);
   transform: scale(1.2);
+}
+
+/* Home link in mobile nav for subpages */
+body:not(.home-page) .mobile-nav-item[href*="index.html"] {
+  color: var(--accent-color);
+}
+
+body:not(.home-page) .mobile-nav-item[href*="index.html"] .material-icons-outlined {
+  color: var(--accent-color);
+}
+
+/* Ensure consistent mobile nav text color for active states */
+.mobile-nav-item.active span:last-child {
+  color: var(--accent-color);
+  font-weight: 600;
 }
 
 .mobile-nav-item span:last-child {

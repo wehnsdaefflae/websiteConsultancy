@@ -680,53 +680,60 @@ body .skill-details {
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-/* Enhanced publication tags with better dark mode contrast */
-.publication-tag-enhanced {
-  background: #fed7aa; /* amber-200 */
-  color: #92400e; /* amber-800 */
-  border: 1px solid #fbbf24; /* amber-400 */
-  transition: all var(--transition-fast);
-  font-weight: 500;
+/* Enhanced disabled navigation styling */
+.layout-container .nav-link.disabled,
+body .nav-link.disabled {
+  color: var(--accent-color);
+  cursor: default;
+  pointer-events: none;
+  font-weight: 600;
+  position: relative;
 }
 
-.publication-tag-enhanced:hover {
-  background: #f59e0b; /* amber-500 */
-  color: white;
-  transform: scale(1.05);
-  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.3);
+.layout-container .nav-link.disabled:hover,
+body .nav-link.disabled:hover {
+  transform: none;
+  color: var(--accent-color);
 }
 
-:root.dark .publication-tag-enhanced {
-  background: #451a03; /* amber-950 */
-  color: #fbbf24; /* amber-400 */
-  border-color: #92400e; /* amber-800 */
+/* Add subtle underline for current page */
+.layout-container .nav-link.disabled::after,
+body .nav-link.disabled::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent-color);
+  border-radius: 1px;
 }
 
-:root.dark .publication-tag-enhanced:hover {
-  background: #92400e; /* amber-800 */
-  color: #fef3c7; /* amber-50 */
-  border-color: #f59e0b; /* amber-500 */
+/* Home link styling for subpages - higher specificity */
+body:not(.home-page) .layout-container .header-logo-text,
+body:not(.home-page) header .header-logo-text,
+body:not(.home-page) .header-logo-text {
+  color: var(--accent-color) !important;
+  transition: color var(--transition-fast);
 }
 
-/* Publication card styling */
-.publication-card {
-  background: var(--gradient-card);
-  border: 1px solid var(--border-color);
-  transition: all var(--transition-normal);
+body:not(.home-page) .layout-container .header-logo-text:hover,
+body:not(.home-page) header .header-logo-text:hover,
+body:not(.home-page) .header-logo-text:hover {
+  color: var(--accent-light) !important;
 }
 
-.publication-card:hover {
-  border-color: var(--border-hover);
-  transform: translateY(-2px);
+/* Ensure index.html home page maintains normal logo styling */
+body.home-page .layout-container .header-logo-text,
+body.home-page header .header-logo-text,
+body.home-page .header-logo-text {
+  color: var(--text-primary) !important;
 }
 
-/* Publication hero section */
-.publications-hero {
-  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
-}
-
-:root.dark .publications-hero {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+body.home-page .layout-container .header-logo-text:hover,
+body.home-page header .header-logo-text:hover,
+body.home-page .header-logo-text:hover {
+  color: var(--accent-color) !important;
 }
 
 /* ==========================================================================

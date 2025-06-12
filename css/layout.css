@@ -72,6 +72,30 @@ header {
 .nav-link.disabled {
   color: var(--accent-color);
   cursor: default;
+  pointer-events: none;
+  font-weight: 600;
+}
+
+.nav-link.disabled:hover {
+  transform: none;
+}
+
+/* Home link styling for subpages - color the logo text when not on index.html */
+body:not(.home-page) .header-logo-text {
+  color: var(--accent-color);
+}
+
+body:not(.home-page) .header-logo-text:hover {
+  color: var(--accent-light);
+}
+
+/* Ensure index.html home page maintains normal logo styling */
+body.home-page .header-logo-text {
+  color: var(--text-primary);
+}
+
+body.home-page .header-logo-text:hover {
+  color: var(--accent-color);
 }
 
 /* Enhanced hover underline with glow effect */
