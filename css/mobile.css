@@ -145,7 +145,6 @@ body:not(.home-page) .mobile-nav-item[href*="index.html"] .material-icons-outlin
   
   /* Hero section mobile optimization */
   .hero-background {
-    background-attachment: scroll;
     min-height: 400px;
     padding: 2rem 1rem;
   }

@@ -308,9 +308,6 @@ body.home-page .header-logo-text:hover {
 
 /* Hero section layout */
 .hero-background {
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
   position: relative;
   overflow: hidden;
 }
@@ -349,10 +346,6 @@ body.home-page .header-logo-text:hover {
 
 /* Enhanced mobile responsiveness */
 @media (max-width: 768px) {
-  .hero-background {
-    background-attachment: scroll;
-  }
-  
   header {
     backdrop-filter: blur(16px);
   }

@@ -4,19 +4,13 @@
 
 // Enhanced parallax effects
 function initParallaxEffects() {
-  const heroBackground = document.querySelector('.hero-background');
   const floatingElements = document.querySelectorAll('.floating-element');
   
-  if (heroBackground || floatingElements.length > 0) {
+  if (floatingElements.length > 0) {
     let ticking = false;
     
     function updateParallax() {
       const scrolled = window.pageYOffset;
-      const rate = scrolled * -0.5;
-      
-      if (heroBackground) {
-        heroBackground.style.transform = `translateY(${rate}px)`;
-      }
       
       // Enhanced floating elements with varied speeds
       floatingElements.forEach((element, index) => {
