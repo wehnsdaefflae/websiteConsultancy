@@ -1066,3 +1066,26 @@ textarea::placeholder {
 /* ==========================================================================
    End Portfolio Components
    ========================================================================== */
+
+/* ==========================================================================
+   Card Icon Size Fixes
+   ========================================================================== */
+
+/* Ensure card icons in community and grants pages have proper sizing */
+.card .material-icons:not([class*="text-"]),
+.card .material-icons-outlined:not([class*="text-"]) {
+  font-size: 1.5rem; /* 24px equivalent to text-2xl for card icons */
+  line-height: 1;
+}
+
+/* Specific sizing for card header icons in circular backgrounds */
+.card .w-12.h-12 .material-icons-outlined:not([class*="text-"]),
+.card .w-14.h-14 .material-icons-outlined:not([class*="text-"]),
+.card .w-16.h-16 .material-icons-outlined:not([class*="text-"]) {
+  font-size: 1.5rem; /* Ensure consistent sizing for circular icon containers */
+  line-height: 1;
+}
+
+/* ==========================================================================
+   End Card Icon Size Fixes
+   ========================================================================== */
