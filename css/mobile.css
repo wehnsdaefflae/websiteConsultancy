@@ -3,6 +3,45 @@
    ========================================================================== */
 
 /* ==========================================================================
+   Safe Area Insets for Notched Devices (iPhone X and later)
+   ========================================================================== */
+
+/* Apply safe area insets to body */
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Header safe area (top notch) */
+header {
+  padding-top: max(1rem, env(safe-area-inset-top));
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+/* Mobile bottom navigation safe area (bottom home indicator) */
+.mobile-bottom-nav {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Ensure main content respects safe areas */
+main {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Footer safe area */
+footer {
+  padding-bottom: max(2rem, env(safe-area-inset-bottom));
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* ==========================================================================
    Mobile Bottom Navigation
    ========================================================================== */
 
@@ -581,20 +620,106 @@ body:not(.home-page) .mobile-nav-item[href*="index.html"] .material-icons-outlin
     min-height: 48px;
     font-size: 16px; /* Prevents zoom on iOS */
   }
-  
+
   .consultation-card {
     padding: 1.5rem;
   }
-  
+
   .contact-info-card {
     padding: 1rem;
     min-height: 48px;
   }
-  
+
   .mobile-nav-item {
     min-height: 60px;
     min-width: 60px;
   }
+}
+
+/* ==========================================================================
+   iOS-Specific Form Input Fixes
+   ========================================================================== */
+
+/* Prevent iOS zoom on input focus and fix appearance issues */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+input[type="number"],
+input[type="password"],
+textarea,
+select {
+  /* Prevent iOS zoom on focus */
+  font-size: 16px !important;
+
+  /* Remove iOS default styling */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* Fix border-radius rendering on iOS */
+  -webkit-border-radius: 0.5rem;
+  border-radius: 0.5rem;
+
+  /* Improve tap highlight */
+  -webkit-tap-highlight-color: transparent;
+
+  /* Prevent iOS from adding shadow */
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+/* Fix select dropdown arrow on iOS */
+select {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+}
+
+/* Fix iOS button appearance */
+button,
+input[type="submit"],
+input[type="button"],
+.btn-primary,
+.btn-secondary {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-border-radius: 0.5rem;
+  border-radius: 0.5rem;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* iOS-specific textarea fixes */
+textarea {
+  /* Fix resize handle on iOS */
+  resize: vertical;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Fix iOS input placeholder */
+input::placeholder,
+textarea::placeholder {
+  opacity: 0.6;
+  -webkit-text-fill-color: currentColor;
+}
+
+/* Prevent iOS from adding blue highlight on tap */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* Allow text selection where needed */
+input,
+textarea,
+[contenteditable="true"] {
+  -webkit-touch-callout: default;
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 /* Improve readability on small screens */

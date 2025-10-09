@@ -1,0 +1,44 @@
+{
+  "name": "Dr. Mark Wernsdorfer - AI Consultant",
+  "short_name": "Mark Wernsdorfer",
+  "description": "Strategic AI consulting to solve complex challenges in business, research, and digital literacy",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafaf9",
+  "theme_color": "#d97706",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "education", "productivity"],
+  "lang": "en",
+  "dir": "ltr",
+  "shortcuts": [
+    {
+      "name": "About",
+      "url": "/en/about.html",
+      "description": "Learn more about Dr. Mark Wernsdorfer"
+    },
+    {
+      "name": "Services",
+      "url": "/en/services.html",
+      "description": "Explore AI consulting services"
+    },
+    {
+      "name": "Contact",
+      "url": "/en/contact.html",
+      "description": "Get in touch"
+    }
+  ]
+}

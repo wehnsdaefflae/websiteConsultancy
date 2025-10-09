@@ -83,24 +83,32 @@ function initHoverEffects() {
   });
 }
 
-// Form interaction enhancements
+// Form interaction enhancements with ARIA support
 function initFormInteractions() {
   const inputs = document.querySelectorAll('input, textarea, select');
-  
+
   inputs.forEach(input => {
     // Enhanced focus states
     input.addEventListener('focus', function() {
       this.parentElement?.classList.add('input-focused');
       this.style.transform = 'scale(1.02)';
     });
-    
+
     input.addEventListener('blur', function() {
       this.parentElement?.classList.remove('input-focused');
       this.style.transform = '';
+
+      // Validate on blur for accessible error announcements
+      validateInput(this);
     });
-    
+
     // Real-time validation feedback
     input.addEventListener('input', function() {
+      // Clear error on input if field was previously invalid
+      if (this.getAttribute('aria-invalid') === 'true') {
+        validateInput(this);
+      }
+
       if (this.validity.valid) {
         this.classList.remove('invalid');
         this.classList.add('valid');
@@ -109,7 +117,7 @@ function initFormInteractions() {
         this.classList.add('invalid');
       }
     });
-    
+
     // Auto-resize textareas
     if (input.tagName === 'TEXTAREA') {
       input.addEventListener('input', function() {
@@ -118,6 +126,75 @@ function initFormInteractions() {
       });
     }
   });
+
+  // Add form submit validation
+  const forms = document.querySelectorAll('form[novalidate]');
+  forms.forEach(form => {
+    form.addEventListener('submit', function(e) {
+      const inputs = this.querySelectorAll('input[required], textarea[required], select[required]');
+      let isValid = true;
+
+      inputs.forEach(input => {
+        if (!validateInput(input)) {
+          isValid = false;
+        }
+      });
+
+      if (!isValid) {
+        e.preventDefault();
+        // Focus first invalid field
+        const firstInvalid = this.querySelector('[aria-invalid="true"]');
+        if (firstInvalid) {
+          firstInvalid.focus();
+        }
+      }
+    });
+  });
+}
+
+// Validate individual input and update ARIA attributes
+function validateInput(input) {
+  const errorElement = document.getElementById(input.getAttribute('aria-describedby'));
+  let isValid = true;
+  let errorMessage = '';
+
+  // Check if required field is empty
+  if (input.hasAttribute('required') && !input.value.trim()) {
+    isValid = false;
+    errorMessage = 'This field is required';
+  }
+  // Check email format
+  else if (input.type === 'email' && input.value) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(input.value)) {
+      isValid = false;
+      errorMessage = 'Please enter a valid email address';
+    }
+  }
+  // Use native validation if available
+  else if (!input.validity.valid) {
+    isValid = false;
+    errorMessage = input.validationMessage || 'Please check this field';
+  }
+
+  // Update ARIA attributes and display
+  input.setAttribute('aria-invalid', isValid ? 'false' : 'true');
+
+  if (errorElement) {
+    if (!isValid) {
+      errorElement.textContent = errorMessage;
+      errorElement.classList.remove('hidden');
+      input.classList.add('border-red-500', 'dark:border-red-400');
+      input.classList.remove('border-gray-300', 'dark:border-gray-600');
+    } else {
+      errorElement.textContent = '';
+      errorElement.classList.add('hidden');
+      input.classList.remove('border-red-500', 'dark:border-red-400');
+      input.classList.add('border-gray-300', 'dark:border-gray-600');
+    }
+  }
+
+  return isValid;
 }
 
 // Tooltip system
@@ -402,31 +479,43 @@ document.addEventListener('DOMContentLoaded', function() {
   
   if (!logoTrack || !prevBtn || !nextBtn) return;
   
+  const config = window.APP_CONFIG.CAROUSEL_CONFIG;
   let currentSlide = 0;
-  const totalSlides = 7; // Number of logo cards
-  const slideWidth = 312; // Card width (288px) + gap (24px)
+  const totalSlides = config.TOTAL_SLIDES;
   let isAnimating = false;
   let autoPlayInterval;
-  
+
+  // Function to calculate slide width dynamically
+  function getSlideWidth() {
+    const firstSlide = logoTrack.querySelector('.logo-slide');
+    if (!firstSlide) return config.SLIDE_WIDTH; // Fallback
+
+    const styles = window.getComputedStyle(firstSlide);
+    return firstSlide.offsetWidth + parseInt(styles.marginRight || 0);
+  }
+
   // Function to update carousel position
   function updateCarousel(slideIndex, smooth = true) {
     if (isAnimating) return;
-    
+
     isAnimating = true;
     currentSlide = slideIndex;
-    
+
+    // Calculate slide width dynamically
+    const slideWidth = getSlideWidth();
+
     // Calculate transform value
     const translateX = -(currentSlide * slideWidth);
-    
+
     // Apply transform with or without transition
     if (smooth) {
-      logoTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+      logoTrack.style.transition = `transform ${config.TRANSITION_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1)`;
     } else {
       logoTrack.style.transition = 'none';
     }
-    
+
     logoTrack.style.transform = `translateX(${translateX}px)`;
-    
+
     // Update dot indicators
     dots.forEach((dot, index) => {
       if (index === currentSlide) {
@@ -437,10 +526,10 @@ document.addEventListener('DOMContentLoaded', function() {
         dot.style.backgroundColor = '';
       }
     });
-    
+
     setTimeout(() => {
       isAnimating = false;
-    }, smooth ? 500 : 0);
+    }, smooth ? config.TRANSITION_DURATION : 0);
   }
   
   // Next slide function
@@ -479,18 +568,33 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
-  // Auto-play functionality
+  // Auto-play functionality with visibility check
   function startAutoPlay() {
+    if (autoPlayInterval) clearInterval(autoPlayInterval);
+
     autoPlayInterval = setInterval(() => {
-      nextSlide();
-    }, 4000); // Change slide every 4 seconds
+      // Only advance if page is visible
+      if (!document.hidden) {
+        nextSlide();
+      }
+    }, config.AUTO_PLAY_DELAY);
   }
-  
+
   function stopAutoPlay() {
     if (autoPlayInterval) {
       clearInterval(autoPlayInterval);
+      autoPlayInterval = null;
     }
   }
+
+  // Pause autoplay when page is hidden
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopAutoPlay();
+    } else if (carouselContainer && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      startAutoPlay();
+    }
+  });
   
   // Pause auto-play on hover
   const carouselContainer = logoTrack.closest('.logos-carousel');
@@ -545,5 +649,6 @@ window.interactionUtils = {
   copyToClipboard,
   shareContent,
   showNotification,
-  initInteractiveElements
+  initInteractiveElements,
+  validateInput
 };

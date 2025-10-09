@@ -54,7 +54,7 @@
   
   --text-primary: #1c1917;
   --text-secondary: #44403c;
-  --text-tertiary: #78716c;
+  --text-tertiary: #57534e;  /* Darkened from #78716c for better contrast (meets WCAG AA 4.5:1) */
   
   --border-color: rgba(68, 64, 60, 0.2);
   --border-hover: rgba(217, 119, 6, 0.4);
@@ -64,38 +64,22 @@
   --btn-primary-text: #ffffff;
   --btn-primary-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
   --btn-primary-shadow-hover: 0 8px 25px rgba(217, 119, 6, 0.5);
-  
-  /* Form elements */
-  --form-bg: #ffffff;
-  --form-text: #1c1917;
-  --form-border: rgba(68, 64, 60, 0.3);
-  --form-focus-border: rgba(217, 119, 6, 0.6);
-  --bg-tertiary: #ffffff;
-  --bg-glass: rgba(255, 255, 255, 0.9);
-  --text-primary: #1c1917;
-  --text-secondary: #57534e;
-  --text-tertiary: #78716c;
-  --border-color: #e7e5e4;
+
+  /* Accent colors */
   --accent-color: #d97706;
   --accent-hover: #b45309;
   --accent-light: #fbbf24;
   --accent-dark: #92400e;
   --shadow-color: rgba(0, 0, 0, 0.1);
-  
-  /* Form colors */
-  --form-bg: var(--bg-primary);
-  --form-bg-focus: var(--bg-tertiary);
-  --form-border: var(--border-color);
-  --form-border-focus: var(--accent-color);
+
+  /* Form colors for light theme */
+  --form-bg: #ffffff;
+  --form-bg-focus: #fafaf9;
   --form-text: var(--text-primary);
-  --form-placeholder: var(--text-tertiary);
+  --form-border: rgba(68, 64, 60, 0.3);
+  --form-border-focus: var(--accent-color);
+  --form-placeholder: #78716c;  /* WCAG AA compliant placeholder color */
   --form-shadow-focus: rgba(217, 119, 6, 0.1);
-  
-  /* Enhanced button variables */
-  --btn-primary-bg: var(--gradient-primary);
-  --btn-primary-text: #ffffff;
-  --btn-primary-shadow: var(--shadow-lg);
-  --btn-primary-shadow-hover: var(--shadow-glow-strong);
 }
 
 /* Enhanced dark theme */
@@ -123,5 +107,9 @@
   /* Form colors for dark theme */
   --form-bg: var(--bg-secondary);
   --form-bg-focus: var(--bg-tertiary);
+  --form-text: var(--text-primary);
+  --form-border: var(--border-color);
+  --form-border-focus: var(--accent-color);
+  --form-placeholder: #a3a3a3;  /* WCAG AA compliant placeholder color for dark theme */
   --form-shadow-focus: rgba(245, 158, 11, 0.1);
 }

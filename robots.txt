@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Disallow internal documentation and old pages
+Disallow: /additional_info/
+Disallow: /old_pages/
+
+# Sitemap location
+Sitemap: https://markwernsdorfer.com/sitemap.xml

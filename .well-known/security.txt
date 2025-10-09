@@ -1,0 +1,9 @@
+Contact: mailto:wernsdorfer@gmail.com
+Expires: 2026-10-09T00:00:00.000Z
+Preferred-Languages: en, de
+Canonical: https://markwernsdorfer.com/.well-known/security.txt
+
+# Security Policy
+# If you discover any security vulnerabilities in this website,
+# please report them responsibly to the contact address above.
+# We appreciate your efforts to improve the security of our site.

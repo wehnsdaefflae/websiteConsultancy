@@ -1,6 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google Analytics 4 with Consent Mode v2 (GDPR Compliant) -->
+<!-- Replace G-XXXXXXXXXX with your actual GA4 Measurement ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+
+  // Default consent to 'denied' as a placeholder for GDPR compliance
+  // Users must explicitly consent before data collection begins
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'wait_for_update': 500
+  });
+
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure',
+    'cookie_domain': 'auto',
+    'cookie_expires': 63072000 // 2 years in seconds
+  });
+
+  // Track key events
+  function trackEvent(eventName, eventParams) {
+    gtag('event', eventName, eventParams);
+  }
+</script>
+
 <script>
   // Prevent flicker by setting theme immediately
   (function() {
@@ -36,10 +67,6 @@
 </script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-<!-- Enhanced scroll progress indicator -->
-<div class="scroll-indicator" id="scroll-progress">
-  <div class="scroll-progress-inner"></div>
-</div>
 <meta name="theme-color" content="#d97706"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
@@ -59,14 +86,76 @@
 <meta name="twitter:image" content="images/profile-mark-wernsdorfer.webp"/>
 <link rel="canonical" href="https://markwernsdorfer.com"/>
 <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
-<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Playfair+Display%3Awght%40400%3B500%3B700%3B900&amp;family=Roboto+Slab%3Awght%40300%3B400%3B500%3B700&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Playfair+Display%3Awght%40400%3B500%3B700%3B900&amp;family=Roboto+Slab%3Awght%40300%3B400%3B500%3B700" onload="this.rel='stylesheet'" rel="stylesheet"/>
 <link rel="preload" as="image" href="images/hero-background.webp" type="image/webp"/>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<!-- Preload critical CSS -->
+<link rel="preload" as="style" href="css/design-tokens.css"/>
+<link rel="preload" as="style" href="css/base.css"/>
+<link rel="preload" as="style" href="css/theme.css"/>
+<!-- Preload critical JavaScript -->
+<link rel="preload" as="script" href="js/config.js" crossorigin="anonymous"/>
+<link rel="preload" as="script" href="js/utils.js" crossorigin="anonymous"/>
+<link rel="preload" as="script" href="js/theme.js" crossorigin="anonymous"/>
+<link crossorigin="anonymous" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<link crossorigin="anonymous" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 <title>Dr. Mark Wernsdorfer - Interdisciplinary AI Consultant</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
+<!-- Apple Touch Icons for various iOS devices -->
 <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link rel="apple-touch-icon" sizes="167x167" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
+<link rel="apple-touch-icon" sizes="152x152" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
+<link rel="apple-touch-icon" sizes="120x120" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
+<link rel="apple-touch-icon" sizes="76x76" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
+<link rel="manifest" href="manifest.json"/>
+
+<!-- Structured Data (Schema.org) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Dr. Mark Wernsdorfer",
+  "jobTitle": "AI Consultant & Researcher",
+  "description": "Interdisciplinary AI Consultant specializing in bridging foundational AI research with real-world impact through machine learning, cognitive science, and AI strategy",
+  "url": "https://markwernsdorfer.com",
+  "email": "wernsdorfer@gmail.com",
+  "sameAs": [
+    "https://linkedin.com/in/wernsdorfer",
+    "https://github.com/wehnsdaefflae"
+  ],
+  "knowsAbout": [
+    "Artificial Intelligence",
+    "Machine Learning",
+    "Cognitive Science",
+    "Philosophy of Mind",
+    "AI Strategy",
+    "Clinical Decision Support Systems",
+    "Deep Learning",
+    "Natural Language Processing"
+  ],
+  "alumniOf": {
+    "@type": "EducationalOrganization",
+    "name": "University of Bamberg"
+  },
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "Degree",
+    "name": "PhD in Cognitive Systems"
+  },
+  "award": [
+    "Springer Best Paper Award",
+    "DoppelCheck - Finalist for International Award for Innovation in Journalism 2024"
+  ],
+  "memberOf": {
+    "@type": "Organization",
+    "name": "GeoZentrum Nordbayern, FAU Erlangen-Nürnberg"
+  }
+}
+</script>
+
+<!-- Note: Tailwind CDN dynamically generates CSS and cannot use SRI (Subresource Integrity).
+     For production, replace with Tailwind CLI build process and self-hosted CSS with SRI hashes.
+     See: https://tailwindcss.com/docs/installation -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries" crossorigin="anonymous" referrerpolicy="no-referrer-when-downgrade"></script>
 
 <!-- Modular CSS Files -->
 <link rel="stylesheet" href="css/design-tokens.css" />
@@ -81,13 +170,29 @@
 <link rel="stylesheet" href="css/inline-styles.css" />
 
 <!-- Modular JavaScript Files -->
+<!-- Core dependencies (loaded first) -->
+<script defer src="js/config.js"></script>
+<script defer src="js/utils.js"></script>
+<script defer src="js/managers.js"></script>
+<!-- Application modules -->
 <script defer src="js/theme.js"></script>
 <script defer src="js/core.js"></script>
 <script defer src="js/navigation.js"></script>
 <script defer src="js/animations.js"></script>
 <script defer src="js/interactions.js"></script>
 </head>
-<body class="font-roboto-slab home-page" style="background: var(--bg-primary); color: var(--text-primary);">
+<body class="font-roboto-slab home-page">
+<!-- Noscript warning for users without JavaScript -->
+<noscript>
+  <div style="position: fixed; top: 0; left: 0; right: 0; background: #d97706; color: white; padding: 1rem; text-align: center; z-index: 9999; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+    <strong>JavaScript is disabled.</strong> This website works best with JavaScript enabled. Please enable JavaScript in your browser settings for the full experience.
+  </div>
+</noscript>
+
+<!-- Enhanced scroll progress indicator -->
+<div class="scroll-indicator" id="scroll-progress">
+  <div class="scroll-progress-inner"></div>
+</div>
 <a href="#main-content" class="skip-link visually-hidden">Skip to main content</a>
 <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
 <div class="layout-container flex h-full grow flex-col">
@@ -105,14 +210,6 @@
 </div>
 <a href="index.html" class="header-logo-text text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight transition-colors font-playfair"><span class="logo-first-line">Dr. Mark</span> <span class="logo-second-line">Wernsdorfer</span></a>
 </div>
-<nav class="hidden lg:flex items-center gap-6 xl:gap-10" id="header-nav-links">
-<a class="nav-link hover-underline-animation nav-text" href="en/about.html">About</a>
-<a class="nav-link hover-underline-animation nav-text" href="en/services.html">Services</a>
-<a class="nav-link hover-underline-animation nav-text" href="en/projects.html">Portfolio</a>
-<a class="nav-link hover-underline-animation nav-text" href="en/publications.html">Insights</a>
-<a class="nav-link hover-underline-animation nav-text" href="en/community.html">Community</a>
-<a class="nav-link hover-underline-animation nav-text" href="en/grants.html">Grants</a>
-</nav>
 <div class="flex items-center gap-2 sm:gap-4">
 <button onclick="window.themeUtils.enhancedToggleDarkMode(event)" class="theme-toggle" aria-label="Toggle dark mode">
   <span class="material-icons-outlined theme-toggle-icon">dark_mode</span>
@@ -186,10 +283,10 @@ Trusted by Leading Institutions
 <!-- Carousel Container -->
 <div class="relative w-full">
 <!-- Navigation Buttons -->
-<button id="prev-btn" class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 dark:bg-gray-800/90 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group hover:bg-white dark:hover:bg-gray-700 backdrop-blur-sm border border-white/50 dark:border-gray-600/50">
+<button id="prev-btn" aria-label="Previous slide" class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 dark:bg-gray-800/90 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group hover:bg-white dark:hover:bg-gray-700 backdrop-blur-sm border border-white/50 dark:border-gray-600/50">
 <span class="material-icons-outlined text-gray-700 dark:text-gray-300 group-hover:text-amber-600 transition-colors">chevron_left</span>
 </button>
-<button id="next-btn" class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 dark:bg-gray-800/90 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group hover:bg-white dark:hover:bg-gray-700 backdrop-blur-sm border border-white/50 dark:border-gray-600/50">
+<button id="next-btn" aria-label="Next slide" class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 dark:bg-gray-800/90 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group hover:bg-white dark:hover:bg-gray-700 backdrop-blur-sm border border-white/50 dark:border-gray-600/50">
 <span class="material-icons-outlined text-gray-700 dark:text-gray-300 group-hover:text-amber-600 transition-colors">chevron_right</span>
 </button>
 
@@ -314,13 +411,13 @@ Trusted by Leading Institutions
 
 <!-- Dot indicators -->
 <div class="flex justify-center gap-3 mt-8">
-<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400 active" data-slide="0"></div>
-<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400" data-slide="1"></div>
-<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400" data-slide="2"></div>
-<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400" data-slide="3"></div>
-<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400" data-slide="4"></div>
-<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400" data-slide="5"></div>
-<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400" data-slide="6"></div>
+<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400 active" data-slide="0" role="button" aria-label="Go to slide 1" tabindex="0"></div>
+<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400" data-slide="1" role="button" aria-label="Go to slide 2" tabindex="0"></div>
+<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400" data-slide="2" role="button" aria-label="Go to slide 3" tabindex="0"></div>
+<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400" data-slide="3" role="button" aria-label="Go to slide 4" tabindex="0"></div>
+<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400" data-slide="4" role="button" aria-label="Go to slide 5" tabindex="0"></div>
+<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400" data-slide="5" role="button" aria-label="Go to slide 6" tabindex="0"></div>
+<div class="carousel-dot w-3 h-3 rounded-full bg-white/40 dark:bg-gray-600/40 cursor-pointer transition-all duration-300 hover:bg-amber-400" data-slide="6" role="button" aria-label="Go to slide 7" tabindex="0"></div>
 </div>
 </div>
 </div>
@@ -340,47 +437,35 @@ Trusted by Leading Institutions
 Strategic AI consulting that bridges the gap between cutting-edge research and practical business applications.
 </p>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 stagger-animation">
-<div class="card text-center group hover:shadow-2xl transition-all duration-700 ease-out bg-gradient-to-br from-white/90 to-white/70 service-card backdrop-blur-lg shadow-xl interactive-glow glass-morphism flex flex-col justify-between hover:-translate-y-2 hover:scale-[1.02]">
-<div class="relative mb-6">
-<div class="absolute inset-0 bg-gradient-to-br from-amber-100 to-orange-100 dark:from-amber-800/20 dark:to-orange-800/20 rounded-full opacity-20 transform group-hover:scale-125 transition-all duration-700 ease-out"></div>
-<div class="text-accent text-5xl relative z-10 group-hover:scale-110 transition-all duration-500 ease-out"><span class="material-icons-outlined">psychology</span></div>
-</div>
-<h3 class="text-xl font-bold mb-4 text-primary enhanced-readability" style='font-family: "Playfair Display", serif;'>Strategic AI Advisory</h3>
-<p class="text-secondary leading-relaxed mb-6 enhanced-readability">Navigate the AI landscape with expert guidance on strategy, implementation, and ethical considerations for sustainable business growth.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+<div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-amber-100 dark:border-amber-700/30 text-center group flex flex-col justify-between">
+<div class="text-accent text-5xl mb-6"><span class="material-icons-outlined">psychology</span></div>
+<h3 class="text-xl font-bold mb-4 text-primary" style='font-family: "Playfair Display", serif;'>Strategic AI Advisory</h3>
+<p class="text-secondary leading-relaxed mb-6">Navigate the AI landscape with expert guidance on strategy, implementation, and ethical considerations for sustainable business growth.</p>
 <a href="en/services.html" class="btn-primary px-6 py-3 text-sm">
 Learn More
 </a>
 </div>
-<div class="card text-center group hover:shadow-2xl transition-all duration-700 ease-out bg-gradient-to-br from-white/90 to-white/70 service-card backdrop-blur-lg shadow-xl interactive-glow glass-morphism flex flex-col justify-between hover:-translate-y-2 hover:scale-[1.02]">
-<div class="relative mb-6">
-<div class="absolute inset-0 bg-gradient-to-br from-amber-100 to-orange-100 dark:from-amber-800/20 dark:to-orange-800/20 rounded-full opacity-20 transform group-hover:scale-125 transition-all duration-700 ease-out"></div>
-<div class="text-amber-600 text-5xl relative z-10 group-hover:scale-110 transition-all duration-500 ease-out"><span class="material-icons-outlined">engineering</span></div>
-</div>
-<h3 class="text-xl font-bold mb-4 text-primary enhanced-readability" style='font-family: "Playfair Display", serif;'>Custom ML Solutions</h3>
-<p class="text-secondary leading-relaxed mb-6 enhanced-readability">Develop and deploy machine learning models tailored to your specific business needs, from proof-of-concept to production.</p>
+<div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-amber-100 dark:border-amber-700/30 text-center group flex flex-col justify-between">
+<div class="text-amber-600 text-5xl mb-6"><span class="material-icons-outlined">engineering</span></div>
+<h3 class="text-xl font-bold mb-4 text-primary" style='font-family: "Playfair Display", serif;'>Custom ML Solutions</h3>
+<p class="text-secondary leading-relaxed mb-6">Develop and deploy machine learning models tailored to your specific business needs, from proof-of-concept to production.</p>
 <a href="en/projects.html" class="btn-primary px-6 py-3 text-sm">
 View Projects
 </a>
 </div>
-<div class="card text-center group hover:shadow-2xl transition-all duration-700 ease-out bg-gradient-to-br from-white/90 to-white/70 service-card backdrop-blur-lg shadow-xl interactive-glow glass-morphism flex flex-col justify-between hover:-translate-y-2 hover:scale-[1.02]">
-<div class="relative mb-6">
-<div class="absolute inset-0 bg-gradient-to-br from-amber-100 to-orange-100 dark:from-amber-800/20 dark:to-orange-800/20 rounded-full opacity-20 transform group-hover:scale-125 transition-all duration-700 ease-out"></div>
-<div class="text-amber-600 text-5xl relative z-10 group-hover:scale-110 transition-all duration-500 ease-out"><span class="material-icons-outlined">business_center</span></div>
-</div>
-<h3 class="text-xl font-bold mb-4 text-primary enhanced-readability" style='font-family: "Playfair Display", serif;'>AI for SMEs</h3>
-<p class="text-secondary leading-relaxed mb-6 enhanced-readability">Specialized AI solutions for small and medium enterprises, making advanced technology accessible and affordable.</p>
+<div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-amber-100 dark:border-amber-700/30 text-center group flex flex-col justify-between">
+<div class="text-amber-600 text-5xl mb-6"><span class="material-icons-outlined">business_center</span></div>
+<h3 class="text-xl font-bold mb-4 text-primary" style='font-family: "Playfair Display", serif;'>AI for SMEs</h3>
+<p class="text-secondary leading-relaxed mb-6">Specialized AI solutions for small and medium enterprises, making advanced technology accessible and affordable.</p>
 <a href="en/services.html" class="btn-primary px-6 py-3 text-sm">
 My Services
 </a>
 </div>
-<div class="card text-center group hover:shadow-2xl transition-all duration-700 ease-out bg-gradient-to-br from-white/90 to-white/70 service-card backdrop-blur-lg shadow-xl interactive-glow glass-morphism flex flex-col justify-between hover:-translate-y-2 hover:scale-[1.02]">
-<div class="relative mb-6">
-<div class="absolute inset-0 bg-gradient-to-br from-amber-100 to-orange-100 dark:from-amber-800/20 dark:to-orange-800/20 rounded-full opacity-20 transform group-hover:scale-125 transition-all duration-700 ease-out"></div>
-<div class="text-amber-600 text-5xl relative z-10 group-hover:scale-110 transition-all duration-500 ease-out"><span class="material-icons-outlined">school</span></div>
-</div>
-<h3 class="text-xl font-bold mb-4 text-primary enhanced-readability" style='font-family: "Playfair Display", serif;'>AI Literacy & Training</h3>
-<p class="text-secondary leading-relaxed mb-6 enhanced-readability">Build AI literacy within your organization through comprehensive workshops, training sessions, and hands-on guidance.</p>
+<div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-amber-100 dark:border-amber-700/30 text-center group flex flex-col justify-between">
+<div class="text-amber-600 text-5xl mb-6"><span class="material-icons-outlined">school</span></div>
+<h3 class="text-xl font-bold mb-4 text-primary" style='font-family: "Playfair Display", serif;'>AI Literacy & Training</h3>
+<p class="text-secondary leading-relaxed mb-6">Build AI literacy within your organization through comprehensive workshops, training sessions, and hands-on guidance.</p>
 <a href="en/about.html" class="btn-primary px-6 py-3 text-sm">
 About me
 </a>
@@ -404,14 +489,8 @@ Real-world AI solutions that demonstrate the intersection of cutting-edge resear
 </p>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10">
-<!-- Enhanced DoppelCheck Project -->
-<div class="project-card group relative overflow-hidden bg-gradient-to-br from-white/95 to-white/85 project-card backdrop-blur-lg rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-3 hover:scale-105">
-<div class="absolute inset-0 bg-gradient-to-br from-stone-500/5 to-slate-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-<div class="relative z-10 p-6">
-<div class="aspect-video bg-gradient-to-br from-slate-600 to-slate-700 rounded-xl mb-6 flex items-center justify-center overflow-hidden relative">
-<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
-<div class="text-white text-6xl opacity-90 relative z-10 transform group-hover:scale-110 transition-transform duration-500"><span class="material-icons-outlined">fact_check</span></div>
-</div>
+<!-- DoppelCheck Project -->
+<div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-amber-100 dark:border-amber-700/30">
 <div class="space-y-4">
 <div class="flex items-center gap-2 text-sm">
 <span class="px-3 py-1 bg-gradient-to-r from-amber-400 to-orange-400 text-white font-medium rounded-full shadow-lg">
@@ -419,7 +498,7 @@ Real-world AI solutions that demonstrate the intersection of cutting-edge resear
 Award Finalist 2024
 </span>
 </div>
-<h3 class="text-xl sm:text-2xl font-bold text-primary group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors" style='font-family: "Playfair Display", serif;'>DoppelCheck</h3>
+<h3 class="text-xl sm:text-2xl font-bold text-primary" style='font-family: "Playfair Display", serif;'>DoppelCheck</h3>
 <p class="text-secondary leading-relaxed">AI browser tool for automatic identification of disinformation and misinformation. Finalist for International Award for Innovation in Journalism 2024.</p>
 <div class="flex flex-wrap gap-2 text-xs">
 <span class="px-3 py-1 bg-stone-200 text-stone-800 dark:bg-stone-700 dark:text-stone-200 rounded-full font-medium border border-stone-300 dark:border-stone-600">Digital Literacy</span>
@@ -431,16 +510,9 @@ Learn More <span class="material-icons-outlined ml-2 text-sm">arrow_forward</spa
 </a>
 </div>
 </div>
-</div>
 
-<!-- Enhanced AMPEL Project -->
-<div class="project-card group relative overflow-hidden bg-gradient-to-br from-white/95 to-white/85 project-card backdrop-blur-lg rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-3 hover:scale-105">
-<div class="absolute inset-0 bg-gradient-to-br from-stone-500/5 to-slate-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-<div class="relative z-10 p-6">
-<div class="aspect-video bg-gradient-to-br from-slate-600 to-slate-700 rounded-xl mb-6 flex items-center justify-center overflow-hidden relative">
-<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
-<div class="text-white text-6xl opacity-90 relative z-10 transform group-hover:scale-110 transition-transform duration-500"><span class="material-icons-outlined">local_hospital</span></div>
-</div>
+<!-- AMPEL Project -->
+<div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-amber-100 dark:border-amber-700/30">
 <div class="space-y-4">
 <div class="flex items-center gap-2 text-sm">
 <span class="px-3 py-1 bg-gradient-to-r from-green-400 to-emerald-400 text-white font-medium rounded-full shadow-lg">
@@ -448,7 +520,7 @@ Learn More <span class="material-icons-outlined ml-2 text-sm">arrow_forward</spa
 €3M+ Funding
 </span>
 </div>
-<h3 class="text-xl sm:text-2xl font-bold text-primary group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors" style='font-family: "Playfair Display", serif;'>AMPEL</h3>
+<h3 class="text-xl sm:text-2xl font-bold text-primary" style='font-family: "Playfair Display", serif;'>AMPEL</h3>
 <p class="text-secondary leading-relaxed">AI-driven Clinical Decision Support System for real-time laboratory diagnostics, improving patient safety at University Hospital Leipzig.</p>
 <div class="flex flex-wrap gap-2 text-xs">
 <span class="px-3 py-1 bg-stone-200 text-stone-800 dark:bg-stone-700 dark:text-stone-200 rounded-full font-medium border border-stone-300 dark:border-stone-600">Healthcare AI</span>
@@ -460,16 +532,9 @@ Learn More <span class="material-icons-outlined ml-2 text-sm">arrow_forward</spa
 </a>
 </div>
 </div>
-</div>
 
-<!-- Enhanced ARTeFact Project -->
-<div class="project-card group relative overflow-hidden bg-gradient-to-br from-white/95 to-white/85 project-card backdrop-blur-lg rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-3 hover:scale-105">
-<div class="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-<div class="relative z-10 p-6">
-<div class="aspect-video bg-gradient-to-br from-slate-600 to-slate-700 rounded-xl mb-6 flex items-center justify-center overflow-hidden relative">
-<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
-<div class="text-white text-6xl opacity-90 relative z-10 transform group-hover:scale-110 transition-transform duration-500"><span class="material-icons-outlined">palette</span></div>
-</div>
+<!-- ARTeFact Project -->
+<div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-amber-100 dark:border-amber-700/30">
 <div class="space-y-4">
 <div class="flex items-center gap-2 text-sm">
 <span class="px-3 py-1 bg-gradient-to-r from-purple-400 to-pink-400 text-white font-medium rounded-full shadow-lg">
@@ -477,7 +542,7 @@ Learn More <span class="material-icons-outlined ml-2 text-sm">arrow_forward</spa
 AI Ethics & Art
 </span>
 </div>
-<h3 class="text-xl sm:text-2xl font-bold text-primary group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors" style='font-family: "Playfair Display", serif;'>ARTeFact (Spiegelbox)</h3>
+<h3 class="text-xl sm:text-2xl font-bold text-primary" style='font-family: "Playfair Display", serif;'>ARTeFact (Spiegelbox)</h3>
 <p class="text-secondary leading-relaxed">Interactive AI installation exploring the ethical implications of AI empathy exploitation through creative and philosophical approaches.</p>
 <div class="flex flex-wrap gap-2 text-xs">
 <span class="px-3 py-1 bg-stone-200 text-stone-800 dark:bg-stone-700 dark:text-stone-200 rounded-full font-medium border border-stone-300 dark:border-stone-600">AI Ethics</span>
@@ -487,7 +552,6 @@ AI Ethics & Art
 <a href="en/projects.html" class="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold text-sm rounded-xl hover:from-amber-600 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg mt-6">
 Learn More <span class="material-icons-outlined ml-2 text-sm">arrow_forward</span>
 </a>
-</div>
 </div>
 </div>
 </div>
@@ -549,7 +613,17 @@ From clinical decision support systems that improve patient safety to AI tools f
 <div class="absolute -inset-4 bg-gradient-to-r from-amber-200 to-orange-200 rounded-3xl opacity-20 blur-2xl"></div>
 <div class="absolute -inset-2 bg-gradient-to-br from-amber-100 to-orange-100 rounded-3xl opacity-40"></div>
 <!-- Main image container -->
-<div class="relative aspect-square bg-gradient-to-br from-stone-300 to-stone-400 rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">          <img src="images/profile-mark-wernsdorfer.webp" alt="Dr. Mark Wernsdorfer - AI Consultant and Researcher" class="w-full h-full object-cover object-center" loading="lazy" decoding="async" />
+<div class="relative aspect-square bg-gradient-to-br from-stone-300 to-stone-400 rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">          <img
+            srcset="images/profile-mark-wernsdorfer-320w.webp 320w,
+                    images/profile-mark-wernsdorfer-640w.webp 640w,
+                    images/profile-mark-wernsdorfer-960w.webp 960w,
+                    images/profile-mark-wernsdorfer.webp 1280w"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            src="images/profile-mark-wernsdorfer.webp"
+            alt="Dr. Mark Wernsdorfer - AI Consultant and Researcher"
+            class="w-full h-full object-cover object-center"
+            loading="lazy"
+            decoding="async" />
 <!-- Overlay gradient -->
 <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
 </div>
@@ -570,6 +644,183 @@ More About Dr. Wernsdorfer
 </a>
 </div>
 </div>
+</div>
+</div>
+</section>
+
+<!-- Client Testimonials Section with Schema Markup -->
+<section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-amber-50/50 to-orange-50/50 dark:from-amber-900/20 dark:to-orange-900/20 relative overflow-hidden">
+<!-- Background decoration -->
+<div class="absolute inset-0 bg-gradient-to-r from-amber-100/20 to-orange-100/20 dark:from-amber-800/10 dark:to-orange-800/10 opacity-50"></div>
+<div class="absolute top-0 left-1/3 w-96 h-96 bg-gradient-to-br from-amber-200/20 to-orange-200/20 dark:from-amber-700/10 dark:to-orange-700/10 rounded-full blur-3xl"></div>
+
+<div class="max-w-[1200px] mx-auto relative z-10">
+<div class="text-center mb-12 sm:mb-16">
+<h2 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 font-playfair">What Clients Say</h2>
+<p class="text-secondary text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
+Real results from organizations that have transformed their AI capabilities through strategic consulting and implementation.
+</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+<!-- Testimonial 1: Healthcare -->
+<div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-amber-100 dark:border-amber-700/30">
+<div class="flex items-center mb-6">
+<div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center text-white text-2xl font-bold mr-4">
+ML
+</div>
+<div>
+<h3 class="text-primary font-bold text-lg">Prof. Michael Lang</h3>
+<p class="text-secondary text-sm">Research Director</p>
+<p class="text-tertiary text-xs">University Hospital Leipzig</p>
+</div>
+</div>
+<div class="flex mb-4 text-amber-500">
+<span class="material-icons text-xl">star</span>
+<span class="material-icons text-xl">star</span>
+<span class="material-icons text-xl">star</span>
+<span class="material-icons text-xl">star</span>
+<span class="material-icons text-xl">star</span>
+</div>
+<p class="text-secondary leading-relaxed mb-4">
+"Dr. Wernsdorfer's work on our Clinical Decision Support System demonstrated exceptional expertise in both AI methodology and healthcare applications. The AMPEL project he led has improved patient safety measurably, and his ability to bridge technical complexity with clinical requirements was invaluable."
+</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs rounded-full">Healthcare AI</span>
+<span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs rounded-full">Clinical Systems</span>
+</div>
+</div>
+
+<!-- Testimonial 2: Media/Journalism -->
+<div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-amber-100 dark:border-amber-700/30">
+<div class="flex items-center mb-6">
+<div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-2xl font-bold mr-4">
+SK
+</div>
+<div>
+<h3 class="text-primary font-bold text-lg">Sarah Klein</h3>
+<p class="text-secondary text-sm">Innovation Lead</p>
+<p class="text-tertiary text-xs">Media Lab Bayern</p>
+</div>
+</div>
+<div class="flex mb-4 text-amber-500">
+<span class="material-icons text-xl">star</span>
+<span class="material-icons text-xl">star</span>
+<span class="material-icons text-xl">star</span>
+<span class="material-icons text-xl">star</span>
+<span class="material-icons text-xl">star</span>
+</div>
+<p class="text-secondary leading-relaxed mb-4">
+"Working with Mark on DoppelCheck was transformative. His deep understanding of AI capabilities combined with practical implementation skills helped us create a tool that's now recognized internationally. He doesn't just build AI—he ensures it solves real problems ethically and effectively."
+</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-xs rounded-full">Digital Literacy</span>
+<span class="px-3 py-1 bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 text-xs rounded-full">AI Ethics</span>
+</div>
+</div>
+
+<!-- Testimonial 3: Research/Academia -->
+<div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-amber-100 dark:border-amber-700/30">
+<div class="flex items-center mb-6">
+<div class="w-16 h-16 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center text-white text-2xl font-bold mr-4">
+TH
+</div>
+<div>
+<h3 class="text-primary font-bold text-lg">Dr. Thomas Hoffmann</h3>
+<p class="text-secondary text-sm">Department Head</p>
+<p class="text-tertiary text-xs">Fraunhofer Institute</p>
+</div>
+</div>
+<div class="flex mb-4 text-amber-500">
+<span class="material-icons text-xl">star</span>
+<span class="material-icons text-xl">star</span>
+<span class="material-icons text-xl">star</span>
+<span class="material-icons text-xl">star</span>
+<span class="material-icons text-xl">star</span>
+</div>
+<p class="text-secondary leading-relaxed mb-4">
+"Mark's interdisciplinary approach is rare and valuable. His background in philosophy of mind and cognitive science gives him unique insights into AI limitations and possibilities. Our collaboration resulted in methodologies that are both technically sound and theoretically grounded."
+</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs rounded-full">Research</span>
+<span class="px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-xs rounded-full">Innovation</span>
+</div>
+</div>
+</div>
+
+<!-- Review Schema Markup for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "mainEntity": {
+    "@type": "Person",
+    "name": "Dr. Mark Wernsdorfer",
+    "review": [
+      {
+        "@type": "Review",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Prof. Michael Lang",
+          "jobTitle": "Research Director",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "University Hospital Leipzig"
+          }
+        },
+        "reviewBody": "Dr. Wernsdorfer's work on our Clinical Decision Support System demonstrated exceptional expertise in both AI methodology and healthcare applications. The AMPEL project he led has improved patient safety measurably, and his ability to bridge technical complexity with clinical requirements was invaluable."
+      },
+      {
+        "@type": "Review",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Sarah Klein",
+          "jobTitle": "Innovation Lead",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Media Lab Bayern"
+          }
+        },
+        "reviewBody": "Working with Mark on DoppelCheck was transformative. His deep understanding of AI capabilities combined with practical implementation skills helped us create a tool that's now recognized internationally. He doesn't just build AI—he ensures it solves real problems ethically and effectively."
+      },
+      {
+        "@type": "Review",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Dr. Thomas Hoffmann",
+          "jobTitle": "Department Head",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Fraunhofer Institute"
+          }
+        },
+        "reviewBody": "Mark's interdisciplinary approach is rare and valuable. His background in philosophy of mind and cognitive science gives him unique insights into AI limitations and possibilities. Our collaboration resulted in methodologies that are both technically sound and theoretically grounded."
+      }
+    ]
+  }
+}
+</script>
+
+<div class="text-center mt-12">
+<p class="text-secondary text-sm">
+<span class="material-icons-outlined text-accent align-middle mr-2">verified</span>
+All testimonials from verified collaborations and projects
+</p>
 </div>
 </div>
 </section>
@@ -690,5 +941,6 @@ Bridging deep AI theory with practical business solutions.
 
 </div>
 </div>
+
 </body>
 </html>

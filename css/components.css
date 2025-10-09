@@ -70,26 +70,31 @@
   outline-offset: 2px;
 }
 
-/* Disabled button styling */
-.btn-disabled {
-  background: var(--bg-tertiary) !important;
-  color: var(--text-tertiary) !important;
-  cursor: not-allowed !important;
-  opacity: 0.6 !important;
-  pointer-events: none !important;
-  box-shadow: none !important;
-  transform: none !important;
+/* Disabled button styling - using higher specificity instead of !important */
+button.btn-disabled,
+a.btn-disabled,
+.btn-primary.btn-disabled {
+  background: var(--bg-tertiary);
+  color: var(--text-tertiary);
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+  box-shadow: none;
+  transform: none;
 }
 
-.btn-disabled:hover {
-  transform: none !important;
-  opacity: 0.6 !important;
+button.btn-disabled:hover,
+a.btn-disabled:hover,
+.btn-primary.btn-disabled:hover {
+  transform: none;
+  opacity: 0.6;
+  background: var(--bg-tertiary);
+  box-shadow: none;
 }
 
 /* Enhanced Card System with Modern Glass Effects */
 .card {
-  background: var(--gradient-card);
-  backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(255, 255, 255, 0.95); /* Fallback for browsers without backdrop-filter */
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 1.5rem;
   padding: 2rem;
@@ -97,6 +102,16 @@
   position: relative;
   overflow: hidden;
   box-shadow: var(--shadow-lg);
+}
+
+/* Apply backdrop-filter only on supported browsers and non-mobile devices */
+@supports (backdrop-filter: blur(20px)) {
+  @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+    .card {
+      background: var(--gradient-card);
+      backdrop-filter: blur(20px) saturate(180%);
+    }
+  }
 }
 
 .card::before {
@@ -125,8 +140,7 @@
 
 /* Enhanced project cards */
 .project-card {
-  background: var(--gradient-card);
-  backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(255, 255, 255, 0.95); /* Fallback */
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 1.5rem;
   padding: 1.5rem;
@@ -134,6 +148,15 @@
   position: relative;
   overflow: hidden;
   box-shadow: var(--shadow-lg);
+}
+
+@supports (backdrop-filter: blur(20px)) {
+  @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+    .project-card {
+      background: var(--gradient-card);
+      backdrop-filter: blur(20px) saturate(180%);
+    }
+  }
 }
 
 .project-card::after {
@@ -408,8 +431,7 @@ textarea::placeholder {
    ========================================================================== */
 
 .service-card {
-  background: var(--gradient-card);
-  backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(255, 255, 255, 0.95); /* Fallback */
   border: 1px solid var(--border-color);
   border-radius: 1.5rem;
   padding: 2rem;
@@ -421,7 +443,15 @@ textarea::placeholder {
   flex-direction: column;
   height: 100%;
   min-height: 600px;
-  will-change: transform, box-shadow, border-color;
+}
+
+@supports (backdrop-filter: blur(20px)) {
+  @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+    .service-card {
+      background: var(--gradient-card);
+      backdrop-filter: blur(20px) saturate(180%);
+    }
+  }
 }
 
 .service-card::before {

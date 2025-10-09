@@ -8,6 +8,7 @@ html {
 
 body {
   background: var(--bg-primary);
+  color: var(--text-primary);
   background-attachment: fixed;
   position: relative;
   overflow-x: hidden;
@@ -74,6 +75,38 @@ body::before {
 .focus-visible {
   outline: 2px solid var(--accent-color);
   outline-offset: 2px;
+}
+
+/* Global enhanced focus indicators */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+.carousel-dot:focus-visible,
+.card:focus-visible,
+.project-card:focus-visible,
+.logo-slide:focus-visible {
+  outline: 3px solid rgba(217, 119, 6, 0.8);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.2);
+  transition: outline 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Dark theme focus indicators */
+:root.dark a:focus-visible,
+:root.dark button:focus-visible,
+:root.dark [role="button"]:focus-visible,
+:root.dark input:focus-visible,
+:root.dark textarea:focus-visible,
+:root.dark select:focus-visible,
+:root.dark .carousel-dot:focus-visible,
+:root.dark .card:focus-visible,
+:root.dark .project-card:focus-visible,
+:root.dark .logo-slide:focus-visible {
+  outline: 3px solid rgba(245, 158, 11, 0.9);
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.3);
 }
 
 /* Accessibility helpers */
