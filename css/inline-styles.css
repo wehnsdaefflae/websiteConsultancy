@@ -14,9 +14,13 @@
 
 /* Hero background utilities */
 .hero-bg-image {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%), url("../images/hero-background.webp");
-  background-size: 200%;
-  background-position: 75% 45%;
+  /* Fallback solid color for instant rendering before image loads */
+  background-color: #d97706;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%),
+    url("../images/hero-background.webp");
+  background-size: cover, 200%;
+  background-position: center, 75% 45%;
   background-attachment: scroll;
   background-repeat: no-repeat;
   transform: none !important;

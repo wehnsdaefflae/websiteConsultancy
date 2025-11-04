@@ -115,21 +115,20 @@
   animation: backgroundSlide 4s ease infinite;
 }
 
-/* Hero animations */
-.hero-title {
-  animation: backgroundSlide 4s ease-in-out infinite, fadeInUp 1s ease-out both;
-}
-
-.hero-subtitle {
-  animation: fadeInUp 1s ease-out 0.5s both;
-}
-
-.hero-description {
-  animation: fadeInUp 1s ease-out 1s both;
-}
-
+/* Hero animations - content visible by default for instant first paint */
+.hero-title,
+.hero-subtitle,
+.hero-description,
 .hero-buttons {
-  animation: fadeInUp 1s ease-out 1.5s both;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Apply animations only after page load to avoid blank screen on first load */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-title {
+    animation: backgroundSlide 4s ease-in-out infinite;
+  }
 }
 
 /* Enhanced background pulse */
