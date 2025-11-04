@@ -137,33 +137,6 @@
   animation: pulse 4s ease-in-out infinite;
 }
 
-/* Loading states */
-.skeleton {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
-}
-
-.loading-shimmer {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.2) 20%,
-    rgba(255, 255, 255, 0.5) 60%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  background-size: 200% 100%;
-  animation: backgroundSlide 2s infinite;
-}
-
-.loading-pulse {
-  animation: pulse 2s infinite;
-}
-
-.loading-spin {
-  animation: spin 1s linear infinite;
-}
-
 /* Animation utility classes - Service cards excluded to prevent hover conflicts */
 .fade-in-up:not(.service-card) {
   opacity: 0;
@@ -175,30 +148,6 @@
 .service-card {
   opacity: 1;
   transform: none;
-}
-
-.slide-in-left {
-  opacity: 0;
-  transform: translateX(-50px);
-  animation: slideInLeft 0.8s ease forwards;
-}
-
-.slide-in-right {
-  opacity: 0;
-  transform: translateX(50px);
-  animation: slideInRight 0.8s ease forwards;
-}
-
-.zoom-in {
-  opacity: 0;
-  transform: scale(0.8);
-  animation: zoomIn 0.8s ease forwards;
-}
-
-.rotate-in {
-  opacity: 0;
-  transform: rotate(-10deg) scale(0.8);
-  animation: rotateIn 0.8s ease forwards;
 }
 
 /* Scroll-triggered animations */
@@ -243,56 +192,6 @@
   * {
     transition-duration: 0.01ms !important;
   }
-}
-
-/* Scroll Progress Indicator */
-.scroll-indicator {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  z-index: 60;
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.scroll-progress-inner {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent-color), var(--accent-light));
-  width: 0%;
-  transition: width 0.2s ease;
-}
-
-:root.dark .scroll-indicator {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* Skip link for accessibility */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 6px;
-  background: var(--accent-color);
-  color: white;
-  padding: 8px;
-  text-decoration: none;
-  z-index: 1000;
-  border-radius: 4px;
-}
-
-.skip-link:focus {
-  top: 6px;
-}
-
-.visually-hidden {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  border: 0 !important;
 }
 
 /* ==========================================================================

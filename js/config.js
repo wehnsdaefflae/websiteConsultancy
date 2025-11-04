@@ -3,7 +3,7 @@
 // ==========================================================================
 
 // Carousel Configuration
-export const CAROUSEL_CONFIG = {
+const CAROUSEL_CONFIG = {
   SLIDE_WIDTH: 312, // Card width (288px) + gap (24px)
   AUTO_PLAY_DELAY: 4000, // 4 seconds between slides
   TRANSITION_DURATION: 500, // 0.5 seconds for slide transition
@@ -11,7 +11,7 @@ export const CAROUSEL_CONFIG = {
 };
 
 // Scroll Configuration
-export const SCROLL_CONFIG = {
+const SCROLL_CONFIG = {
   MOBILE_HEADER_HEIGHT: 80, // Mobile header height in pixels
   DESKTOP_HEADER_HEIGHT: 60, // Desktop header height in pixels
   MOBILE_NAV_HEIGHT: 70, // Mobile bottom navigation height
@@ -19,7 +19,7 @@ export const SCROLL_CONFIG = {
 };
 
 // Animation Configuration
-export const ANIMATION_CONFIG = {
+const ANIMATION_CONFIG = {
   BASE_PARALLAX_SPEED: 0.2, // Base speed for parallax effects
   SPEED_VARIATION: 0.1, // Speed variation multiplier
   SPEED_CYCLE: 3, // Modulo cycle for speed calculation
@@ -29,13 +29,13 @@ export const ANIMATION_CONFIG = {
 };
 
 // Observer Configuration
-export const OBSERVER_CONFIG = {
+const OBSERVER_CONFIG = {
   THRESHOLD: 0.1, // Intersection observer threshold
   ROOT_MARGIN: '0px 0px -50px 0px' // Intersection observer root margin
 };
 
 // Performance Configuration
-export const PERFORMANCE_CONFIG = {
+const PERFORMANCE_CONFIG = {
   IDLE_CALLBACK_TIMEOUT: 2000, // RequestIdleCallback timeout
   ANIMATION_FRAME_BUDGET: 16 // Target 60fps (16ms per frame)
 };

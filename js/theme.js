@@ -151,42 +151,14 @@ function enhancedToggleDarkMode(event) {
     localStorage.setItem('lastThemeChange', Date.now().toString());
 
     // Add ripple effect if event is provided
-    if (event && event.target) {
-      addRippleToElement(event.target, event);
+    if (event && event.target && window.utils && window.utils.createRipple) {
+      window.utils.createRipple(event.target, event);
     }
 
     // Toggle theme
     toggleDarkMode();
   } catch (error) {
     console.error('Error in enhancedToggleDarkMode:', error);
-  }
-}
-
-// Add ripple effect to theme toggle button
-function addRippleToElement(element, event) {
-  try {
-    const ripple = document.createElement('span');
-    const rect = element.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-    const x = event.clientX - rect.left - size / 2;
-    const y = event.clientY - rect.top - size / 2;
-
-    ripple.style.width = ripple.style.height = size + 'px';
-    ripple.style.left = x + 'px';
-    ripple.style.top = y + 'px';
-    ripple.classList.add('ripple');
-
-    element.appendChild(ripple);
-
-    setTimeout(() => {
-      try {
-        ripple.remove();
-      } catch (error) {
-        console.error('Error removing ripple element:', error);
-      }
-    }, 600);
-  } catch (error) {
-    console.error('Error in addRippleToElement:', error);
   }
 }
 
@@ -211,26 +183,14 @@ function loadThemeAwareImages() {
   }
 }
 
-// Initialize theme system on DOM load
-document.addEventListener('DOMContentLoaded', function() {
-  try {
-    initTheme();
-    initSystemTheme();
-    watchSystemTheme();
-
-    // Load theme-aware images
-    loadThemeAwareImages();
-
-    // Listen for theme changes to update images
-    window.addEventListener('themeChanged', loadThemeAwareImages);
-  } catch (error) {
-    console.error('Error initializing theme system on DOMContentLoaded:', error);
-  }
-});
+// Note: Theme initialization is now handled by core.js orchestrator
+// This ensures proper initialization order with other modules
 
 // Export theme functions for global use
 window.themeUtils = {
   initTheme,
+  initSystemTheme,
+  watchSystemTheme,
   toggleDarkMode,
   enhancedToggleDarkMode,
   applyTheme,

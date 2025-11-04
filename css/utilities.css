@@ -58,48 +58,6 @@
 }
 
 /* ==========================================================================
-   Notification System Styles
-   ========================================================================== */
-
-.notification {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  padding: 1rem 1.5rem;
-  border-radius: 0.5rem;
-  box-shadow: var(--shadow-lg);
-  z-index: 1000;
-  opacity: 0;
-  transform: translateY(-20px);
-  transition: all 0.3s ease;
-  max-width: 300px;
-  border: 1px solid var(--border-color);
-}
-
-/* ==========================================================================
-   Tooltip Styles
-   ========================================================================== */
-
-.tooltip {
-  position: absolute;
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
-  box-shadow: var(--shadow-lg);
-  z-index: 1000;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.2s ease;
-  pointer-events: none;
-  white-space: nowrap;
-  border: 1px solid var(--border-color);
-}
-
-/* ==========================================================================
    Ripple Effect Styles
    ========================================================================== */
 
@@ -117,26 +75,6 @@
     transform: scale(2);
     opacity: 0;
   }
-}
-
-/* ==========================================================================
-   Enhanced Input States
-   ========================================================================== */
-
-.input-focused {
-  transform: scale(1.02);
-}
-
-input.valid,
-textarea.valid {
-  border-color: #10b981;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
-}
-
-input.invalid,
-textarea.invalid {
-  border-color: #ef4444;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
 
 /* ==========================================================================
@@ -161,38 +99,6 @@ textarea.invalid {
   border-top-color: currentColor;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-}
-
-/* ==========================================================================
-   Breadcrumb Styles
-   ========================================================================== */
-
-.breadcrumbs {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  margin-bottom: 1rem;
-}
-
-.breadcrumb-link {
-  color: var(--accent-color);
-  text-decoration: none;
-  transition: color var(--transition-fast);
-}
-
-.breadcrumb-link:hover {
-  color: var(--text-primary);
-}
-
-.breadcrumb-separator {
-  color: var(--text-tertiary);
-}
-
-.breadcrumb-current {
-  color: var(--text-primary);
-  font-weight: 500;
 }
 
 /* ==========================================================================
@@ -303,23 +209,6 @@ textarea.invalid {
   perspective: 1000px;
 }
 
-/* Font Family Utilities */
-.font-playfair {
-  font-family: "Playfair Display", serif;
-}
-
-.font-roboto-slab {
-  font-family: "Roboto Slab", "Noto Sans", sans-serif;
-}
-
-.font-inter {
-  font-family: "Inter", sans-serif;
-}
-
-.font-noto-sans {
-  font-family: "Noto Sans", sans-serif;
-}
-
 /* ==========================================================================
    Themed Text Utility Classes
    ========================================================================== */
@@ -354,37 +243,6 @@ textarea.invalid {
 
 .themed-border {
   border-color: var(--border-color);
-}
-
-/* ==========================================================================
-   Services Page Specific Background and Visual Enhancements
-   ========================================================================== */
-
-/* Subtle background pattern for services page */
-body .services-page-bg {
-  position: relative;
-}
-
-body .services-page-bg::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(217, 119, 6, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(217, 119, 6, 0.02) 0%, transparent 50%),
-    radial-gradient(circle at 40% 80%, rgba(217, 119, 6, 0.01) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: -1;
-}
-
-:root.dark body .services-page-bg::before {
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(245, 158, 11, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 40% 80%, rgba(245, 158, 11, 0.02) 0%, transparent 50%);
 }
 
 /* Enhanced service section specific spacing */

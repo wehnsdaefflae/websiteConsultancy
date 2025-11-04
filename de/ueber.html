@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
 <script>
   // Prevent flicker by setting theme immediately
   (function() {
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
+
     let isDark = false;
     if (savedTheme === null) {
       isDark = prefersDark;
     } else {
       isDark = savedTheme === 'dark';
     }
-    
+
     // Disable transitions during initial theme setup
     document.documentElement.classList.remove('transitions-enabled');
-    
+
     if (isDark) {
       document.documentElement.classList.add('dark');
     }
-    
+
     // Set initial icon to prevent flicker
     document.addEventListener('DOMContentLoaded', function() {
       const icons = document.querySelectorAll('.theme-toggle-icon');
@@ -45,19 +45,19 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
 <meta name="apple-mobile-web-app-title" content="Dr. Mark Wernsdorfer"/>
 <meta name="mobile-web-app-capable" content="yes"/>
-<meta name="description" content="Dr. Mark Wernsdorfer - About - Interdisciplinary AI Consultant with expertise in machine learning, cognitive science, and practical AI implementation."/>
-<meta name="keywords" content="AI consultant, machine learning, artificial intelligence, cognitive science, philosophy of mind, AI strategy, technical advisory"/>
+<meta name="description" content="Dr. Mark Wernsdorfer - Über Uns - Interdisziplinärer KI-Berater mit fundierter Expertise in maschinellem Lernen, Kognitionswissenschaft und praxisorientierter KI-Implementierung."/>
+<meta name="keywords" content="KI-Berater, maschinelles Lernen, künstliche Intelligenz, Kognitionswissenschaft, Philosophie des Geistes, KI-Strategie, technische Beratung"/>
 <meta name="author" content="Dr. Mark Wernsdorfer"/>
-<meta property="og:title" content="About - Dr. Mark Wernsdorfer"/>
-<meta property="og:description" content="Learn about Dr. Mark Wernsdorfer's interdisciplinary approach to AI consulting, combining deep theoretical knowledge with practical business solutions."/>
+<meta property="og:title" content="Über Uns - Dr. Mark Wernsdorfer"/>
+<meta property="og:description" content="Erfahren Sie mehr über Dr. Mark Wernsdorfers interdisziplinären Ansatz in der KI-Beratung, der fundiertes theoretisches Wissen mit praxisnahen Geschäftslösungen verbindet."/>
 <meta property="og:image" content="../images/profile-mark-wernsdorfer.webp"/>
-<meta property="og:url" content="https://markwernsdorfer.com/about.html"/>
+<meta property="og:url" content="https://markwernsdorfer.com/de/ueber.html"/>
 <meta property="og:type" content="website"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="About - Dr. Mark Wernsdorfer"/>
-<meta name="twitter:description" content="Learn about Dr. Mark Wernsdorfer's interdisciplinary approach to AI consulting, combining deep theoretical knowledge with practical business solutions."/>
+<meta name="twitter:title" content="Über Uns - Dr. Mark Wernsdorfer"/>
+<meta name="twitter:description" content="Erfahren Sie mehr über Dr. Mark Wernsdorfers interdisziplinären Ansatz in der KI-Beratung, der fundiertes theoretisches Wissen mit praxisnahen Geschäftslösungen verbindet."/>
 <meta name="twitter:image" content="../images/profile-mark-wernsdorfer.webp"/>
-<link rel="canonical" href="https://markwernsdorfer.com/about.html"/>
+<link rel="canonical" href="https://markwernsdorfer.com/de/ueber.html"/>
 <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
 <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Playfair+Display%3Awght%40400%3B500%3B700%3B900&amp;family=Roboto+Slab%3Awght%40300%3B400%3B500%3B700" onload="this.rel='stylesheet'" rel="stylesheet"/>
 <!-- Preload critical CSS -->
@@ -77,7 +77,7 @@
 <link rel="preload" as="script" href="../js/theme.js"/>
 <link crossorigin="anonymous" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
 <link crossorigin="anonymous" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-<title>About - Dr. Mark Wernsdorfer</title>
+<title>Über Uns - Dr. Mark Wernsdorfer</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
 <link rel="manifest" href="../manifest.json"/>
 <!-- Apple Touch Icons for various iOS devices -->
@@ -95,13 +95,13 @@
   "itemListElement": [{
     "@type": "ListItem",
     "position": 1,
-    "name": "Home",
+    "name": "Startseite",
     "item": "https://markwernsdorfer.com/"
   },{
     "@type": "ListItem",
     "position": 2,
-    "name": "About",
-    "item": "https://markwernsdorfer.com/about.html"
+    "name": "Über Uns",
+    "item": "https://markwernsdorfer.com/de/ueber.html"
   }]
 }
 </script>
@@ -136,7 +136,7 @@
 <script defer src="../js/interactions.js"></script>
 </head>
 <body class="font-roboto-slab">
-<a href="#main-content" class="skip-link visually-hidden">Skip to main content</a>
+<a href="#main-content" class="skip-link visually-hidden">Zum Hauptinhalt springen</a>
 <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
 <div class="layout-container flex h-full grow flex-col">
 <header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid themed-border header-bg px-4 sm:px-6 lg:px-10 py-3 sm:py-4 backdrop-blur-md">
@@ -151,20 +151,20 @@
 </defs>
 </svg>
 </div>
-<a href="../index.html" class="header-logo-text text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight transition-colors font-playfair"><span class="logo-first-line">Dr. Mark</span> <span class="logo-second-line">Wernsdorfer</span></a>
+<a href="../de_index.html" class="header-logo-text text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight transition-colors font-playfair"><span class="logo-first-line">Dr. Mark</span> <span class="logo-second-line">Wernsdorfer</span></a>
 </div>
 <div class="flex items-center gap-2 sm:gap-4">
-<button onclick="window.themeUtils.enhancedToggleDarkMode(event)" class="theme-toggle" aria-label="Toggle dark mode">
+<button onclick="window.themeUtils.enhancedToggleDarkMode(event)" class="theme-toggle" aria-label="Dunkelmodus umschalten">
   <span class="material-icons-outlined theme-toggle-icon">dark_mode</span>
 </button>
 <div class="language-switcher flex items-center gap-1">
-<a href="../index.html" class="px-2 py-1 text-sm font-medium lang-active rounded hover:opacity-90 transition-all">EN</a>
-<a href="../de/ueber.html" class="px-2 py-1 text-sm font-medium lang-inactive rounded hover:opacity-90 transition-all">DE</a>
+<a href="../en/about.html" class="px-2 py-1 text-sm font-medium lang-inactive rounded hover:opacity-90 transition-all">EN</a>
+<span class="px-2 py-1 text-sm font-medium lang-active rounded">DE</span>
 </div>
-<a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 btn-primary text-sm sm:text-base font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="contact.html">
-<span class="truncate">Contact</span>
+<a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 btn-primary text-sm sm:text-base font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="kontakt.html">
+<span class="truncate">Kontakt</span>
 </a>
-<a class="sm:hidden flex items-center justify-center overflow-hidden rounded-md h-9 px-3 btn-primary text-sm font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="contact.html" aria-label="Contact">
+<a class="sm:hidden flex items-center justify-center overflow-hidden rounded-md h-9 px-3 btn-primary text-sm font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="kontakt.html" aria-label="Kontakt">
 <span class="material-icons text-lg">email</span>
 </a>
 </div>
@@ -174,9 +174,9 @@
 <nav aria-label="Breadcrumb" class="bg-secondary border-b border-solid themed-border">
   <div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-10 py-3">
     <ol class="breadcrumbs">
-      <li><a href="../index.html" class="breadcrumb-link">Home</a></li>
+      <li><a href="../de_index.html" class="breadcrumb-link">Startseite</a></li>
       <li><span class="breadcrumb-separator">/</span></li>
-      <li><span class="breadcrumb-current">About</span></li>
+      <li><span class="breadcrumb-current">Über Uns</span></li>
     </ol>
   </div>
 </nav>
@@ -185,9 +185,9 @@
 <!-- Hero Section -->
 <section class="about-hero px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 lg:py-20 section-bg-gradient">
 <div class="max-w-[960px] mx-auto text-center space-y-6 sm:space-y-8">
-<h1 class="text-primary text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight" style='font-family: "Playfair Display", serif;'>The Method</h1>
+<h1 class="text-primary text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight" style='font-family: "Playfair Display", serif;'>Die Methode</h1>
 <p class="text-secondary text-lg sm:text-xl lg:text-2xl max-w-4xl mx-auto leading-relaxed">
-Bridging foundational AI research with transformative business solutions through interdisciplinary expertise and philosophical insight.
+KI-Grundlagenforschung trifft auf transformative Geschäftslösungen – durch interdisziplinäre Expertise und philosophische Tiefe.
 </p>
 </div>
 </section>
@@ -215,16 +215,16 @@ Bridging foundational AI research with transformative business solutions through
 </div>
 </div>
 <div class="space-y-6">
-<h2 class="text-primary text-3xl sm:text-4xl font-bold tracking-tight" style='font-family: "Playfair Display", serif;'>Interdisciplinary AI Expertise</h2>
+<h2 class="text-primary text-3xl sm:text-4xl font-bold tracking-tight" style='font-family: "Playfair Display", serif;'>Interdisziplinäre KI-Expertise</h2>
 <div class="space-y-4 text-secondary leading-relaxed">
 <p class="text-lg">
-Dr. Mark Wernsdorfer is an interdisciplinary AI consultant combining profound theoretical research in AI foundations (symbol grounding, consciousness) with practical expertise in machine learning and clinical decision support systems. His unique approach bridges philosophy of mind, cognitive science, and real-world AI implementation for SMEs and research institutions.
+Dr. Mark Wernsdorfer verbindet fundierte theoretische Forschung zu KI-Grundlagen (Symbol Grounding, Bewusstsein) mit umfassender Praxiserfahrung in maschinellem Lernen und klinischen Entscheidungsunterstützungssystemen. Sein einzigartiger Ansatz vereint Philosophie des Geistes, Kognitionswissenschaft und praxisorientierte KI-Implementierung – maßgeschneidert für KMU und Forschungseinrichtungen.
 </p>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
 <div class="flex items-center gap-2 text-secondary">
 <span class="material-icons-outlined text-accent">school</span>
-<span class="text-sm">PhD in Cognitive Systems</span>
+<span class="text-sm">Promotion in Kognitionswissenschaft</span>
 </div>
 <div class="flex items-center gap-2 text-secondary">
 <span class="material-icons-outlined text-accent">workspace_premium</span>
@@ -232,11 +232,11 @@ Dr. Mark Wernsdorfer is an interdisciplinary AI consultant combining profound th
 </div>
 <div class="flex items-center gap-2 text-secondary">
 <span class="material-icons-outlined text-accent">business</span>
-<span class="text-sm">€3M+ in AI Project Funding</span>
+<span class="text-sm">3+ Mio. € KI-Projektförderung</span>
 </div>
 <div class="flex items-center gap-2 text-secondary">
 <span class="material-icons-outlined text-accent">groups</span>
-<span class="text-sm">10+ Years Experience</span>
+<span class="text-sm">10+ Jahre Erfahrung</span>
 </div>
 </div>
 </div>
@@ -248,7 +248,7 @@ Dr. Mark Wernsdorfer is an interdisciplinary AI consultant combining profound th
 <section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 lg:py-20 section-bg-gradient">
 <div class="max-w-[960px] mx-auto space-y-10 sm:space-y-12">
 <div class="text-center">
-<h2 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4" style='font-family: "Playfair Display", serif;'>Key Milestones</h2>
+<h2 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4" style='font-family: "Playfair Display", serif;'>Wichtige Meilensteine</h2>
 </div>
 <div class="space-y-6">
 <!-- Timeline Item 1 -->
@@ -256,12 +256,12 @@ Dr. Mark Wernsdorfer is an interdisciplinary AI consultant combining profound th
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
 <div class="md:col-span-1 text-center md:text-right">
 <div class="timeline-year">2024</div>
-<div class="timeline-type">Award Finalist</div>
+<div class="timeline-type">Preis-Finalist</div>
 </div>
 <div class="md:col-span-3 timeline-content">
-<h3 class="timeline-title">International Award for Innovation in Journalism</h3>
+<h3 class="timeline-title">Internationaler Preis für Innovation im Journalismus</h3>
 <p class="timeline-description">
-DoppelCheck recognized as finalist for 4D Digital Rights by Design 2024 Award. Leading AI developer for The Bina School's precision education platform serving 40+ countries.
+DoppelCheck als Finalist für den 4D Digital Rights by Design Award 2024 nominiert. Lead AI Developer für die Präzisionsbildungsplattform von The Bina School – im Einsatz in über 40 Ländern.
 </p>
 </div>
 </div>
@@ -277,7 +277,7 @@ DoppelCheck recognized as finalist for 4D Digital Rights by Design 2024 Award. L
 <div class="md:col-span-3 timeline-content">
 <h3 class="timeline-title">Media Lab Bayern & Prototype Fund</h3>
 <p class="timeline-description">
-Developed SpotTheBot and DoppelCheck - AI-powered tools for detecting misinformation and AI-generated content, supported by BMBF and WPK Innovation Fund.
+Entwicklung von SpotTheBot und DoppelCheck – KI-gestützte Tools zur Erkennung von Fehlinformationen und KI-generierten Inhalten. Gefördert durch BMBF und WPK-Innovationsfonds.
 </p>
 </div>
 </div>
@@ -287,13 +287,13 @@ Developed SpotTheBot and DoppelCheck - AI-powered tools for detecting misinforma
 <div class="timeline-item">
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
 <div class="md:col-span-1 text-center md:text-right">
-<div class="timeline-year">Since 2021</div>
-<div class="timeline-type">Research Associate</div>
+<div class="timeline-year">Seit 2021</div>
+<div class="timeline-type">Wissenschaftlicher Mitarbeiter</div>
 </div>
 <div class="md:col-span-3 timeline-content">
 <h3 class="timeline-title">FAU Erlangen-Nürnberg</h3>
 <p class="timeline-description">
-Geothermal modeling and AI-driven optimization research (KNW-Opt, META-Studie). Published peer-reviewed research on thermal conductivity prediction.
+Geothermische Modellierung und KI-gestützte Optimierungsforschung (KNW-Opt, META-Studie). Peer-Review-Publikationen zur Vorhersage thermischer Leitfähigkeit.
 </p>
 </div>
 </div>
@@ -304,12 +304,12 @@ Geothermal modeling and AI-driven optimization research (KNW-Opt, META-Studie). 
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
 <div class="md:col-span-1 text-center md:text-right">
 <div class="timeline-year">2019-2021</div>
-<div class="timeline-type">Research Associate</div>
+<div class="timeline-type">Wissenschaftlicher Mitarbeiter</div>
 </div>
 <div class="md:col-span-3 timeline-content">
-<h3 class="timeline-title">University Hospital Leipzig - AMPEL System</h3>
+<h3 class="timeline-title">Universitätsklinikum Leipzig - AMPEL-System</h3>
 <p class="timeline-description">
-Key AI architect for clinical decision support system deployed across 1,500+ hospital beds. Co-first author on primary publication in JMIR Medical Informatics.
+Lead AI Architect für klinisches Entscheidungsunterstützungssystem, implementiert in über 1.500 Krankenhausbetten. Co-Erstautor der Hauptpublikation in JMIR Medical Informatics.
 </p>
 </div>
 </div>
@@ -323,9 +323,9 @@ Key AI architect for clinical decision support system deployed across 1,500+ hos
 <div class="timeline-type">Best Paper Award</div>
 </div>
 <div class="md:col-span-3 timeline-content">
-<h3 class="timeline-title">Springer Best Paper - AGI Conference</h3>
+<h3 class="timeline-title">Springer Best Paper - AGI-Konferenz</h3>
 <p class="timeline-description">
-"How Failure Facilitates Success" awarded Best Paper at 11th Conference on Artificial General Intelligence, Prague. Published dissertation on Symbol Grounding.
+Auszeichnung für "How Failure Facilitates Success" als Best Paper auf der 11. Konferenz über Artificial General Intelligence in Prag. Publikation der Dissertation zu Symbol Grounding.
 </p>
 </div>
 </div>
@@ -339,9 +339,9 @@ Key AI architect for clinical decision support system deployed across 1,500+ hos
 <div class="timeline-type">Data Scientist</div>
 </div>
 <div class="md:col-span-3 timeline-content">
-<h3 class="timeline-title">Orpheus GmbH (now McKinsey Spendscape)</h3>
+<h3 class="timeline-title">Orpheus GmbH (jetzt McKinsey Spendscape)</h3>
 <p class="timeline-description">
-ML system development for procurement analytics. Automated data extraction, AI-enabled spend categorization, and predictive analytics for VC-funded startup.
+Entwicklung von ML-Systemen für Beschaffungsanalysen. Automatisierte Datenextraktion, KI-gestützte Ausgabenkategorisierung und prädiktive Analytics für VC-finanziertes Startup.
 </p>
 </div>
 </div>
@@ -352,12 +352,12 @@ ML system development for procurement analytics. Automated data extraction, AI-e
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
 <div class="md:col-span-1 text-center md:text-right">
 <div class="timeline-year">2011-2014</div>
-<div class="timeline-type">PhD Scholar</div>
+<div class="timeline-type">Promotionsstipendiat</div>
 </div>
 <div class="md:col-span-3 timeline-content">
-<h3 class="timeline-title">Bavarian Elite Support Scholarship</h3>
+<h3 class="timeline-title">Bayerisches Eliteförderungsstipendium</h3>
 <p class="timeline-description">
-Prestigious BayEFG fellowship for doctoral research on symbol grounding and cognitive systems at University of Bamberg.
+Renommiertes BayEFG-Stipendium für Promotion zu Symbol Grounding und kognitiven Systemen an der Universität Bamberg.
 </p>
 </div>
 </div>
@@ -370,28 +370,28 @@ Prestigious BayEFG fellowship for doctoral research on symbol grounding and cogn
 <section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 lg:py-20 bg-primary">
 <div class="max-w-[960px] mx-auto space-y-10 sm:space-y-12">
 <div class="text-center">
-<h2 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4" style='font-family: "Playfair Display", serif;'>My Unique Approach</h2>
+<h2 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4" style='font-family: "Playfair Display", serif;'>Mein einzigartiger Ansatz</h2>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10">
 <div class="approach-card">
 <div class="text-accent text-5xl mb-6"><span class="material-icons-outlined">psychology</span></div>
-<h3 class="text-xl font-bold text-primary mb-4" style='font-family: "Playfair Display", serif;'>Symbol Grounding Foundation</h3>
+<h3 class="text-xl font-bold text-primary mb-4" style='font-family: "Playfair Display", serif;'>Symbol Grounding Fundament</h3>
 <p class="text-secondary leading-relaxed">
-PhD research on how machines develop conceptual understanding provides unique insights into AI capabilities and limitations.
+Promotionsforschung zur Entwicklung begrifflichen Verständnisses in Maschinen – daraus entstehen präzise Einblicke in die Möglichkeiten und Grenzen von KI-Systemen.
 </p>
 </div>
 <div class="approach-card">
 <div class="text-accent text-5xl mb-6"><span class="material-icons-outlined">auto_awesome</span></div>
-<h3 class="text-xl font-bold text-primary mb-4" style='font-family: "Playfair Display", serif;'>Phenomenological Method</h3>
+<h3 class="text-xl font-bold text-primary mb-4" style='font-family: "Playfair Display", serif;'>Phänomenologischer Ansatz</h3>
 <p class="text-secondary leading-relaxed">
-Applying phenomenology and cognitive science to AI challenges for more robust, ethically-grounded solutions.
+Phänomenologie und Kognitionswissenschaft als Basis für KI-Lösungen – das Ergebnis sind robustere, ethisch durchdachte Systeme.
 </p>
 </div>
 <div class="approach-card">
 <div class="text-accent text-5xl mb-6"><span class="material-icons-outlined">palette</span></div>
-<h3 class="text-xl font-bold text-primary mb-4" style='font-family: "Playfair Display", serif;'>Art & Ethics Integration</h3>
+<h3 class="text-xl font-bold text-primary mb-4" style='font-family: "Playfair Display", serif;'>Kunst und Ethik</h3>
 <p class="text-secondary leading-relaxed">
-Creative approaches through AI art installations reveal and address societal implications of artificial intelligence.
+KI-Kunstinstallationen machen gesellschaftliche Implikationen künstlicher Intelligenz sichtbar und schaffen Räume für kritische Auseinandersetzung.
 </p>
 </div>
 </div>
@@ -402,27 +402,27 @@ Creative approaches through AI art installations reveal and address societal imp
 <section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 lg:py-20 section-bg-gradient">
 <div class="max-w-[960px] mx-auto space-y-10 sm:space-y-12">
 <div class="text-center">
-<h2 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4" style='font-family: "Playfair Display", serif;'>Core Expertise</h2>
+<h2 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4" style='font-family: "Playfair Display", serif;'>Kernkompetenzen</h2>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10">
 <!-- Technical Skills -->
 <div class="skills-section">
 <div class="flex items-center gap-3 mb-6">
 <span class="material-icons-outlined text-accent text-3xl">engineering</span>
-<h3 class="text-xl font-bold text-primary" style='font-family: "Playfair Display", serif;'>Technical</h3>
+<h3 class="text-xl font-bold text-primary" style='font-family: "Playfair Display", serif;'>Technisch</h3>
 </div>
 <ul class="space-y-3 text-secondary">
 <li class="flex items-start gap-2">
 <span class="material-icons text-accent text-sm mt-1">check_circle</span>
-<span>Machine Learning (LLMs, TensorFlow, PyTorch)</span>
+<span>Maschinelles Lernen (LLMs, TensorFlow, PyTorch)</span>
 </li>
 <li class="flex items-start gap-2">
 <span class="material-icons text-accent text-sm mt-1">check_circle</span>
-<span>Programming (Python, Java, C++, JavaScript)</span>
+<span>Programmierung (Python, Java, C++, JavaScript)</span>
 </li>
 <li class="flex items-start gap-2">
 <span class="material-icons text-accent text-sm mt-1">check_circle</span>
-<span>CDSS & Cloud Architecture</span>
+<span>CDSS & Cloud-Architektur</span>
 </li>
 </ul>
 </div>
@@ -431,20 +431,20 @@ Creative approaches through AI art installations reveal and address societal imp
 <div class="skills-section">
 <div class="flex items-center gap-3 mb-6">
 <span class="material-icons-outlined text-accent text-3xl">school</span>
-<h3 class="text-xl font-bold text-primary" style='font-family: "Playfair Display", serif;'>Theoretical</h3>
+<h3 class="text-xl font-bold text-primary" style='font-family: "Playfair Display", serif;'>Theoretisch</h3>
 </div>
 <ul class="space-y-3 text-secondary">
 <li class="flex items-start gap-2">
 <span class="material-icons text-accent text-sm mt-1">check_circle</span>
-<span>Philosophy of AI & Symbol Grounding</span>
+<span>KI-Philosophie & Symbol Grounding</span>
 </li>
 <li class="flex items-start gap-2">
 <span class="material-icons text-accent text-sm mt-1">check_circle</span>
-<span>Cognitive Science & Mental Modeling</span>
+<span>Kognitionswissenschaft & mentale Modellierung</span>
 </li>
 <li class="flex items-start gap-2">
 <span class="material-icons text-accent text-sm mt-1">check_circle</span>
-<span>AI Ethics & Responsible Implementation</span>
+<span>KI-Ethik & verantwortungsvolle Implementierung</span>
 </li>
 </ul>
 </div>
@@ -453,20 +453,20 @@ Creative approaches through AI art installations reveal and address societal imp
 <div class="skills-section">
 <div class="flex items-center gap-3 mb-6">
 <span class="material-icons-outlined text-accent text-3xl">business_center</span>
-<h3 class="text-xl font-bold text-primary" style='font-family: "Playfair Display", serif;'>Consulting</h3>
+<h3 class="text-xl font-bold text-primary" style='font-family: "Playfair Display", serif;'>Beratung</h3>
 </div>
 <ul class="space-y-3 text-secondary">
 <li class="flex items-start gap-2">
 <span class="material-icons text-accent text-sm mt-1">check_circle</span>
-<span>AI Strategy & Implementation Planning</span>
+<span>KI-Strategie & Implementierungsplanung</span>
 </li>
 <li class="flex items-start gap-2">
 <span class="material-icons text-accent text-sm mt-1">check_circle</span>
-<span>Training & Digital Transformation</span>
+<span>Schulung & digitale Transformation</span>
 </li>
 <li class="flex items-start gap-2">
 <span class="material-icons text-accent text-sm mt-1">check_circle</span>
-<span>Multilingual (German, English, French)</span>
+<span>Mehrsprachig (Deutsch, Englisch, Französisch)</span>
 </li>
 </ul>
 </div>
@@ -478,13 +478,13 @@ Creative approaches through AI art installations reveal and address societal imp
 <section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 lg:py-20 section-about relative overflow-hidden">
 <div class="max-w-[960px] mx-auto text-center space-y-6 sm:space-y-8">
 <h2 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight" style='font-family: "Playfair Display", serif;'>
-Ready to Experience the Method?
+Bereit, die Methode zu erleben?
 </h2>
 <p class="text-secondary text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
-Discover how interdisciplinary AI expertise can transform your business challenges into competitive advantages.
+Erfahren Sie, wie interdisziplinäre KI-Expertise Ihre geschäftlichen Herausforderungen in messbare Wettbewerbsvorteile verwandelt.
 </p>
-<a href="contact.html" class="btn-primary inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105">
-Schedule a Consultation
+<a href="kontakt.html" class="btn-primary inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105">
+Beratungsgespräch vereinbaren
 </a>
 </div>
 </section>
@@ -493,23 +493,23 @@ Schedule a Consultation
 <footer class="footer-bg footer-text">
 <div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-12 text-center space-y-4 sm:space-y-6">
 <div class="flex flex-col sm:flex-row items-center justify-center gap-y-2 gap-x-4 sm:gap-x-6">
-<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="contact.html">Contact</a>
-<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="about.html">About</a>
-<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="contact.html#imprint">Imprint</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="kontakt.html">Kontakt</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="ueber.html">Über Uns</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="kontakt.html#imprint">Impressum</a>
 </div>
 <div class="flex flex-wrap justify-center gap-6">
 <a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
 <span class="material-icons text-xl sm:text-2xl">business</span>
 <span class="text-sm">LinkedIn</span>
 </a>
-<a href="mailto:contact@markwernsdorfer.com" target="_blank" rel="noopener noreferrer" aria-label="Email" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
+<a href="mailto:contact@markwernsdorfer.com" target="_blank" rel="noopener noreferrer" aria-label="E-Mail" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
 <span class="material-icons text-xl sm:text-2xl">email</span>
-<span class="text-sm">Email</span>
+<span class="text-sm">E-Mail</span>
 </a>
 </div>
-<p class="footer-text text-sm">© 2025 Dr. Mark Wernsdorfer. All rights reserved.</p>
+<p class="footer-text text-sm">© 2025 Dr. Mark Wernsdorfer. Alle Rechte vorbehalten.</p>
 <p class="footer-text text-xs sm:text-sm" style='font-family: "Playfair Display", serif;'>
-Bridging AI theory and practice with precision.
+Verbindung von KI-Theorie und Praxis mit Präzision.
 </p>
 </div>
 </footer>
@@ -517,25 +517,25 @@ Bridging AI theory and practice with precision.
 <!-- Mobile Bottom Navigation (only visible on mobile/tablet) -->
 <nav class="mobile-bottom-nav lg:hidden">
   <div class="mobile-nav-grid">
-    <a href="../index.html" class="mobile-nav-item mobile-nav-text">
+    <a href="../de_index.html" class="mobile-nav-item mobile-nav-text">
       <span class="material-icons-outlined">home</span>
-      <span>Home</span>
+      <span>Start</span>
     </a>
-    <a href="about.html" class="mobile-nav-item active mobile-nav-text">
+    <a href="ueber.html" class="mobile-nav-item active mobile-nav-text">
       <span class="material-icons-outlined">person</span>
-      <span>About</span>
+      <span>Über Uns</span>
     </a>
-    <a href="services.html" class="mobile-nav-item mobile-nav-text">
+    <a href="leistungen.html" class="mobile-nav-item mobile-nav-text">
       <span class="material-icons-outlined">work</span>
-      <span>Services</span>
+      <span>Leistungen</span>
     </a>
-    <a href="projects.html" class="mobile-nav-item mobile-nav-text">
+    <a href="projekte.html" class="mobile-nav-item mobile-nav-text">
       <span class="material-icons-outlined">folder</span>
       <span>Portfolio</span>
     </a>
-    <a href="contact.html" class="mobile-nav-item mobile-nav-text">
+    <a href="kontakt.html" class="mobile-nav-item mobile-nav-text">
       <span class="material-icons-outlined">contact_mail</span>
-      <span>Contact</span>
+      <span>Kontakt</span>
     </a>
   </div>
 </nav>

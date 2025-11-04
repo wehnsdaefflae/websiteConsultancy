@@ -8,6 +8,19 @@ This is a professional consultancy website for Dr. Mark Wernsdorfer, an AI consu
 
 **Target Audience**: Business decision-makers, SMEs, research institutions seeking AI consulting services.
 
+## Key Architectural Decisions
+
+This codebase prioritizes **performance**, **maintainability**, and **zero build complexity**:
+
+1. **No Build Process**: Static HTML/CSS/JS with no npm, webpack, or bundlers. Edit files directly, refresh browser.
+2. **Centralized Resource Management**: Single ScrollManager, ResizeManager, IntersectionManager to prevent multiple event listeners (critical for 60fps scroll performance).
+3. **Progressive Enhancement**: Critical path loads immediately, non-critical features use `requestIdleCallback`, animations load only when visible.
+4. **Configuration-Driven**: All magic numbers (timing, dimensions, breakpoints) centralized in `config.js`.
+5. **Error Resilience**: All feature init wrapped in `safeExecute()` error boundaries; one feature breaking doesn't cascade.
+6. **Theme Flicker Prevention**: Inline `<script>` applies theme before first paint, avoiding the common dark mode "flash of wrong theme".
+
+**When making changes**: Respect these patterns. Don't add direct scroll listeners, don't hard-code constants, always use error boundaries.
+
 ## Tech Stack
 
 - **Frontend**: Static HTML5, vanilla JavaScript (ES6+), CSS3
@@ -42,9 +55,12 @@ This is a professional consultancy website for Dr. Mark Wernsdorfer, an AI consu
 │   ├── mobile.css         # Mobile-specific styles
 │   ├── utilities.css      # Utility classes
 │   └── inline-styles.css  # Critical path styles
-├── js/                     # Modular JavaScript
-│   ├── core.js            # Core initialization, scroll handlers
+├── js/                     # Modular JavaScript (load order matters)
+│   ├── config.js          # Configuration constants (load first)
+│   ├── utils.js           # Error handling and performance utilities
+│   ├── managers.js        # Centralized resource managers (Scroll, Resize, Intersection)
 │   ├── theme.js           # Dark mode toggle, theme persistence
+│   ├── core.js            # Initialization orchestration (load after foundation)
 │   ├── navigation.js      # Navigation, mobile menu, carousel
 │   ├── animations.js      # Parallax, advanced animations
 │   └── interactions.js    # Interactive elements, form handling
@@ -73,38 +89,105 @@ The CSS follows a **modular design system approach**:
 
 ### JavaScript Architecture
 
-The JavaScript is organized into **modular, self-contained files** with exported utility objects:
+The JavaScript uses a **hybrid module system** combining ES6 exports with global namespace utilities:
 
-1. **core.js** - Core initialization, smooth scroll, scroll progress indicator
-   - Exports: `window.coreUtils`
-   - Initializes all other modules on DOMContentLoaded
+**Foundation Layer** (ES6 modules exported to `window`):
 
-2. **theme.js** - Theme management (light/dark mode)
+1. **config.js** - Centralized configuration constants
+   - Exports: `window.APP_CONFIG` object with:
+     - `CAROUSEL_CONFIG`: Slide dimensions, timing, auto-play settings
+     - `SCROLL_CONFIG`: Breakpoints and header heights
+     - `ANIMATION_CONFIG`: Parallax speeds, debounce delays, durations
+     - `OBSERVER_CONFIG`: IntersectionObserver thresholds
+     - `PERFORMANCE_CONFIG`: Idle callback and frame budgets
+
+2. **utils.js** - Performance and error handling utilities
+   - Exports: `window.utils` object with:
+     - `safeExecute(fn, context)`: Error boundary wrapper with analytics integration
+     - `debounce(func, wait)`: Debounce utility for event handlers
+     - `throttle(func, limit)`: Throttle utility for performance-critical code
+   - Integrates with Google Analytics for exception tracking
+
+3. **managers.js** - Centralized resource managers
+   - **ScrollManager**: Single scroll listener with RAF-based handler registry
+     - Prevents multiple scroll event listeners (performance optimization)
+     - Uses `requestAnimationFrame` for smooth updates
+     - Methods: `addHandler(handler)`, `removeHandler(handler)`, `getScrollY()`
+   - **ResizeManager**: Centralized window resize handling with debouncing
+   - **IntersectionManager**: Shared IntersectionObserver pool
+
+**Feature Layer** (depends on foundation):
+
+4. **core.js** - Orchestration and initialization
+   - DOMContentLoaded orchestration with prioritized loading:
+     - **Critical path**: Immediate init (scroll progress, core utilities)
+     - **Deferred**: Uses `requestIdleCallback` for non-critical features
+     - **Lazy**: Animation init only when elements enter viewport
+   - Integrates ScrollManager for centralized scroll handling
+   - Fallback for browsers without `requestIdleCallback`
+
+5. **theme.js** - Dark mode implementation
    - Exports: `window.themeUtils`
-   - Uses localStorage for persistence
-   - Detects system preference via `prefers-color-scheme`
-   - Prevents theme flicker with inline script in `<head>`
+   - localStorage persistence with system preference detection
+   - Inline flicker-prevention script in `<head>` (runs before DOMContentLoaded)
+   - Transition delay pattern to prevent jarring theme changes
 
-3. **navigation.js** - Navigation logic, logo carousel
-   - Mobile bottom nav active state management
-   - Header navigation visibility control (hidden on mobile < 768px)
-   - Logo carousel with auto-scroll and manual controls
+6. **navigation.js** - Navigation and carousel logic
+   - Mobile/desktop navigation switching (< 1024px breakpoint)
+   - Logo carousel with auto-scroll, manual controls, and infinite loop
+   - Active state management for current page highlighting
 
-4. **animations.js** - Parallax effects, advanced animations
-   - IntersectionObserver for scroll-triggered animations
-   - Performance-optimized with requestAnimationFrame
+7. **animations.js** - Scroll-triggered and parallax animations
+   - IntersectionObserver for viewport-based animation triggers
+   - Parallax effects using ScrollManager
+   - Performance-optimized with RAF and passive listeners
 
-5. **interactions.js** - Interactive elements, form validation
-   - Contact form handling
-   - Interactive UI element behaviors
+8. **interactions.js** - Interactive UI elements
+   - Form validation and submission handling
+   - Button ripple effects and hover interactions
 
-**Module Pattern**:
+**Initialization Pattern**:
 ```javascript
-// Each module exports utilities to window
-window.moduleUtils = {
-  functionName: function() { /* ... */ }
-};
+// Critical path (immediate)
+window.utils.safeExecute(() => {
+  initCore();
+  initScrollProgress();
+}, 'critical-init');
+
+// Non-critical (deferred with requestIdleCallback)
+requestIdleCallback(() => {
+  window.utils.safeExecute(initNavigation, 'initNavigation');
+}, { timeout: 2000 });
+
+// Lazy (only when needed)
+const observer = new IntersectionObserver((entries) => {
+  if (entry.isIntersecting) {
+    window.utils.safeExecute(initAnimations, 'initAnimations');
+    observer.disconnect();
+  }
+});
 ```
+
+**Key Patterns**:
+- All potentially-failing code wrapped in `window.utils.safeExecute()`
+- Single scroll listener via ScrollManager (not per-component listeners)
+- Configuration centralized in `config.js` (no magic numbers in code)
+- ES6 modules export to `window` for cross-file compatibility
+
+**Script Load Order** (critical for dependencies):
+```html
+<!-- In <head> with defer attribute -->
+<script src="js/config.js" defer></script>    <!-- 1. Load config first -->
+<script src="js/utils.js" defer></script>     <!-- 2. Load utilities -->
+<script src="js/managers.js" defer></script>  <!-- 3. Load managers -->
+<script src="js/theme.js" defer></script>     <!-- 4. Load theme -->
+<script src="js/core.js" defer></script>      <!-- 5. Load orchestrator -->
+<script src="js/navigation.js" defer></script>
+<script src="js/animations.js" defer></script>
+<script src="js/interactions.js" defer></script>
+```
+
+The `defer` attribute ensures scripts execute in order after HTML parsing, but before `DOMContentLoaded`. Theme flicker prevention still uses an inline `<script>` (no defer) that runs immediately.
 
 ## Development Workflows
 
@@ -132,12 +215,35 @@ When modifying themes:
 3. Add/modify dark theme in `:root.dark { }`
 4. Test with theme toggle button (top-right of header)
 
+### Debugging
+
+The codebase includes comprehensive error tracking:
+
+1. **Browser Console**: All errors logged with context via `safeExecute()`
+2. **Google Analytics**: Errors sent to GA4 (if configured) with exception tracking
+3. **Network Tab**: Check for missing resources or slow CDN loads
+
+Common debugging scenarios:
+
+```javascript
+// Check if ScrollManager is working
+console.log(window.scrollManager.getScrollY());
+
+// Verify config loaded
+console.log(window.APP_CONFIG);
+
+// Check theme state
+console.log(localStorage.getItem('theme'));
+console.log(document.documentElement.classList.contains('dark'));
+```
+
 ### Animation Performance
 
 - Use IntersectionObserver for scroll-triggered animations
 - Avoid animating expensive properties (use `transform`, `opacity`)
-- Use `{ passive: true }` for scroll listeners
-- Debounce scroll handlers (see `core.js` for pattern)
+- All scroll listeners MUST use ScrollManager (never direct `addEventListener('scroll')`)
+- Use `{ passive: true }` for scroll listeners in ScrollManager
+- Debounce resize handlers via ResizeManager (see `managers.js`)
 
 ## Key Features & Patterns
 
@@ -336,7 +442,68 @@ rsync -avz --exclude='.git' --exclude='additional_info' ./ user@server:/var/www/
 
 **Note**: The `additional_info/` directory contains internal strategy documents and should not be deployed to production.
 
+## Progressive Web App (PWA)
+
+The site includes basic PWA configuration via `manifest.json`:
+- App name and icons for home screen installation
+- Theme colors matching brand (amber/orange)
+- Standalone display mode for app-like experience on mobile
+
+Currently implemented:
+- Web app manifest linked in HTML with app shortcuts (About, Services, Contact)
+- Theme color meta tags (`#d97706` - amber/orange)
+- Apple mobile web app meta tags for iOS installation
+- SVG icons (192x192, 512x512) with maskable purpose
+
+Not yet implemented:
+- Service worker for offline functionality and caching
+- Push notifications
+
 ## Important Implementation Notes
+
+### ScrollManager Pattern
+
+**Critical**: All scroll handling MUST use the centralized `ScrollManager` from `managers.js`:
+
+```javascript
+// CORRECT: Register with ScrollManager
+window.scrollManager.addHandler((scrollY) => {
+  // Your scroll logic here
+});
+
+// INCORRECT: Don't create separate scroll listeners
+window.addEventListener('scroll', handler); // ❌ Causes performance issues
+```
+
+The ScrollManager uses a single `scroll` event listener with `requestAnimationFrame` batching. Adding separate scroll listeners bypasses this optimization and degrades performance.
+
+### Error Handling Pattern
+
+All feature initialization MUST be wrapped in `window.utils.safeExecute()`:
+
+```javascript
+// CORRECT: Wrapped with error boundary
+window.utils.safeExecute(() => {
+  initMyFeature();
+}, 'initMyFeature');
+
+// INCORRECT: Unwrapped - errors will break subsequent initializations
+initMyFeature(); // ❌ If this throws, later init won't run
+```
+
+This pattern ensures errors are logged to console and Google Analytics without breaking other features.
+
+### Configuration Constants
+
+Never hard-code timing, dimensions, or breakpoints. Use `window.APP_CONFIG` from `config.js`:
+
+```javascript
+// CORRECT: Use centralized config
+const speed = window.APP_CONFIG.ANIMATION_CONFIG.BASE_PARALLAX_SPEED;
+
+// INCORRECT: Magic numbers
+const speed = 0.2; // ❌ Where did this come from?
+```
 
 ### Service Cards Animation
 
@@ -344,7 +511,7 @@ Service cards (`.service-card`) are explicitly excluded from scroll-triggered an
 
 ### Mobile Header Navigation
 
-The header navigation is intentionally hidden on mobile screens (<768px). This is enforced in `core.js` with a resize listener. The mobile bottom nav provides primary navigation on small screens.
+The header navigation is intentionally hidden on mobile screens (<1024px). This is controlled via ResizeManager. The mobile bottom nav provides primary navigation on small screens.
 
 ### Theme Toggle Position
 
@@ -364,6 +531,56 @@ Logo carousel auto-scroll speed is controlled by CSS animation duration in the `
   animation: scroll 60s linear infinite; /* Adjust duration here */
 }
 ```
+
+## Common Pitfalls & Troubleshooting
+
+### Script Load Order Issues
+
+**Problem**: `Uncaught ReferenceError: window.utils is not defined`
+**Solution**: Ensure `utils.js` loads before files that use it. Check script tag order in `<head>`.
+
+### Theme Flicker on Page Load
+
+**Problem**: Page briefly shows wrong theme before switching
+**Solution**: The inline theme script in `<head>` must run BEFORE any deferred scripts. Never add `defer` to the theme prevention script.
+
+### Multiple Scroll Listeners Degrading Performance
+
+**Problem**: Scroll feels janky, multiple RAF calls per scroll event
+**Solution**: Never use `window.addEventListener('scroll', ...)` directly. Always register with `window.scrollManager.addHandler()`.
+
+### Carousel Not Auto-Scrolling
+
+**Problem**: Logo carousel stuck or not moving
+**Solution**:
+1. Check `.animate-scroll` class is applied to carousel container
+2. Verify `CAROUSEL_CONFIG` in `config.js` has correct `SLIDE_WIDTH`
+3. Ensure duplicate logo sets exist for infinite scroll effect
+
+### Animations Not Triggering
+
+**Problem**: Elements with `.animate` class never animate
+**Solution**:
+1. Verify `initScrollAnimations()` was called (check console for errors)
+2. Ensure IntersectionObserver is supported (modern browsers only)
+3. Check that elements are actually in viewport
+4. Service cards are intentionally excluded - don't add `.animate` to `.service-card`
+
+### Dark Mode Toggle Not Working
+
+**Problem**: Clicking theme toggle does nothing
+**Solution**:
+1. Check `window.themeUtils.enhancedToggleDarkMode` is defined
+2. Verify `theme.js` loaded successfully (check Network tab)
+3. Check browser console for errors in theme initialization
+
+### Mobile Navigation Not Showing
+
+**Problem**: No navigation visible on mobile
+**Solution**: The header nav is hidden < 1024px. Mobile bottom nav should appear. Check:
+1. `.mobile-bottom-nav` element exists in HTML
+2. Mobile CSS is loaded (`mobile.css`)
+3. No JavaScript errors preventing nav initialization
 
 ## Contact & Links
 

@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
 <script>
   // Prevent flicker by setting theme immediately
   (function() {
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
+
     let isDark = false;
     if (savedTheme === null) {
       isDark = prefersDark;
     } else {
       isDark = savedTheme === 'dark';
     }
-    
+
     // Disable transitions during initial theme setup
     document.documentElement.classList.remove('transitions-enabled');
-    
+
     if (isDark) {
       document.documentElement.classList.add('dark');
     }
-    
+
     // Set initial icon to prevent flicker
     document.addEventListener('DOMContentLoaded', function() {
       const icons = document.querySelectorAll('.theme-toggle-icon');
@@ -45,19 +45,19 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
 <meta name="apple-mobile-web-app-title" content="Dr. Mark Wernsdorfer"/>
 <meta name="mobile-web-app-capable" content="yes"/>
-<meta name="description" content="AI Projects by Dr. Mark Wernsdorfer - DoppelCheck, SpotTheBot, AMPEL clinical decision support, and other innovative AI applications."/>
-<meta name="keywords" content="AI projects, machine learning applications, DoppelCheck, SpotTheBot, AMPEL, clinical decision support"/>
+<meta name="description" content="KI-Projekte von Dr. Mark Wernsdorfer - DoppelCheck, SpotTheBot, AMPEL klinisches Entscheidungs&shy;unterstützungs&shy;system und weitere innovative KI-Anwendungen."/>
+<meta name="keywords" content="KI-Projekte, Machine-Learning-Anwendungen, DoppelCheck, SpotTheBot, AMPEL, klinische Entscheidungs&shy;unterstützung"/>
 <meta name="author" content="Dr. Mark Wernsdorfer"/>
 <meta property="og:title" content="Portfolio - Dr. Mark Wernsdorfer"/>
-<meta property="og:description" content="Explore innovative AI projects that bridge deep theoretical research with real-world applications, demonstrating practical impact across diverse domains."/>
+<meta property="og:description" content="Entdecken Sie innovative KI-Projekte, die fundierte theoretische Forschung mit praktischen Anwendungen verbinden und messbare Erfolge in verschiedenen Bereichen erzielen."/>
 <meta property="og:image" content="../images/profile-mark-wernsdorfer.webp"/>
-<meta property="og:url" content="https://markwernsdorfer.com/projects.html"/>
+<meta property="og:url" content="https://markwernsdorfer.com/de/projekte.html"/>
 <meta property="og:type" content="website"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Portfolio - Dr. Mark Wernsdorfer"/>
-<meta name="twitter:description" content="Explore innovative AI projects that bridge deep theoretical research with real-world applications, demonstrating practical impact across diverse domains."/>
+<meta name="twitter:description" content="Entdecken Sie innovative KI-Projekte, die fundierte theoretische Forschung mit praktischen Anwendungen verbinden und messbare Erfolge in verschiedenen Bereichen erzielen."/>
 <meta name="twitter:image" content="../images/profile-mark-wernsdorfer.webp"/>
-<link rel="canonical" href="https://markwernsdorfer.com/projects.html"/>
+<link rel="canonical" href="https://markwernsdorfer.com/de/projekte.html"/>
 <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
 <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Playfair+Display%3Awght%40400%3B500%3B700%3B900&amp;family=Roboto+Slab%3Awght%40300%3B400%3B500%3B700" onload="this.rel='stylesheet'" rel="stylesheet"/>
 <!-- Preload critical CSS -->
@@ -95,13 +95,13 @@
   "itemListElement": [{
     "@type": "ListItem",
     "position": 1,
-    "name": "Home",
+    "name": "Startseite",
     "item": "https://markwernsdorfer.com/"
   },{
     "@type": "ListItem",
     "position": 2,
     "name": "Portfolio",
-    "item": "https://markwernsdorfer.com/projects.html"
+    "item": "https://markwernsdorfer.com/de/projekte.html"
   }]
 }
 </script>
@@ -135,7 +135,7 @@
 <script defer src="../js/interactions.js"></script>
 </head>
 <body class="font-roboto-slab">
-<a href="#main-content" class="skip-link visually-hidden">Skip to main content</a>
+<a href="#main-content" class="skip-link visually-hidden">Zum Hauptinhalt springen</a>
 <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
 <div class="layout-container flex h-full grow flex-col">
 <header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid themed-border header-bg px-4 sm:px-6 lg:px-10 py-3 sm:py-4 backdrop-blur-md">
@@ -153,17 +153,17 @@
 <a href="../index.html" class="header-logo-text text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight transition-colors font-playfair"><span class="logo-first-line">Dr. Mark</span> <span class="logo-second-line">Wernsdorfer</span></a>
 </div>
 <div class="flex items-center gap-2 sm:gap-4">
-<button onclick="window.themeUtils.enhancedToggleDarkMode(event)" class="theme-toggle" aria-label="Toggle dark mode">
+<button onclick="window.themeUtils.enhancedToggleDarkMode(event)" class="theme-toggle" aria-label="Dunkelmodus umschalten">
   <span class="material-icons-outlined theme-toggle-icon">dark_mode</span>
 </button>
 <div class="language-switcher flex items-center gap-1">
-<a href="../index.html" class="px-2 py-1 text-sm font-medium lang-active rounded hover:opacity-90 transition-all">EN</a>
-<a href="../de/projekte.html" class="px-2 py-1 text-sm font-medium lang-inactive rounded hover:opacity-90 transition-all">DE</a>
+<a href="../en/projects.html" class="px-2 py-1 text-sm font-medium lang-inactive rounded hover:opacity-90 transition-all">EN</a>
+<span class="px-2 py-1 text-sm font-medium lang-active rounded">DE</span>
 </div>
-<a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 btn-primary text-sm sm:text-base font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="contact.html">
-<span class="truncate">Contact</span>
+<a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 btn-primary text-sm sm:text-base font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="kontakt.html">
+<span class="truncate">Kontakt</span>
 </a>
-<a class="sm:hidden flex items-center justify-center overflow-hidden rounded-md h-9 px-3 btn-primary text-sm font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="contact.html" aria-label="Contact">
+<a class="sm:hidden flex items-center justify-center overflow-hidden rounded-md h-9 px-3 btn-primary text-sm font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="kontakt.html" aria-label="Kontakt">
 <span class="material-icons text-lg">email</span>
 </a>
 </div>
@@ -173,7 +173,7 @@
 <nav aria-label="Breadcrumb" class="bg-secondary border-b border-solid themed-border">
   <div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-10 py-3">
     <ol class="breadcrumbs">
-      <li><a href="../index.html" class="breadcrumb-link">Home</a></li>
+      <li><a href="../index.html" class="breadcrumb-link">Startseite</a></li>
       <li><span class="breadcrumb-separator">/</span></li>
       <li><span class="breadcrumb-current">Portfolio</span></li>
     </ol>
@@ -186,17 +186,17 @@
 <div class="layout-content-container flex flex-col max-w-[960px] mx-auto">
 <div class="space-y-8 sm:space-y-10">
 <div class="text-center space-y-4">
-<h1 class="themed-text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight font-playfair">Portfolio & Case Studies</h1>
+<h1 class="themed-text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight font-playfair">Portfolio & Fallstudien</h1>
 <p class="themed-text-secondary text-lg sm:text-xl font-normal leading-relaxed max-w-3xl mx-auto">
-Explore innovative AI projects that bridge deep theoretical research with real-world applications, demonstrating practical impact across diverse domains.
+Entdecken Sie innovative KI-Projekte, die fundierte theoretische Forschung mit praktischen Anwendungen verbinden und messbare Erfolge in verschiedenen Bereichen erzielen.
 </p>
 </div>    <!-- Filter Tabs -->
     <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mt-12">
-      <button class="portfolio-filter-btn filter-btn active" data-filter="all">All Projects</button>
-      <button class="portfolio-filter-btn filter-btn" data-filter="ai-tools">AI Tools</button>
-      <button class="portfolio-filter-btn filter-btn" data-filter="research">Research</button>
-      <button class="portfolio-filter-btn filter-btn" data-filter="healthcare">Healthcare</button>
-      <button class="portfolio-filter-btn filter-btn" data-filter="education">Education</button>
+      <button class="portfolio-filter-btn filter-btn active" data-filter="all">Alle Projekte</button>
+      <button class="portfolio-filter-btn filter-btn" data-filter="ai-tools">KI-Tools</button>
+      <button class="portfolio-filter-btn filter-btn" data-filter="research">Forschung</button>
+      <button class="portfolio-filter-btn filter-btn" data-filter="healthcare">Gesundheitswesen</button>
+      <button class="portfolio-filter-btn filter-btn" data-filter="education">Bildung</button>
     </div>    <!-- Featured Projects Grid -->
     <div class="portfolio-grid mt-12">
       <!-- The Bina School Project -->
@@ -208,38 +208,38 @@ Explore innovative AI projects that bridge deep theoretical research with real-w
 </div>
 <div class="portfolio-overlay">
 <div class="portfolio-tags">
-<span class="tag">EdTech AI</span>
-<span class="tag">Adaptive Learning</span>
-<span class="tag">Global Scale</span>
+<span class="tag">EdTech-KI</span>
+<span class="tag">Adaptives Lernen</span>
+<span class="tag">Globale Reichweite</span>
 </div>
 </div>
 </div>
 <div class="portfolio-content">
 <div class="portfolio-header">
 <h3 class="portfolio-title">The Bina School</h3>
-<div class="portfolio-subtitle">AI-Powered Precision Education Platform</div>
+<div class="portfolio-subtitle">KI-gestützte Präzisions&shy;bildungs&shy;plattform</div>
 </div>
 <p class="portfolio-description">
-Leading AI developer for Cognia-accredited online school serving students across 40+ countries. Pioneering "precision education" platform with adaptive learning paths, real-time progress tracking, and personalized curricula.
+Lead KI-Entwickler für die von Cognia akkreditierte Online-Schule mit Schülern in über 40 Ländern. Wegweisende „Precision Education"-Plattform mit adaptiven Lernpfaden, Echtzeit-Fortschritts&shy;verfolgung und personalisierten Curricula.
 </p>
 <div class="portfolio-meta">
 <div class="meta-item">
-<span class="meta-label">Role:</span>
-<span class="meta-value">Leading AI Developer</span>
+<span class="meta-label">Rolle:</span>
+<span class="meta-value">Lead KI-Entwickler</span>
 </div>
 <div class="meta-item">
-<span class="meta-label">Scale:</span>
-<span class="meta-value">40+ Countries, Ages 4-12</span>
+<span class="meta-label">Reichweite:</span>
+<span class="meta-value">40+ Länder, Alter 4-12</span>
 </div>
 <div class="meta-item">
 <span class="meta-label">Impact:</span>
-<span class="meta-value">Data-driven personalization for global learners</span>
+<span class="meta-value">Daten&shy;basierte Personalisierung für globale Lernende</span>
 </div>
 </div>
 <div class="portfolio-links">
 <a href="https://www.thebinaschool.com/" target="_blank" class="portfolio-link">
 <span class="material-icons">launch</span>
-Visit School
+Schule besuchen
 </a>
 </div>
 </div>
@@ -255,8 +255,8 @@ Visit School
 </div>
 <div class="portfolio-overlay">
 <div class="portfolio-tags">
-<span class="tag">AI Detection</span>
-<span class="tag">Digital Literacy</span>
+<span class="tag">KI-Erkennung</span>
+<span class="tag">Digitale Kompetenz</span>
 <span class="tag">Open Source</span>
 </div>
 </div>
@@ -264,15 +264,15 @@ Visit School
 <div class="portfolio-content">
 <div class="portfolio-header">
 <h3 class="portfolio-title">DoppelCheck</h3>
-<div class="portfolio-subtitle">AI-Powered Disinformation Detection</div>
+<div class="portfolio-subtitle">KI-gestützte Desinformations&shy;erkennung</div>
 </div>
 <p class="portfolio-description">
-Browser extension using machine learning to detect disinformation in real-time with privacy-first local processing.
+Browser-Erweiterung, die mit Machine Learning Desinformation in Echtzeit erkennt – dank lokaler Verarbeitung vollständig datenschutz&shy;konform.
 </p>
 <div class="portfolio-meta">
 <div class="meta-item">
-<span class="meta-label">Role:</span>
-<span class="meta-value">Project Lead & Sole Developer</span>
+<span class="meta-label">Rolle:</span>
+<span class="meta-value">Projektleitung & Sole Developer</span>
 </div>
 <div class="meta-item">
 <span class="meta-label">Institution:</span>
@@ -280,17 +280,17 @@ Browser extension using machine learning to detect disinformation in real-time w
 </div>
 <div class="meta-item">
 <span class="meta-label">Impact:</span>
-<span class="meta-value">Open-source tool for digital literacy</span>
+<span class="meta-value">Open-Source-Tool für digitale Kompetenz</span>
 </div>
 </div>
 <div class="portfolio-links">
 <a href="https://doppelcheck.com/" target="_blank" class="portfolio-link">
 <span class="material-icons">launch</span>
-Visit Project
+Projekt besuchen
 </a>
 <a href="https://github.com/Doppelcheck/main" target="_blank" class="portfolio-link">
 <span class="material-icons">code</span>
-View Code
+Code ansehen
 </a>
 </div>
 </div>
@@ -304,42 +304,42 @@ View Code
 <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-t-xl" style='background-image: url("../images/project-ai-research.webp");'></div>
 <div class="portfolio-overlay">
 <div class="portfolio-tags">
-<span class="tag">Text Detection</span>
-<span class="tag">Digital Literacy</span>
-<span class="tag">BMBF Funded</span>
+<span class="tag">Texterkennung</span>
+<span class="tag">Digitale Kompetenz</span>
+<span class="tag">BMBF-Förderung</span>
 </div>
 </div>
 </div>
 <div class="portfolio-content">
 <div class="portfolio-header">
 <h3 class="portfolio-title">SpotTheBot</h3>
-<div class="portfolio-subtitle">AI-Generated Text Recognition</div>
+<div class="portfolio-subtitle">Erkennung KI-generierter Texte</div>
 </div>
 <p class="portfolio-description">
-Educational platform gamifying AI-generated text detection to enhance digital literacy through interactive learning.
+Bildungs&shy;plattform, die spielerisch vermittelt, wie man KI-generierte Texte erkennt – interaktives Lernen für digitale Kompetenz.
 </p>
 <div class="portfolio-meta">
 <div class="meta-item">
-<span class="meta-label">Role:</span>
-<span class="meta-value">Project Lead & Sole Developer</span>
+<span class="meta-label">Rolle:</span>
+<span class="meta-value">Projektleitung & Sole Developer</span>
 </div>
 <div class="meta-item">
-<span class="meta-label">Funding:</span>
+<span class="meta-label">Förderung:</span>
 <span class="meta-value">BMBF & Open Knowledge Foundation</span>
 </div>
 <div class="meta-item">
-<span class="meta-label">Purpose:</span>
-<span class="meta-value">Educational AI literacy tool</span>
+<span class="meta-label">Fokus:</span>
+<span class="meta-value">Bildungs&shy;tool für KI-Kompetenz</span>
 </div>
 </div>
 <div class="portfolio-links">
 <a href="https://spotthebot.de/" target="_blank" class="portfolio-link">
 <span class="material-icons">launch</span>
-Try SpotTheBot
+SpotTheBot testen
 </a>
 <a href="https://github.com/wehsnaefflae/SpotTheBot" target="_blank" class="portfolio-link">
 <span class="material-icons">code</span>
-View Code
+Code ansehen
 </a>
 </div>
 </div>
@@ -355,38 +355,38 @@ View Code
 </div>
 <div class="portfolio-overlay">
 <div class="portfolio-tags">
-<span class="tag">Interactive AI</span>
-<span class="tag">Art Installation</span>
-<span class="tag">Ethics</span>
+<span class="tag">Interaktive KI</span>
+<span class="tag">Kunstinstallation</span>
+<span class="tag">Ethik</span>
 </div>
 </div>
 </div>
 <div class="portfolio-content">
 <div class="portfolio-header">
 <h3 class="portfolio-title">ARTeFact</h3>
-<div class="portfolio-subtitle">Interactive AI Art Installation</div>
+<div class="portfolio-subtitle">Interaktive KI-Kunst&shy;installation</div>
 </div>
 <p class="portfolio-description">
-Interactive AI art installation exploring ethical dimensions of AI empathy exploitation.
+Interaktive KI-Kunst&shy;installation, die ethische Dimensionen der Instrumentalisierung von KI-Empathie erforscht.
 </p>
 <div class="portfolio-meta">
 <div class="meta-item">
-<span class="meta-label">Role:</span>
-<span class="meta-value">Sole AI Developer & Designer</span>
+<span class="meta-label">Rolle:</span>
+<span class="meta-value">Sole KI-Entwickler & Designer</span>
 </div>
 <div class="meta-item">
-<span class="meta-label">Venue:</span>
-<span class="meta-value">Globe Theatre Leipzig</span>
+<span class="meta-label">Ort:</span>
+<span class="meta-value">Globe Theater Leipzig</span>
 </div>
 <div class="meta-item">
-<span class="meta-label">Focus:</span>
-<span class="meta-value">AI Ethics & Human Experience</span>
+<span class="meta-label">Fokus:</span>
+<span class="meta-value">KI-Ethik & menschliche Interaktion</span>
 </div>
 </div>
 <div class="portfolio-links">
 <a href="https://www.globe-festival.de/globe23" target="_blank" class="portfolio-link">
 <span class="material-icons">launch</span>
-Festival Info
+Festival-Info
 </a>
 </div>
 </div>
@@ -400,8 +400,8 @@ Festival Info
 <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-t-xl" style='background-image: url("../images/workshop-grosses-wechselspiel.jpg");'></div>
 <div class="portfolio-overlay">
 <div class="portfolio-tags">
-<span class="tag">Art Education</span>
-<span class="tag">Generative AI</span>
+<span class="tag">Kunst&shy;pädagogik</span>
+<span class="tag">Generative KI</span>
 <span class="tag">Workshop</span>
 </div>
 </div>
@@ -409,33 +409,33 @@ Festival Info
 <div class="portfolio-content">
 <div class="portfolio-header">
 <h3 class="portfolio-title">Großes Wechselspiel</h3>
-<div class="portfolio-subtitle">AI & Art Education Workshop</div>
+<div class="portfolio-subtitle">KI & Kunst&shy;pädagogik Workshop</div>
 </div>
 <p class="portfolio-description">
-Professional development workshop for art teachers exploring the creative intersection of cardboard construction and generative AI in educational contexts.
+Fortbildungs&shy;workshop für Kunst&shy;lehrkräfte zur kreativen Verbindung von Papp&shy;konstruktion und generativer KI in pädagogischen Kontexten.
 </p>
 <div class="portfolio-meta">
 <div class="meta-item">
-<span class="meta-label">Role:</span>
-<span class="meta-value">Workshop Leader & AI Expert</span>
+<span class="meta-label">Rolle:</span>
+<span class="meta-value">Workshop&shy;leitung & KI-Experte</span>
 </div>
 <div class="meta-item">
-<span class="meta-label">Organization:</span>
-<span class="meta-value">LJKE Bavaria</span>
+<span class="meta-label">Organisation:</span>
+<span class="meta-value">LJKE Bayern</span>
 </div>
 <div class="meta-item">
-<span class="meta-label">Date:</span>
-<span class="meta-value">November 17-18, 2023</span>
+<span class="meta-label">Datum:</span>
+<span class="meta-value">17.-18. November 2023</span>
 </div>
 <div class="meta-item">
-<span class="meta-label">Focus:</span>
-<span class="meta-value">AI Literacy & Creative Pedagogy</span>
+<span class="meta-label">Fokus:</span>
+<span class="meta-value">KI-Kompetenz & kreative Pädagogik</span>
 </div>
 </div>
 <div class="portfolio-links">
 <a href="https://ljke-bayern.de" target="_blank" class="portfolio-link">
 <span class="material-icons">launch</span>
-LJKE Bavaria
+LJKE Bayern
 </a>
 </div>
 </div>
@@ -449,38 +449,38 @@ LJKE Bavaria
 <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-t-xl" style='background-image: url("../images/project-medical-ai.webp");'></div>
 <div class="portfolio-overlay">
 <div class="portfolio-tags">
-<span class="tag">Medical AI</span>
-<span class="tag">Clinical Decision</span>
-<span class="tag">Real-time</span>
+<span class="tag">Medizinische KI</span>
+<span class="tag">Klinische Entscheidung</span>
+<span class="tag">Echtzeit</span>
 </div>
 </div>
 </div>
 <div class="portfolio-content">
 <div class="portfolio-header">
 <h3 class="portfolio-title">AMPEL</h3>
-<div class="portfolio-subtitle">Clinical Decision Support System</div>
+<div class="portfolio-subtitle">Klinisches Entscheidungs&shy;unterstützungs&shy;system</div>
 </div>
 <p class="portfolio-description">
-AI-driven Clinical Decision Support System for real-time laboratory diagnostics and medical decision-making.
+KI-basiertes klinisches Entscheidungs&shy;unterstützungs&shy;system für Echtzeit-Labor&shy;diagnostik und medizinische Entscheidungs&shy;findung.
 </p>
 <div class="portfolio-meta">
 <div class="meta-item">
-<span class="meta-label">Role:</span>
-<span class="meta-value">Key AI Architect & Co-developer</span>
+<span class="meta-label">Rolle:</span>
+<span class="meta-value">Lead KI-Architekt & Co-Developer</span>
 </div>
 <div class="meta-item">
 <span class="meta-label">Institution:</span>
-<span class="meta-value">University Hospital Leipzig</span>
+<span class="meta-value">Universitäts&shy;klinikum Leipzig</span>
 </div>
 <div class="meta-item">
 <span class="meta-label">Impact:</span>
-<span class="meta-value">Enhanced patient care through AI</span>
+<span class="meta-value">Verbesserte Patienten&shy;versorgung durch KI</span>
 </div>
 </div>
 <div class="portfolio-links">
 <a href="https://www.ampel.care/" target="_blank" class="portfolio-link">
 <span class="material-icons">launch</span>
-Visit Project
+Projekt besuchen
 </a>
 </div>
 </div>
@@ -494,8 +494,8 @@ Visit Project
 <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-t-xl" style='background-image: url("../images/project-knowledge-optimization.webp");'></div>
 <div class="portfolio-overlay">
 <div class="portfolio-tags">
-<span class="tag">Geothermics</span>
-<span class="tag">Optimization</span>
+<span class="tag">Geothermie</span>
+<span class="tag">Optimierung</span>
 <span class="tag">Simulation</span>
 </div>
 </div>
@@ -503,29 +503,29 @@ Visit Project
 <div class="portfolio-content">
 <div class="portfolio-header">
 <h3 class="portfolio-title">KNW-Opt</h3>
-<div class="portfolio-subtitle">Geothermal Energy Optimization</div>
+<div class="portfolio-subtitle">Geothermie-Energie&shy;optimierung</div>
 </div>
 <p class="portfolio-description">
-Machine learning for predictive modeling and optimization of shallow geothermal energy systems.
+Machine Learning für prädiktive Modellierung und Optimierung oberflächen&shy;naher geothermischer Energie&shy;systeme.
 </p>
 <div class="portfolio-meta">
 <div class="meta-item">
-<span class="meta-label">Role:</span>
-<span class="meta-value">Co-developer & Researcher</span>
+<span class="meta-label">Rolle:</span>
+<span class="meta-value">Co-Developer & Researcher</span>
 </div>
 <div class="meta-item">
 <span class="meta-label">Institution:</span>
 <span class="meta-value">FAU Erlangen-Nürnberg</span>
 </div>
 <div class="meta-item">
-<span class="meta-label">Domain:</span>
-<span class="meta-value">Sustainable Energy & AI</span>
+<span class="meta-label">Fokus:</span>
+<span class="meta-value">Nachhaltige Energie & KI</span>
 </div>
 </div>
 <div class="portfolio-links">
 <a href="https://www.enargus.de/detail/?id=1418226" target="_blank" class="portfolio-link">
 <span class="material-icons">launch</span>
-Research Details
+Forschungsdetails
 </a>
 </div>
 </div>
@@ -539,38 +539,38 @@ Research Details
 <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-t-xl" style='background-image: url("../images/project-symbol-grounding.webp");'></div>
 <div class="portfolio-overlay">
 <div class="portfolio-tags">
-<span class="tag">PhD Research</span>
-<span class="tag">Cognitive Science</span>
-<span class="tag">Philosophy</span>
+<span class="tag">Promotionsforschung</span>
+<span class="tag">Kognitionswissenschaft</span>
+<span class="tag">Philosophie</span>
 </div>
 </div>
 </div>
 <div class="portfolio-content">
 <div class="portfolio-header">
 <h3 class="portfolio-title">Symbol Grounding</h3>
-<div class="portfolio-subtitle">Foundational AI Research</div>
+<div class="portfolio-subtitle">Grundlagen&shy;forschung KI</div>
 </div>
 <p class="portfolio-description">
-Doctoral research addressing how artificial systems develop genuine understanding and semantic representation.
+Promotions&shy;forschung zur Frage, wie künstliche Systeme echtes Verständnis und semantische Repräsentation entwickeln können.
 </p>
 <div class="portfolio-meta">
 <div class="meta-item">
-<span class="meta-label">Role:</span>
-<span class="meta-value">Principal Investigator</span>
+<span class="meta-label">Rolle:</span>
+<span class="meta-value">Principal Researcher</span>
 </div>
 <div class="meta-item">
 <span class="meta-label">Institution:</span>
-<span class="meta-value">University of Bamberg</span>
+<span class="meta-value">Universität Bamberg</span>
 </div>
 <div class="meta-item">
-<span class="meta-label">Outcome:</span>
-<span class="meta-value">PhD Thesis (2019)</span>
+<span class="meta-label">Abschluss:</span>
+<span class="meta-value">Dissertation (2019)</span>
 </div>
 </div>
 <div class="portfolio-links">
 <a href="https://d-nb.info/1182477194" target="_blank" class="portfolio-link">
 <span class="material-icons">launch</span>
-Read Thesis
+Dissertation lesen
 </a>
 </div>
 </div>
@@ -581,23 +581,23 @@ Read Thesis
 <!-- Impact Statistics -->
 <div class="mt-16 card rounded-2xl p-8 sm:p-12">
 <div class="text-center space-y-8">
-<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold font-playfair">Project Impact & Recognition</h2>
+<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold font-playfair">Projekt-Impact & Anerkennung</h2>
 <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
 <div class="text-center">
 <div class="text-3xl sm:text-4xl font-bold text-accent">8+</div>
-<div class="themed-text-secondary text-sm">Industries Served</div>
+<div class="themed-text-secondary text-sm">Branchen</div>
 </div>
 <div class="text-center">
 <div class="text-3xl sm:text-4xl font-bold text-accent">15+</div>
-<div class="themed-text-secondary text-sm">Years of Experience</div>
+<div class="themed-text-secondary text-sm">Jahre Erfahrung</div>
 </div>
 <div class="text-center">
 <div class="text-3xl sm:text-4xl font-bold text-accent">6</div>
-<div class="themed-text-secondary text-sm">Major Projects Delivered</div>
+<div class="themed-text-secondary text-sm">Haupt&shy;projekte realisiert</div>
 </div>
 <div class="text-center">
 <div class="text-3xl sm:text-4xl font-bold text-accent">3</div>
-<div class="themed-text-secondary text-sm">Open Source Tools</div>
+<div class="themed-text-secondary text-sm">Open-Source-Tools</div>
 </div>
 </div>
 </div>
@@ -605,13 +605,13 @@ Read Thesis
 
 <!-- Call to Action -->
 <div class="text-center mt-16 space-y-6">
-<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold font-playfair">Ready to Create Your Next Innovation?</h2>
+<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold font-playfair">Bereit für Ihre nächste Innovation?</h2>
 <p class="themed-text-secondary text-lg max-w-2xl mx-auto">
-Let's collaborate to bring your AI vision to life. From research to production, I'll help you build solutions that make a real impact.
+Lassen Sie uns Ihre KI-Vision gemeinsam verwirklichen. Von der Forschung bis zur Produktion – ich unterstütze Sie beim Aufbau von Lösungen mit echtem Impact.
 </p>
 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-<a href="contact.html" class="btn-primary text-lg px-8 py-4">Start Your Project</a>
-<a href="services.html" class="btn-secondary text-lg px-8 py-4">Explore Services</a>
+<a href="kontakt.html" class="btn-primary text-lg px-8 py-4">Projekt starten</a>
+<a href="leistungen.html" class="btn-secondary text-lg px-8 py-4">Leistungen entdecken</a>
 </div>
 </div>
 </div>
@@ -621,23 +621,23 @@ Let's collaborate to bring your AI vision to life. From research to production, 
 <footer class="footer-bg footer-text">
 <div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-12 text-center space-y-4 sm:space-y-6">
 <div class="flex flex-col sm:flex-row items-center justify-center gap-y-2 gap-x-4 sm:gap-x-6">
-<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="contact.html">Contact</a>
-<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="about.html">About</a>
-<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="contact.html#imprint">Imprint</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="kontakt.html">Kontakt</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="ueber.html">Über</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="kontakt.html#impressum">Impressum</a>
 </div>
 <div class="flex flex-wrap justify-center gap-6">
 <a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
 <span class="material-icons text-xl sm:text-2xl">business</span>
 <span class="text-sm">LinkedIn</span>
 </a>
-<a href="mailto:contact@markwernsdorfer.com" target="_blank" rel="noopener noreferrer" aria-label="Email" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
+<a href="mailto:contact@markwernsdorfer.com" target="_blank" rel="noopener noreferrer" aria-label="E-Mail" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
 <span class="material-icons text-xl sm:text-2xl">email</span>
-<span class="text-sm">Email</span>
+<span class="text-sm">E-Mail</span>
 </a>
 </div>
-<p class="footer-text text-sm">© 2025 Dr. Mark Wernsdorfer. All rights reserved.</p>
+<p class="footer-text text-sm">© 2025 Dr. Mark Wernsdorfer. Alle Rechte vorbehalten.</p>
 <p class="footer-text text-xs sm:text-sm" style='font-family: "Playfair Display", serif;'>
-Bridging AI theory and practice with precision.
+KI-Theorie und Praxis präzise vereint.
 </p>
 </div>
 </footer>
@@ -647,23 +647,23 @@ Bridging AI theory and practice with precision.
   <div class="mobile-nav-grid">
     <a href="../index.html" class="mobile-nav-item mobile-nav-text">
       <span class="material-icons-outlined">home</span>
-      <span>Home</span>
+      <span>Start</span>
     </a>
-    <a href="about.html" class="mobile-nav-item mobile-nav-text">
+    <a href="ueber.html" class="mobile-nav-item mobile-nav-text">
       <span class="material-icons-outlined">person</span>
-      <span>About</span>
+      <span>Über</span>
     </a>
-    <a href="services.html" class="mobile-nav-item mobile-nav-text">
+    <a href="leistungen.html" class="mobile-nav-item mobile-nav-text">
       <span class="material-icons-outlined">work</span>
-      <span>Services</span>
+      <span>Leistungen</span>
     </a>
-    <a href="projects.html" class="mobile-nav-item active mobile-nav-text">
+    <a href="projekte.html" class="mobile-nav-item active mobile-nav-text">
       <span class="material-icons-outlined">folder</span>
       <span>Portfolio</span>
     </a>
-    <a href="contact.html" class="mobile-nav-item mobile-nav-text">
+    <a href="kontakt.html" class="mobile-nav-item mobile-nav-text">
       <span class="material-icons-outlined">contact_mail</span>
-      <span>Contact</span>
+      <span>Kontakt</span>
     </a>
   </div>
 </nav>

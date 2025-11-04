@@ -34,7 +34,9 @@ function initMobileNavigation() {
           }
 
           // Add ripple effect
-          addNavigationRipple(this, e);
+          if (window.utils && window.utils.createRipple) {
+            window.utils.createRipple(this, e);
+          }
         } catch (error) {
           console.error('Error in mobile nav click handler:', error);
         }
@@ -295,76 +297,12 @@ function initHeaderBehavior() {
   }
 }
 
-// Add ripple effect to navigation items
-function addNavigationRipple(element, event) {
-  try {
-    const ripple = document.createElement('span');
-    const rect = element.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-    const x = event.clientX - rect.left - size / 2;
-    const y = event.clientY - rect.top - size / 2;
-
-    ripple.style.width = ripple.style.height = size + 'px';
-    ripple.style.left = x + 'px';
-    ripple.style.top = y + 'px';
-    ripple.classList.add('ripple');
-
-    element.appendChild(ripple);
-
-    setTimeout(() => {
-      try {
-        ripple.remove();
-      } catch (error) {
-        console.error('Error removing ripple element:', error);
-      }
-    }, 600);
-  } catch (error) {
-    console.error('Error in addNavigationRipple:', error);
-  }
-}
-
-// Breadcrumb navigation helper
-function updateBreadcrumbs() {
-  try {
-    const breadcrumbs = document.querySelector('.breadcrumbs');
-
-    if (breadcrumbs) {
-      const pathArray = window.location.pathname.split('/').filter(Boolean);
-      const breadcrumbHTML = pathArray.map((path, index) => {
-        try {
-          const isLast = index === pathArray.length - 1;
-          const href = '/' + pathArray.slice(0, index + 1).join('/');
-
-          return isLast
-            ? `<span class="breadcrumb-current">${path}</span>`
-            : `<a href="${href}" class="breadcrumb-link">${path}</a>`;
-        } catch (error) {
-          console.error('Error generating breadcrumb item:', error);
-          return '';
-        }
-      }).join(' <span class="breadcrumb-separator">></span> ');
-
-      breadcrumbs.innerHTML = `<a href="/" class="breadcrumb-link">Home</a> <span class="breadcrumb-separator">></span> ${breadcrumbHTML}`;
-    }
-  } catch (error) {
-    console.error('Error in updateBreadcrumbs:', error);
-  }
-}
-
-// Initialize navigation on DOM load
-document.addEventListener('DOMContentLoaded', function() {
-  try {
-    initNavigation();
-    updateBreadcrumbs();
-  } catch (error) {
-    console.error('Error initializing navigation on DOMContentLoaded:', error);
-  }
-});
+// Note: Navigation initialization is now handled by core.js orchestrator
+// This ensures proper initialization order with other modules
 
 // Export navigation functions
 window.navigationUtils = {
   initNavigation,
   smoothScrollToElement,
-  setActiveNavigationState,
-  updateBreadcrumbs
+  setActiveNavigationState
 };

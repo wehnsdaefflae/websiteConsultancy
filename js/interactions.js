@@ -12,35 +12,15 @@ function initInteractiveElements() {
   initMagneticEffects();
 }
 
-// Enhanced ripple effects for interactive elements - exclude service cards
+// Enhanced ripple effects for interactive elements - exclude service cards and no-hover cards
 function initRippleEffects() {
-  const rippleElements = document.querySelectorAll('.btn-primary, .mobile-nav-item, .card:not(.service-card), .project-card');
-  
+  const rippleElements = document.querySelectorAll('.btn-primary, .mobile-nav-item, .card:not(.service-card):not(.card-no-hover), .project-card');
+
   rippleElements.forEach(element => {
     element.addEventListener('click', function(e) {
-      createRipple(this, e);
+      window.utils.createRipple(this, e);
     });
   });
-}
-
-// Create ripple effect
-function createRipple(element, event) {
-  const ripple = document.createElement('span');
-  const rect = element.getBoundingClientRect();
-  const size = Math.max(rect.width, rect.height);
-  const x = event.clientX - rect.left - size / 2;
-  const y = event.clientY - rect.top - size / 2;
-  
-  ripple.style.width = ripple.style.height = size + 'px';
-  ripple.style.left = x + 'px';
-  ripple.style.top = y + 'px';
-  ripple.classList.add('ripple');
-  
-  element.appendChild(ripple);
-  
-  setTimeout(() => {
-    ripple.remove();
-  }, 600);
 }
 
 // Enhanced hover effects
@@ -297,103 +277,6 @@ function initMagneticEffects() {
   });
 }
 
-// Intersection observer for animations
-function initScrollAnimations() {
-  const animatedElements = document.querySelectorAll('.animate-on-scroll');
-  
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('animated');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  });
-  
-  animatedElements.forEach(element => {
-    observer.observe(element);
-  });
-}
-
-// Lazy loading for images
-function initLazyLoading() {
-  const images = document.querySelectorAll('img[data-src]');
-  
-  const imageObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        img.src = img.dataset.src;
-        img.classList.add('loaded');
-        imageObserver.unobserve(img);
-      }
-    });
-  });
-  
-  images.forEach(img => imageObserver.observe(img));
-}
-
-// Copy to clipboard functionality
-function copyToClipboard(text, successCallback) {
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(text).then(() => {
-      if (successCallback) successCallback();
-    });
-  } else {
-    // Fallback for older browsers
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textArea);
-    
-    if (successCallback) successCallback();
-  }
-}
-
-// Share functionality
-function shareContent(title, text, url) {
-  if (navigator.share) {
-    navigator.share({
-      title: title,
-      text: text,
-      url: url
-    });
-  } else {
-    // Fallback - copy to clipboard
-    copyToClipboard(url, () => {
-      showNotification('Link copied to clipboard!');
-    });
-  }
-}
-
-// Simple notification system
-function showNotification(message, duration = 3000) {
-  const notification = document.createElement('div');
-  notification.className = 'notification';
-  notification.textContent = message;
-  
-  document.body.appendChild(notification);
-  
-  requestAnimationFrame(() => {
-    notification.style.opacity = '1';
-    notification.style.transform = 'translateY(0)';
-  });
-  
-  setTimeout(() => {
-    notification.style.opacity = '0';
-    notification.style.transform = 'translateY(-20px)';
-    
-    setTimeout(() => {
-      notification.remove();
-    }, 300);
-  }, duration);
-}
-
 // ==========================================================================
 // Portfolio Filter Functionality
 // ==========================================================================
@@ -634,21 +517,11 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Initialize interactions on DOM load
-document.addEventListener('DOMContentLoaded', function() {
-  initInteractiveElements();
-  initScrollAnimations();
-  initLazyLoading();
-  initPortfolioFilter();
-  initPortfolioAnimations();
-});
+// Note: Interactive elements initialization is now handled by core.js orchestrator
+// This ensures proper initialization order with other modules
 
 // Export interaction utilities
 window.interactionUtils = {
-  createRipple,
-  copyToClipboard,
-  shareContent,
-  showNotification,
   initInteractiveElements,
   validateInput
 };

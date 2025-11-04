@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
 <script>
   // Prevent flicker by setting theme immediately
   (function() {
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
+
     let isDark = false;
     if (savedTheme === null) {
       isDark = prefersDark;
     } else {
       isDark = savedTheme === 'dark';
     }
-    
+
     // Disable transitions during initial theme setup
     document.documentElement.classList.remove('transitions-enabled');
-    
+
     if (isDark) {
       document.documentElement.classList.add('dark');
     }
-    
+
     // Set initial icon to prevent flicker
     document.addEventListener('DOMContentLoaded', function() {
       const icons = document.querySelectorAll('.theme-toggle-icon');
@@ -41,16 +41,16 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
 <meta name="apple-mobile-web-app-title" content="Dr. Mark Wernsdorfer"/>
 <meta name="mobile-web-app-capable" content="yes"/>
-<meta name="description" content="Schedule a consultation with Dr. Mark Wernsdorfer for AI strategy, implementation, and research guidance. Transform your business with proven AI methodologies."/>
-<meta name="keywords" content="AI consultant contact, technology advisory, research collaboration, artificial intelligence expert, machine learning consulting"/>
+<meta name="description" content="Vereinbaren Sie eine Beratung mit Dr. Mark Wernsdorfer für KI-Strategie, Implementierung und Forschungs&shy;zusammen&shy;arbeit. Transformieren Sie Ihr Unternehmen mit bewährten KI-Methoden."/>
+<meta name="keywords" content="KI-Berater Kontakt, Technologie&shy;beratung, Forschungs&shy;kooperation, Künstliche Intelligenz Experte, Machine Learning Beratung"/>
 <meta name="author" content="Dr. Mark Wernsdorfer"/>
 <!-- Open Graph / Social Media -->
-<meta property="og:title" content="Schedule a Consultation - Dr. Mark Wernsdorfer"/>
-<meta property="og:description" content="Schedule a consultation with Dr. Mark Wernsdorfer for AI strategy, implementation, and research guidance. Transform your business with proven AI methodologies."/>
+<meta property="og:title" content="Beratungs&shy;termin vereinbaren - Dr. Mark Wernsdorfer"/>
+<meta property="og:description" content="Vereinbaren Sie eine Beratung mit Dr. Mark Wernsdorfer für KI-Strategie, Implementierung und Forschungs&shy;zusammen&shy;arbeit. Transformieren Sie Ihr Unternehmen mit bewährten KI-Methoden."/>
 <meta property="og:image" content="https://markwernsdorfer.com/images/profile-mark-wernsdorfer.webp"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
-<meta property="og:url" content="https://markwernsdorfer.com/contact.html"/>
+<meta property="og:url" content="https://markwernsdorfer.com/de/kontakt.html"/>
 <meta property="og:type" content="website"/>
 <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
 <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Playfair+Display%3Awght%40400%3B500%3B700%3B900&amp;family=Roboto+Slab%3Awght%40300%3B400%3B500%3B700" onload="this.rel='stylesheet'" rel="stylesheet"/>
@@ -71,7 +71,7 @@
 <link rel="preload" as="script" href="../js/theme.js"/>
 <link crossorigin="anonymous" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
 <link crossorigin="anonymous" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-<title>Schedule a Consultation - Dr. Mark Wernsdorfer</title>
+<title>Beratungstermin vereinbaren - Dr. Mark Wernsdorfer</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
 <link rel="manifest" href="../manifest.json"/>
 <!-- Apple Touch Icons for various iOS devices -->
@@ -89,13 +89,13 @@
   "itemListElement": [{
     "@type": "ListItem",
     "position": 1,
-    "name": "Home",
+    "name": "Startseite",
     "item": "https://markwernsdorfer.com/"
   },{
     "@type": "ListItem",
     "position": 2,
-    "name": "Contact",
-    "item": "https://markwernsdorfer.com/contact.html"
+    "name": "Kontakt",
+    "item": "https://markwernsdorfer.com/de/kontakt.html"
   }]
 }
 </script>
@@ -108,42 +108,42 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is an AI Strategy Session?",
+      "name": "Was ist eine KI-Strategie&shy;sitzung?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "An AI Strategy Session is a 90-minute deep dive into your AI opportunities, challenges, and roadmap development. It includes current state assessment, opportunity identification, strategic roadmap creation, and ROI projections. This session helps you understand how AI can transform your business and provides a clear path forward."
+        "text": "Eine KI-Strategie&shy;sitzung ist ein 90-minütiger intensiver Austausch zu Ihren KI-Chancen, Heraus&shy;forderungen und der Entwicklung einer Roadmap. Sie umfasst eine Bestands&shy;aufnahme, Identifikation von Möglich&shy;keiten, Erstellung einer strategischen Roadmap sowie ROI-Prognosen. Diese Sitzung hilft Ihnen zu verstehen, wie KI Ihr Unter&shy;nehmen transformieren kann, und bietet einen klaren Weg nach vorne."
       }
     },
     {
       "@type": "Question",
-      "name": "How can an Implementation Review help my AI project?",
+      "name": "Wie kann eine Implementierungs&shy;überprüfung meinem KI-Projekt helfen?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "An Implementation Review provides technical review of existing AI systems and implementation guidance for improvements. It covers system architecture review, performance optimization, best practices guidance, and risk assessment. This ensures your AI implementation follows industry best practices and achieves optimal results."
+        "text": "Eine Implementierungs&shy;überprüfung bietet eine technische Überprüfung bestehender KI-Systeme und Implementierungs&shy;beratung für Verbesserungen. Sie umfasst die Überprüfung der System&shy;architektur, Leistungs&shy;optimierung, Best-Practice-Beratung und Risiko&shy;bewertung. Dies stellt sicher, dass Ihre KI-Implementierung den Industrie&shy;standards entspricht und optimale Ergebnisse erzielt."
       }
     },
     {
       "@type": "Question",
-      "name": "What does Research Collaboration involve?",
+      "name": "Was beinhaltet eine Forschungs&shy;kooperation?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Research Collaboration allows you to partner with an experienced AI researcher to validate approaches and explore new methodologies. It includes research methodology design, academic partnerships, publication support, and validation studies. This is ideal for organizations wanting to push the boundaries of AI innovation."
+        "text": "Forschungs&shy;kooperation ermöglicht Ihnen die Zusammen&shy;arbeit mit einem erfahrenen KI-Forscher zur Validierung von Ansätzen und Erforschung neuer Methoden. Sie umfasst die Entwicklung von Forschungs&shy;methoden, akademische Partner&shy;schaften, Publikations&shy;unterstützung und Validierungs&shy;studien. Dies ist ideal für Organisationen, die die Grenzen der KI-Innovation erweitern möchten."
       }
     },
     {
       "@type": "Question",
-      "name": "How quickly can I expect a response to my inquiry?",
+      "name": "Wie schnell kann ich mit einer Antwort auf meine Anfrage rechnen?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "All inquiries receive a personal response within 24 hours. For urgent matters, mention 'URGENT' in your email subject line for priority handling. Direct contact is available via email at wernsdorfer@gmail.com, LinkedIn, or GitHub."
+        "text": "Alle Anfragen erhalten innerhalb von 24 Stunden eine persönliche Antwort. Für dringende Anliegen fügen Sie bitte 'DRINGEND' in die Betreff&shy;zeile Ihrer E-Mail ein, um eine bevorzugte Bearbeitung zu erhalten. Direkter Kontakt ist per E-Mail an wernsdorfer@gmail.com, LinkedIn oder GitHub möglich."
       }
     },
     {
       "@type": "Question",
-      "name": "What should I expect from a consultation with Dr. Wernsdorfer?",
+      "name": "Was kann ich von einer Beratung mit Dr. Wernsdorfer erwarten?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Every consultation is tailored to your specific situation and includes four phases: Discovery Phase (30-60 minute deep dive into your challenges and objectives), Expert Analysis (applying proven methodologies to your situation), Strategic Roadmap (clear next steps and actionable recommendations with written follow-up), and Ongoing Support (follow-up sessions and implementation guidance available with flexible engagement models)."
+        "text": "Jede Beratung wird auf Ihre spezifische Situation zugeschnitten und umfasst vier Phasen: Analyse&shy;phase (30-60 Minuten intensive Auseinander&shy;setzung mit Ihren Heraus&shy;forderungen und Zielen), Experten&shy;analyse (Anwendung bewährter Methoden auf Ihre Situation), Strategische Roadmap (klare nächste Schritte und umsetzbare Empfehlungen mit schriftlicher Nach&shy;bereitung) und Fortlaufende Unter&shy;stützung (Folge&shy;sitzungen und Implementierungs&shy;beratung verfügbar mit flexiblen Engagement-Modellen)."
       }
     }
   ]
@@ -183,7 +183,7 @@
 <div class="scroll-indicator" id="scroll-progress">
   <div class="scroll-progress-inner"></div>
 </div>
-<a href="#main-content" class="skip-link visually-hidden">Skip to main content</a>
+<a href="#main-content" class="skip-link visually-hidden">Zum Hauptinhalt springen</a>
 <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
 <div class="layout-container flex h-full grow flex-col">
 <header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid themed-border header-bg px-4 sm:px-6 lg:px-10 py-3 sm:py-4 backdrop-blur-md">
@@ -201,15 +201,15 @@
 <a href="../index.html" class="header-logo-text text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight transition-colors font-playfair"><span class="logo-first-line">Dr. Mark</span> <span class="logo-second-line">Wernsdorfer</span></a>
 </div>
 <div class="flex items-center gap-2 sm:gap-4">
-<button onclick="window.themeUtils.enhancedToggleDarkMode(event)" class="theme-toggle" aria-label="Toggle dark mode">
+<button onclick="window.themeUtils.enhancedToggleDarkMode(event)" class="theme-toggle" aria-label="Dunkelmodus umschalten">
   <span class="material-icons-outlined theme-toggle-icon">dark_mode</span>
 </button>
 <div class="language-switcher flex items-center gap-1">
-<a href="../index.html" class="px-2 py-1 text-sm font-medium lang-active rounded hover:opacity-90 transition-all">EN</a>
-<a href="../de/kontakt.html" class="px-2 py-1 text-sm font-medium lang-inactive rounded hover:opacity-90 transition-all">DE</a>
+<a href="../en/contact.html" class="px-2 py-1 text-sm font-medium lang-inactive rounded hover:opacity-90 transition-all">EN</a>
+<span class="px-2 py-1 text-sm font-medium lang-active rounded cursor-default">DE</span>
 </div>
 <a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 btn-disabled text-sm sm:text-base font-semibold tracking-wide" aria-disabled="true">
-<span class="truncate">Contact</span>
+<span class="truncate">Kontakt</span>
 </a>
 <a class="sm:hidden flex items-center justify-center overflow-hidden rounded-md h-9 px-3 btn-disabled text-sm font-semibold tracking-wide" aria-disabled="true">
 <span class="material-icons text-lg">email</span>
@@ -221,9 +221,9 @@
 <nav aria-label="Breadcrumb" class="bg-secondary border-b border-solid themed-border">
   <div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-10 py-3">
     <ol class="breadcrumbs">
-      <li><a href="../index.html" class="breadcrumb-link">Home</a></li>
+      <li><a href="../index.html" class="breadcrumb-link">Startseite</a></li>
       <li><span class="breadcrumb-separator">/</span></li>
-      <li><span class="breadcrumb-current">Contact</span></li>
+      <li><span class="breadcrumb-current">Kontakt</span></li>
     </ol>
   </div>
 </nav>
@@ -233,23 +233,23 @@
 <section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 hero-section">
 <div class="max-w-[960px] mx-auto text-center space-y-6 sm:space-y-8">
 <h1 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight font-playfair">
-Schedule a Consultation
+Beratungs&shy;termin vereinbaren
 </h1>
 <p class="text-secondary text-lg sm:text-xl font-normal leading-relaxed max-w-[800px] mx-auto">
-Transform your business with AI solutions that work. Let's discuss your unique challenges and develop a strategy that delivers measurable results.
+Transformieren Sie Ihr Unternehmen mit KI-Lösungen, die funktionieren. Lassen Sie uns Ihre individuellen Heraus&shy;forderungen besprechen und eine Strategie entwickeln, die messbare Ergebnisse liefert.
 </p>
 <div class="flex flex-wrap justify-center gap-6 text-sm sm:text-base text-secondary">
 <div class="flex items-center gap-2">
 <span class="material-icons text-accent">schedule</span>
-<span>24-hour response</span>
+<span>24-Stunden-Antwort</span>
 </div>
 <div class="flex items-center gap-2">
 <span class="material-icons text-accent">video_call</span>
-<span>Remote & on-site</span>
+<span>Remote & vor Ort</span>
 </div>
 <div class="flex items-center gap-2">
 <span class="material-icons text-accent">psychology</span>
-<span>15+ years expertise</span>
+<span>15+ Jahre Expertise</span>
 </div>
 </div>
 </div>
@@ -259,9 +259,9 @@ Transform your business with AI solutions that work. Let's discuss your unique c
 <section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 bg-secondary">
 <div class="max-w-[960px] mx-auto">
     <div class="text-center mb-12">
-      <h2 class="text-primary text-2xl sm:text-3xl font-bold mb-4 font-playfair">How Can I Help You?</h2>
+      <h2 class="text-primary text-2xl sm:text-3xl font-bold mb-4 font-playfair">Wie kann ich Ihnen helfen?</h2>
       <p class="text-secondary text-lg max-w-[720px] mx-auto">
-        Choose the consultation type that best fits your needs, or let's discuss a custom approach.
+        Wählen Sie die Beratungs&shy;art, die am besten zu Ihren Bedürfnissen passt, oder lassen Sie uns einen individuellen Ansatz besprechen.
       </p>
     </div>
 
@@ -269,48 +269,48 @@ Transform your business with AI solutions that work. Let's discuss your unique c
       <div class="consultation-card">
         <div class="flex items-center gap-3 mb-4">
           <span class="material-icons text-2xl text-accent">insights</span>
-          <h3 class="text-lg font-semibold text-primary">AI Strategy Session</h3>
+          <h3 class="text-lg font-semibold text-primary">KI-Strategie&shy;sitzung</h3>
         </div>
         <p class="text-secondary mb-4 text-sm">
-          90-minute deep dive into your AI opportunities, challenges, and roadmap development.
+          90-minütige intensive Analyse Ihrer KI-Chancen, Heraus&shy;forderungen und Entwicklung einer maß&shy;geschneiderten Roadmap.
         </p>
         <ul class="consultation-list text-secondary text-sm">
-          <li>Current state assessment</li>
-          <li>Opportunity identification</li>
-          <li>Strategic roadmap</li>
-          <li>ROI projections</li>
+          <li>Bestands&shy;aufnahme Ihrer aktuellen Situation</li>
+          <li>Identifikation von KI-Potentialen</li>
+          <li>Strategische Roadmap mit klaren Meilensteinen</li>
+          <li>ROI-Prognosen und Business Case</li>
         </ul>
       </div>
 
       <div class="consultation-card">
         <div class="flex items-center gap-3 mb-4">
           <span class="material-icons text-2xl text-accent">build</span>
-          <h3 class="text-lg font-semibold text-primary">Implementation Review</h3>
+          <h3 class="text-lg font-semibold text-primary">Implementierungs&shy;überprüfung</h3>
         </div>
         <p class="text-secondary mb-4 text-sm">
-          Technical review of existing AI systems and implementation guidance for improvements.
+          Technische Prüfung bestehender KI-Systeme und praxis&shy;orientierte Beratung für nachhaltige Verbesserungen.
         </p>
         <ul class="consultation-list text-secondary text-sm">
-          <li>System architecture review</li>
-          <li>Performance optimization</li>
-          <li>Best practices guidance</li>
-          <li>Risk assessment</li>
+          <li>Technisches Audit der System&shy;architektur</li>
+          <li>Performance-Optimierung und Skalierbarkeit</li>
+          <li>Best-Practice-Empfehlungen</li>
+          <li>Risiko&shy;bewertung und Compliance-Check</li>
         </ul>
       </div>
 
       <div class="consultation-card">
         <div class="flex items-center gap-3 mb-4">
           <span class="material-icons text-2xl text-accent">school</span>
-          <h3 class="text-lg font-semibold text-primary">Research Collaboration</h3>
+          <h3 class="text-lg font-semibold text-primary">Forschungs&shy;kooperation</h3>
         </div>
         <p class="text-secondary mb-4 text-sm">
-          Partner with an experienced researcher to validate approaches and explore new methodologies.
+          Zusammen&shy;arbeit mit einem erfahrenen KI-Forscher zur wissenschaftlichen Validierung und Erforschung innovativer Methoden.
         </p>
         <ul class="consultation-list text-secondary text-sm">
-          <li>Research methodology design</li>
-          <li>Academic partnerships</li>
-          <li>Publication support</li>
-          <li>Validation studies</li>
+          <li>Entwicklung robuster Forschungs&shy;methoden</li>
+          <li>Akademische Partner&shy;schaften und Netzwerk</li>
+          <li>Publikations&shy;unterstützung für Fachzeitschriften</li>
+          <li>Empirische Validierungs&shy;studien</li>
         </ul>
       </div>
     </div>
@@ -322,9 +322,9 @@ Transform your business with AI solutions that work. Let's discuss your unique c
 <!-- Direct Contact Options -->
 <div class="space-y-8">
 <div>
-<h2 class="text-primary text-xl sm:text-2xl font-bold mb-6 font-playfair">Get In Touch</h2>
+<h2 class="text-primary text-xl sm:text-2xl font-bold mb-6 font-playfair">Kontaktieren Sie mich</h2>
 <p class="text-secondary text-base leading-relaxed mb-6">
-Ready to discuss your AI project? Reach out directly via your preferred channel below.
+Bereit, Ihr KI-Projekt voranzubringen? Kontaktieren Sie mich direkt über Ihren bevorzugten Kommunikations&shy;kanal.
 </p>
 </div>
 
@@ -335,9 +335,9 @@ Ready to discuss your AI project? Reach out directly via your preferred channel 
 <span class="material-icons text-3xl">email</span>
 </div>
 <div class="flex-1">
-<h3 class="text-primary font-semibold text-lg mb-1">Email</h3>
+<h3 class="text-primary font-semibold text-lg mb-1">E-Mail</h3>
 <p class="text-accent text-base font-medium">wernsdorfer@gmail.com</p>
-<p class="text-secondary text-sm mt-1">24-hour response time</p>
+<p class="text-secondary text-sm mt-1">Antwort binnen 24 Stunden</p>
 </div>
 </a>
 
@@ -349,7 +349,7 @@ Ready to discuss your AI project? Reach out directly via your preferred channel 
 <div class="flex-1">
 <h3 class="text-primary font-semibold text-lg mb-1">LinkedIn</h3>
 <p class="text-blue-600 dark:text-blue-400 text-base font-medium">@wernsdorfer</p>
-<p class="text-secondary text-sm mt-1">Connect professionally</p>
+<p class="text-secondary text-sm mt-1">Professionell vernetzen</p>
 </div>
 </a>
 
@@ -361,7 +361,7 @@ Ready to discuss your AI project? Reach out directly via your preferred channel 
 <div class="flex-1">
 <h3 class="text-primary font-semibold text-lg mb-1">GitHub</h3>
 <p class="text-gray-700 dark:text-gray-300 text-base font-medium">@wehnsdaefflae</p>
-<p class="text-secondary text-sm mt-1">View my code & projects</p>
+<p class="text-secondary text-sm mt-1">Code & Projekte ansehen</p>
 </div>
 </a>
 </div>
@@ -370,9 +370,9 @@ Ready to discuss your AI project? Reach out directly via your preferred channel 
 <!-- Consultation Process -->
 <div class="space-y-8">
 <div>
-<h2 class="text-primary text-xl sm:text-2xl font-bold mb-4 font-playfair">What to Expect</h2>
+<h2 class="text-primary text-xl sm:text-2xl font-bold mb-4 font-playfair">Was Sie erwartet</h2>
 <p class="text-secondary text-base leading-relaxed mb-6">
-Every consultation is tailored to your specific situation. Here's how we'll work together to achieve your AI goals.
+Jede Beratung wird individuell auf Ihre spezifische Situation zugeschnitten. So arbeiten wir zusammen, um Ihre KI-Ziele zu erreichen.
 </p>
 </div>
 
@@ -382,9 +382,9 @@ Every consultation is tailored to your specific situation. Here's how we'll work
 <span class="material-icons text-xl">search</span>
 </div>
 <div>
-<h3 class="text-primary font-semibold mb-1">Discovery Phase</h3>
-<p class="text-secondary text-sm">Deep dive into your current state, challenges, and objectives</p>
-<small class="text-tertiary">Usually 30-60 minutes</small>
+<h3 class="text-primary font-semibold mb-1">Analyse&shy;phase</h3>
+<p class="text-secondary text-sm">Intensive Auseinander&shy;setzung mit Ihrem aktuellen Stand, Heraus&shy;forderungen und Zielen</p>
+<small class="text-tertiary">Typischerweise 30-60 Minuten</small>
 </div>
 </div>
 
@@ -393,9 +393,9 @@ Every consultation is tailored to your specific situation. Here's how we'll work
 <span class="material-icons text-xl">psychology</span>
 </div>
 <div>
-<h3 class="text-primary font-semibold mb-1">Expert Analysis</h3>
-<p class="text-secondary text-sm">Applying the Method to your unique situation</p>
-<small class="text-tertiary">Real-time problem solving</small>
+<h3 class="text-primary font-semibold mb-1">Experten&shy;analyse</h3>
+<p class="text-secondary text-sm">Anwendung bewährter KI-Methoden auf Ihre individuelle Situation</p>
+<small class="text-tertiary">Problem&shy;lösung in Echtzeit</small>
 </div>
 </div>
 
@@ -404,9 +404,9 @@ Every consultation is tailored to your specific situation. Here's how we'll work
 <span class="material-icons text-xl">map</span>
 </div>
 <div>
-<h3 class="text-primary font-semibold mb-1">Strategic Roadmap</h3>
-<p class="text-secondary text-sm">Clear next steps and actionable recommendations</p>
-<small class="text-tertiary">Written follow-up provided</small>
+<h3 class="text-primary font-semibold mb-1">Strategische Roadmap</h3>
+<p class="text-secondary text-sm">Klare nächste Schritte und umsetzbare Handlungs&shy;empfehlungen</p>
+<small class="text-tertiary">Schriftliche Dokumentation inklusive</small>
 </div>
 </div>
 
@@ -415,9 +415,9 @@ Every consultation is tailored to your specific situation. Here's how we'll work
 <span class="material-icons text-xl">support</span>
 </div>
 <div>
-<h3 class="text-primary font-semibold mb-1">Ongoing Support</h3>
-<p class="text-secondary text-sm">Follow-up sessions and implementation guidance available</p>
-<small class="text-tertiary">Flexible engagement models</small>
+<h3 class="text-primary font-semibold mb-1">Fortlaufende Unter&shy;stützung</h3>
+<p class="text-secondary text-sm">Folge&shy;sitzungen und Implementierungs&shy;begleitung verfügbar</p>
+<small class="text-tertiary">Flexible Zusammen&shy;arbeits&shy;modelle</small>
 </div>
 </div>
 </div>
@@ -429,42 +429,42 @@ Every consultation is tailored to your specific situation. Here's how we'll work
 <!-- Imprint Section -->
 <section id="imprint" class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 bg-secondary border-t themed-border">
 <div class="max-w-[960px] mx-auto">
-<h2 class="text-primary text-2xl sm:text-3xl font-bold tracking-tight mb-8 text-center font-playfair">Imprint / Impressum</h2>
+<h2 class="text-primary text-2xl sm:text-3xl font-bold tracking-tight mb-8 text-center font-playfair">Impressum</h2>
 <div class="card p-6 sm:p-8 space-y-4 text-sm sm:text-base">
 <div>
-<h3 class="text-primary font-semibold mb-2">Information pursuant to § 5 TMG (German Telemedia Act)</h3>
+<h3 class="text-primary font-semibold mb-2">Angaben gemäß § 5 TMG</h3>
 <p class="text-secondary">
 Dr. Mark Wernsdorfer<br/>
-Independent AI/IT Consultant<br/>
+Selbst&shy;ständiger KI/IT-Berater<br/>
 Schivelbeiner Str. 11<br/>
-10439 Berlin, Germany
+10439 Berlin, Deutschland
 </p>
 </div>
 <div>
-<h3 class="text-primary font-semibold mb-2">Contact</h3>
+<h3 class="text-primary font-semibold mb-2">Kontakt</h3>
 <p class="text-secondary">
-Email: <a href="mailto:wernsdorfer@gmail.com" class="text-accent hover:underline">wernsdorfer@gmail.com</a><br/>
-Phone: <a href="tel:+4917624003575" class="text-accent hover:underline">+49 (176) 24 003 575</a><br/>
+E-Mail: <a href="mailto:wernsdorfer@gmail.com" class="text-accent hover:underline">wernsdorfer@gmail.com</a><br/>
+Telefon: <a href="tel:+4917624003575" class="text-accent hover:underline">+49 (176) 24 003 575</a><br/>
 Website: <a href="https://markwernsdorfer.com" class="text-accent hover:underline">markwernsdorfer.com</a>
 </p>
 </div>
 <div>
-<h3 class="text-primary font-semibold mb-2">Professional Liability Insurance</h3>
+<h3 class="text-primary font-semibold mb-2">Berufs&shy;haft&shy;pflicht&shy;versicherung</h3>
 <p class="text-secondary">
-Information available upon request
+Informationen auf Anfrage
 </p>
 </div>
 <div>
-<h3 class="text-primary font-semibold mb-2">Responsible for Content</h3>
+<h3 class="text-primary font-semibold mb-2">Verantwortlich für den Inhalt</h3>
 <p class="text-secondary">
-Dr. Mark Wernsdorfer (address as above)
+Dr. Mark Wernsdorfer (Anschrift wie oben)
 </p>
 </div>
 <div>
-<h3 class="text-primary font-semibold mb-2">Dispute Resolution</h3>
+<h3 class="text-primary font-semibold mb-2">Streit&shy;beilegung</h3>
 <p class="text-secondary">
-The European Commission provides a platform for online dispute resolution (ODR): <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">https://ec.europa.eu/consumers/odr</a><br/>
-We are not willing or obliged to participate in dispute resolution proceedings before a consumer arbitration board.
+Die Europäische Kommission stellt eine Plattform zur Online-Streit&shy;beilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">https://ec.europa.eu/consumers/odr</a><br/>
+Wir sind nicht bereit oder verpflichtet, an Streit&shy;beilegungsverfahren vor einer Verbraucher&shy;schlichtungs&shy;stelle teilzunehmen.
 </p>
 </div>
 </div>
@@ -475,9 +475,9 @@ We are not willing or obliged to participate in dispute resolution proceedings b
 <footer class="footer-bg footer-text">
 <div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-12 text-center space-y-4 sm:space-y-6">
 <div class="flex flex-col sm:flex-row items-center justify-center gap-y-2 gap-x-4 sm:gap-x-6">
-<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="contact.html">Contact</a>
-<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="about.html">About</a>
-<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="contact.html#imprint">Imprint</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="kontakt.html">Kontakt</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="ueber.html">Über mich</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="kontakt.html#imprint">Impressum</a>
 </div>
 <div class="flex flex-wrap justify-center gap-6">
 <a href="https://github.com/wehnsdaefflae" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
@@ -488,14 +488,14 @@ We are not willing or obliged to participate in dispute resolution proceedings b
 <span class="material-icons text-xl sm:text-2xl">business</span>
 <span class="text-sm">LinkedIn</span>
 </a>
-<a href="mailto:wernsdorfer@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
+<a href="mailto:wernsdorfer@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="E-Mail" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
 <span class="material-icons text-xl sm:text-2xl">email</span>
-<span class="text-sm">Email</span>
+<span class="text-sm">E-Mail</span>
 </a>
 </div>
-<p class="text-sm sm:text-base font-normal leading-normal">© 2025 Dr. Mark Wernsdorfer. All rights reserved.</p>
+<p class="text-sm sm:text-base font-normal leading-normal">© 2025 Dr. Mark Wernsdorfer. Alle Rechte vorbehalten.</p>
 <p class="text-xs sm:text-sm footer-link font-playfair">
-Bridging deep AI theory with practical business solutions.
+Verbindung von fundierter KI-Theorie mit praktischen Geschäfts&shy;lösungen.
 </p>
 </div>
 </footer>
@@ -505,31 +505,31 @@ Bridging deep AI theory with practical business solutions.
   <div class="mobile-nav-grid relative">
     <!-- Background glow effect -->
     <div class="absolute inset-0 bg-gradient-to-r from-amber-50/50 via-orange-50/30 to-amber-50/50 dark:from-amber-800/20 dark:via-orange-900/10 dark:to-amber-800/20 opacity-60 dark:opacity-40"></div>
-    
+
     <a href="../index.html" class="mobile-nav-item mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
       <div class="absolute inset-0 bg-gradient-to-br from-amber-100/30 dark:from-amber-800/20 to-orange-100/30 dark:to-orange-900/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <span class="material-icons-outlined text-xl relative z-10 transition-all duration-300 group-hover:scale-110">home</span>
-      <span class="text-xs font-medium relative z-10 enhanced-readability">Home</span>
+      <span class="text-xs font-medium relative z-10 enhanced-readability">Start</span>
     </a>
-    <a href="about.html" class="mobile-nav-item text-secondary relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+    <a href="ueber.html" class="mobile-nav-item text-secondary relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
       <div class="absolute inset-0 bg-gradient-to-br from-blue-100/30 dark:from-blue-800/20 to-indigo-100/30 dark:to-indigo-900/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <span class="material-icons-outlined text-xl relative z-10 transition-all duration-300 group-hover:scale-110">person</span>
-      <span class="text-xs font-medium relative z-10 enhanced-readability">About</span>
+      <span class="text-xs font-medium relative z-10 enhanced-readability">Über</span>
     </a>
-    <a href="services.html" class="mobile-nav-item text-secondary relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+    <a href="leistungen.html" class="mobile-nav-item text-secondary relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
       <div class="absolute inset-0 bg-gradient-to-br from-green-100/30 dark:from-green-800/20 to-emerald-100/30 dark:to-emerald-900/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <span class="material-icons-outlined text-xl relative z-10 transition-all duration-300 group-hover:scale-110">work</span>
-      <span class="text-xs font-medium relative z-10 enhanced-readability">Services</span>
+      <span class="text-xs font-medium relative z-10 enhanced-readability">Leistungen</span>
     </a>
-    <a href="projects.html" class="mobile-nav-item text-secondary relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+    <a href="projekte.html" class="mobile-nav-item text-secondary relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
       <div class="absolute inset-0 bg-gradient-to-br from-purple-100/30 dark:from-purple-800/20 to-pink-100/30 dark:to-pink-900/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <span class="material-icons-outlined text-xl relative z-10 transition-all duration-300 group-hover:scale-110">folder</span>
       <span class="text-xs font-medium relative z-10 enhanced-readability">Portfolio</span>
     </a>
-    <a href="contact.html" class="mobile-nav-item active mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+    <a href="kontakt.html" class="mobile-nav-item active mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
       <div class="absolute inset-0 bg-gradient-to-br from-orange-100/30 dark:from-orange-800/20 to-red-100/30 dark:to-red-900/10 rounded-xl opacity-0 group-hover:opacity-100 group-[.active]:opacity-100 transition-opacity duration-300"></div>
       <span class="material-icons-outlined text-xl relative z-10 transition-all duration-300 group-hover:scale-110">contact_mail</span>
-      <span class="text-xs font-medium relative z-10 enhanced-readability">Contact</span>
+      <span class="text-xs font-medium relative z-10 enhanced-readability">Kontakt</span>
     </a>
   </div>
 </nav>

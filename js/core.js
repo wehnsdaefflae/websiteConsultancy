@@ -7,6 +7,15 @@ document.addEventListener('DOMContentLoaded', function() {
   window.utils.safeExecute(() => {
     initCore();
     initScrollProgress();
+
+    // Theme initialization (from theme.js)
+    if (window.themeUtils) {
+      window.themeUtils.initTheme();
+      window.themeUtils.initSystemTheme();
+      window.themeUtils.watchSystemTheme();
+      window.themeUtils.loadThemeAwareImages();
+      window.addEventListener('themeChanged', window.themeUtils.loadThemeAwareImages);
+    }
   }, 'critical-init');
 
   // Defer non-critical initializations using requestIdleCallback
@@ -20,7 +29,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { timeout: 2000 });
 
     requestIdleCallback(() => {
-      window.utils.safeExecute(initInteractiveElements, 'initInteractiveElements');
+      window.utils.safeExecute(() => {
+        initInteractiveElements();
+        // Also call portfolio functions (from interactions.js)
+        if (typeof initPortfolioFilter === 'function') {
+          initPortfolioFilter();
+        }
+        if (typeof initPortfolioAnimations === 'function') {
+          initPortfolioAnimations();
+        }
+      }, 'initInteractiveElements');
     }, { timeout: 3000 });
 
     // Initialize animations when elements are in viewport
@@ -46,6 +64,14 @@ document.addEventListener('DOMContentLoaded', function() {
       window.utils.safeExecute(initParallaxEffects, 'initParallaxEffects');
       window.utils.safeExecute(initInteractiveElements, 'initInteractiveElements');
       window.utils.safeExecute(initAdvancedAnimations, 'initAdvancedAnimations');
+
+      // Also call portfolio functions in fallback
+      if (typeof initPortfolioFilter === 'function') {
+        initPortfolioFilter();
+      }
+      if (typeof initPortfolioAnimations === 'function') {
+        initPortfolioAnimations();
+      }
     }, 100);
   }
 });
@@ -135,7 +161,7 @@ function initCore() {
           } catch (error) {
             console.error('Error updating header on scroll:', error);
           }
-        }, 10);
+        }, window.APP_CONFIG?.ANIMATION_CONFIG?.DEBOUNCE_DELAY || 10);
       } catch (error) {
         console.error('Error in scroll handler:', error);
       }
@@ -185,8 +211,8 @@ function initScrollAnimations() {
             }
 
             // Add staggered animation for cards - exclude service cards
-            if ((entry.target.classList.contains('card') && !entry.target.classList.contains('service-card')) || entry.target.classList.contains('project-card')) {
-              const cards = entry.target.parentElement.querySelectorAll('.card:not(.service-card), .project-card');
+            if (entry.target.classList.contains('card') && !entry.target.classList.contains('service-card')) {
+              const cards = entry.target.parentElement.querySelectorAll('.card:not(.service-card)');
               cards.forEach((card, index) => {
                 setTimeout(() => {
                   try {
@@ -207,9 +233,9 @@ function initScrollAnimations() {
       });
     }, observerOptions);
 
-    // Observe elements with animation classes
     // Observe elements for scroll animations - exclude service cards from animation conflicts
-    document.querySelectorAll('.section-animated, .card:not(.service-card), .project-card, .trust-item').forEach(el => {
+    // Note: Only observing .card class since .section-animated, .project-card, and .trust-item don't exist in HTML
+    document.querySelectorAll('.card:not(.service-card)').forEach(el => {
       try {
         observer.observe(el);
       } catch (error) {

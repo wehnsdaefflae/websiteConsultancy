@@ -3,24 +3,6 @@
    ========================================================================== */
 
 /* Disabled contact button on contact page - higher specificity without !important */
-.layout-container .btn-disabled {
-  background: var(--bg-tertiary);
-  color: var(--text-tertiary);
-  cursor: not-allowed;
-  opacity: 0.6;
-  pointer-events: none;
-  box-shadow: none;
-  transform: none;
-}
-
-.layout-container .btn-disabled:hover {
-  background: var(--bg-tertiary);
-  color: var(--text-tertiary);
-  transform: none;
-  opacity: 0.6;
-  box-shadow: none;
-}
-
 /* Enhanced Button System with Modern Effects */
 .btn-primary {
   background: var(--btn-primary-bg);
@@ -132,10 +114,23 @@ a.btn-disabled:hover,
   border-color: rgba(217, 119, 6, 0.3);
 }
 
-
-
 .card:hover::before {
   opacity: 1;
+}
+
+/* Disable hover transitions and transforms for specific cards */
+.card-no-hover {
+  transition: none;
+}
+
+.card-no-hover:hover {
+  transform: none;
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.card-no-hover:hover::before {
+  opacity: 0;
 }
 
 /* Enhanced project cards */
@@ -148,6 +143,18 @@ a.btn-disabled:hover,
   position: relative;
   overflow: hidden;
   box-shadow: var(--shadow-lg);
+}
+
+/* Featured AI Solutions section - align buttons at bottom of cards */
+.section-projects .space-y-4 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 1rem;
+}
+
+.section-projects .space-y-4 > a[class*="inline-flex"] {
+  margin-top: auto;
 }
 
 @supports (backdrop-filter: blur(20px)) {
@@ -210,38 +217,6 @@ textarea::placeholder {
   color: var(--form-placeholder);
 }
 
-/* Glass morphism utilities */
-.glass-morphism {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
-}
-
-.glass-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
-}
-
-.glass-card:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(217, 119, 6, 0.3);
-  transform: translateY(-8px);
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.1),
-    0 0 40px rgba(217, 119, 6, 0.1);
-}
-
-/* Interactive elements */
-.interactive-glow:hover {
-  box-shadow: 
-    0 0 20px rgba(217, 119, 6, 0.3),
-    0 0 40px rgba(217, 119, 6, 0.1),
-    0 0 60px rgba(217, 119, 6, 0.05);
-}
-
 /* Trust items */
 .trust-item {
   transition: all var(--transition-normal);
@@ -253,11 +228,6 @@ textarea::placeholder {
   transform: translateY(-2px) scale(1.05);
 }
 
-/* Magnetic elements */
-.magnetic-element {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 /* Enhanced typography utilities */
 .text-gradient {
   background: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%);
@@ -265,10 +235,6 @@ textarea::placeholder {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 200% auto;
-}
-
-.text-shimmer {
-  animation: gradientShift 3s ease-in-out infinite;
 }
 
 .text-hero {
@@ -442,7 +408,6 @@ textarea::placeholder {
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 600px;
 }
 
 @supports (backdrop-filter: blur(20px)) {
@@ -526,7 +491,6 @@ textarea::placeholder {
   color: var(--text-secondary);
   font-size: 1rem;
   line-height: 1.6;
-  min-height: 5rem;
   display: flex;
   align-items: flex-start;
 }
@@ -539,7 +503,6 @@ textarea::placeholder {
   flex-direction: column;
   gap: 0.75rem;
   flex: 1;
-  min-height: 10rem;
   justify-content: flex-start;
 }
 
@@ -706,16 +669,6 @@ textarea::placeholder {
     gap: 2.5rem;
   }
   
-  /* Ensure equal heights on larger screens */
-  .service-card {
-    min-height: 650px;
-  }
-}
-
-@media (max-width: 1023px) {
-  .service-card {
-    min-height: 500px;
-  }
 }
 
 /* Method section specific icon styling */
@@ -1027,6 +980,7 @@ textarea::placeholder {
   border-left: 4px solid var(--accent-color);
   border-radius: 0.5rem;
   padding: 1.5rem;
+  transition: all var(--transition-normal);
 }
 
 /* Elegant consultation list styling */
@@ -1041,7 +995,6 @@ textarea::placeholder {
   padding-left: 1.5rem;
   margin-bottom: 0.75rem;
   line-height: 1.5;
-  transition: all var(--transition-fast);
 }
 
 .consultation-list li:last-child {
@@ -1066,16 +1019,6 @@ textarea::placeholder {
   box-shadow: 0 0 8px rgba(217, 119, 6, 0.4);
 }
 
-.consultation-list li:hover {
-  color: var(--text-primary);
-  transform: translateX(4px);
-}
-
-.consultation-list li:hover::before {
-  background: var(--accent-light);
-  transform: scale(1.2);
-  box-shadow: 0 0 12px rgba(217, 119, 6, 0.6);
-}
 
 /* Dark mode enhancements for consultation lists */
 :root.dark .consultation-list li::before {
@@ -1087,9 +1030,6 @@ textarea::placeholder {
   box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
 }
 
-:root.dark .consultation-list li:hover::before {
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.7);
-}
 
 /* Contact page components now rely on Tailwind classes working properly */
 
@@ -1101,7 +1041,7 @@ textarea::placeholder {
    Card Icon Size Fixes
    ========================================================================== */
 
-/* Ensure card icons in community and grants pages have proper sizing */
+/* Ensure card icons have proper sizing */
 .card .material-icons:not([class*="text-"]),
 .card .material-icons-outlined:not([class*="text-"]) {
   font-size: 1.5rem; /* 24px equivalent to text-2xl for card icons */

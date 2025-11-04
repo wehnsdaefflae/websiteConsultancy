@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
 <script>
   // Prevent flicker by setting theme immediately
   (function() {
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
+
     let isDark = false;
     if (savedTheme === null) {
       isDark = prefersDark;
     } else {
       isDark = savedTheme === 'dark';
     }
-    
+
     // Disable transitions during initial theme setup
     document.documentElement.classList.remove('transitions-enabled');
-    
+
     if (isDark) {
       document.documentElement.classList.add('dark');
     }
-    
+
     // Set initial icon to prevent flicker
     document.addEventListener('DOMContentLoaded', function() {
       const icons = document.querySelectorAll('.theme-toggle-icon');
@@ -45,19 +45,19 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
 <meta name="apple-mobile-web-app-title" content="Dr. Mark Wernsdorfer"/>
 <meta name="mobile-web-app-capable" content="yes"/>
-<meta name="description" content="AI Consulting Services by Dr. Mark Wernsdorfer - Strategic AI advisory, custom ML solutions, implementation guidance, and specialized training."/>
-<meta name="keywords" content="AI consulting services, machine learning solutions, AI strategy, technical advisory, AI implementation"/>
+<meta name="description" content="KI-Beratung von Dr. Mark Wernsdorfer - Strategische Beratung, maßgeschneiderte ML-Lösungen, Implementierungs&shy;begleitung und spezialisierte Schulungen für Ihr Unternehmen."/>
+<meta name="keywords" content="KI-Beratung, Machine Learning Lösungen, KI-Strategie, technische Beratung, KI-Implementierung"/>
 <meta name="author" content="Dr. Mark Wernsdorfer"/>
-<meta property="og:title" content="Services - Dr. Mark Wernsdorfer"/>
-<meta property="og:description" content="Expert AI consulting services including strategic advisory, custom ML solutions, and implementation guidance for your organization."/>
+<meta property="og:title" content="Leistungen - Dr. Mark Wernsdorfer"/>
+<meta property="og:description" content="Professionelle KI-Beratung: strategische Beratung, maßgeschneiderte ML-Lösungen und Implementierungs&shy;begleitung für Ihr Unternehmen."/>
 <meta property="og:image" content="../images/profile-mark-wernsdorfer.webp"/>
-<meta property="og:url" content="https://markwernsdorfer.com/services.html"/>
+<meta property="og:url" content="https://markwernsdorfer.com/de/leistungen.html"/>
 <meta property="og:type" content="website"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Services - Dr. Mark Wernsdorfer"/>
-<meta name="twitter:description" content="Expert AI consulting services including strategic advisory, custom ML solutions, and implementation guidance for your organization."/>
+<meta name="twitter:title" content="Leistungen - Dr. Mark Wernsdorfer"/>
+<meta name="twitter:description" content="Professionelle KI-Beratung: strategische Beratung, maßgeschneiderte ML-Lösungen und Implementierungs&shy;begleitung für Ihr Unternehmen."/>
 <meta name="twitter:image" content="../images/profile-mark-wernsdorfer.webp"/>
-<link rel="canonical" href="https://markwernsdorfer.com/services.html"/>
+<link rel="canonical" href="https://markwernsdorfer.com/de/leistungen.html"/>
 <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
 <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Playfair+Display%3Awght%40400%3B500%3B700%3B900&amp;family=Roboto+Slab%3Awght%40300%3B400%3B500%3B700" onload="this.rel='stylesheet'" rel="stylesheet"/>
 <!-- Preload critical CSS -->
@@ -77,7 +77,7 @@
 <link rel="preload" as="script" href="../js/theme.js"/>
 <link crossorigin="anonymous" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
 <link crossorigin="anonymous" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-<title>Services - Dr. Mark Wernsdorfer</title>
+<title>Leistungen - Dr. Mark Wernsdorfer</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
 <link rel="manifest" href="../manifest.json"/>
 <!-- Apple Touch Icons for various iOS devices -->
@@ -95,13 +95,13 @@
   "itemListElement": [{
     "@type": "ListItem",
     "position": 1,
-    "name": "Home",
+    "name": "Startseite",
     "item": "https://markwernsdorfer.com/"
   },{
     "@type": "ListItem",
     "position": 2,
-    "name": "Services",
-    "item": "https://markwernsdorfer.com/services.html"
+    "name": "Leistungen",
+    "item": "https://markwernsdorfer.com/de/leistungen.html"
   }]
 }
 </script>
@@ -134,7 +134,7 @@
 <script defer src="../js/interactions.js"></script>
 </head>
 <body class="font-roboto-slab services-page-bg">
-<a href="#main-content" class="skip-link visually-hidden">Skip to main content</a>
+<a href="#main-content" class="skip-link visually-hidden">Zum Hauptinhalt springen</a>
 <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
 <div class="layout-container flex h-full grow flex-col">
 <header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid themed-border header-bg px-4 sm:px-6 lg:px-10 py-3 sm:py-4 backdrop-blur-md">
@@ -152,17 +152,17 @@
 <a href="../index.html" class="header-logo-text text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight transition-colors font-playfair"><span class="logo-first-line">Dr. Mark</span> <span class="logo-second-line">Wernsdorfer</span></a>
 </div>
 <div class="flex items-center gap-2 sm:gap-4">
-<button onclick="window.themeUtils.enhancedToggleDarkMode(event)" class="theme-toggle" aria-label="Toggle dark mode">
+<button onclick="window.themeUtils.enhancedToggleDarkMode(event)" class="theme-toggle" aria-label="Dunkelmodus umschalten">
   <span class="material-icons-outlined theme-toggle-icon">dark_mode</span>
 </button>
 <div class="language-switcher flex items-center gap-1">
-<a href="../index.html" class="px-2 py-1 text-sm font-medium lang-active rounded hover:opacity-90 transition-all">EN</a>
-<a href="../de/leistungen.html" class="px-2 py-1 text-sm font-medium lang-inactive rounded hover:opacity-90 transition-all">DE</a>
+<a href="../en/services.html" class="px-2 py-1 text-sm font-medium lang-inactive rounded hover:opacity-90 transition-all">EN</a>
+<span class="px-2 py-1 text-sm font-medium lang-active rounded">DE</span>
 </div>
-<a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 btn-primary text-sm sm:text-base font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="contact.html">
-<span class="truncate">Contact</span>
+<a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 btn-primary text-sm sm:text-base font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="kontakt.html">
+<span class="truncate">Kontakt</span>
 </a>
-<a class="sm:hidden flex items-center justify-center overflow-hidden rounded-md h-9 px-3 btn-primary text-sm font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="contact.html" aria-label="Contact">
+<a class="sm:hidden flex items-center justify-center overflow-hidden rounded-md h-9 px-3 btn-primary text-sm font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="kontakt.html" aria-label="Kontakt">
 <span class="material-icons text-lg">email</span>
 </a>
 </div>
@@ -172,9 +172,9 @@
 <nav aria-label="Breadcrumb" class="bg-secondary border-b border-solid themed-border">
   <div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-10 py-3">
     <ol class="breadcrumbs">
-      <li><a href="../index.html" class="breadcrumb-link">Home</a></li>
+      <li><a href="../index.html" class="breadcrumb-link">Startseite</a></li>
       <li><span class="breadcrumb-separator">/</span></li>
-      <li><span class="breadcrumb-current">Services</span></li>
+      <li><span class="breadcrumb-current">Leistungen</span></li>
     </ol>
   </div>
 </nav>
@@ -184,40 +184,40 @@
 <div class="layout-content-container flex flex-col max-w-[960px] mx-auto">
 <div class="space-y-8 sm:space-y-10">
 <div class="text-center space-y-4">
-<h1 class="themed-text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight font-playfair">AI Consulting Services</h1>
+<h1 class="themed-text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight font-playfair">KI-Beratung</h1>
 <p class="themed-text-secondary text-lg sm:text-xl font-normal leading-relaxed max-w-3xl mx-auto">
-Bridging deep AI theory with practical business solutions through expert consulting services designed to unlock your organization's AI potential.
+Fundierte KI-Expertise trifft auf praxis&shy;orientierte Unternehmens&shy;lösungen. Professionelle Beratung, die das volle KI-Potenzial Ihres Unternehmens erschließt.
 </p>
 </div>
 
 <!-- Hero Section with Key Value Proposition -->
 <div class="card card-no-hover rounded-2xl p-8 sm:p-12 mt-12">
 <div class="text-center space-y-6">
-<h2 class="text-2xl sm:text-3xl font-bold font-playfair themed-text-primary">The Advantage</h2>
+<h2 class="text-2xl sm:text-3xl font-bold font-playfair themed-text-primary">Der entscheidende Unterschied</h2>
 <p class="themed-text-secondary text-lg leading-relaxed max-w-4xl mx-auto">
-Unlike traditional AI consultants, I bring a unique combination of <strong>deep theoretical expertise</strong>, <strong>hands-on technical experience</strong>, and <strong>philosophical grounding</strong> that ensures your AI initiatives are not just technically sound, but ethically responsible and genuinely transformative.
+Eine einzigartige Kombination aus <strong>fundierter theoretischer Expertise</strong>, <strong>praktischer technischer Erfahrung</strong> und <strong>philosophischem Fundament</strong> garantiert KI-Initiativen, die technisch exzellent, ethisch verantwortungs&shy;voll und nachhaltig transformativ sind.
 </p>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
 <div class="text-center">
 <div class="w-16 h-16 text-accent rounded-full flex items-center justify-center mx-auto mb-4" style="background: var(--gradient-primary);">
 <span class="material-icons text-white text-2xl">psychology</span>
 </div>
-<h3 class="font-semibold themed-text-primary mb-2">Theoretical Depth</h3>
-<p class="themed-text-secondary text-sm">PhD in Philosophy & Cognitive Science brings unique conceptual clarity to AI challenges</p>
+<h3 class="font-semibold themed-text-primary mb-2">Theoretische Fundierung</h3>
+<p class="themed-text-secondary text-sm">Promotion in Philosophie & Kognitions&shy;wissenschaft für konzeptionelle Klarheit bei komplexen KI-Heraus&shy;forderungen</p>
 </div>
 <div class="text-center">
 <div class="w-16 h-16 text-accent rounded-full flex items-center justify-center mx-auto mb-4" style="background: var(--gradient-primary);">
 <span class="material-icons text-white text-2xl">engineering</span>
 </div>
-<h3 class="font-semibold themed-text-primary mb-2">Technical Excellence</h3>
-<p class="themed-text-secondary text-sm">15+ years developing ML solutions from research prototypes to production systems</p>
+<h3 class="font-semibold themed-text-primary mb-2">Technische Exzellenz</h3>
+<p class="themed-text-secondary text-sm">15+ Jahre Erfahrung in der ML-Entwicklung – vom Forschungs&shy;prototyp bis zum Produktions&shy;system</p>
 </div>
 <div class="text-center">
 <div class="w-16 h-16 text-accent rounded-full flex items-center justify-center mx-auto mb-4" style="background: var(--gradient-primary);">
 <span class="material-icons text-white text-2xl">balance</span>
 </div>
-<h3 class="font-semibold themed-text-primary mb-2">Ethical Foundation</h3>
-<p class="themed-text-secondary text-sm">Ensuring AI solutions are responsible, transparent, and aligned with human values</p>
+<h3 class="font-semibold themed-text-primary mb-2">Ethisches Fundament</h3>
+<p class="themed-text-secondary text-sm">KI-Lösungen, die verantwortungs&shy;voll, transparent und an menschlichen Werten ausgerichtet sind</p>
 </div>
 </div>
 </div>
@@ -225,7 +225,7 @@ Unlike traditional AI consultants, I bring a unique combination of <strong>deep 
 
 <!-- Core Services -->
 <div class="mt-16">
-<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold tracking-tight text-center mb-12 font-playfair">Core Consulting Services</h2>
+<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold tracking-tight text-center mb-12 font-playfair">Beratungs&shy;leistungen im Überblick</h2>
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 services-grid">
 <!-- Strategic AI Advisory -->
 <div class="service-card group">
@@ -233,14 +233,14 @@ Unlike traditional AI consultants, I bring a unique combination of <strong>deep 
 <span class="material-icons-outlined">lightbulb</span>
 </div>
 <div class="service-content">
-<h3 class="service-title">Strategic AI Advisory</h3>
+<h3 class="service-title">Strategische KI-Beratung</h3>
 <p class="service-description">
-Transform your organization with AI strategy that bridges theory and practice. I help you navigate the complex AI landscape with philosophical rigor and practical wisdom.
+Eine KI-Strategie, die Theorie und Praxis vereint. Fundierte Expertise für die erfolgreiche Navigation in der komplexen KI-Landschaft – mit philosophischer Tiefe und praktischem Weitblick.
 </p>
 <ul class="service-list">
-<li>AI readiness assessment and strategic roadmapping</li>
-<li>ROI analysis and ethical governance frameworks</li>
-<li>Innovation pipeline and technology evaluation</li>
+<li>KI-Reifegrad-Bewertung und strategische Roadmap</li>
+<li>ROI-Analyse und ethische Governance&shy;-Frameworks</li>
+<li>Innovations&shy;pipeline und Technologie&shy;bewertung</li>
 </ul>
 </div>
 </div>
@@ -251,14 +251,14 @@ Transform your organization with AI strategy that bridges theory and practice. I
 <span class="material-icons-outlined">science</span>
 </div>
 <div class="service-content">
-<h3 class="service-title">Research-to-Production Translation</h3>
+<h3 class="service-title">Von der Forschung in die Praxis</h3>
 <p class="service-description">
-Bridge the gap between cutting-edge AI research and practical business applications with expertise gained from 15+ years in both academic and industry settings.
+Die Brücke zwischen modernster KI-Forschung und praktischen Geschäfts&shy;anwendungen. 15+ Jahre Expertise in akademischen und industriellen Umgebungen für erfolgreiche Transfers.
 </p>
 <ul class="service-list">
-<li>Academic research commercialization and feasibility analysis</li>
-<li>Prototype to production system development</li>
-<li>Grant applications and funding strategy (€2.8M+ secured)</li>
+<li>Kommerzialisierung akademischer Forschung und Machbarkeits&shy;analyse</li>
+<li>Vom Prototyp zum Produktions&shy;system</li>
+<li>Förderanträge und Finanzierungs&shy;strategie (2,8+ Mio. € eingeworben)</li>
 </ul>
 </div>
 </div>
@@ -269,14 +269,14 @@ Bridge the gap between cutting-edge AI research and practical business applicati
 <span class="material-icons-outlined">biotech</span>
 </div>
 <div class="service-content">
-<h3 class="service-title">Domain-Specific AI Solutions</h3>
+<h3 class="service-title">Domänen&shy;spezifische KI-Lösungen</h3>
 <p class="service-description">
-Specialized AI applications for complex domains including healthcare, laboratory medicine, geosciences, and cultural heritage preservation.
+Spezialisierte KI-Anwendungen für komplexe Fachbereiche – von Gesundheits&shy;wesen und Labor&shy;medizin bis zu Geo&shy;wissenschaften und Kultur&shy;erbe-Erhaltung.
 </p>
 <ul class="service-list">
-<li>Medical AI and laboratory diagnostics (AMPEL system)</li>
-<li>Geoscience modeling and digital humanities</li>
-<li>Art authentication and scientific automation</li>
+<li>Medizinische KI und Labor&shy;diagnostik (AMPEL-System)</li>
+<li>Geo&shy;wissenschaftliche Modellierung und Digital Humanities</li>
+<li>Kunstwerk&shy;authentifizierung und wissenschaftliche Automatisierung</li>
 </ul>
 </div>
 </div>
@@ -287,14 +287,14 @@ Specialized AI applications for complex domains including healthcare, laboratory
 <span class="material-icons-outlined">verified_user</span>
 </div>
 <div class="service-content">
-<h3 class="service-title">Responsible AI Implementation</h3>
+<h3 class="service-title">Verantwortungs&shy;volle KI-Implementierung</h3>
 <p class="service-description">
-Ensure your AI systems are not just effective, but ethical, transparent, and aligned with human values through philosophically-informed implementation practices.
+KI-Systeme, die effektiv, ethisch und transparent sind – philosophisch fundierte Implementierungs&shy;praktiken für nachhaltige, werte&shy;orientierte Lösungen.
 </p>
 <ul class="service-list">
-<li>Explainable AI and bias mitigation strategies</li>
-<li>Privacy-preserving ML and compliance frameworks</li>
-<li>Stakeholder engagement and ethical communication</li>
+<li>Erklärbare KI (XAI) und Bias-Vermeidungs&shy;strategien</li>
+<li>Datenschutz&shy;wahrende ML-Verfahren und Compliance-Frameworks</li>
+<li>Stakeholder-Einbindung und ethische Kommunikations&shy;strategien</li>
 </ul>
 </div>
 </div>
@@ -303,38 +303,38 @@ Ensure your AI systems are not just effective, but ethical, transparent, and ali
 
 <!-- Specialized Offerings -->
 <div class="mt-16 card card-no-hover rounded-2xl p-8 sm:p-12">
-<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold tracking-tight text-center mb-8 font-playfair">Specialized Offerings</h2>
+<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold tracking-tight text-center mb-8 font-playfair">Spezialisierte Angebote</h2>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 <div class="space-y-6">
 <div class="specialty-item">
 <h3 class="text-lg font-semibold themed-text-primary mb-2 flex items-center">
 <span class="material-icons text-accent mr-2">school</span>
-AI Literacy & Training
+KI-Kompetenz &amp; Schulungen
 </h3>
-<p class="themed-text-secondary">Executive workshops, technical training, and AI literacy programs tailored to your team's needs and expertise level.</p>
+<p class="themed-text-secondary">Executive Workshops, technische Schulungen und KI-Kompetenz&shy;programme – maßgeschneidert auf die Bedürfnisse und das Expertise-Level Ihres Teams.</p>
 </div>
 <div class="specialty-item">
 <h3 class="text-lg font-semibold themed-text-primary mb-2 flex items-center">
 <span class="material-icons text-accent mr-2">gavel</span>
-Expert Testimony & Advisory
+Sachverständigen&shy;gutachten &amp; Beratung
 </h3>
-<p class="themed-text-secondary">Technical expert witness services, regulatory advisory, and policy consultation for AI-related legal and compliance matters.</p>
+<p class="themed-text-secondary">Technische Sachverständigen&shy;leistungen, Regulierungs&shy;beratung und Policy-Konsultation für KI-bezogene rechtliche und Compliance-Angelegenheiten.</p>
 </div>
 </div>
 <div class="space-y-6">
 <div class="specialty-item">
 <h3 class="text-lg font-semibold themed-text-primary mb-2 flex items-center">
 <span class="material-icons text-accent mr-2">hub</span>
-Innovation Partnerships
+Innovations&shy;partnerschaften
 </h3>
-<p class="themed-text-secondary">Long-term strategic partnerships for ongoing AI innovation, research collaboration, and technology development.</p>
+<p class="themed-text-secondary">Langfristige strategische Partnerschaften für kontinuierliche KI-Innovation, Forschungs&shy;kooperationen und Technologie&shy;entwicklung.</p>
 </div>
 <div class="specialty-item">
 <h3 class="text-lg font-semibold themed-text-primary mb-2 flex items-center">
 <span class="material-icons text-accent mr-2">diversity_3</span>
-Interdisciplinary Projects
+Interdisziplinäre Projekte
 </h3>
-<p class="themed-text-secondary">Complex projects requiring coordination between technical, philosophical, artistic, and business perspectives.</p>
+<p class="themed-text-secondary">Komplexe Projekte an der Schnittstelle von Technologie, Philosophie, Kunst und Business – für ganzheitliche, innovative Lösungen.</p>
 </div>
 </div>
 </div>
@@ -342,37 +342,37 @@ Interdisciplinary Projects
 
 <!-- Process Section -->
 <div class="mt-16">
-<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold tracking-tight text-center mb-12 font-playfair">How We'll Work Together</h2>
+<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold tracking-tight text-center mb-12 font-playfair">So arbeiten wir zusammen</h2>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 process-steps">
 <div class="process-step">
 <div class="process-number">1</div>
-<h3 class="process-title">Discovery</h3>
-<p class="process-description">Analysis of your needs and AI challenges.</p>
+<h3 class="process-title">Analyse</h3>
+<p class="process-description">Fundierte Analyse Ihrer Anforderungen und KI-Heraus&shy;forderungen.</p>
 </div>
 <div class="process-step">
 <div class="process-number">2</div>
-<h3 class="process-title">Strategy</h3>
-<p class="process-description">Practical AI strategies aligned with your objectives.</p>
+<h3 class="process-title">Strategie</h3>
+<p class="process-description">Praxis&shy;orientierte KI-Strategien, abgestimmt auf Ihre Ziele.</p>
 </div>
 <div class="process-step">
 <div class="process-number">3</div>
-<h3 class="process-title">Implementation</h3>
-<p class="process-description">Ethical solution deployment and optimization.</p>
+<h3 class="process-title">Umsetzung</h3>
+<p class="process-description">Implementierung und Optimierung – ethisch fundiert, technisch exzellent.</p>
 </div>
 </div>
 </div>
 
 <!-- CTA Section -->
 <div class="text-center mt-16 space-y-6">
-<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold font-playfair">Ready to Transform Your AI Strategy?</h2>
+<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold font-playfair">Bereit für Ihre KI-Transformation?</h2>
 <p class="themed-text-secondary text-lg max-w-2xl mx-auto">
-Let's discuss how we can bridge theory and practice to create AI solutions that truly serve your organization and stakeholders.
+Lassen Sie uns besprechen, wie fundierte KI-Expertise Ihrem Unternehmen echten Mehrwert schafft – technisch exzellent, ethisch verantwortungs&shy;voll, nachhaltig erfolgreich.
 </p>
 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-<a href="contact.html" class="btn-primary text-lg px-8 py-4">Schedule a Consultation</a>
-<a href="about.html" class="btn-secondary text-lg px-8 py-4">Learn About My Background</a>
+<a href="kontakt.html" class="btn-primary text-lg px-8 py-4">Beratungs&shy;gespräch vereinbaren</a>
+<a href="ueber.html" class="btn-secondary text-lg px-8 py-4">Mehr über meinen Hintergrund</a>
 </div>
-<p class="themed-text-tertiary text-sm mt-4">Initial consultation available to discuss your specific needs and how my unique approach can benefit your organization.</p>
+<p class="themed-text-tertiary text-sm mt-4">Kostenloses Erstgespräch – wir besprechen Ihre spezifischen Anforderungen und wie fundierte KI-Expertise Ihrem Unternehmen konkret nutzt.</p>
 </div>
 </div>
 </div>
@@ -382,9 +382,9 @@ Let's discuss how we can bridge theory and practice to create AI solutions that 
 <footer class="footer-bg footer-text">
 <div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-12 text-center space-y-4 sm:space-y-6">
 <div class="flex flex-col sm:flex-row items-center justify-center gap-y-2 gap-x-4 sm:gap-x-6">
-<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="contact.html">Contact</a>
-<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="about.html">About</a>
-<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="contact.html#imprint">Imprint</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="kontakt.html">Kontakt</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="ueber.html">Über mich</a>
+<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="kontakt.html#impressum">Impressum</a>
 </div>
 <div class="flex flex-wrap justify-center gap-6">
 <a href="https://github.com/wehnsdaefflae" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
@@ -395,14 +395,14 @@ Let's discuss how we can bridge theory and practice to create AI solutions that 
 <span class="material-icons text-xl sm:text-2xl">business</span>
 <span class="text-sm">LinkedIn</span>
 </a>
-<a href="mailto:wernsdorfer@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
+<a href="mailto:wernsdorfer@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="E-Mail" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
 <span class="material-icons text-xl sm:text-2xl">email</span>
-<span class="text-sm">Email</span>
+<span class="text-sm">E-Mail</span>
 </a>
 </div>
-<p class="text-sm sm:text-base font-normal leading-normal">© 2025 Dr. Mark Wernsdorfer. All rights reserved.</p>
+<p class="text-sm sm:text-base font-normal leading-normal">© 2025 Dr. Mark Wernsdorfer. Alle Rechte vorbehalten.</p>
 <p class="text-xs sm:text-sm footer-link font-playfair">
-Bridging deep AI theory with practical business solutions.
+Fundierte KI-Theorie trifft auf praxis&shy;orientierte Unternehmens&shy;lösungen.
 </p>
 </div>
 </footer>
@@ -412,26 +412,26 @@ Bridging deep AI theory with practical business solutions.
   <div class="mobile-nav-grid relative">
     <!-- Background glow effect -->
     <div class="absolute inset-0 bg-gradient-to-r from-amber-50/50 via-orange-50/30 to-amber-50/50 dark:from-amber-800/20 dark:via-orange-900/10 dark:to-amber-800/20 opacity-60 dark:opacity-40"></div>
-    
+
     <a href="../index.html" class="mobile-nav-item mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
       <span class="material-icons-outlined text-xl group-hover:scale-110 transition-transform">home</span>
-      <span class="text-xs">Home</span>
+      <span class="text-xs">Start</span>
     </a>
-    <a href="about.html" class="mobile-nav-item mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+    <a href="ueber.html" class="mobile-nav-item mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
       <span class="material-icons-outlined text-xl group-hover:scale-110 transition-transform">person</span>
-      <span class="text-xs">About</span>
+      <span class="text-xs">Über mich</span>
     </a>
-    <a href="services.html" class="mobile-nav-item active mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+    <a href="leistungen.html" class="mobile-nav-item active mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
       <span class="material-icons-outlined text-xl group-hover:scale-110 transition-transform">work</span>
-      <span class="text-xs">Services</span>
+      <span class="text-xs">Leistungen</span>
     </a>
-    <a href="projects.html" class="mobile-nav-item mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+    <a href="projekte.html" class="mobile-nav-item mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
       <span class="material-icons-outlined text-xl group-hover:scale-110 transition-transform">folder</span>
       <span class="text-xs">Portfolio</span>
     </a>
-    <a href="contact.html" class="mobile-nav-item mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
+    <a href="kontakt.html" class="mobile-nav-item mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
       <span class="material-icons-outlined text-xl group-hover:scale-110 transition-transform">contact_mail</span>
-      <span class="text-xs">Contact</span>
+      <span class="text-xs">Kontakt</span>
     </a>
   </div>
 </nav>

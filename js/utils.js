@@ -66,7 +66,7 @@ function throttle(func, limit) {
  * @param {Function} callback - Callback to execute when idle
  * @param {Object} options - Options object with timeout
  */
-function requestIdleCallback(callback, options = {}) {
+function safeRequestIdleCallback(callback, options = {}) {
   if ('requestIdleCallback' in window) {
     return window.requestIdleCallback(callback, options);
   } else {
@@ -82,48 +82,12 @@ function requestIdleCallback(callback, options = {}) {
  * Cancel idle callback with fallback
  * @param {number} id - ID returned from requestIdleCallback
  */
-function cancelIdleCallback(id) {
+function safeCancelIdleCallback(id) {
   if ('cancelIdleCallback' in window) {
     window.cancelIdleCallback(id);
   } else {
     clearTimeout(id);
   }
-}
-
-/**
- * Check if element is in viewport
- * @param {HTMLElement} element - Element to check
- * @returns {boolean} True if in viewport
- */
-function isInViewport(element) {
-  const rect = element.getBoundingClientRect();
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
-}
-
-/**
- * Get computed style value
- * @param {HTMLElement} element - Element to get style from
- * @param {string} property - CSS property name
- * @returns {string} Computed value
- */
-function getComputedStyleValue(element, property) {
-  return window.getComputedStyle(element).getPropertyValue(property);
-}
-
-/**
- * Sanitize HTML string
- * @param {string} html - HTML string to sanitize
- * @returns {string} Sanitized HTML
- */
-function sanitizeHTML(html) {
-  const div = document.createElement('div');
-  div.textContent = html;
-  return div.innerHTML;
 }
 
 /**
@@ -143,69 +107,35 @@ function isPageVisible() {
 }
 
 /**
- * Wait for element to exist in DOM
- * @param {string} selector - CSS selector
- * @param {number} timeout - Timeout in milliseconds
- * @returns {Promise<HTMLElement>} Promise that resolves with element
+ * Create ripple effect on element
+ * @param {HTMLElement} element - Element to add ripple to
+ * @param {Event} event - Click event
  */
-function waitForElement(selector, timeout = 5000) {
-  return new Promise((resolve, reject) => {
-    const element = document.querySelector(selector);
-    if (element) {
-      resolve(element);
-      return;
-    }
+function createRipple(element, event) {
+  try {
+    const ripple = document.createElement('span');
+    const rect = element.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = event.clientX - rect.left - size / 2;
+    const y = event.clientY - rect.top - size / 2;
 
-    const observer = new MutationObserver(() => {
-      const element = document.querySelector(selector);
-      if (element) {
-        observer.disconnect();
-        clearTimeout(timeoutId);
-        resolve(element);
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
+    ripple.classList.add('ripple');
+
+    element.appendChild(ripple);
+
+    setTimeout(() => {
+      try {
+        ripple.remove();
+      } catch (error) {
+        console.error('Error removing ripple element:', error);
       }
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
-
-    const timeoutId = setTimeout(() => {
-      observer.disconnect();
-      reject(new Error(`Element ${selector} not found within ${timeout}ms`));
-    }, timeout);
-  });
-}
-
-/**
- * Measure performance of function execution
- * @param {Function} fn - Function to measure
- * @param {string} label - Label for performance mark
- * @returns {*} Result of function
- */
-function measurePerformance(fn, label) {
-  if (!window.performance || !window.performance.mark) {
-    return fn();
+    }, 600);
+  } catch (error) {
+    console.error('Error in createRipple:', error);
   }
-
-  const startMark = `${label}-start`;
-  const endMark = `${label}-end`;
-  const measureName = `${label}-measure`;
-
-  performance.mark(startMark);
-  const result = fn();
-  performance.mark(endMark);
-  performance.measure(measureName, startMark, endMark);
-
-  const measure = performance.getEntriesByName(measureName)[0];
-  console.log(`${label} took ${measure.duration.toFixed(2)}ms`);
-
-  // Clean up
-  performance.clearMarks(startMark);
-  performance.clearMarks(endMark);
-  performance.clearMeasures(measureName);
-
-  return result;
 }
 
 // Export utilities
@@ -213,13 +143,9 @@ window.utils = {
   safeExecute,
   debounce,
   throttle,
-  requestIdleCallback,
-  cancelIdleCallback,
-  isInViewport,
-  getComputedStyleValue,
-  sanitizeHTML,
+  requestIdleCallback: safeRequestIdleCallback,
+  cancelIdleCallback: safeCancelIdleCallback,
   prefersReducedMotion,
   isPageVisible,
-  waitForElement,
-  measurePerformance
+  createRipple
 };
