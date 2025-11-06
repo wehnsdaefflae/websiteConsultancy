@@ -1059,3 +1059,46 @@ textarea::placeholder {
 /* ==========================================================================
    End Card Icon Size Fixes
    ========================================================================== */
+
+/* ==========================================================================
+   Carousel Navigation - Hide arrows and dots, enable drag/swipe
+   ========================================================================== */
+#prev-btn,
+#next-btn,
+.carousel-dot {
+  display: none !important;
+}
+
+.logos-carousel {
+  overflow: hidden;
+}
+
+.logos-track {
+  display: flex;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-touch-callout: none;
+  will-change: transform;
+}
+
+.logos-track:active {
+  cursor: grabbing;
+}
+
+.logos-track .logo-slide {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  flex-shrink: 0;
+}
+
+.logos-track .logo-slide * {
+  pointer-events: none;
+}
+/* ==========================================================================
+   End Carousel Navigation
+   ========================================================================== */

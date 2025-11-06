@@ -353,168 +353,172 @@ function initPortfolioAnimations() {
 // End Portfolio Functionality
 // ==========================================================================
 
-// Logo Carousel Navigation
+// Infinite Circular Carousel with Drag/Swipe
 document.addEventListener('DOMContentLoaded', function() {
   const logoTrack = document.getElementById('logos-track');
-  const prevBtn = document.getElementById('prev-btn');
-  const nextBtn = document.getElementById('next-btn');
-  const dots = document.querySelectorAll('.carousel-dot');
-  
-  if (!logoTrack || !prevBtn || !nextBtn) return;
-  
-  const config = window.APP_CONFIG.CAROUSEL_CONFIG;
-  let currentSlide = 0;
-  const totalSlides = config.TOTAL_SLIDES;
-  let isAnimating = false;
-  let autoPlayInterval;
+  if (!logoTrack) return;
 
-  // Function to calculate slide width dynamically
-  function getSlideWidth() {
-    const firstSlide = logoTrack.querySelector('.logo-slide');
-    if (!firstSlide) return config.SLIDE_WIDTH; // Fallback
+  // Use transform instead of scroll for smoother animation
+  let currentX = 0;
+  let targetX = 0;
+  let isDragging = false;
+  let startX = 0;
+  let dragStartX = 0;
+  let velocity = 0;
+  let lastX = 0;
+  let lastTime = 0;
+  let isAutoScrolling = true;
+  const autoScrollSpeed = 0.5;
+  let hasDragged = false;
 
-    const styles = window.getComputedStyle(firstSlide);
-    return firstSlide.offsetWidth + parseInt(styles.marginRight || 0);
+  // Get total width of one set of logos
+  function getTrackWidth() {
+    const slides = logoTrack.querySelectorAll('.logo-slide');
+    let width = 0;
+    for (let i = 0; i < slides.length / 2; i++) {
+      width += slides[i].offsetWidth + parseInt(getComputedStyle(slides[i]).marginRight || 0);
+    }
+    return width;
   }
 
-  // Function to update carousel position
-  function updateCarousel(slideIndex, smooth = true) {
-    if (isAnimating) return;
+  function normalize(x) {
+    const trackWidth = getTrackWidth();
+    // Keep position within bounds of one loop
+    while (x > 0) x -= trackWidth;
+    while (x < -trackWidth) x += trackWidth;
+    return x;
+  }
 
-    isAnimating = true;
-    currentSlide = slideIndex;
+  function updatePosition() {
+    currentX = normalize(currentX);
+    logoTrack.style.transform = `translateX(${currentX}px)`;
+  }
 
-    // Calculate slide width dynamically
-    const slideWidth = getSlideWidth();
+  function startDrag(e) {
+    isDragging = true;
+    isAutoScrolling = false;
+    hasDragged = false;
+    startX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+    dragStartX = currentX;
+    lastX = startX;
+    lastTime = Date.now();
+    velocity = 0;
+    logoTrack.style.cursor = 'grabbing';
 
-    // Calculate transform value
-    const translateX = -(currentSlide * slideWidth);
+    if (e.cancelable) {
+      e.preventDefault();
+    }
+  }
 
-    // Apply transform with or without transition
-    if (smooth) {
-      logoTrack.style.transition = `transform ${config.TRANSITION_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1)`;
-    } else {
-      logoTrack.style.transition = 'none';
+  function drag(e) {
+    if (!isDragging) return;
+
+    if (e.cancelable) {
+      e.preventDefault();
     }
 
-    logoTrack.style.transform = `translateX(${translateX}px)`;
+    const x = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+    const dx = x - startX;
+    const now = Date.now();
+    const dt = now - lastTime;
 
-    // Update dot indicators
-    dots.forEach((dot, index) => {
-      if (index === currentSlide) {
-        dot.classList.add('active');
-        dot.style.backgroundColor = '#f59e0b'; // amber-500
-      } else {
-        dot.classList.remove('active');
-        dot.style.backgroundColor = '';
-      }
-    });
+    // Mark as dragged if moved more than 5 pixels
+    if (Math.abs(dx) > 5) {
+      hasDragged = true;
+    }
+
+    if (dt > 0) {
+      velocity = (x - lastX) / dt * 16; // Convert to px per frame
+    }
+
+    currentX = dragStartX + dx;
+    targetX = currentX;
+
+    lastX = x;
+    lastTime = now;
+  }
+
+  function endDrag() {
+    if (!isDragging) return;
+    isDragging = false;
+    logoTrack.style.cursor = 'grab';
+
+    // Apply velocity for inertia with resistance
+    targetX = currentX + velocity * 10; // Reduced from 20 to add more resistance
 
     setTimeout(() => {
-      isAnimating = false;
-    }, smooth ? config.TRANSITION_DURATION : 0);
+      isAutoScrolling = true;
+    }, 2000);
   }
-  
-  // Next slide function
-  function nextSlide() {
-    const nextIndex = (currentSlide + 1) % totalSlides;
-    updateCarousel(nextIndex);
-  }
-  
-  // Previous slide function
-  function prevSlide() {
-    const prevIndex = (currentSlide - 1 + totalSlides) % totalSlides;
-    updateCarousel(prevIndex);
-  }
-  
-  // Event listeners for navigation buttons
-  nextBtn.addEventListener('click', () => {
-    stopAutoPlay();
-    nextSlide();
-    startAutoPlay();
-  });
-  
-  prevBtn.addEventListener('click', () => {
-    stopAutoPlay();
-    prevSlide();
-    startAutoPlay();
-  });
-  
-  // Event listeners for dot indicators
-  dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-      if (index !== currentSlide) {
-        stopAutoPlay();
-        updateCarousel(index);
-        startAutoPlay();
+
+  function animate() {
+    if (!isDragging) {
+      // Smooth interpolation with damping
+      const diff = targetX - currentX;
+      currentX += diff * 0.08;
+
+      // Auto-scroll at constant speed
+      if (isAutoScrolling) {
+        currentX -= autoScrollSpeed;
+        targetX = currentX; // Keep target synced to prevent drift
+      } else {
+        // Apply friction when not auto-scrolling
+        const decay = 0.92;
+        targetX = currentX + (targetX - currentX) * decay;
       }
-    });
-  });
-  
-  // Auto-play functionality with visibility check
-  function startAutoPlay() {
-    if (autoPlayInterval) clearInterval(autoPlayInterval);
+    }
 
-    autoPlayInterval = setInterval(() => {
-      // Only advance if page is visible
-      if (!document.hidden) {
-        nextSlide();
-      }
-    }, config.AUTO_PLAY_DELAY);
+    updatePosition();
+    requestAnimationFrame(animate);
   }
 
-  function stopAutoPlay() {
-    if (autoPlayInterval) {
-      clearInterval(autoPlayInterval);
-      autoPlayInterval = null;
-    }
-  }
+  // Event listeners
+  logoTrack.addEventListener('mousedown', startDrag);
+  document.addEventListener('mousemove', drag);
+  document.addEventListener('mouseup', endDrag);
 
-  // Pause autoplay when page is hidden
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      stopAutoPlay();
-    } else if (carouselContainer && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      startAutoPlay();
+  logoTrack.addEventListener('touchstart', startDrag, { passive: false });
+  document.addEventListener('touchmove', drag, { passive: false });
+  document.addEventListener('touchend', endDrag);
+
+  logoTrack.addEventListener('dragstart', (e) => e.preventDefault());
+  logoTrack.addEventListener('selectstart', (e) => e.preventDefault());
+
+  // Prevent link clicks when dragging
+  logoTrack.addEventListener('click', (e) => {
+    if (hasDragged) {
+      e.preventDefault();
+      e.stopPropagation();
     }
-  });
-  
-  // Pause auto-play on hover
+  }, true);
+
+  // Pause on hover
   const carouselContainer = logoTrack.closest('.logos-carousel');
   if (carouselContainer) {
-    carouselContainer.addEventListener('mouseenter', stopAutoPlay);
-    carouselContainer.addEventListener('mouseleave', startAutoPlay);
-  }
-  
-  // Initialize carousel
-  updateCarousel(0, false);
-  
-  // Start auto-play if user doesn't prefer reduced motion
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    startAutoPlay();
-  }
-  
-  // Handle resize
-  window.addEventListener('resize', () => {
-    updateCarousel(currentSlide, false);
-  });
-  
-  // Keyboard navigation
-  document.addEventListener('keydown', (e) => {
-    if (e.target.closest('.logos-carousel')) {
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        stopAutoPlay();
-        prevSlide();
-        startAutoPlay();
-      } else if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        stopAutoPlay();
-        nextSlide();
-        startAutoPlay();
+    carouselContainer.addEventListener('mouseenter', () => {
+      isAutoScrolling = false;
+    });
+    carouselContainer.addEventListener('mouseleave', () => {
+      if (!isDragging) {
+        isAutoScrolling = true;
       }
-    }
+    });
+  }
+
+  // Pause when hidden
+  document.addEventListener('visibilitychange', () => {
+    isAutoScrolling = !document.hidden;
   });
+
+  // Initialize
+  logoTrack.style.cursor = 'grab';
+  logoTrack.style.transition = 'none';
+  logoTrack.style.willChange = 'transform';
+
+  // Start animation loop
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    animate();
+  }
 });
 
 // Note: Interactive elements initialization is now handled by core.js orchestrator

@@ -228,10 +228,10 @@
 </header>
 <main class="flex-1" id="main-content" role="main">
 <!-- Enhanced Hero Section with better visual effects -->
-<section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-8 sm:py-12 md:py-16 lg:py-24" id="hero" style="padding: 2rem 1rem;">
-<div class="layout-content-container flex flex-col max-w-[960px] mx-auto" style="max-width: 960px; margin: 0 auto; display: flex; flex-direction: column;">
+<section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-8 sm:py-12 md:py-16 lg:py-24" id="hero">
+<div class="layout-content-container flex flex-col max-w-[960px] mx-auto">
 <div class="@container">
-<div class="hero-background relative flex min-h-[400px] sm:min-h-[480px] md:min-h-[560px] lg:min-h-[640px] flex-col rounded-xl sm:rounded-2xl justify-between p-6 sm:p-8 md:p-12 shadow-2xl overflow-hidden hero-bg-image" style="position: relative; display: flex; flex-direction: column; min-height: 640px; justify-content: space-between; padding: 3rem; border-radius: 1rem; overflow: hidden;">
+<div class="hero-background relative flex min-h-[400px] sm:min-h-[480px] md:min-h-[560px] lg:min-h-[640px] flex-col rounded-xl sm:rounded-2xl justify-between p-6 sm:p-8 md:p-12 shadow-2xl overflow-hidden hero-bg-image">
 <!-- Floating particles effect -->
 <div class="absolute inset-0 z-0">
 <div class="floating-element absolute w-2 h-2 bg-accent-light rounded-full opacity-30" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
@@ -242,18 +242,18 @@
 <div class="floating-element absolute w-1 h-1 bg-accent-light rounded-full opacity-35" style="top: 80%; left: 60%; animation-delay: 5s;"></div>
 </div>
 <!-- Top element - closer to top -->
-<div class="text-right z-10 max-w-full lg:max-w-4xl ml-auto" style="text-align: right; z-index: 10; margin-left: auto;">
-<h1 class="hero-title text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight tracking-tighter" style='font-family: "Playfair Display", serif; color: white; font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; opacity: 1;'>
+<div class="text-right z-10 max-w-full lg:max-w-4xl ml-auto">
+<h1 class="hero-title text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight tracking-tighter" style='font-family: "Playfair Display", serif;'>
 Bridging Deep AI Theory with Practical Business Solutions
 </h1>
 </div>
 <!-- Bottom element - closer to bottom -->
-<div class="text-right z-10 max-w-full lg:max-w-4xl ml-auto" style="text-align: right; z-index: 10; margin-left: auto; margin-top: 1rem;">
-<p class="hero-subtitle text-white text-base sm:text-lg md:text-xl font-light leading-relaxed w-2/3 ml-auto" style="color: white; font-size: clamp(1rem, 2vw, 1.25rem); margin-left: auto; width: 66%; opacity: 1;">
+<div class="text-right z-10 max-w-full lg:max-w-4xl ml-auto">
+<p class="hero-subtitle text-white text-base sm:text-lg md:text-xl font-light leading-relaxed w-2/3 ml-auto">
 Dr. Mark Wernsdorfer combines foundational AI research with real-world impact through deep technical expertise, philosophical insight, and practical innovation.
 </p>
 </div>
-<div class="hero-buttons flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mt-6 z-10 w-full sm:w-auto" style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; z-index: 10; opacity: 1;">
+<div class="hero-buttons flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mt-6 z-10 w-full sm:w-auto">
 <a class="btn-primary text-center min-h-[50px] flex items-center justify-center text-lg font-semibold px-8" href="en/contact.html">
 <span class="truncate">Schedule a Consultation</span>
 </a>
@@ -294,134 +294,150 @@ Previous Partners, Collaborators, and Supporters
 <div class="logos-carousel overflow-hidden bg-white/30 dark:bg-white/5 backdrop-blur-md border-y border-white/50 dark:border-white/20 shadow-2xl py-8">
 <div class="logos-track flex gap-6 px-6 animate-scroll" id="logos-track">
 <!-- First set of logos -->
-<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<a href="https://www.barrier.fraunhofer.com/en/contact_team.html" target="_blank" rel="noopener noreferrer" class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
 <div class="h-24 w-full flex items-center justify-center mb-3 relative">
 <div class="absolute inset-0 bg-gradient-to-br from-amber-100/40 to-orange-100/40 dark:from-amber-800/30 dark:to-orange-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 <img src="logos/Fraunhofer-Gesellschaft_2009_logo.svg" alt="Fraunhofer Institute" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
 </div>
 <div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">Fraunhofer Institute</div>
-</div>
+</a>
 
-<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<a href="https://medinform.jmir.org/2021/6/e20407" target="_blank" rel="noopener noreferrer" class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
 <div class="h-24 w-full flex items-center justify-center mb-3 relative">
 <div class="absolute inset-0 bg-gradient-to-br from-blue-100/40 to-indigo-100/40 dark:from-blue-800/30 dark:to-indigo-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 <img src="logos/universitaetsklinikum-leipzig-logo-vector.svg" alt="University Hospital Leipzig" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
 </div>
 <div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">University Hospital Leipzig</div>
-</div>
+</a>
 
-<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<a href="https://prototypefund.de/en/" target="_blank" rel="noopener noreferrer" class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
 <div class="h-24 w-full flex items-center justify-center mb-3 relative">
 <div class="absolute inset-0 bg-gradient-to-br from-red-100/40 to-yellow-100/40 dark:from-red-800/30 dark:to-yellow-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 <img src="logos/BMBF_Logo.svg" alt="BMBF Germany" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
 </div>
 <div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">BMBF Germany</div>
-</div>
+</a>
 
-<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<a href="https://www.media-lab.de/en/offering/media-tech-lab/doppelcheck/" target="_blank" rel="noopener noreferrer" class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
 <div class="h-24 w-full flex items-center justify-center mb-3 relative">
 <div class="absolute inset-0 bg-gradient-to-br from-purple-100/40 to-pink-100/40 dark:from-purple-800/30 dark:to-pink-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 <img src="logos/media-lab-bayern-2024.svg" alt="Media Lab Bayern" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
 </div>
 <div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">Media Lab Bayern</div>
-</div>
+</a>
 
-<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<a href="https://cris.fau.de/persons/265215523/" target="_blank" rel="noopener noreferrer" class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
 <div class="h-24 w-full flex items-center justify-center mb-3 relative">
 <div class="absolute inset-0 bg-gradient-to-br from-orange-100/40 to-amber-100/40 dark:from-orange-800/30 dark:to-amber-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 <img src="logos/FAU_Kernmarke_H_RGB_blue.svg" alt="FAU Erlangen-Nürnberg" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
 </div>
 <div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">FAU Erlangen-Nürnberg</div>
-</div>
+</a>
 
-<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<a href="https://prototypefund.de/en/demo-day-on-march-1st-2024/" target="_blank" rel="noopener noreferrer" class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
 <div class="h-24 w-full flex items-center justify-center mb-3 relative">
 <div class="absolute inset-0 bg-gradient-to-br from-green-100/40 to-emerald-100/40 dark:from-green-800/30 dark:to-emerald-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 <img src="logos/PrototypeFund_Logo.svg" alt="Prototype Fund" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
 </div>
 <div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">Prototype Fund</div>
-</div>
+</a>
 
-<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<a href="https://www.media-lab.de/en/" target="_blank" rel="noopener noreferrer" class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
 <div class="h-24 w-full flex items-center justify-center mb-3 relative">
 <div class="absolute inset-0 bg-gradient-to-br from-blue-100/40 to-white/40 dark:from-blue-800/30 dark:to-white/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 <img src="logos/BayerischeStaatskanzlei-Logo.png" alt="Bayerische Staatskanzlei" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
 </div>
 <div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">Bayerische Staatskanzlei</div>
-</div>
+</a>
 
-<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<a href="https://www.thebinaschool.com/about" target="_blank" rel="noopener noreferrer" class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
 <div class="h-24 w-full flex items-center justify-center mb-3 relative">
 <div class="absolute inset-0 bg-gradient-to-br from-cyan-100/40 to-teal-100/40 dark:from-cyan-800/30 dark:to-teal-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 <img src="logos/bina.png" alt="The Bina School" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
 </div>
 <div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">The Bina School</div>
+</a>
+
+<a href="https://ljke-bayern.de/" target="_blank" rel="noopener noreferrer" class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<div class="h-24 w-full flex items-center justify-center mb-3 relative">
+<div class="absolute inset-0 bg-gradient-to-br from-red-100/40 to-orange-100/40 dark:from-red-800/30 dark:to-orange-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<img src="logos/ljke.png" alt="LJKE Bayern" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
 </div>
+<div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">LJKE Bayern</div>
+</a>
 
 <!-- Duplicate set for seamless loop -->
-<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<a href="https://www.barrier.fraunhofer.com/en/contact_team.html" target="_blank" rel="noopener noreferrer" class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
 <div class="h-24 w-full flex items-center justify-center mb-3 relative">
 <div class="absolute inset-0 bg-gradient-to-br from-amber-100/40 to-orange-100/40 dark:from-amber-800/30 dark:to-orange-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 <img src="logos/Fraunhofer-Gesellschaft_2009_logo.svg" alt="Fraunhofer Institute" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
 </div>
 <div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">Fraunhofer Institute</div>
-</div>
+</a>
 
-<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<a href="https://medinform.jmir.org/2021/6/e20407" target="_blank" rel="noopener noreferrer" class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
 <div class="h-24 w-full flex items-center justify-center mb-3 relative">
 <div class="absolute inset-0 bg-gradient-to-br from-blue-100/40 to-indigo-100/40 dark:from-blue-800/30 dark:to-indigo-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 <img src="logos/universitaetsklinikum-leipzig-logo-vector.svg" alt="University Hospital Leipzig" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
 </div>
 <div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">University Hospital Leipzig</div>
-</div>
+</a>
 
-<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<a href="https://prototypefund.de/en/" target="_blank" rel="noopener noreferrer" class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
 <div class="h-24 w-full flex items-center justify-center mb-3 relative">
 <div class="absolute inset-0 bg-gradient-to-br from-red-100/40 to-yellow-100/40 dark:from-red-800/30 dark:to-yellow-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 <img src="logos/BMBF_Logo.svg" alt="BMBF Germany" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
 </div>
 <div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">BMBF Germany</div>
-</div>
+</a>
 
-<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<a href="https://www.media-lab.de/en/offering/media-tech-lab/doppelcheck/" target="_blank" rel="noopener noreferrer" class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
 <div class="h-24 w-full flex items-center justify-center mb-3 relative">
 <div class="absolute inset-0 bg-gradient-to-br from-purple-100/40 to-pink-100/40 dark:from-purple-800/30 dark:to-pink-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 <img src="logos/media-lab-bayern-2024.svg" alt="Media Lab Bayern" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
 </div>
 <div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">Media Lab Bayern</div>
-</div>
+</a>
 
-<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<a href="https://cris.fau.de/persons/265215523/" target="_blank" rel="noopener noreferrer" class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
 <div class="h-24 w-full flex items-center justify-center mb-3 relative">
 <div class="absolute inset-0 bg-gradient-to-br from-orange-100/40 to-amber-100/40 dark:from-orange-800/30 dark:to-amber-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 <img src="logos/FAU_Kernmarke_H_RGB_blue.svg" alt="FAU Erlangen-Nürnberg" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
 </div>
 <div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">FAU Erlangen-Nürnberg</div>
-</div>
+</a>
 
-<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<a href="https://prototypefund.de/en/demo-day-on-march-1st-2024/" target="_blank" rel="noopener noreferrer" class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
 <div class="h-24 w-full flex items-center justify-center mb-3 relative">
 <div class="absolute inset-0 bg-gradient-to-br from-green-100/40 to-emerald-100/40 dark:from-green-800/30 dark:to-emerald-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 <img src="logos/PrototypeFund_Logo.svg" alt="Prototype Fund" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
 </div>
 <div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">Prototype Fund</div>
-</div>
+</a>
 
-<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<a href="https://www.media-lab.de/en/" target="_blank" rel="noopener noreferrer" class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
 <div class="h-24 w-full flex items-center justify-center mb-3 relative">
 <div class="absolute inset-0 bg-gradient-to-br from-blue-100/40 to-white/40 dark:from-blue-800/30 dark:to-white/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 <img src="logos/BayerischeStaatskanzlei-Logo.png" alt="Bayerische Staatskanzlei" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
 </div>
 <div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">Bayerische Staatskanzlei</div>
-</div>
+</a>
 
-<div class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<a href="https://www.thebinaschool.com/about" target="_blank" rel="noopener noreferrer" class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
 <div class="h-24 w-full flex items-center justify-center mb-3 relative">
 <div class="absolute inset-0 bg-gradient-to-br from-cyan-100/40 to-teal-100/40 dark:from-cyan-800/30 dark:to-teal-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 <img src="logos/bina.png" alt="The Bina School" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
 </div>
 <div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">The Bina School</div>
+</a>
+
+<a href="https://ljke-bayern.de/" target="_blank" rel="noopener noreferrer" class="logo-slide flex-shrink-0 w-72 h-44 flex flex-col items-center justify-center text-center p-6 rounded-2xl bg-white/80 dark:bg-white/15 backdrop-blur-sm shadow-xl hover:shadow-3xl transition-all duration-500 group transform hover:scale-105 hover:-translate-y-1 border border-white/60 dark:border-white/30">
+<div class="h-24 w-full flex items-center justify-center mb-3 relative">
+<div class="absolute inset-0 bg-gradient-to-br from-red-100/40 to-orange-100/40 dark:from-red-800/30 dark:to-orange-800/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<img src="logos/ljke.png" alt="LJKE Bayern" class="max-h-full max-w-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-500 filter grayscale group-hover:grayscale-0 transform group-hover:scale-110 relative z-10" loading="lazy" />
 </div>
+<div class="trust-text font-semibold text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-300">LJKE Bayern</div>
+</a>
 </div>
 </div>
 
