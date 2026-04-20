@@ -1,442 +1,308 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<script>
-  // Prevent flicker by setting theme immediately
-  (function() {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    let isDark = false;
-    if (savedTheme === null) {
-      isDark = prefersDark;
-    } else {
-      isDark = savedTheme === 'dark';
-    }
-    
-    // Disable transitions during initial theme setup
-    document.documentElement.classList.remove('transitions-enabled');
-    
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    }
-    
-    // Set initial icon to prevent flicker
-    document.addEventListener('DOMContentLoaded', function() {
-      const icons = document.querySelectorAll('.theme-toggle-icon');
-      icons.forEach(icon => {
-        icon.textContent = isDark ? 'light_mode' : 'dark_mode';
-      });
-      // Enable transitions after setup
-      setTimeout(() => {
-        document.documentElement.classList.add('transitions-enabled');
-      }, 100);
-    });
-  })();
-</script>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-<!-- Enhanced scroll progress indicator -->
-<div class="scroll-indicator" id="scroll-progress">
-  <div class="scroll-progress-inner"></div>
-</div>
-<meta name="theme-color" content="#d97706"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<meta name="apple-mobile-web-app-title" content="Dr. Mark Wernsdorfer"/>
-<meta name="mobile-web-app-capable" content="yes"/>
-<meta name="description" content="AI Consulting Services by Dr. Mark Wernsdorfer - Strategic AI advisory, custom ML solutions, implementation guidance, and specialized training."/>
-<meta name="keywords" content="AI consulting services, machine learning solutions, AI strategy, technical advisory, AI implementation"/>
-<meta name="author" content="Dr. Mark Wernsdorfer"/>
-<meta property="og:title" content="Services - Dr. Mark Wernsdorfer"/>
-<meta property="og:description" content="Expert AI consulting services including strategic advisory, custom ML solutions, and implementation guidance for your organization."/>
-<meta property="og:image" content="../images/profile-mark-wernsdorfer.webp"/>
-<meta property="og:url" content="https://markwernsdorfer.com/services.html"/>
-<meta property="og:type" content="website"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Services - Dr. Mark Wernsdorfer"/>
-<meta name="twitter:description" content="Expert AI consulting services including strategic advisory, custom ML solutions, and implementation guidance for your organization."/>
-<meta name="twitter:image" content="../images/profile-mark-wernsdorfer.webp"/>
-<link rel="canonical" href="https://markwernsdorfer.com/services.html"/>
-<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
-<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Playfair+Display%3Awght%40400%3B500%3B700%3B900&amp;family=Roboto+Slab%3Awght%40300%3B400%3B500%3B700" onload="this.rel='stylesheet'" rel="stylesheet"/>
-<!-- Preload critical CSS -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Services — Dr. Mark Wernsdorfer, AI Consultancy</title>
+<meta name="description" content="AI consulting services: strategic advisory, research-to-production translation, domain-specific AI solutions, and responsible AI implementation.">
+<meta name="theme-color" content="#EFEAE0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14161A" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://markwernsdorfer.com/en/services.html">
+<meta property="og:title" content="Services — Dr. Mark Wernsdorfer, AI Consultancy">
+<meta property="og:description" content="Four ways the practice is commissioned. Interdisciplinary AI consulting, Berlin.">
+<meta property="og:type" content="website">
 
-<link rel="preload" as="style" href="../css/design-tokens.css"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><rect width='48' height='48' fill='%23EFEAE0'/><text x='50%25' y='56%25' text-anchor='middle' font-family='Georgia,serif' font-size='28' font-style='italic' fill='%23C8371F'>w</text></svg>">
+<link rel="manifest" href="../manifest.json">
+<script>(function(){try{var s=localStorage.getItem('mw.theme');var p=matchMedia('(prefers-color-scheme: dark)').matches;if((s?s==='dark':p))document.documentElement.classList.add('dark');}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/site.css">
+<script src="../js/site.js" defer></script>
 
-<link rel="preload" as="style" href="../css/base.css"/>
-
-<link rel="preload" as="style" href="../css/theme.css"/>
-
-<!-- Preload critical JavaScript -->
-
-<link rel="preload" as="script" href="../js/config.js"/>
-
-<link rel="preload" as="script" href="../js/utils.js"/>
-
-<link rel="preload" as="script" href="../js/theme.js"/>
-<link crossorigin="anonymous" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
-<link crossorigin="anonymous" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-<title>Services - Dr. Mark Wernsdorfer</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
-<link rel="manifest" href="../manifest.json"/>
-<!-- Apple Touch Icons for various iOS devices -->
-<link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
-<link rel="apple-touch-icon" sizes="167x167" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
-<link rel="apple-touch-icon" sizes="152x152" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
-<link rel="apple-touch-icon" sizes="120x120" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
-<link rel="apple-touch-icon" sizes="76x76" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
-
-<!-- Breadcrumb Schema Markup for SEO -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-    "@type": "ListItem",
-    "position": 1,
-    "name": "Home",
-    "item": "https://markwernsdorfer.com/"
-  },{
-    "@type": "ListItem",
-    "position": 2,
-    "name": "Services",
-    "item": "https://markwernsdorfer.com/services.html"
-  }]
-}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Home","item":"https://markwernsdorfer.com/"},
+  {"@type":"ListItem","position":2,"name":"Services","item":"https://markwernsdorfer.com/en/services.html"}
+]}
 </script>
-
-<!-- Note: Tailwind CDN dynamically generates CSS and cannot use SRI (Subresource Integrity).
-     For production, replace with Tailwind CLI build process and self-hosted CSS with SRI hashes.
-     See: https://tailwindcss.com/docs/installation -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Modular CSS Files -->
-<link rel="stylesheet" href="../css/design-tokens.css" />
-<link rel="stylesheet" href="../css/base.css" />
-<link rel="stylesheet" href="../css/layout.css" />
-<link rel="stylesheet" href="../css/components.css" />
-<link rel="stylesheet" href="../css/animations.css" />
-<link rel="stylesheet" href="../css/theme.css" />
-<link rel="stylesheet" href="../css/theme-classes.css" />
-<link rel="stylesheet" href="../css/mobile.css" />
-<link rel="stylesheet" href="../css/utilities.css" />
-<link rel="stylesheet" href="../css/inline-styles.css" />
-<!-- Modular JavaScript Files -->
-<!-- Core dependencies (loaded first) -->
-<script defer src="../js/config.js"></script>
-<script defer src="../js/utils.js"></script>
-<script defer src="../js/managers.js"></script>
-<!-- Application modules -->
-<script defer src="../js/theme.js"></script>
-<script defer src="../js/core.js"></script>
-<script defer src="../js/navigation.js"></script>
-<script defer src="../js/animations.js"></script>
-<script defer src="../js/interactions.js"></script>
 </head>
-<body class="font-roboto-slab services-page-bg">
-<a href="#main-content" class="skip-link visually-hidden">Skip to main content</a>
-<div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
-<div class="layout-container flex h-full grow flex-col">
-<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid themed-border header-bg px-4 sm:px-6 lg:px-10 py-3 sm:py-4 backdrop-blur-md">
-<div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-<div class="size-8 text-accent flex-shrink-0">
-<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_6_535)">
-<path d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z" fill="currentColor"></path>
-</g>
-<defs>
-<clipPath id="clip0_6_535"><rect fill="white" height="48" width="48"></rect></clipPath>
-</defs>
-</svg>
-</div>
-<a href="../index.html" class="header-logo-text text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight transition-colors font-playfair"><span class="logo-first-line">Dr. Mark</span> <span class="logo-second-line">Wernsdorfer</span></a>
-</div>
-<div class="flex items-center gap-2 sm:gap-4">
-<button onclick="window.themeUtils.enhancedToggleDarkMode(event)" class="theme-toggle" aria-label="Toggle dark mode">
-  <span class="material-icons-outlined theme-toggle-icon">dark_mode</span>
-</button>
-<div class="language-switcher flex items-center gap-1">
-<a href="../index.html" class="px-2 py-1 text-sm font-medium lang-active rounded hover:opacity-90 transition-all">EN</a>
-<a href="../de/leistungen.html" class="px-2 py-1 text-sm font-medium lang-inactive rounded hover:opacity-90 transition-all">DE</a>
-</div>
-<a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 btn-primary text-sm sm:text-base font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="contact.html">
-<span class="truncate">Contact</span>
-</a>
-<a class="sm:hidden flex items-center justify-center overflow-hidden rounded-md h-9 px-3 btn-primary text-sm font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="contact.html" aria-label="Contact">
-<span class="material-icons text-lg">email</span>
-</a>
-</div>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="../index.html" class="brand"><span class="brand__mark">W</span><span class="brand__name">Wernsdorfer<em>·</em>Consulting</span></a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="about.html">About</a>
+      <a href="services.html" aria-current="page">Services</a>
+      <a href="projects.html">Portfolio</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-tools">
+      <div class="lang-switch"><a href="services.html" aria-current="true">EN</a><span>/</span><a href="../de/leistungen.html">DE</a></div>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle colour scheme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+        <svg class="icon-sun"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+  </div>
 </header>
 
-<!-- Breadcrumb Navigation -->
-<nav aria-label="Breadcrumb" class="bg-secondary border-b border-solid themed-border">
-  <div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-10 py-3">
-    <ol class="breadcrumbs">
-      <li><a href="../index.html" class="breadcrumb-link">Home</a></li>
-      <li><span class="breadcrumb-separator">/</span></li>
-      <li><span class="breadcrumb-current">Services</span></li>
+<main id="main">
+
+<section class="container masthead">
+  <nav aria-label="Breadcrumb">
+    <ol class="breadcrumb">
+      <li><a href="../index.html">Home</a></li>
+      <li aria-current="page">Services</li>
     </ol>
+  </nav>
+
+  <div class="masthead__meta">
+    <span class="label">§ AI Consulting Services</span>
+    <span class="label">Remote &amp; on-site</span>
   </div>
-</nav>
 
-<main class="flex-1" id="main-content" role="main">
-<section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16" id="services">
-<div class="layout-content-container flex flex-col max-w-[960px] mx-auto">
-<div class="space-y-8 sm:space-y-10">
-<div class="text-center space-y-4">
-<h1 class="themed-text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight font-playfair">AI Consulting Services</h1>
-<p class="themed-text-secondary text-lg sm:text-xl font-normal leading-relaxed max-w-3xl mx-auto">
-Bridging deep AI theory with practical business solutions through expert consulting services designed to unlock your organization's AI potential.
-</p>
-</div>
+  <h1 class="display masthead__title">
+    <span class="line"><span>AI consulting,</span></span>
+    <span class="line"><span>from <em>theory</em> to</span></span>
+    <span class="line"><span>delivery.</span></span>
+  </h1>
 
-<!-- Hero Section with Key Value Proposition -->
-<div class="card card-no-hover rounded-2xl p-8 sm:p-12 mt-12">
-<div class="text-center space-y-6">
-<h2 class="text-2xl sm:text-3xl font-bold font-playfair themed-text-primary">The Advantage</h2>
-<p class="themed-text-secondary text-lg leading-relaxed max-w-4xl mx-auto">
-Unlike traditional AI consultants, I bring a unique combination of <strong>deep theoretical expertise</strong>, <strong>hands-on technical experience</strong>, and <strong>philosophical grounding</strong> that ensures your AI initiatives are not just technically sound, but ethically responsible and genuinely transformative.
-</p>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-<div class="text-center">
-<div class="w-16 h-16 text-accent rounded-full flex items-center justify-center mx-auto mb-4" style="background: var(--gradient-primary);">
-<span class="material-icons text-white text-2xl">psychology</span>
-</div>
-<h3 class="font-semibold themed-text-primary mb-2">Theoretical Depth</h3>
-<p class="themed-text-secondary text-sm">PhD in Philosophy & Cognitive Science brings unique conceptual clarity to AI challenges</p>
-</div>
-<div class="text-center">
-<div class="w-16 h-16 text-accent rounded-full flex items-center justify-center mx-auto mb-4" style="background: var(--gradient-primary);">
-<span class="material-icons text-white text-2xl">engineering</span>
-</div>
-<h3 class="font-semibold themed-text-primary mb-2">Technical Excellence</h3>
-<p class="themed-text-secondary text-sm">15+ years developing ML solutions from research prototypes to production systems</p>
-</div>
-<div class="text-center">
-<div class="w-16 h-16 text-accent rounded-full flex items-center justify-center mx-auto mb-4" style="background: var(--gradient-primary);">
-<span class="material-icons text-white text-2xl">balance</span>
-</div>
-<h3 class="font-semibold themed-text-primary mb-2">Ethical Foundation</h3>
-<p class="themed-text-secondary text-sm">Ensuring AI solutions are responsible, transparent, and aligned with human values</p>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Core Services -->
-<div class="mt-16">
-<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold tracking-tight text-center mb-12 font-playfair">Core Consulting Services</h2>
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 services-grid">
-<!-- Strategic AI Advisory -->
-<div class="service-card group">
-<div class="service-icon">
-<span class="material-icons-outlined">lightbulb</span>
-</div>
-<div class="service-content">
-<h3 class="service-title">Strategic AI Advisory</h3>
-<p class="service-description">
-Transform your organization with AI strategy that bridges theory and practice. I help you navigate the complex AI landscape with philosophical rigor and practical wisdom.
-</p>
-<ul class="service-list">
-<li>AI readiness assessment and strategic roadmapping</li>
-<li>ROI analysis and ethical governance frameworks</li>
-<li>Innovation pipeline and technology evaluation</li>
-</ul>
-</div>
-</div>
-
-<!-- Research-to-Production Translation -->
-<div class="service-card group">
-<div class="service-icon">
-<span class="material-icons-outlined">science</span>
-</div>
-<div class="service-content">
-<h3 class="service-title">Research-to-Production Translation</h3>
-<p class="service-description">
-Bridge the gap between cutting-edge AI research and practical business applications with expertise gained from 15+ years in both academic and industry settings.
-</p>
-<ul class="service-list">
-<li>Academic research commercialization and feasibility analysis</li>
-<li>Prototype to production system development</li>
-<li>Grant applications and funding strategy (€2.8M+ secured)</li>
-</ul>
-</div>
-</div>
-
-<!-- Domain-Specific AI Solutions -->
-<div class="service-card group">
-<div class="service-icon">
-<span class="material-icons-outlined">biotech</span>
-</div>
-<div class="service-content">
-<h3 class="service-title">Domain-Specific AI Solutions</h3>
-<p class="service-description">
-Specialized AI applications for complex domains including healthcare, laboratory medicine, geosciences, and cultural heritage preservation.
-</p>
-<ul class="service-list">
-<li>Medical AI and laboratory diagnostics (AMPEL system)</li>
-<li>Geoscience modeling and digital humanities</li>
-<li>Art authentication and scientific automation</li>
-</ul>
-</div>
-</div>
-
-<!-- Responsible AI Implementation -->
-<div class="service-card group">
-<div class="service-icon">
-<span class="material-icons-outlined">verified_user</span>
-</div>
-<div class="service-content">
-<h3 class="service-title">Responsible AI Implementation</h3>
-<p class="service-description">
-Ensure your AI systems are not just effective, but ethical, transparent, and aligned with human values through philosophically-informed implementation practices.
-</p>
-<ul class="service-list">
-<li>Explainable AI and bias mitigation strategies</li>
-<li>Privacy-preserving ML and compliance frameworks</li>
-<li>Stakeholder engagement and ethical communication</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Specialized Offerings -->
-<div class="mt-16 card card-no-hover rounded-2xl p-8 sm:p-12">
-<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold tracking-tight text-center mb-8 font-playfair">Specialized Offerings</h2>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-<div class="space-y-6">
-<div class="specialty-item">
-<h3 class="text-lg font-semibold themed-text-primary mb-2 flex items-center">
-<span class="material-icons text-accent mr-2">school</span>
-AI Literacy & Training
-</h3>
-<p class="themed-text-secondary">Executive workshops, technical training, and AI literacy programs tailored to your team's needs and expertise level.</p>
-</div>
-<div class="specialty-item">
-<h3 class="text-lg font-semibold themed-text-primary mb-2 flex items-center">
-<span class="material-icons text-accent mr-2">gavel</span>
-Expert Testimony & Advisory
-</h3>
-<p class="themed-text-secondary">Technical expert witness services, regulatory advisory, and policy consultation for AI-related legal and compliance matters.</p>
-</div>
-</div>
-<div class="space-y-6">
-<div class="specialty-item">
-<h3 class="text-lg font-semibold themed-text-primary mb-2 flex items-center">
-<span class="material-icons text-accent mr-2">hub</span>
-Innovation Partnerships
-</h3>
-<p class="themed-text-secondary">Long-term strategic partnerships for ongoing AI innovation, research collaboration, and technology development.</p>
-</div>
-<div class="specialty-item">
-<h3 class="text-lg font-semibold themed-text-primary mb-2 flex items-center">
-<span class="material-icons text-accent mr-2">diversity_3</span>
-Interdisciplinary Projects
-</h3>
-<p class="themed-text-secondary">Complex projects requiring coordination between technical, philosophical, artistic, and business perspectives.</p>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Process Section -->
-<div class="mt-16">
-<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold tracking-tight text-center mb-12 font-playfair">How We'll Work Together</h2>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8 process-steps">
-<div class="process-step">
-<div class="process-number">1</div>
-<h3 class="process-title">Discovery</h3>
-<p class="process-description">Analysis of your needs and AI challenges.</p>
-</div>
-<div class="process-step">
-<div class="process-number">2</div>
-<h3 class="process-title">Strategy</h3>
-<p class="process-description">Practical AI strategies aligned with your objectives.</p>
-</div>
-<div class="process-step">
-<div class="process-number">3</div>
-<h3 class="process-title">Implementation</h3>
-<p class="process-description">Ethical solution deployment and optimization.</p>
-</div>
-</div>
-</div>
-
-<!-- CTA Section -->
-<div class="text-center mt-16 space-y-6">
-<h2 class="themed-text-primary text-2xl sm:text-3xl font-bold font-playfair">Ready to Transform Your AI Strategy?</h2>
-<p class="themed-text-secondary text-lg max-w-2xl mx-auto">
-Let's discuss how we can bridge theory and practice to create AI solutions that truly serve your organization and stakeholders.
-</p>
-<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-<a href="contact.html" class="btn-primary text-lg px-8 py-4">Schedule a Consultation</a>
-<a href="about.html" class="btn-secondary text-lg px-8 py-4">Learn About My Background</a>
-</div>
-<p class="themed-text-tertiary text-sm mt-4">Initial consultation available to discuss your specific needs and how my unique approach can benefit your organization.</p>
-</div>
-</div>
-</div>
+  <div class="masthead__strip">
+    <div class="col-lede">
+      <p class="lead">Bridging deep AI theory with practical business solutions through consulting designed to unlock an organisation's AI potential — without its standard pathologies.</p>
+    </div>
+    <div class="col-cta">
+      <a class="btn" href="contact.html">Schedule Consultation</a>
+      <a class="btn btn--ghost" href="about.html">About the Method</a>
+    </div>
+  </div>
 </section>
+
+<section class="container section">
+  <div class="section__head">
+    <span class="chapter">§ 01 · Advantage</span>
+    <h2 class="h2">Three things you will not find combined elsewhere.</h2>
+  </div>
+
+  <div class="offer-grid reveal" style="grid-template-columns: repeat(3, 1fr);">
+    <article class="offer">
+      <div class="offer__num">A</div>
+      <h3 class="offer__title">Theoretical depth</h3>
+      <p class="offer__body">PhD in Cognitive Systems with a thesis on symbol grounding — bringing conceptual clarity to problems that engineering-first consultancies struggle to formulate.</p>
+    </article>
+    <article class="offer">
+      <div class="offer__num">B</div>
+      <h3 class="offer__title">Technical excellence</h3>
+      <p class="offer__body">15+ years developing ML systems from research prototypes to production deployments — not a thinker who outsources the build.</p>
+    </article>
+    <article class="offer">
+      <div class="offer__num">C</div>
+      <h3 class="offer__title">Ethical foundation</h3>
+      <p class="offer__body">AI systems that are responsible, transparent, and aligned with human values. Published in and peer-reviewed by venues that care.</p>
+    </article>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="section__head">
+    <span class="chapter">§ 02 · Core services</span>
+    <h2 class="h2">Four ways the practice is engaged.</h2>
+  </div>
+
+  <div class="u-flow-lg">
+    <article class="work reveal">
+      <div class="work__year">01 / 04</div>
+      <div>
+        <h3 class="work__title">Strategic AI Advisory</h3>
+        <p class="work__desc">Transform an organisation with an AI strategy that bridges theory and practice. Navigate the complex AI landscape with philosophical rigour and practical wisdom.</p>
+        <ul class="checklist">
+          <li>AI readiness assessment and strategic roadmapping</li>
+          <li>ROI analysis and ethical governance frameworks</li>
+          <li>Innovation pipeline and technology evaluation</li>
+        </ul>
+      </div>
+      <div class="work__meta">
+        <strong>Format</strong>Engagement of 4 — 16 weeks
+        <strong>Deliverables</strong>Written report &amp; roadmap
+      </div>
+    </article>
+
+    <article class="work reveal">
+      <div class="work__year">02 / 04</div>
+      <div>
+        <h3 class="work__title">Research→Production Translation</h3>
+        <p class="work__desc">Bridge the gap between cutting-edge AI research and practical business applications. 15+ years across academia and industry; €2.8M+ secured via grants.</p>
+        <ul class="checklist">
+          <li>Academic research commercialisation &amp; feasibility analysis</li>
+          <li>Prototype-to-production system development</li>
+          <li>Grant applications and funding strategy</li>
+        </ul>
+      </div>
+      <div class="work__meta">
+        <strong>Format</strong>Embedded technical lead
+        <strong>Deliverables</strong>Shipped prototype / system
+      </div>
+    </article>
+
+    <article class="work reveal">
+      <div class="work__year">03 / 04</div>
+      <div>
+        <h3 class="work__title">Domain-Specific AI Solutions</h3>
+        <p class="work__desc">Specialised AI applications for complex domains — healthcare, laboratory medicine, geosciences, cultural heritage — where generic toolkits fail and domain models deliver.</p>
+        <ul class="checklist">
+          <li>Medical AI &amp; laboratory diagnostics (AMPEL reference)</li>
+          <li>Geoscience modelling &amp; digital humanities</li>
+          <li>Art authentication &amp; scientific automation</li>
+        </ul>
+      </div>
+      <div class="work__meta">
+        <strong>Format</strong>Project-scoped
+        <strong>Past scale</strong>1,500+ hospital beds
+      </div>
+    </article>
+
+    <article class="work reveal">
+      <div class="work__year">04 / 04</div>
+      <div>
+        <h3 class="work__title">Responsible AI Implementation</h3>
+        <p class="work__desc">AI systems that are not merely effective but ethical, transparent, and aligned with human values — through philosophically-informed implementation practices.</p>
+        <ul class="checklist">
+          <li>Explainable AI &amp; bias mitigation strategies</li>
+          <li>Privacy-preserving ML &amp; compliance frameworks</li>
+          <li>Stakeholder engagement &amp; ethical communication</li>
+        </ul>
+      </div>
+      <div class="work__meta">
+        <strong>Format</strong>Audit or embedded
+        <strong>Outputs</strong>Risk register &amp; remediation
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="section__head">
+    <span class="chapter">§ 03 · Specialised</span>
+    <h2 class="h2">Additional specialised offerings.</h2>
+  </div>
+
+  <div class="offer-grid reveal">
+    <article class="offer">
+      <div class="offer__num">S 01</div>
+      <h3 class="offer__title">AI Literacy &amp; Training</h3>
+      <p class="offer__body">Executive workshops, technical training, and AI literacy programmes tailored to a team's expertise and context.</p>
+    </article>
+    <article class="offer">
+      <div class="offer__num">S 02</div>
+      <h3 class="offer__title">Expert Testimony &amp; Advisory</h3>
+      <p class="offer__body">Technical expert-witness services, regulatory advisory, and policy consultation for AI-related legal and compliance matters.</p>
+    </article>
+    <article class="offer">
+      <div class="offer__num">S 03</div>
+      <h3 class="offer__title">Innovation Partnerships</h3>
+      <p class="offer__body">Long-term strategic partnerships for ongoing AI innovation, research collaboration, and technology development.</p>
+    </article>
+    <article class="offer">
+      <div class="offer__num">S 04</div>
+      <h3 class="offer__title">Interdisciplinary Projects</h3>
+      <p class="offer__body">Complex projects requiring coordination between technical, philosophical, artistic, and business perspectives — where most consultancies flinch.</p>
+    </article>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="section__head">
+    <span class="chapter">§ 04 · Process</span>
+    <h2 class="h2">How we will work together.</h2>
+  </div>
+
+  <div class="process reveal" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="process__step">
+      <div class="process__num">Phase 01</div>
+      <h3 class="process__title">Discovery</h3>
+      <p class="process__desc">Deep analysis of your needs, current state, and AI-specific challenges. Outputs framed honestly.</p>
+      <div class="process__meta">Typically 30 — 60 min · Initial</div>
+    </div>
+    <div class="process__step">
+      <div class="process__num">Phase 02</div>
+      <h3 class="process__title">Strategy</h3>
+      <p class="process__desc">Practical AI strategy aligned with business objectives, risk appetite, and existing technical debt.</p>
+      <div class="process__meta">2 — 4 weeks · Written report</div>
+    </div>
+    <div class="process__step">
+      <div class="process__num">Phase 03</div>
+      <h3 class="process__title">Implementation</h3>
+      <p class="process__desc">Ethical solution deployment and optimisation — with the philosophical constraints surfaced, not buried.</p>
+      <div class="process__meta">Variable · By mutual agreement</div>
+    </div>
+  </div>
+</section>
+
+<section class="container closing">
+  <span class="chapter">§ 05 · Commission</span>
+  <h2 class="h2" style="margin-top: var(--sp-4);">Ready to transform<br>your AI strategy?</h2>
+  <p class="prose">Let's discuss how to bridge theory and practice to create AI solutions that truly serve the organisation and its stakeholders. Initial consultation available to discuss specific needs and fit.</p>
+  <div class="cta-row">
+    <a class="btn" href="contact.html">Schedule Consultation</a>
+    <a class="btn btn--ghost" href="about.html">Learn About the Method</a>
+  </div>
+</section>
+
 </main>
-</main>
-<footer class="footer-bg footer-text">
-<div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-12 text-center space-y-4 sm:space-y-6">
-<div class="flex flex-col sm:flex-row items-center justify-center gap-y-2 gap-x-4 sm:gap-x-6">
-<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="contact.html">Contact</a>
-<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="about.html">About</a>
-<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="contact.html#imprint">Imprint</a>
-</div>
-<div class="flex flex-wrap justify-center gap-6">
-<a href="https://github.com/wehnsdaefflae" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
-<span class="material-icons text-xl sm:text-2xl">code</span>
-<span class="text-sm">GitHub</span>
-</a>
-<a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
-<span class="material-icons text-xl sm:text-2xl">business</span>
-<span class="text-sm">LinkedIn</span>
-</a>
-<a href="mailto:wernsdorfer@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
-<span class="material-icons text-xl sm:text-2xl">email</span>
-<span class="text-sm">Email</span>
-</a>
-</div>
-<p class="text-sm sm:text-base font-normal leading-normal">© 2025 Dr. Mark Wernsdorfer. All rights reserved.</p>
-<p class="text-xs sm:text-sm footer-link font-playfair">
-Bridging deep AI theory with practical business solutions.
-</p>
-</div>
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div>
+      <span class="brand__name" style="font-family: var(--serif); font-weight: 500; font-size: var(--fs-lg);">Wernsdorfer<em style="font-style: italic; color: var(--accent);">·</em>Consulting</span>
+      <p class="lede">An interdisciplinary AI practice based in Berlin, working between foundational research and deployed systems.</p>
+    </div>
+    <div>
+      <h4>Practice</h4>
+      <ul>
+        <li><a href="about.html">About &amp; Method</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="projects.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Elsewhere</h4>
+      <ul>
+        <li><a href="https://github.com/wehnsdaefflae" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://cris.fau.de/persons/265215523/" target="_blank" rel="noopener">FAU CRIS</a></li>
+        <li><a href="https://d-nb.info/1182477194" target="_blank" rel="noopener">Dissertation</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Imprint</h4>
+      <ul>
+        <li><a href="contact.html#imprint">Legal notice</a></li>
+        <li><a href="mailto:wernsdorfer@gmail.com">wernsdorfer@gmail.com</a></li>
+        <li><a href="tel:+4917624003575">+49 176 24 003 575</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container site-footer__colophon">
+    <span>© <span data-year>2026</span> Dr. Mark Wernsdorfer · Berlin, DE</span>
+    <span>Set in Fraunces &amp; IBM Plex.</span>
+  </div>
 </footer>
 
-<!-- Enhanced Mobile Bottom Navigation with glass morphism -->
-<nav class="mobile-bottom-nav lg:hidden fixed bottom-0 left-0 right-0 z-50 mobile-nav-bg backdrop-blur-xl themed-border border-t shadow-2xl">
-  <div class="mobile-nav-grid relative">
-    <!-- Background glow effect -->
-    <div class="absolute inset-0 bg-gradient-to-r from-amber-50/50 via-orange-50/30 to-amber-50/50 dark:from-amber-800/20 dark:via-orange-900/10 dark:to-amber-800/20 opacity-60 dark:opacity-40"></div>
-    
-    <a href="../index.html" class="mobile-nav-item mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
-      <span class="material-icons-outlined text-xl group-hover:scale-110 transition-transform">home</span>
-      <span class="text-xs">Home</span>
-    </a>
-    <a href="about.html" class="mobile-nav-item mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
-      <span class="material-icons-outlined text-xl group-hover:scale-110 transition-transform">person</span>
-      <span class="text-xs">About</span>
-    </a>
-    <a href="services.html" class="mobile-nav-item active mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
-      <span class="material-icons-outlined text-xl group-hover:scale-110 transition-transform">work</span>
-      <span class="text-xs">Services</span>
-    </a>
-    <a href="projects.html" class="mobile-nav-item mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
-      <span class="material-icons-outlined text-xl group-hover:scale-110 transition-transform">folder</span>
-      <span class="text-xs">Portfolio</span>
-    </a>
-    <a href="contact.html" class="mobile-nav-item mobile-nav-text relative group transition-all duration-300 transform hover:scale-105 interactive-glow">
-      <span class="material-icons-outlined text-xl group-hover:scale-110 transition-transform">contact_mail</span>
-      <span class="text-xs">Contact</span>
-    </a>
-  </div>
+<nav class="mobile-nav" aria-label="Primary (mobile)">
+  <ul>
+    <li><a href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 11 12 4l8 7v9h-6v-6H10v6H4z"/></svg>Home</a></li>
+    <li><a href="about.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>About</a></li>
+    <li><a href="services.html" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="7" width="16" height="13"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>Services</a></li>
+    <li><a href="projects.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="4"/><rect x="4" y="11" width="16" height="4"/><rect x="4" y="17" width="16" height="2"/></svg>Portfolio</a></li>
+    <li><a href="contact.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14"/><path d="m3 7 9 6 9-6"/></svg>Contact</a></li>
+  </ul>
 </nav>
 
-</div>
-</div>
 </body>
 </html>

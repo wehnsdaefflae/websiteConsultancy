@@ -1,546 +1,315 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Method — About Dr. Mark Wernsdorfer</title>
+<meta name="description" content="Dr. Mark Wernsdorfer's interdisciplinary AI practice: biography, milestones, approach, and core expertise bridging philosophy of mind, cognitive science, and machine learning.">
+<meta name="theme-color" content="#EFEAE0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14161A" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://markwernsdorfer.com/en/about.html">
+
+<meta property="og:title" content="The Method — About Dr. Mark Wernsdorfer">
+<meta property="og:description" content="A philosopher-engineer's practice for serious artificial intelligence.">
+<meta property="og:type" content="profile">
+<meta property="og:image" content="../images/profile-mark-wernsdorfer.webp">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><rect width='48' height='48' fill='%23EFEAE0'/><text x='50%25' y='56%25' text-anchor='middle' font-family='Georgia,serif' font-size='28' font-style='italic' fill='%23C8371F'>w</text></svg>">
+<link rel="manifest" href="../manifest.json">
+
 <script>
-  // Prevent flicker by setting theme immediately
-  (function() {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    let isDark = false;
-    if (savedTheme === null) {
-      isDark = prefersDark;
-    } else {
-      isDark = savedTheme === 'dark';
-    }
-    
-    // Disable transitions during initial theme setup
-    document.documentElement.classList.remove('transitions-enabled');
-    
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    }
-    
-    // Set initial icon to prevent flicker
-    document.addEventListener('DOMContentLoaded', function() {
-      const icons = document.querySelectorAll('.theme-toggle-icon');
-      icons.forEach(icon => {
-        icon.textContent = isDark ? 'light_mode' : 'dark_mode';
-      });
-      // Enable transitions after setup
-      setTimeout(() => {
-        document.documentElement.classList.add('transitions-enabled');
-      }, 100);
-    });
-  })();
+(function(){ try { var s=localStorage.getItem('mw.theme'); var p=matchMedia('(prefers-color-scheme: dark)').matches; if ((s?s==='dark':p)) document.documentElement.classList.add('dark'); } catch(e){} })();
 </script>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-<!-- Enhanced scroll progress indicator -->
-<div class="scroll-indicator" id="scroll-progress">
-  <div class="scroll-progress-inner"></div>
-</div>
-<meta name="theme-color" content="#d97706"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<meta name="apple-mobile-web-app-title" content="Dr. Mark Wernsdorfer"/>
-<meta name="mobile-web-app-capable" content="yes"/>
-<meta name="description" content="Dr. Mark Wernsdorfer - About - Interdisciplinary AI Consultant with expertise in machine learning, cognitive science, and practical AI implementation."/>
-<meta name="keywords" content="AI consultant, machine learning, artificial intelligence, cognitive science, philosophy of mind, AI strategy, technical advisory"/>
-<meta name="author" content="Dr. Mark Wernsdorfer"/>
-<meta property="og:title" content="About - Dr. Mark Wernsdorfer"/>
-<meta property="og:description" content="Learn about Dr. Mark Wernsdorfer's interdisciplinary approach to AI consulting, combining deep theoretical knowledge with practical business solutions."/>
-<meta property="og:image" content="../images/profile-mark-wernsdorfer.webp"/>
-<meta property="og:url" content="https://markwernsdorfer.com/about.html"/>
-<meta property="og:type" content="website"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="About - Dr. Mark Wernsdorfer"/>
-<meta name="twitter:description" content="Learn about Dr. Mark Wernsdorfer's interdisciplinary approach to AI consulting, combining deep theoretical knowledge with practical business solutions."/>
-<meta name="twitter:image" content="../images/profile-mark-wernsdorfer.webp"/>
-<link rel="canonical" href="https://markwernsdorfer.com/about.html"/>
-<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
-<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Playfair+Display%3Awght%40400%3B500%3B700%3B900&amp;family=Roboto+Slab%3Awght%40300%3B400%3B500%3B700" onload="this.rel='stylesheet'" rel="stylesheet"/>
-<!-- Preload critical CSS -->
 
-<link rel="preload" as="style" href="../css/design-tokens.css"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/site.css">
+<script src="../js/site.js" defer></script>
 
-<link rel="preload" as="style" href="../css/base.css"/>
-
-<link rel="preload" as="style" href="../css/theme.css"/>
-
-<!-- Preload critical JavaScript -->
-
-<link rel="preload" as="script" href="../js/config.js"/>
-
-<link rel="preload" as="script" href="../js/utils.js"/>
-
-<link rel="preload" as="script" href="../js/theme.js"/>
-<link crossorigin="anonymous" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
-<link crossorigin="anonymous" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-<title>About - Dr. Mark Wernsdorfer</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
-<link rel="manifest" href="../manifest.json"/>
-<!-- Apple Touch Icons for various iOS devices -->
-<link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
-<link rel="apple-touch-icon" sizes="167x167" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
-<link rel="apple-touch-icon" sizes="152x152" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
-<link rel="apple-touch-icon" sizes="120x120" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
-<link rel="apple-touch-icon" sizes="76x76" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z' fill='%23d97706'/></svg>"/>
-
-<!-- Breadcrumb Schema Markup for SEO -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-    "@type": "ListItem",
-    "position": 1,
-    "name": "Home",
-    "item": "https://markwernsdorfer.com/"
-  },{
-    "@type": "ListItem",
-    "position": 2,
-    "name": "About",
-    "item": "https://markwernsdorfer.com/about.html"
-  }]
-}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Home","item":"https://markwernsdorfer.com/"},
+  {"@type":"ListItem","position":2,"name":"About","item":"https://markwernsdorfer.com/en/about.html"}
+]}
 </script>
-
-<!-- Note: Tailwind CDN dynamically generates CSS and cannot use SRI (Subresource Integrity).
-     For production, replace with Tailwind CLI build process and self-hosted CSS with SRI hashes.
-     See: https://tailwindcss.com/docs/installation -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-<!-- Modular CSS Files -->
-<link rel="stylesheet" href="../css/design-tokens.css" />
-<link rel="stylesheet" href="../css/base.css" />
-<link rel="stylesheet" href="../css/layout.css" />
-<link rel="stylesheet" href="../css/components.css" />
-<link rel="stylesheet" href="../css/animations.css" />
-<link rel="stylesheet" href="../css/theme.css" />
-<link rel="stylesheet" href="../css/theme-classes.css" />
-<link rel="stylesheet" href="../css/mobile.css" />
-<link rel="stylesheet" href="../css/utilities.css" />
-<link rel="stylesheet" href="../css/inline-styles.css" />
-
-<!-- Modular JavaScript Files -->
-<!-- Core dependencies (loaded first) -->
-<script defer src="../js/config.js"></script>
-<script defer src="../js/utils.js"></script>
-<script defer src="../js/managers.js"></script>
-<!-- Application modules -->
-<script defer src="../js/theme.js"></script>
-<script defer src="../js/core.js"></script>
-<script defer src="../js/navigation.js"></script>
-<script defer src="../js/animations.js"></script>
-<script defer src="../js/interactions.js"></script>
 </head>
-<body class="font-roboto-slab">
-<a href="#main-content" class="skip-link visually-hidden">Skip to main content</a>
-<div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
-<div class="layout-container flex h-full grow flex-col">
-<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid themed-border header-bg px-4 sm:px-6 lg:px-10 py-3 sm:py-4 backdrop-blur-md">
-<div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-<div class="size-8 text-accent flex-shrink-0">
-<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_6_535)">
-<path d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z" fill="currentColor"></path>
-</g>
-<defs>
-<clipPath id="clip0_6_535"><rect fill="white" height="48" width="48"></rect></clipPath>
-</defs>
-</svg>
-</div>
-<a href="../index.html" class="header-logo-text text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight transition-colors font-playfair"><span class="logo-first-line">Dr. Mark</span> <span class="logo-second-line">Wernsdorfer</span></a>
-</div>
-<div class="flex items-center gap-2 sm:gap-4">
-<button onclick="window.themeUtils.enhancedToggleDarkMode(event)" class="theme-toggle" aria-label="Toggle dark mode">
-  <span class="material-icons-outlined theme-toggle-icon">dark_mode</span>
-</button>
-<div class="language-switcher flex items-center gap-1">
-<a href="../index.html" class="px-2 py-1 text-sm font-medium lang-active rounded hover:opacity-90 transition-all">EN</a>
-<a href="../de/ueber.html" class="px-2 py-1 text-sm font-medium lang-inactive rounded hover:opacity-90 transition-all">DE</a>
-</div>
-<a class="hidden sm:flex min-w-[84px] items-center justify-center overflow-hidden rounded-md h-9 sm:h-10 px-4 sm:px-5 btn-primary text-sm sm:text-base font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="contact.html">
-<span class="truncate">Contact</span>
-</a>
-<a class="sm:hidden flex items-center justify-center overflow-hidden rounded-md h-9 px-3 btn-primary text-sm font-semibold tracking-wide shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" href="contact.html" aria-label="Contact">
-<span class="material-icons text-lg">email</span>
-</a>
-</div>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="../index.html" class="brand" aria-label="Home"><span class="brand__mark">W</span><span class="brand__name">Wernsdorfer<em>·</em>Consulting</span></a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="about.html" aria-current="page">About</a>
+      <a href="services.html">Services</a>
+      <a href="projects.html">Portfolio</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-tools">
+      <div class="lang-switch"><a href="about.html" aria-current="true">EN</a><span>/</span><a href="../de/ueber.html">DE</a></div>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle colour scheme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+        <svg class="icon-sun"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+  </div>
 </header>
 
-<!-- Breadcrumb Navigation -->
-<nav aria-label="Breadcrumb" class="bg-secondary border-b border-solid themed-border">
-  <div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-10 py-3">
-    <ol class="breadcrumbs">
-      <li><a href="../index.html" class="breadcrumb-link">Home</a></li>
-      <li><span class="breadcrumb-separator">/</span></li>
-      <li><span class="breadcrumb-current">About</span></li>
+<main id="main">
+
+<section class="container masthead">
+  <nav aria-label="Breadcrumb">
+    <ol class="breadcrumb">
+      <li><a href="../index.html">Home</a></li>
+      <li aria-current="page">About</li>
     </ol>
+  </nav>
+
+  <div class="masthead__meta">
+    <span class="label">§ About the practice</span>
+    <span class="label">Berlin · <span data-year>2026</span></span>
   </div>
-</nav>
 
-<main class="flex-1" id="main-content" role="main">
-<!-- Hero Section -->
-<section class="about-hero px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 lg:py-20 section-bg-gradient">
-<div class="max-w-[960px] mx-auto text-center space-y-6 sm:space-y-8">
-<h1 class="text-primary text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight" style='font-family: "Playfair Display", serif;'>The Method</h1>
-<p class="text-secondary text-lg sm:text-xl lg:text-2xl max-w-4xl mx-auto leading-relaxed">
-Bridging foundational AI research with transformative business solutions through interdisciplinary expertise and philosophical insight.
-</p>
-</div>
+  <h1 class="display masthead__title">
+    <span class="line"><span>The <em>Method.</em></span></span>
+  </h1>
+
+  <div class="masthead__strip">
+    <div class="col-lede">
+      <p class="lead">Bridging foundational AI research with transformative business solutions — through interdisciplinary expertise and philosophical insight.</p>
+    </div>
+    <div class="col-cta">
+      <a class="btn" href="contact.html">Schedule Consultation</a>
+    </div>
+  </div>
 </section>
 
-<!-- Introduction Section -->
-<section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 lg:py-20 bg-primary">
-<div class="max-w-[960px] mx-auto space-y-8 sm:space-y-12">
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
-<div class="relative">
-<div class="aspect-square bg-gradient-to-br from-stone-200 to-stone-300 about-info-card rounded-2xl overflow-hidden shadow-2xl">
-<img
-            srcset="../images/profile-mark-wernsdorfer-320w.webp 320w,
-                    ../images/profile-mark-wernsdorfer-640w.webp 640w,
-                    ../images/profile-mark-wernsdorfer-960w.webp 960w,
-                    ../images/profile-mark-wernsdorfer.webp 1280w"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
-            src="../images/profile-mark-wernsdorfer.webp"
-            alt="Dr. Mark Wernsdorfer"
-            class="w-full h-full object-cover object-center"
-            loading="lazy"
-            decoding="async" />
-</div>
-<div class="absolute -bottom-4 -right-4 bg-accent text-white p-4 rounded-xl shadow-lg">
-<span class="material-icons-outlined text-2xl">psychology</span>
-</div>
-</div>
-<div class="space-y-6">
-<h2 class="text-primary text-3xl sm:text-4xl font-bold tracking-tight" style='font-family: "Playfair Display", serif;'>Interdisciplinary AI Expertise</h2>
-<div class="space-y-4 text-secondary leading-relaxed">
-<p class="text-lg">
-Dr. Mark Wernsdorfer is an interdisciplinary AI consultant combining profound theoretical research in AI foundations (symbol grounding, consciousness) with practical expertise in machine learning and clinical decision support systems. His unique approach bridges philosophy of mind, cognitive science, and real-world AI implementation for SMEs and research institutions.
-</p>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-<div class="flex items-center gap-2 text-secondary">
-<span class="material-icons-outlined text-accent">school</span>
-<span class="text-sm">PhD in Cognitive Systems</span>
-</div>
-<div class="flex items-center gap-2 text-secondary">
-<span class="material-icons-outlined text-accent">workspace_premium</span>
-<span class="text-sm">Springer Best Paper Award</span>
-</div>
-<div class="flex items-center gap-2 text-secondary">
-<span class="material-icons-outlined text-accent">business</span>
-<span class="text-sm">€3M+ in AI Project Funding</span>
-</div>
-<div class="flex items-center gap-2 text-secondary">
-<span class="material-icons-outlined text-accent">groups</span>
-<span class="text-sm">10+ Years Experience</span>
-</div>
-</div>
-</div>
-</div>
-</div>
+<!-- ============ Interdisciplinary Expertise + Profile ============ -->
+<section class="container section">
+  <div class="section__head">
+    <span class="chapter">§ 01 · Profile</span>
+    <h2 class="h2">Interdisciplinary AI expertise.</h2>
+  </div>
+
+  <div class="profile">
+    <figure class="profile__image reveal">
+      <img
+        src="../images/profile-mark-wernsdorfer.webp"
+        srcset="../images/profile-mark-wernsdorfer-320w.webp 320w, ../images/profile-mark-wernsdorfer-640w.webp 640w, ../images/profile-mark-wernsdorfer-960w.webp 960w, ../images/profile-mark-wernsdorfer.webp 1280w"
+        sizes="(max-width: 860px) 100vw, 38vw"
+        alt="Dr. Mark Wernsdorfer" loading="lazy" decoding="async">
+      <figcaption class="profile__caption"><span>Berlin, DE</span><span>Pl. 01</span></figcaption>
+    </figure>
+
+    <div class="profile__body">
+      <p class="lead">Dr. Mark Wernsdorfer is an interdisciplinary AI consultant combining profound theoretical research in AI foundations — symbol grounding, consciousness, phenomenology of computation — with practical expertise in machine learning and clinical decision support.</p>
+
+      <p class="prose" style="margin-top: var(--sp-5);">His unique approach bridges philosophy of mind, cognitive science, and real-world AI implementation for SMEs and research institutions. Work moves between foundational inquiry and the construction of deployed systems in environments where correctness matters: clinical laboratories, editorial newsrooms, classroom software.</p>
+
+      <div class="credentials" role="list">
+        <div class="credential"><div class="credential__num">01</div><div class="credential__value">PhD</div><div class="credential__label">Cognitive Systems</div></div>
+        <div class="credential"><div class="credential__num">02</div><div class="credential__value">Springer</div><div class="credential__label">Best Paper, AGI 2018</div></div>
+        <div class="credential"><div class="credential__num">03</div><div class="credential__value">€3M+</div><div class="credential__label">AI Project Funding</div></div>
+        <div class="credential"><div class="credential__num">04</div><div class="credential__value">10+ yr.</div><div class="credential__label">Practising</div></div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- Professional Journey Timeline -->
-<section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 lg:py-20 section-bg-gradient">
-<div class="max-w-[960px] mx-auto space-y-10 sm:space-y-12">
-<div class="text-center">
-<h2 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4" style='font-family: "Playfair Display", serif;'>Key Milestones</h2>
-</div>
-<div class="space-y-6">
-<!-- Timeline Item 1 -->
-<div class="timeline-item">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
-<div class="md:col-span-1 text-center md:text-right">
-<div class="timeline-year">2024</div>
-<div class="timeline-type">Award Finalist</div>
-</div>
-<div class="md:col-span-3 timeline-content">
-<h3 class="timeline-title">International Award for Innovation in Journalism</h3>
-<p class="timeline-description">
-DoppelCheck recognized as finalist for 4D Digital Rights by Design 2024 Award. Leading AI developer for The Bina School's precision education platform serving 40+ countries.
-</p>
-</div>
-</div>
-</div>
+<!-- ============ Milestones ============ -->
+<section class="container section">
+  <div class="section__head">
+    <span class="chapter">§ 02 · Chronology</span>
+    <h2 class="h2">Key milestones.</h2>
+  </div>
 
-<!-- Timeline Item 2 -->
-<div class="timeline-item">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
-<div class="md:col-span-1 text-center md:text-right">
-<div class="timeline-year">2023-2024</div>
-<div class="timeline-type">Fellow</div>
-</div>
-<div class="md:col-span-3 timeline-content">
-<h3 class="timeline-title">Media Lab Bayern & Prototype Fund</h3>
-<p class="timeline-description">
-Developed SpotTheBot and DoppelCheck - AI-powered tools for detecting misinformation and AI-generated content, supported by BMBF and WPK Innovation Fund.
-</p>
-</div>
-</div>
-</div>
-
-<!-- Timeline Item 3 -->
-<div class="timeline-item">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
-<div class="md:col-span-1 text-center md:text-right">
-<div class="timeline-year">Since 2021</div>
-<div class="timeline-type">Research Associate</div>
-</div>
-<div class="md:col-span-3 timeline-content">
-<h3 class="timeline-title">FAU Erlangen-Nürnberg</h3>
-<p class="timeline-description">
-Geothermal modeling and AI-driven optimization research (KNW-Opt, META-Studie). Published peer-reviewed research on thermal conductivity prediction.
-</p>
-</div>
-</div>
-</div>
-
-<!-- Timeline Item 4 -->
-<div class="timeline-item">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
-<div class="md:col-span-1 text-center md:text-right">
-<div class="timeline-year">2019-2021</div>
-<div class="timeline-type">Research Associate</div>
-</div>
-<div class="md:col-span-3 timeline-content">
-<h3 class="timeline-title">University Hospital Leipzig - AMPEL System</h3>
-<p class="timeline-description">
-Key AI architect for clinical decision support system deployed across 1,500+ hospital beds. Co-first author on primary publication in JMIR Medical Informatics.
-</p>
-</div>
-</div>
-</div>
-
-<!-- Timeline Item 5 -->
-<div class="timeline-item">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
-<div class="md:col-span-1 text-center md:text-right">
-<div class="timeline-year">2018</div>
-<div class="timeline-type">Best Paper Award</div>
-</div>
-<div class="md:col-span-3 timeline-content">
-<h3 class="timeline-title">Springer Best Paper - AGI Conference</h3>
-<p class="timeline-description">
-"How Failure Facilitates Success" awarded Best Paper at 11th Conference on Artificial General Intelligence, Prague. Published dissertation on Symbol Grounding.
-</p>
-</div>
-</div>
-</div>
-
-<!-- Timeline Item 6 -->
-<div class="timeline-item">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
-<div class="md:col-span-1 text-center md:text-right">
-<div class="timeline-year">2014-2018</div>
-<div class="timeline-type">Data Scientist</div>
-</div>
-<div class="md:col-span-3 timeline-content">
-<h3 class="timeline-title">Orpheus GmbH (now McKinsey Spendscape)</h3>
-<p class="timeline-description">
-ML system development for procurement analytics. Automated data extraction, AI-enabled spend categorization, and predictive analytics for VC-funded startup.
-</p>
-</div>
-</div>
-</div>
-
-<!-- Timeline Item 7 -->
-<div class="timeline-item">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
-<div class="md:col-span-1 text-center md:text-right">
-<div class="timeline-year">2011-2014</div>
-<div class="timeline-type">PhD Scholar</div>
-</div>
-<div class="md:col-span-3 timeline-content">
-<h3 class="timeline-title">Bavarian Elite Support Scholarship</h3>
-<p class="timeline-description">
-Prestigious BayEFG fellowship for doctoral research on symbol grounding and cognitive systems at University of Bamberg.
-</p>
-</div>
-</div>
-</div>
-</div>
-</div>
+  <div class="timeline reveal">
+    <article class="timeline__row">
+      <div class="timeline__year">2024</div>
+      <div>
+        <h3 class="timeline__title">Award Finalist — International Award for Innovation in Journalism</h3>
+        <span class="timeline__org">Media Lab Bayern · Globe Theatre Leipzig · The Bina School</span>
+        <p class="timeline__desc">DoppelCheck recognised as finalist for the 4D Digital Rights by Design 2024 Award. Leading AI developer for The Bina School's precision-education platform serving 40+ countries.</p>
+      </div>
+    </article>
+    <article class="timeline__row">
+      <div class="timeline__year">2023 — 24</div>
+      <div>
+        <h3 class="timeline__title">Fellow — Media Lab Bayern &amp; Prototype Fund</h3>
+        <span class="timeline__org">BMBF · WPK Innovation Fund</span>
+        <p class="timeline__desc">Developed SpotTheBot and DoppelCheck — AI-powered tools for detecting misinformation and AI-generated content, with support from BMBF and the WPK Innovation Fund.</p>
+      </div>
+    </article>
+    <article class="timeline__row">
+      <div class="timeline__year">Since 2021</div>
+      <div>
+        <h3 class="timeline__title">Research Associate — FAU Erlangen-Nürnberg</h3>
+        <span class="timeline__org">GeoZentrum Nordbayern · KNW-Opt · META-Studie</span>
+        <p class="timeline__desc">Geothermal modelling and AI-driven optimisation research. Published peer-reviewed work on thermal-conductivity prediction in shallow geothermal systems.</p>
+      </div>
+    </article>
+    <article class="timeline__row">
+      <div class="timeline__year">2019 — 21</div>
+      <div>
+        <h3 class="timeline__title">Research Associate — AMPEL, University Hospital Leipzig</h3>
+        <span class="timeline__org">Universitätsklinikum Leipzig</span>
+        <p class="timeline__desc">Key AI architect for a clinical decision support system deployed across 1,500+ hospital beds. Co-first author on the primary AMPEL publication in JMIR Medical Informatics.</p>
+      </div>
+    </article>
+    <article class="timeline__row">
+      <div class="timeline__year">2018</div>
+      <div>
+        <h3 class="timeline__title">Springer Best Paper — 11th Conference on Artificial General Intelligence</h3>
+        <span class="timeline__org">Prague · AGI 2018</span>
+        <p class="timeline__desc">“How Failure Facilitates Success” awarded Best Paper. Dissertation on Symbol Grounding published.</p>
+      </div>
+    </article>
+    <article class="timeline__row">
+      <div class="timeline__year">2014 — 18</div>
+      <div>
+        <h3 class="timeline__title">Data Scientist — Orpheus GmbH (now McKinsey Spendscape)</h3>
+        <span class="timeline__org">Procurement analytics · VC-funded startup</span>
+        <p class="timeline__desc">ML systems for procurement analytics: automated data extraction, AI-enabled spend categorisation, and predictive analytics.</p>
+      </div>
+    </article>
+    <article class="timeline__row">
+      <div class="timeline__year">2011 — 14</div>
+      <div>
+        <h3 class="timeline__title">PhD Scholar — Bavarian Elite Support (BayEFG)</h3>
+        <span class="timeline__org">Otto-Friedrich-Universität Bamberg</span>
+        <p class="timeline__desc">Prestigious doctoral fellowship for research on symbol grounding and cognitive systems.</p>
+      </div>
+    </article>
+  </div>
 </section>
 
-<!-- My Unique Approach -->
-<section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 lg:py-20 bg-primary">
-<div class="max-w-[960px] mx-auto space-y-10 sm:space-y-12">
-<div class="text-center">
-<h2 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4" style='font-family: "Playfair Display", serif;'>My Unique Approach</h2>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10">
-<div class="approach-card">
-<div class="text-accent text-5xl mb-6"><span class="material-icons-outlined">psychology</span></div>
-<h3 class="text-xl font-bold text-primary mb-4" style='font-family: "Playfair Display", serif;'>Symbol Grounding Foundation</h3>
-<p class="text-secondary leading-relaxed">
-PhD research on how machines develop conceptual understanding provides unique insights into AI capabilities and limitations.
-</p>
-</div>
-<div class="approach-card">
-<div class="text-accent text-5xl mb-6"><span class="material-icons-outlined">auto_awesome</span></div>
-<h3 class="text-xl font-bold text-primary mb-4" style='font-family: "Playfair Display", serif;'>Phenomenological Method</h3>
-<p class="text-secondary leading-relaxed">
-Applying phenomenology and cognitive science to AI challenges for more robust, ethically-grounded solutions.
-</p>
-</div>
-<div class="approach-card">
-<div class="text-accent text-5xl mb-6"><span class="material-icons-outlined">palette</span></div>
-<h3 class="text-xl font-bold text-primary mb-4" style='font-family: "Playfair Display", serif;'>Art & Ethics Integration</h3>
-<p class="text-secondary leading-relaxed">
-Creative approaches through AI art installations reveal and address societal implications of artificial intelligence.
-</p>
-</div>
-</div>
-</div>
+<!-- ============ Unique Approach ============ -->
+<section class="container section">
+  <div class="section__head">
+    <span class="chapter">§ 03 · Approach</span>
+    <h2 class="h2">Three commitments that define the practice.</h2>
+  </div>
+
+  <div class="offer-grid reveal" style="grid-template-columns: repeat(3, minmax(0,1fr));">
+    <article class="offer">
+      <div class="offer__num">01 / 03</div>
+      <h3 class="offer__title">Symbol-grounding foundation</h3>
+      <p class="offer__body">Doctoral research on how machines develop conceptual understanding continues to inform which problems are tractable and where current AI systems quietly fail.</p>
+    </article>
+    <article class="offer">
+      <div class="offer__num">02 / 03</div>
+      <h3 class="offer__title">Phenomenological method</h3>
+      <p class="offer__body">Applying phenomenology and cognitive science to AI challenges — not as ornamentation, but as a working instrument for more robust and ethically-grounded solutions.</p>
+    </article>
+    <article class="offer">
+      <div class="offer__num">03 / 03</div>
+      <h3 class="offer__title">Art &amp; ethics integration</h3>
+      <p class="offer__body">Creative work — AI installations, workshops, public exhibitions — as a way of surfacing and addressing societal implications that pure engineering cannot.</p>
+    </article>
+  </div>
 </section>
 
-<!-- Skills & Expertise -->
-<section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 lg:py-20 section-bg-gradient">
-<div class="max-w-[960px] mx-auto space-y-10 sm:space-y-12">
-<div class="text-center">
-<h2 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4" style='font-family: "Playfair Display", serif;'>Core Expertise</h2>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10">
-<!-- Technical Skills -->
-<div class="skills-section">
-<div class="flex items-center gap-3 mb-6">
-<span class="material-icons-outlined text-accent text-3xl">engineering</span>
-<h3 class="text-xl font-bold text-primary" style='font-family: "Playfair Display", serif;'>Technical</h3>
-</div>
-<ul class="space-y-3 text-secondary">
-<li class="flex items-start gap-2">
-<span class="material-icons text-accent text-sm mt-1">check_circle</span>
-<span>Machine Learning (LLMs, TensorFlow, PyTorch)</span>
-</li>
-<li class="flex items-start gap-2">
-<span class="material-icons text-accent text-sm mt-1">check_circle</span>
-<span>Programming (Python, Java, C++, JavaScript)</span>
-</li>
-<li class="flex items-start gap-2">
-<span class="material-icons text-accent text-sm mt-1">check_circle</span>
-<span>CDSS & Cloud Architecture</span>
-</li>
-</ul>
-</div>
+<!-- ============ Core Expertise ============ -->
+<section class="container section">
+  <div class="section__head">
+    <span class="chapter">§ 04 · Expertise</span>
+    <h2 class="h2">Core expertise, by register.</h2>
+  </div>
 
-<!-- Theoretical Expertise -->
-<div class="skills-section">
-<div class="flex items-center gap-3 mb-6">
-<span class="material-icons-outlined text-accent text-3xl">school</span>
-<h3 class="text-xl font-bold text-primary" style='font-family: "Playfair Display", serif;'>Theoretical</h3>
-</div>
-<ul class="space-y-3 text-secondary">
-<li class="flex items-start gap-2">
-<span class="material-icons text-accent text-sm mt-1">check_circle</span>
-<span>Philosophy of AI & Symbol Grounding</span>
-</li>
-<li class="flex items-start gap-2">
-<span class="material-icons text-accent text-sm mt-1">check_circle</span>
-<span>Cognitive Science & Mental Modeling</span>
-</li>
-<li class="flex items-start gap-2">
-<span class="material-icons text-accent text-sm mt-1">check_circle</span>
-<span>AI Ethics & Responsible Implementation</span>
-</li>
-</ul>
-</div>
-
-<!-- Consulting & Communication -->
-<div class="skills-section">
-<div class="flex items-center gap-3 mb-6">
-<span class="material-icons-outlined text-accent text-3xl">business_center</span>
-<h3 class="text-xl font-bold text-primary" style='font-family: "Playfair Display", serif;'>Consulting</h3>
-</div>
-<ul class="space-y-3 text-secondary">
-<li class="flex items-start gap-2">
-<span class="material-icons text-accent text-sm mt-1">check_circle</span>
-<span>AI Strategy & Implementation Planning</span>
-</li>
-<li class="flex items-start gap-2">
-<span class="material-icons text-accent text-sm mt-1">check_circle</span>
-<span>Training & Digital Transformation</span>
-</li>
-<li class="flex items-start gap-2">
-<span class="material-icons text-accent text-sm mt-1">check_circle</span>
-<span>Multilingual (German, English, French)</span>
-</li>
-</ul>
-</div>
-</div>
-</div>
+  <div class="offer-grid reveal" style="grid-template-columns: repeat(3, minmax(0,1fr));">
+    <article class="offer">
+      <div class="offer__num">Technical</div>
+      <h3 class="offer__title">Machines &amp; code</h3>
+      <ul class="checklist">
+        <li>Machine learning · LLMs · TensorFlow · PyTorch</li>
+        <li>Python · Java · C++ · JavaScript</li>
+        <li>Clinical decision support &amp; cloud architecture</li>
+      </ul>
+    </article>
+    <article class="offer">
+      <div class="offer__num">Theoretical</div>
+      <h3 class="offer__title">Concepts &amp; claims</h3>
+      <ul class="checklist">
+        <li>Philosophy of AI &amp; symbol grounding</li>
+        <li>Cognitive science &amp; mental modelling</li>
+        <li>AI ethics &amp; responsible implementation</li>
+      </ul>
+    </article>
+    <article class="offer">
+      <div class="offer__num">Consulting</div>
+      <h3 class="offer__title">Engagement</h3>
+      <ul class="checklist">
+        <li>AI strategy &amp; implementation planning</li>
+        <li>Training &amp; digital transformation</li>
+        <li>Multilingual: German, English, French</li>
+      </ul>
+    </article>
+  </div>
 </section>
 
-<!-- Call to Action -->
-<section class="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40 py-12 sm:py-16 lg:py-20 section-about relative overflow-hidden">
-<div class="max-w-[960px] mx-auto text-center space-y-6 sm:space-y-8">
-<h2 class="text-primary text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight" style='font-family: "Playfair Display", serif;'>
-Ready to Experience the Method?
-</h2>
-<p class="text-secondary text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
-Discover how interdisciplinary AI expertise can transform your business challenges into competitive advantages.
-</p>
-<a href="contact.html" class="btn-primary inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105">
-Schedule a Consultation
-</a>
-</div>
+<!-- ============ Closing ============ -->
+<section class="container closing">
+  <span class="chapter">§ 05 · Commission</span>
+  <h2 class="h2" style="margin-top: var(--sp-4);">Ready to experience<br>the method?</h2>
+  <p class="prose">Discover how interdisciplinary AI expertise can transform specific business challenges into competitive advantages — beginning with an initial consultation.</p>
+  <div class="cta-row">
+    <a class="btn" href="contact.html">Schedule Consultation</a>
+    <a class="btn btn--ghost" href="services.html">Read Services</a>
+  </div>
 </section>
 
 </main>
-<footer class="footer-bg footer-text">
-<div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-12 text-center space-y-4 sm:space-y-6">
-<div class="flex flex-col sm:flex-row items-center justify-center gap-y-2 gap-x-4 sm:gap-x-6">
-<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="contact.html">Contact</a>
-<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="about.html">About</a>
-<a class="footer-link hover:text-accent text-sm sm:text-base font-normal leading-normal transition-colors" href="contact.html#imprint">Imprint</a>
-</div>
-<div class="flex flex-wrap justify-center gap-6">
-<a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
-<span class="material-icons text-xl sm:text-2xl">business</span>
-<span class="text-sm">LinkedIn</span>
-</a>
-<a href="mailto:contact@markwernsdorfer.com" target="_blank" rel="noopener noreferrer" aria-label="Email" class="footer-link hover:text-accent transition-colors flex items-center gap-2">
-<span class="material-icons text-xl sm:text-2xl">email</span>
-<span class="text-sm">Email</span>
-</a>
-</div>
-<p class="footer-text text-sm">© 2025 Dr. Mark Wernsdorfer. All rights reserved.</p>
-<p class="footer-text text-xs sm:text-sm" style='font-family: "Playfair Display", serif;'>
-Bridging AI theory and practice with precision.
-</p>
-</div>
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div>
+      <span class="brand__name" style="font-family: var(--serif); font-weight: 500; font-size: var(--fs-lg);">Wernsdorfer<em style="font-style: italic; color: var(--accent);">·</em>Consulting</span>
+      <p class="lede">An interdisciplinary AI practice based in Berlin, working between foundational research and deployed systems.</p>
+    </div>
+    <div>
+      <h4>Practice</h4>
+      <ul>
+        <li><a href="about.html">About &amp; Method</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="projects.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Elsewhere</h4>
+      <ul>
+        <li><a href="https://github.com/wehnsdaefflae" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://cris.fau.de/persons/265215523/" target="_blank" rel="noopener">FAU CRIS</a></li>
+        <li><a href="https://d-nb.info/1182477194" target="_blank" rel="noopener">Dissertation</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Imprint</h4>
+      <ul>
+        <li><a href="contact.html#imprint">Legal notice</a></li>
+        <li><a href="mailto:wernsdorfer@gmail.com">wernsdorfer@gmail.com</a></li>
+        <li><a href="tel:+4917624003575">+49 176 24 003 575</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container site-footer__colophon">
+    <span>© <span data-year>2026</span> Dr. Mark Wernsdorfer · Berlin, DE</span>
+    <span>Set in Fraunces &amp; IBM Plex.</span>
+  </div>
 </footer>
 
-<!-- Mobile Bottom Navigation (only visible on mobile/tablet) -->
-<nav class="mobile-bottom-nav lg:hidden">
-  <div class="mobile-nav-grid">
-    <a href="../index.html" class="mobile-nav-item mobile-nav-text">
-      <span class="material-icons-outlined">home</span>
-      <span>Home</span>
-    </a>
-    <a href="about.html" class="mobile-nav-item active mobile-nav-text">
-      <span class="material-icons-outlined">person</span>
-      <span>About</span>
-    </a>
-    <a href="services.html" class="mobile-nav-item mobile-nav-text">
-      <span class="material-icons-outlined">work</span>
-      <span>Services</span>
-    </a>
-    <a href="projects.html" class="mobile-nav-item mobile-nav-text">
-      <span class="material-icons-outlined">folder</span>
-      <span>Portfolio</span>
-    </a>
-    <a href="contact.html" class="mobile-nav-item mobile-nav-text">
-      <span class="material-icons-outlined">contact_mail</span>
-      <span>Contact</span>
-    </a>
-  </div>
+<nav class="mobile-nav" aria-label="Primary (mobile)">
+  <ul>
+    <li><a href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 11 12 4l8 7v9h-6v-6H10v6H4z"/></svg>Home</a></li>
+    <li><a href="about.html" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>About</a></li>
+    <li><a href="services.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="7" width="16" height="13"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>Services</a></li>
+    <li><a href="projects.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="4"/><rect x="4" y="11" width="16" height="4"/><rect x="4" y="17" width="16" height="2"/></svg>Portfolio</a></li>
+    <li><a href="contact.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14"/><path d="m3 7 9 6 9-6"/></svg>Contact</a></li>
+  </ul>
 </nav>
 
-</div>
-</div>
 </body>
 </html>

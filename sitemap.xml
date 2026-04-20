@@ -1,115 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Homepage -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
   <url>
     <loc>https://markwernsdorfer.com/</loc>
-    <lastmod>2025-10-09</lastmod>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markwernsdorfer.com/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://markwernsdorfer.com/de_index.html"/>
   </url>
 
-  <!-- Main index (English) -->
-  <url>
-    <loc>https://markwernsdorfer.com/index.html</loc>
-    <lastmod>2025-10-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <!-- About -->
   <url>
     <loc>https://markwernsdorfer.com/en/about.html</loc>
-    <lastmod>2025-10-09</lastmod>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markwernsdorfer.com/en/about.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://markwernsdorfer.com/de/ueber.html"/>
   </url>
 
-  <!-- Services -->
   <url>
     <loc>https://markwernsdorfer.com/en/services.html</loc>
-    <lastmod>2025-10-09</lastmod>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markwernsdorfer.com/en/services.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://markwernsdorfer.com/de/leistungen.html"/>
   </url>
 
-  <!-- Projects/Portfolio -->
   <url>
     <loc>https://markwernsdorfer.com/en/projects.html</loc>
-    <lastmod>2025-10-09</lastmod>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markwernsdorfer.com/en/projects.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://markwernsdorfer.com/de/projekte.html"/>
   </url>
 
-  <!-- Publications/Insights -->
-  <url>
-    <loc>https://markwernsdorfer.com/en/publications.html</loc>
-    <lastmod>2025-10-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Community -->
-  <url>
-    <loc>https://markwernsdorfer.com/en/community.html</loc>
-    <lastmod>2025-10-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Grants -->
-  <url>
-    <loc>https://markwernsdorfer.com/en/grants.html</loc>
-    <lastmod>2025-10-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Contact -->
   <url>
     <loc>https://markwernsdorfer.com/en/contact.html</loc>
-    <lastmod>2025-10-09</lastmod>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markwernsdorfer.com/en/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://markwernsdorfer.com/de/kontakt.html"/>
   </url>
 
-  <!-- German Pages -->
-  <!-- Homepage (German) -->
   <url>
     <loc>https://markwernsdorfer.com/de_index.html</loc>
-    <lastmod>2025-11-04</lastmod>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markwernsdorfer.com/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://markwernsdorfer.com/de_index.html"/>
   </url>
 
-  <!-- About (German) -->
   <url>
     <loc>https://markwernsdorfer.com/de/ueber.html</loc>
-    <lastmod>2025-11-04</lastmod>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Services (German) -->
   <url>
     <loc>https://markwernsdorfer.com/de/leistungen.html</loc>
-    <lastmod>2025-11-04</lastmod>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Projects (German) -->
   <url>
     <loc>https://markwernsdorfer.com/de/projekte.html</loc>
-    <lastmod>2025-11-04</lastmod>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Contact (German) -->
   <url>
     <loc>https://markwernsdorfer.com/de/kontakt.html</loc>
-    <lastmod>2025-11-04</lastmod>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
+
 </urlset>
