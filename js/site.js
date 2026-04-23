@@ -3,7 +3,7 @@
 (() => {
   'use strict';
 
-  // Theme ---------------------------------------------------------------
+  // Theme — day / night edition toggle -------------------------------------
   const THEME_KEY = 'mw.theme';
   const root = document.documentElement;
 
@@ -13,51 +13,30 @@
   }
 
   function initTheme() {
-    // Theme was set inline before first paint to avoid flash. This re-syncs
-    // and enables transitions for user-initiated switches.
+    // Theme is applied inline in <head> before first paint; this handles the
+    // user-click case. Enable transitions only after first frame so the
+    // initial paint doesn't show a flash.
     requestAnimationFrame(() => root.classList.add('transitions-enabled'));
 
     const btn = document.querySelector('[data-theme-toggle]');
     if (!btn) return;
+
+    const syncButton = () => {
+      const isDark = root.classList.contains('dark');
+      btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+      btn.dataset.edition = isDark ? 'night' : 'day';
+    };
+    syncButton();
+
     btn.addEventListener('click', () => {
       const next = root.classList.contains('dark') ? 'light' : 'dark';
       applyTheme(next);
       localStorage.setItem(THEME_KEY, next);
+      syncButton();
     });
   }
 
-  // Reveal on scroll ----------------------------------------------------
-  function initReveal() {
-    const els = document.querySelectorAll('.reveal');
-    if (!els.length || !('IntersectionObserver' in window)) {
-      els.forEach(el => el.classList.add('is-in'));
-      return;
-    }
-    const io = new IntersectionObserver((entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) {
-          e.target.classList.add('is-in');
-          io.unobserve(e.target);
-        }
-      }
-    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
-    els.forEach(el => io.observe(el));
-  }
-
-  // Marquee: duplicate children so translateX(-50%) loops seamlessly ----
-  function initMarquee() {
-    document.querySelectorAll('.marquee__track').forEach(track => {
-      if (track.dataset.doubled) return;
-      Array.from(track.children).forEach(k => {
-        const c = k.cloneNode(true);
-        c.setAttribute('aria-hidden', 'true');
-        track.appendChild(c);
-      });
-      track.dataset.doubled = '1';
-    });
-  }
-
-  // Project filters ----------------------------------------------------
+  // Project filters --------------------------------------------------------
   function initFilters() {
     const filterRow = document.querySelector('[data-filters]');
     if (!filterRow) return;
@@ -79,14 +58,13 @@
     });
   }
 
-  // Subtle year ticker in header-tools (optional - just sets the year) --
   function initYear() {
     document.querySelectorAll('[data-year]').forEach(el => {
       el.textContent = String(new Date().getFullYear());
     });
   }
 
-  // YouTube facade — only load iframe on click (GDPR + performance) -----
+  // YouTube facade — only load iframe on click (GDPR + performance) -------
   function initVideos() {
     document.querySelectorAll('[data-youtube]').forEach(el => {
       el.addEventListener('click', () => {
@@ -106,8 +84,6 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     initTheme();
-    initReveal();
-    initMarquee();
     initFilters();
     initVideos();
     initYear();
