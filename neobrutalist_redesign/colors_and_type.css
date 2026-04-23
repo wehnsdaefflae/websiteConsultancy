@@ -1,0 +1,288 @@
+/* =============================================================
+   BLOCKWERK - Neubrutalist AI Consultancy Design Tokens
+   Paper-cutout layers. High saturation. High contrast.
+   ============================================================= */
+
+/* Fonts are loaded via <link> in each HTML <head> (preconnect + stylesheet).
+   This file defines design tokens only, so it also works on file:// origins. */
+
+:root {
+  /* -- CORE PALETTE -- */
+  /* Paper-cutout shapes sit over cornsilk, bounded by 3px ink */
+  --ink:            #0A0A0A;   /* the one true black; borders + text */
+  --paper:          #FFF8E1;   /* cornsilk-ish, main page background */
+  --paper-2:        #FFFFFF;   /* clean white panel */
+  --paper-3:        #F2ECD4;   /* slightly darker cornsilk for cards */
+
+  /* saturated cutout colors */
+  --lilac:          #9E9CE5;
+  --mint:           #42E2B8;
+  --tomato:         #FF5A43;
+  --yellow:         #FFEF00;
+  --hot-pink:       #FF6EC7;
+  --royal:          #1E1BE5;   /* evolved darkblue */
+  --sky:            #7BD3F7;
+  --lime:           #C8F24A;
+  --orange:         #FF9A1F;
+
+  /* -- SEMANTIC COLORS (bright mode) -- */
+  --bg:             var(--paper);
+  --bg-raised:      var(--paper-2);
+  --bg-sunken:      var(--paper-3);
+
+  --fg1:            var(--ink);           /* primary text */
+  --fg2:            #3B3B3B;               /* body text */
+  --fg3:            #6A6A6A;               /* captions */
+  --fg-invert:      #FFF8E1;               /* text on dark blocks */
+
+  --border:         var(--ink);
+  --accent:         var(--tomato);          /* primary accent */
+  --accent-2:       var(--mint);            /* secondary accent */
+  --accent-3:       var(--lilac);           /* tertiary accent */
+  --highlight:      var(--yellow);          /* stroke-fill titles */
+
+  --success:        #17A86C;
+  --warning:        var(--orange);
+  --danger:         var(--tomato);
+  --info:           var(--royal);
+
+  /* -- SHAPE -- */
+  --border-w:       3px;
+  --border-w-thick: 5px;
+  --shadow-o:       6px;       /* offset for hard drop shadows */
+  --shadow-o-lg:    10px;
+  --shadow-o-sm:    3px;
+
+  --radius-s:       4px;
+  --radius-m:       8px;
+  --radius-l:       14px;
+  --radius-pill:    999px;
+
+  /* -- ELEVATION (hard paper-cutout shadows, never blurred) -- */
+  --shadow-sm:  3px 3px 0 var(--ink);
+  --shadow:     6px 6px 0 var(--ink);
+  --shadow-lg:  10px 10px 0 var(--ink);
+  --shadow-xl:  14px 14px 0 var(--ink);
+  --shadow-inset: inset 3px 3px 0 rgba(0,0,0,0.15);
+
+  /* colored shadows for extra layer-depth */
+  --shadow-tomato:  6px 6px 0 var(--tomato);
+  --shadow-lilac:   6px 6px 0 var(--lilac);
+  --shadow-mint:    6px 6px 0 var(--mint);
+  --shadow-royal:   6px 6px 0 var(--royal);
+
+  /* -- SPACING -- */
+  --s-0:   0;
+  --s-1:   4px;
+  --s-2:   8px;
+  --s-3:   12px;
+  --s-4:   16px;
+  --s-5:   24px;
+  --s-6:   32px;
+  --s-7:   48px;
+  --s-8:   64px;
+  --s-9:   96px;
+  --s-10:  128px;
+
+  /* -- MOTION -- */
+  --t-fast:   120ms;
+  --t:        220ms;
+  --t-slow:   420ms;
+  --ease-pop: cubic-bezier(.2,1.4,.3,1);     /* the bounce */
+  --ease-out: cubic-bezier(.2,.7,.2,1);
+  --ease-in:  cubic-bezier(.5,.0,1,.5);
+
+  /* rotation tokens - paper cutouts rarely sit square */
+  --r-tiny:   .5deg;
+  --r-sm:     1deg;
+  --r-md:     2deg;
+  --r-lg:     5deg;
+
+  /* -- TYPE -- */
+  --font-display:  'Caprasimo', 'Syne', serif;     /* chunky display */
+  --font-head:     'Syne', sans-serif;              /* section headers */
+  --font-body:     'Rubik', sans-serif;             /* body */
+  --font-mono:     'Space Mono', ui-monospace, monospace;
+
+  /* fluid type scale */
+  --fs-mega:  clamp(80px, 11vw, 180px);
+  --fs-h1:    clamp(48px, 7vw,  104px);
+  --fs-h2:    clamp(34px, 4.5vw, 64px);
+  --fs-h3:    clamp(24px, 2.6vw, 40px);
+  --fs-h4:    clamp(20px, 1.8vw, 26px);
+  --fs-lead:  clamp(18px, 1.5vw, 24px);
+  --fs-body:  clamp(15px, 1.05vw, 18px);
+  --fs-small: 14px;
+  --fs-tiny:  12px;
+
+  --lh-tight:  1.05;
+  --lh-snug:   1.25;
+  --lh-body:   1.6;
+  --lh-loose:  2;
+
+  --tr-tight: -0.02em;
+  --tr-wide:   0.08em;
+}
+
+/* =============================================================
+   DARK MODE - inverted paper, same saturation, ink becomes bone
+   ============================================================= */
+:root[data-theme="dark"],
+.theme-dark {
+  --ink:         #FFF8E1;       /* swap: text/borders become cornsilk */
+  --paper:       #0E0D12;       /* deep ink-indigo */
+  --paper-2:     #1A1923;
+  --paper-3:     #242232;
+
+  --fg1:         #FFF8E1;
+  --fg2:         #D9D3BF;
+  --fg3:         #9D9884;
+  --fg-invert:   #0E0D12;
+
+  --border:      #FFF8E1;
+
+  /* keep saturation but nudge cutouts a touch darker for balance */
+  --lilac:    #7A77E0;
+  --mint:     #2BD1A6;
+  --tomato:   #FF6A55;
+  --yellow:   #FFE14A;
+  --hot-pink: #FF5FBF;
+  --royal:    #4C49FF;
+  --sky:      #5CC3F3;
+  --lime:     #B6E533;
+  --orange:   #FF8F1F;
+
+  --bg:         var(--paper);
+  --bg-raised:  var(--paper-2);
+  --bg-sunken:  var(--paper-3);
+
+  --accent:     var(--tomato);
+  --accent-2:   var(--mint);
+  --accent-3:   var(--lilac);
+  --highlight:  var(--yellow);
+
+  --shadow-sm:  3px 3px 0 var(--ink);
+  --shadow:     6px 6px 0 var(--ink);
+  --shadow-lg:  10px 10px 0 var(--ink);
+  --shadow-xl:  14px 14px 0 var(--ink);
+  --shadow-inset: inset 3px 3px 0 rgba(255,255,255,0.10);
+
+  --shadow-tomato:  6px 6px 0 var(--tomato);
+  --shadow-lilac:   6px 6px 0 var(--lilac);
+  --shadow-mint:    6px 6px 0 var(--mint);
+  --shadow-royal:   6px 6px 0 var(--royal);
+}
+
+/* =============================================================
+   BASE TYPOGRAPHY
+   ============================================================= */
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg);
+  color: var(--fg1);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-head);
+  font-weight: 700;
+  letter-spacing: var(--tr-tight);
+  line-height: var(--lh-tight);
+  margin: 0 0 var(--s-4);
+  color: var(--fg1);
+}
+
+h1 { font-size: var(--fs-h1); font-weight: 800; }
+h2 { font-size: var(--fs-h2); font-weight: 700; }
+h3 { font-size: var(--fs-h3); font-weight: 700; }
+h4 { font-size: var(--fs-h4); font-weight: 600; letter-spacing: 0; }
+
+.display {
+  font-family: var(--font-display);
+  font-size: var(--fs-mega);
+  line-height: .95;
+  letter-spacing: -0.03em;
+}
+
+p   { margin: 0 0 var(--s-5); max-width: 65ch; }
+.lead { font-size: var(--fs-lead); line-height: var(--lh-snug); }
+
+small, .small { font-size: var(--fs-small); }
+.tiny         { font-size: var(--fs-tiny); }
+
+code, kbd, pre, .mono {
+  font-family: var(--font-mono);
+  font-size: .92em;
+  background: var(--bg-sunken);
+  padding: 1px 6px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+}
+pre { padding: var(--s-4); overflow-x:auto; }
+
+/* stroke-fill poster title (from skeleton, formalized) */
+.title-fill {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: var(--fs-h1);
+  color: var(--highlight);
+  line-height: .95;
+  cursor: default;
+}
+.title-fill::after {
+  content: attr(data-text);
+  position: absolute; inset: 0;
+  -webkit-text-stroke: 2px var(--ink);
+  color: transparent;
+  transform: translate(3px, 2px) rotate(.5deg);
+  pointer-events: none;
+}
+
+/* underline-sweep link (from skeleton) */
+a {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+  font-weight: 600;
+  white-space: nowrap;
+}
+a::after {
+  content: '';
+  position: absolute;
+  right: 0; bottom: -2px;
+  width: 100%; height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--t) var(--ease-out);
+}
+a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* utility: paper-cutout card surface */
+.paper {
+  background: var(--bg-raised);
+  border: var(--border-w) solid var(--border);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow);
+}
+
+/* rotation utilities */
+.rot--2  { transform: rotate(-2deg); }
+.rot--1  { transform: rotate(-1deg); }
+.rot-1   { transform: rotate(1deg); }
+.rot-2   { transform: rotate(2deg); }
+.rot-5   { transform: rotate(5deg); }
+.rot--5  { transform: rotate(-5deg); }
+
+/* selection */
+::selection { background: var(--highlight); color: var(--ink); }
