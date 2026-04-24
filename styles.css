@@ -1530,6 +1530,15 @@ a { text-decoration: none; }
     border-top: 3px solid var(--ink);
     z-index: 90;
     padding-bottom: env(safe-area-inset-bottom);
+    /* Firefox Android lags behind the dynamic viewport — when the URL
+       bar retracts/appears on scroll, the bottom-anchored nav
+       doesn't repaint in sync, so it drifts above the visible bottom
+       until a scroll event forces a layout recompute. Forcing the nav
+       onto its own GPU compositing layer (translateZ + will-change)
+       keeps its position flushed with the compositor every frame. */
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
   }
   .bw-mobnav a {
     padding: 10px 4px;
