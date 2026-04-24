@@ -1530,15 +1530,13 @@ a { text-decoration: none; }
     border-top: 3px solid var(--ink);
     z-index: 90;
     padding-bottom: env(safe-area-inset-bottom);
-    /* Firefox Android lags behind the dynamic viewport — when the URL
-       bar retracts/appears on scroll, the bottom-anchored nav
-       doesn't repaint in sync, so it drifts above the visible bottom
-       until a scroll event forces a layout recompute. Forcing the nav
-       onto its own GPU compositing layer (translateZ + will-change)
-       keeps its position flushed with the compositor every frame. */
-    transform: translateZ(0);
-    will-change: transform;
-    backface-visibility: hidden;
+    /* --vv-offset is written by script.js on visualViewport.resize /
+       .scroll events. It equals (window.innerHeight − visualViewport.height),
+       i.e. the number of pixels that browser chrome (URL bar, keyboard)
+       is currently covering. Translating up by that amount keeps the
+       nav pinned to the visual viewport bottom on every frame, no
+       matter what Firefox/Chrome/Safari do with the URL bar. */
+    transform: translateY(calc(-1 * var(--vv-offset, 0px)));
   }
   .bw-mobnav a {
     padding: 10px 4px;

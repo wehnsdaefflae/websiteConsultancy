@@ -444,6 +444,33 @@
   }
 
   // ------------------------------------------------------------
+  //  Mobile bottom-nav viewport sync.
+  //  On Firefox Android (and iOS Safari) a fixed `bottom: 0` nav
+  //  drifts during URL-bar show/hide animations — the nav is anchored
+  //  to the LARGE viewport but the user sees the SMALL viewport's
+  //  bottom, so the nav floats above (or sits behind) the URL bar
+  //  until a scroll event triggers a relayout.
+  //
+  //  The definitive fix is the visualViewport API: it reports the
+  //  CURRENT visible viewport every frame. We expose the delta between
+  //  layout and visual heights as a CSS custom property; the nav's
+  //  `transform: translateY(calc(-1 * var(--vv-offset)))` rule reads
+  //  it and self-corrects every frame to stay flush with the visual
+  //  viewport bottom.
+  // ------------------------------------------------------------
+  function initMobnavViewportSync() {
+    if (!window.visualViewport) return;   // older browsers: no-op
+    var root = document.documentElement;
+    function sync() {
+      var delta = Math.max(0, window.innerHeight - window.visualViewport.height);
+      root.style.setProperty('--vv-offset', delta + 'px');
+    }
+    window.visualViewport.addEventListener('resize', sync);
+    window.visualViewport.addEventListener('scroll', sync);
+    sync();
+  }
+
+  // ------------------------------------------------------------
   //  Boot
   // ------------------------------------------------------------
   function boot() {
@@ -458,6 +485,7 @@
     initScrollVar();
     initQuoteCarousel();
     initContactForm();
+    initMobnavViewportSync();
   }
 
   if (document.readyState === 'loading') {
