@@ -9,12 +9,13 @@
    on the body next to the html one, AND on iOS broke `position: fixed`
    anchoring for the mobile bottom nav. `clip` sidesteps both.
 
-   We apply it to BOTH html and body: on some mobile browsers
-   (notably iOS Safari when a grandchild has a transform with a
-   negative-offset translate), body-only clipping still lets the
-   document root grow wide enough to create a horizontal scrollbar.
-   Clipping the root stops that at the viewport boundary. */
-html { overflow-x: clip; }
+   WE ONLY CLIP ON <body>, NOT <html>. iOS Safari versions <= 17 treat
+   overflow-x: clip on the documentElement the same as overflow: hidden
+   for the purpose of fixed-position containing blocks — the mobile
+   bottom nav drifted above the viewport bottom until a scroll event
+   triggered a re-layout. Body-level clipping is enough for normal
+   overflow; the .bw-decor layer clips its own absolute shapes (below),
+   so nothing positioned past body's edge can contribute to doc width. */
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); overflow-x: clip; }
 main { display: block; }
 
