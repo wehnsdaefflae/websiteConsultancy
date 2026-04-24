@@ -3,8 +3,12 @@
    Shared site styles (composes over ../colors_and_type.css)
    ============================================================ */
 
+/* Belt-and-braces: Safari/Chrome on iOS ignore body's overflow-x:hidden
+   when the viewport is narrower than a child element's computed width.
+   Setting overflow-x on <html> forces the clip there too. */
+html { overflow-x: hidden; }
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); overflow-x: hidden; }
-main { display: block; }
+main { display: block; position: relative; overflow-x: hidden; }
 
 /* Skip link — keyboard accessibility. Hidden until focused. */
 .bw-skip {
@@ -147,6 +151,26 @@ a { text-decoration: none; }
   .bw-brand .dot { width: 14px; height: 14px; }
   .bw-tools > * { padding: 0 14px; font-size: 11px; }
   .bw-tools .theme-toggle { padding: 0 14px; font-size: 11px; }
+
+  /* CTAs at their normal 14 px font + 22 px padding were exceeding a
+     390-px phone viewport ("Kostenloses Erstgespräch" = 447 px).
+     Compact padding, allow line-wrap, cap width at 100 % so long
+     German labels fit inside the body column. */
+  .bw-btn {
+    padding: 12px 18px;
+    font-size: 12px;
+    letter-spacing: .04em;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.25;
+  }
+  .bw-mast__cta .bw-btn,
+  .bw-cta__row .bw-btn,
+  .bw-u-center > .bw-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* ==============================
@@ -207,11 +231,22 @@ a { text-decoration: none; }
    CHAPTER STRIP  ( § 01 — title )
    ============================== */
 .bw-chapter {
-  display: grid; grid-template-columns: auto 1fr;
+  display: grid; grid-template-columns: auto minmax(0, 1fr);
   align-items: end; gap: 22px;
   padding: 22px 0 18px;
   border-bottom: 3px solid var(--ink);
   margin-bottom: 48px;
+}
+@media (max-width: 640px) {
+  /* Stack the chapter-num chip above the title on phones — the
+     `auto 1fr` grid columns were squeezing the title into a ~150-px
+     column, causing it to overflow. */
+  .bw-chapter { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .bw-chapter__num { justify-self: start; }
+  /* Long German compound words (Selbstständigkeit, Kommunikation,
+     Verantwortlichkeit) can exceed a 375-px column even at 28 px
+     font. Allow break-anywhere as a last resort. */
+  .bw-chapter__title { overflow-wrap: anywhere; hyphens: auto; }
 }
 .bw-chapter__num {
   font-family: var(--font-mono); font-size: 14px;
@@ -1345,6 +1380,12 @@ a { text-decoration: none; }
   font-weight: 700;
 }
 .bw-imprint dd { font-size: 15px; line-height: 1.5; background: var(--paper-2); }
+@media (max-width: 640px) {
+  /* Collapse the imprint to a single column: label row, then value row. */
+  .bw-imprint { grid-template-columns: minmax(0, 1fr); }
+  .bw-imprint dt { border-right: 0; border-bottom: 2px dashed var(--ink); padding: 10px 16px 6px; }
+  .bw-imprint dd { padding: 6px 16px 12px; border-bottom: 2px dashed var(--ink); }
+}
 .bw-imprint > :nth-last-child(1), .bw-imprint > :nth-last-child(2) { border-bottom: 3px solid var(--ink); }
 
 /* ==============================
@@ -1417,6 +1458,14 @@ a { text-decoration: none; }
   gap: 48px;
   margin-bottom: 48px;
 }
+@media (max-width: 900px) {
+  .bw-footer__row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; }
+}
+@media (max-width: 520px) {
+  /* On phones: stack to one column. 48-px gaps × 3 breaks the grid
+     below ~520-px viewport no matter the fr values. */
+  .bw-footer__row { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+}
 .bw-footer__brand {
   font-family: var(--font-display); font-size: 28px; line-height: 1;
   color: var(--yellow);
@@ -1448,7 +1497,9 @@ a { text-decoration: none; }
   color: #9d9884;
 }
 @media (max-width: 900px) {
-  .bw-footer__row { grid-template-columns: 1fr 1fr; gap: 28px; }
+  /* .bw-footer__row columns are handled by the earlier breakpoint
+     cascade (1.4fr 1fr 1fr 1fr → 2-col → 1-col). Only colophon
+     needs to stack here. */
   .bw-footer__colophon { flex-direction: column; gap: 10px; }
 }
 
