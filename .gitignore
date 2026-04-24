@@ -1,1 +1,19 @@
-/additional_info/*
+# Local Claude Code state (per-checkout config, worktrees)
+.claude/
+
+# OS clutter
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+
+# Node.js alternative receiver artefacts (if someone runs it locally)
+node_modules/
+package-lock.json
+
+# Runtime spam/rate-limit buckets (should live in /tmp anyway, but
+# belt-and-braces in case CONTACT_RATE_DIR is pointed here)
+wc_contact_rate/

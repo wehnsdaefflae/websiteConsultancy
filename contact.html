@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Syne:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Caprasimo&display=swap">
 <link rel="stylesheet" href="colors_and_type.css" />
 <link rel="stylesheet" href="styles.css" />
-<script>(function(){try{var s=localStorage.getItem('bw.theme');var p=matchMedia('(prefers-color-scheme: dark)').matches;if((s?s==='dark':p))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var q=null;try{q=new URL(location.href).searchParams.get('t');}catch(e){}var s=(q==='dark'||q==='light')?q:localStorage.getItem('bw.theme');var p=matchMedia('(prefers-color-scheme: dark)').matches;if(s?s==='dark':p)document.documentElement.setAttribute('data-theme','dark');if(q==='dark'||q==='light'){try{localStorage.setItem('bw.theme',q);}catch(e){}}}catch(e){}})();</script>
 </head>
 <body>
 
@@ -37,7 +37,7 @@
       <a href="contact.html" aria-current="page">Kontakt</a>
     </nav>
     <div class="bw-tools">
-      <div class="lang"><a href="#" aria-current="true">DE</a><span style="opacity:.3">/</span><a href="#">EN</a></div>
+      <div class="lang"><a href="#" aria-current="true">DE</a><span style="opacity:.3">/</span><a href="en/contact.html">EN</a></div>
       <button class="theme-toggle" type="button" data-theme-toggle aria-label="Tag- / Nacht-Ausgabe umschalten"><span class="tt-day">Tag</span><span class="tt-sep">·</span><span class="tt-night">Nacht</span></button>
       <a href="#form" class="cta">Zum Formular ↓</a>
     </div>
@@ -54,8 +54,8 @@
 
     <h1 class="bw-mast__title">
       Erzähl mir,<br>
-      <em>woran</em> Du<br>
-      <span class="brush">arbeitest.</span>
+      <em data-hi="B">woran</em> Du<br>
+      <span class="brush" data-hi="F">arbeitest.</span>
     </h1>
 
     <div class="bw-mast__strip">
@@ -66,7 +66,7 @@
       </p>
       <div class="bw-mast__cta">
         <a href="#form" class="bw-btn">Direkt zum Formular ↓</a>
-        <a href="mailto:hallo@markwernsdorfer.com" class="bw-btn bw-btn--ghost">hallo@markwernsdorfer.com</a>
+        <a href="mailto:wernsdorfer@gmail.com" class="bw-btn bw-btn--ghost">wernsdorfer@gmail.com</a>
       </div>
     </div>
   </div>
@@ -81,14 +81,14 @@
     </div>
 
     <div class="bw-contacts">
-      <a href="mailto:hallo@markwernsdorfer.com" class="bw-contact">
+      <a href="mailto:wernsdorfer@gmail.com" class="bw-contact">
         <span class="bw-contact__label">Weg 01 — Asynchron</span>
-        <span class="bw-contact__value">hallo@markwernsdorfer.com</span>
+        <span class="bw-contact__value">wernsdorfer@gmail.com</span>
         <span class="bw-contact__note">Beste Option für detaillierte Briefings. Antwort innerhalb 48 h. PGP-Key auf Anfrage.</span>
       </a>
-      <a href="tel:+4991318523" class="bw-contact">
+      <a href="tel:+4917624003575" class="bw-contact">
         <span class="bw-contact__label">Weg 02 — Telefon</span>
-        <span class="bw-contact__value">+49 9131 85-23</span>
+        <span class="bw-contact__value">+49 176 24 003 575</span>
         <span class="bw-contact__note">Werktags 09 – 17 Uhr. Keine Bandansage — direkter Anruf. Wenn ich nicht dran bin: bitte SMS.</span>
       </a>
       <a href="#form" class="bw-contact">
@@ -156,26 +156,26 @@
       <h2 class="bw-chapter__title">Was <em>passiert</em>, nachdem Du geschrieben hast.</h2>
     </div>
 
-    <ol style="list-style:none; counter-reset:step; padding:0; margin:0; display:flex; flex-direction:column; gap:24px">
-      <li style="counter-increment:step; display:grid; grid-template-columns:64px 1fr; gap:24px; padding:24px; background:var(--paper-2); border:3px solid var(--ink); border-radius:10px; box-shadow:6px 6px 0 var(--ink); transform:rotate(-.8deg)">
-        <span style="font-family:var(--font-head); font-weight:800; font-size:44px; line-height:1; color:var(--tomato)">01</span>
+    <ol class="bw-steps">
+      <li class="bw-step">
+        <span class="bw-step__num">01</span>
         <div>
-          <h4 style="margin:0 0 8px; font-size:20px">Ich lese — gründlich.</h4>
-          <p style="margin:0; font-size:15px; line-height:1.55">Innerhalb von 48 Stunden. Wenn Dein Thema klar ist, schlage ich direkt zwei Termine vor. Wenn nicht, stelle ich 2 – 3 Rückfragen.</p>
+          <h4>Ich lese — gründlich.</h4>
+          <p>Innerhalb von 48 Stunden. Wenn Dein Thema klar ist, schlage ich direkt zwei Termine vor. Wenn nicht, stelle ich 2 – 3 Rückfragen.</p>
         </div>
       </li>
-      <li style="counter-increment:step; display:grid; grid-template-columns:64px 1fr; gap:24px; padding:24px; background:var(--paper-2); border:3px solid var(--ink); border-radius:10px; box-shadow:6px 6px 0 var(--ink); transform:rotate(.6deg)">
-        <span style="font-family:var(--font-head); font-weight:800; font-size:44px; line-height:1; color:var(--tomato)">02</span>
+      <li class="bw-step">
+        <span class="bw-step__num">02</span>
         <div>
-          <h4 style="margin:0 0 8px; font-size:20px">Wir reden — 30 Minuten.</h4>
-          <p style="margin:0; font-size:15px; line-height:1.55">Kostenlos, per Video oder Telefon. Am Ende weißt Du, ob KI Dein Thema wirklich adressiert. Und ob ich der richtige Partner bin.</p>
+          <h4>Wir reden — 30 Minuten.</h4>
+          <p>Kostenlos, per Video oder Telefon. Am Ende weißt Du, ob KI Dein Thema wirklich adressiert. Und ob ich der richtige Partner bin.</p>
         </div>
       </li>
-      <li style="counter-increment:step; display:grid; grid-template-columns:64px 1fr; gap:24px; padding:24px; background:var(--paper-2); border:3px solid var(--ink); border-radius:10px; box-shadow:6px 6px 0 var(--ink); transform:rotate(-.4deg)">
-        <span style="font-family:var(--font-head); font-weight:800; font-size:44px; line-height:1; color:var(--tomato)">03</span>
+      <li class="bw-step">
+        <span class="bw-step__num">03</span>
         <div>
-          <h4 style="margin:0 0 8px; font-size:20px">Ich schicke — oder nicht.</h4>
-          <p style="margin:0; font-size:15px; line-height:1.55">Wenn's passt, bekommst Du binnen einer Woche einen konkreten Vorschlag mit Festpreis und klarem Scope. Wenn nicht, sage ich es ehrlich — und verweise gern weiter.</p>
+          <h4>Ich schicke — oder nicht.</h4>
+          <p>Wenn's passt, bekommst Du binnen einer Woche einen konkreten Vorschlag mit Festpreis und klarem Scope. Wenn nicht, sage ich es ehrlich — und verweise gern weiter.</p>
         </div>
       </li>
     </ol>
@@ -190,23 +190,26 @@
       <h2 class="bw-chapter__title">Direkt <em>hier</em>.</h2>
     </div>
 
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start">
-      <form class="bw-form" onsubmit="event.preventDefault(); this.querySelector('.bw-form__ok').style.display='flex';">
+    <div class="bw-form-grid">
+      <form class="bw-form" action="contact.php" method="post">
+        <!-- Honeypot — real users never fill this; bots usually do.
+             Visually hidden, announced to assistive tech as a skip. -->
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;">
         <div class="bw-field">
           <label for="name">Name</label>
-          <input id="name" type="text" placeholder="Vor- und Nachname" required>
+          <input id="name" name="name" type="text" placeholder="Vor- und Nachname" required>
         </div>
         <div class="bw-field">
           <label for="email">E-Mail</label>
-          <input id="email" type="email" placeholder="du@unternehmen.de" required>
+          <input id="email" name="email" type="email" placeholder="du@unternehmen.de" required>
         </div>
         <div class="bw-field">
           <label for="org">Organisation</label>
-          <input id="org" type="text" placeholder="Arbeitgeber, Institut, Verein …">
+          <input id="org" name="org" type="text" placeholder="Arbeitgeber, Institut, Verein …">
         </div>
         <div class="bw-field">
           <label for="topic">Worum geht's?</label>
-          <select id="topic">
+          <select id="topic" name="topic">
             <option>Strategie &amp; Roadmap</option>
             <option>Prototyp bauen</option>
             <option>Produktivsystem härten</option>
@@ -218,11 +221,11 @@
         </div>
         <div class="bw-field">
           <label for="msg">Kurz in Deinen Worten</label>
-          <textarea id="msg" placeholder="Was ist der Kontext, was das Problem, was habt Ihr bisher versucht? Drei Sätze reichen." required></textarea>
+          <textarea id="msg" name="msg" placeholder="Was ist der Kontext, was das Problem, was habt Ihr bisher versucht? Drei Sätze reichen." required></textarea>
         </div>
 
         <div class="bw-field bw-field--row">
-          <input id="nda" type="checkbox">
+          <input id="nda" name="nda" type="checkbox" value="1">
           <label for="nda" style="letter-spacing:.02em; text-transform:none; font-size:14px; font-family:var(--font-body); font-weight:400">Ich brauche vor dem ersten Gespräch ein NDA.</label>
         </div>
 
@@ -230,6 +233,10 @@
 
         <div class="bw-form__ok" style="display:none; align-items:center; gap:12px; padding:14px 18px; background:var(--mint); border:3px solid var(--ink); border-radius:8px; box-shadow:4px 4px 0 var(--ink); font-family:var(--font-head); font-weight:700">
           <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="m6 10 3 3 5-6"/></svg> Danke — ich melde mich binnen 48 Stunden.
+        </div>
+        <div class="bw-form__err" style="display:none; align-items:center; gap:12px; padding:14px 18px; background:var(--tomato); color:var(--paper); border:3px solid var(--ink); border-radius:8px; box-shadow:4px 4px 0 var(--ink); font-family:var(--font-head); font-weight:700">
+          <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="M10 6v5M10 13v1"/></svg>
+          <span class="bw-form__err-msg">Beim Senden ist etwas schiefgelaufen. <a href="mailto:wernsdorfer@gmail.com" style="color:var(--paper); text-decoration:underline">Direkt eine E-Mail schreiben</a>.</span>
         </div>
       </form>
 
@@ -244,8 +251,13 @@
         </div>
 
         <div style="margin-top:28px; padding:20px; background:var(--yellow); border:3px solid var(--ink); border-radius:10px; box-shadow:5px 5px 0 var(--ink); transform:rotate(-.8deg)">
-          <span class="bw-card__num">PGP</span>
-          <p style="margin:6px 0 0; font-family:var(--font-mono); font-size:12px; line-height:1.5; word-break:break-all">Fingerprint: <strong>8F31 A4C0 2B6D 9E47  C1A8 3E55 7D02 F890 24B1 99FC</strong><br>Key auf Anfrage oder über keys.openpgp.org.</p>
+          <span class="bw-card__num">Elsewhere</span>
+          <p style="margin:6px 0 0; font-family:var(--font-mono); font-size:12px; line-height:1.6">
+            <a href="https://github.com/wehnsdaefflae" target="_blank" rel="noopener">GitHub</a> ·
+            <a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener">LinkedIn</a> ·
+            <a href="https://cris.fau.de/persons/265215523/" target="_blank" rel="noopener">FAU&nbsp;CRIS</a> ·
+            <a href="https://d-nb.info/1182477194" target="_blank" rel="noopener">Dissertation</a>
+          </p>
         </div>
       </aside>
     </div>
@@ -265,19 +277,19 @@
       <dd>Dr. Mark Wernsdorfer<br>Einzelunternehmer · Selbstständige Beratung</dd>
 
       <dt>Anschrift</dt>
-      <dd>Hauptstraße 27<br>91054 Erlangen<br>Deutschland</dd>
+      <dd>Schivelbeiner Str. 11<br>10439 Berlin<br>Deutschland</dd>
 
       <dt>Kontakt</dt>
       <dd>
-        E-Mail: <a href="mailto:hallo@markwernsdorfer.com">hallo@markwernsdorfer.com</a><br>
-        Telefon: <a href="tel:+4991318523">+49 9131 85-23</a>
+        E-Mail: <a href="mailto:wernsdorfer@gmail.com">wernsdorfer@gmail.com</a><br>
+        Telefon: <a href="tel:+4917624003575">+49 176 24 003 575</a>
       </dd>
 
       <dt>USt-IdNr.</dt>
-      <dd>DE 312 784 209</dd>
+      <dd>Auf Anfrage</dd>
 
       <dt>Berufsbezeichnung</dt>
-      <dd>Selbstständiger KI-Berater · Promoviert in computationaler Neurowissenschaft (FAU Erlangen-Nürnberg, 2016)</dd>
+      <dd>Selbstständiger KI-Berater · Promoviert in Cognitive Systems, Otto-Friedrich-Universität Bamberg (Dissertation 2019, Springer Best Paper AGI 2018)</dd>
 
       <dt>Verantwortlich i. S. d. § 18 MStV</dt>
       <dd>Dr. Mark Wernsdorfer · Anschrift wie oben</dd>
@@ -301,11 +313,11 @@
         <p>Dr. Mark Wernsdorfer · Interdisziplinäre KI-Beratung für Forschung, öffentlichen Sektor und Mittelstand.</p>
       </div>
       <div><h4>Navigation</h4><ul><li><a href="index.html">Start</a></li><li><a href="about.html">Profil</a></li><li><a href="services.html">Leistungen</a></li><li><a href="portfolio.html">Projekte</a></li><li><a href="contact.html">Kontakt</a></li></ul></div>
-      <div><h4>Kontakt</h4><ul><li><a href="mailto:hallo@markwernsdorfer.com">hallo@markwernsdorfer.com</a></li><li><a href="tel:+4991318523">+49 9131 85-23</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">GitHub</a></li></ul></div>
+      <div><h4>Kontakt</h4><ul><li><a href="mailto:wernsdorfer@gmail.com">wernsdorfer@gmail.com</a></li><li><a href="tel:+4917624003575">+49 176 24 003 575</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">GitHub</a></li></ul></div>
       <div><h4>Rechtliches</h4><ul><li><a href="#imprint">Impressum</a></li><li><a href="#">Datenschutz</a></li><li><a href="#">AGB</a></li></ul></div>
     </div>
     <div class="bw-footer__colophon">
-      <span>© 2019 – 2025 · Dr. Mark Wernsdorfer · Erlangen, DE</span>
+      <span>© 2014 – 2026 · Dr. Mark Wernsdorfer · Berlin, DE</span>
       <span>Gesetzt in Syne, Rubik &amp; Caprasimo · Kein Cookie-Banner, keine Tracker.</span>
     </div>
   </div>

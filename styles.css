@@ -1,0 +1,2650 @@
+/* ============================================================
+   markwernsdorfer.com — BLOCKWERK conversion
+   Shared site styles (composes over ../colors_and_type.css)
+   ============================================================ */
+
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); overflow-x: hidden; }
+main { display: block; }
+
+/* Skip link — keyboard accessibility. Hidden until focused. */
+.bw-skip {
+  position: absolute; top: -100px; left: 16px;
+  padding: 10px 16px;
+  background: var(--ink); color: var(--yellow);
+  font-family: var(--font-mono); font-size: 12px;
+  font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+  border: 3px solid var(--ink); border-radius: 6px;
+  box-shadow: 4px 4px 0 var(--tomato);
+  z-index: 200;
+  transition: top var(--t-fast);
+}
+.bw-skip::after { display: none; }
+.bw-skip:focus { top: 16px; outline: none; }
+
+/* kill the default underline-sweep on nav/card anchors where it'd be noisy */
+a { text-decoration: none; }
+
+/* override the global a { white-space: nowrap } from colors_and_type.css
+   for any anchors used as layout blocks (cards, rows, TOC items, partners...) */
+.bw-work, .bw-card, .bw-toc__item, .bw-partner, .bw-contact,
+.bw-nav a, .bw-mobnav a, .bw-filter, .bw-link, .bw-btn,
+.bw-brand, .bw-tools .cta, .bw-mast__stub {
+  white-space: normal;
+}
+/* but nav + chips should stay on one line */
+.bw-nav a, .bw-mobnav a, .bw-filter, .bw-link, .bw-btn,
+.bw-brand, .bw-tools .cta, .bw-tools .lang a { white-space: nowrap; }
+
+.wrap { max-width: 1320px; margin: 0 auto; padding: 0 28px; }
+
+/* ==============================
+   HEADER / NAV
+   ============================== */
+.bw-header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--paper-2);
+  border-bottom: 3px solid var(--ink);
+}
+.bw-header__row {
+  display: grid; grid-template-columns: auto 1fr auto;
+  align-items: stretch;
+}
+.bw-brand {
+  display: flex; align-items: center; gap: 12px;
+  padding: 18px 28px;
+  font-family: var(--font-display);
+  font-size: 28px; line-height: 1;
+  letter-spacing: -.01em;
+  border-right: 3px solid var(--ink);
+}
+.bw-brand .dot { width: 18px; height: 18px; background: var(--tomato); border: 3px solid var(--ink); border-radius: 3px; transform: rotate(-8deg); }
+.bw-brand:hover .dot { transform: rotate(18deg); transition: transform .2s var(--ease-pop); }
+.bw-brand::after { display: none; }
+
+.bw-nav { display: flex; align-items: stretch; justify-content: center; }
+.bw-nav a {
+  padding: 0 22px;
+  display: flex; align-items: center;
+  font-family: var(--font-head);
+  font-weight: 600; font-size: 14px;
+  text-transform: uppercase; letter-spacing: .06em;
+  border-left: 3px solid var(--ink);
+  color: var(--ink);
+  background: var(--paper-2);
+  transition: background .12s, color .12s;
+}
+.bw-nav a::after { display: none; }
+.bw-nav a:hover { background: var(--yellow); }
+.bw-nav a[aria-current="page"] { background: var(--mint); }
+
+.bw-tools { display: flex; align-items: stretch; border-left: 3px solid var(--ink); }
+.bw-tools > * {
+  padding: 0 18px;
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 12px;
+  text-transform: uppercase; letter-spacing: .08em;
+  border-right: 3px solid var(--ink);
+}
+.bw-tools > *:last-child { border-right: 0; }
+.bw-tools .lang a { padding: 4px 6px; font-weight: 600; }
+.bw-tools .lang a::after { display: none; }
+.bw-tools .lang a[aria-current="true"] { background: var(--yellow); border: 2px solid var(--ink); }
+.bw-tools .cta {
+  background: var(--tomato); color: var(--paper);
+  font-family: var(--font-head); font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0;           /* override the inherited tools-row tracking */
+  text-transform: none;        /* keep the natural German capitalization */
+  padding: 0 18px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.bw-tools .cta:hover { background: var(--ink); color: var(--yellow); }
+.bw-tools .cta::after { display: none; }
+
+/* Day / Night toggle — text-only, two-state, no icons.
+   Sits as another tools-row child; uses the row's mono 12px frame. */
+.bw-tools .theme-toggle {
+  background: transparent;
+  color: var(--ink);
+  border: 0;
+  border-right: 3px solid var(--ink);
+  cursor: pointer;
+  font: inherit;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  padding: 0 18px;
+  gap: 6px;
+}
+.bw-tools .theme-toggle .tt-sep { opacity: .35; }
+.bw-tools .theme-toggle .tt-day,
+.bw-tools .theme-toggle .tt-night { font-weight: 600; transition: background var(--t-fast); }
+.bw-tools .theme-toggle[data-edition="day"] .tt-day {
+  background: var(--yellow); padding: 2px 6px; border: 2px solid var(--ink);
+}
+.bw-tools .theme-toggle[data-edition="night"] .tt-night {
+  background: var(--royal); color: var(--fg-invert);
+  padding: 2px 6px; border: 2px solid var(--ink);
+}
+.bw-tools .theme-toggle:hover { background: var(--paper); }
+
+@media (max-width: 1100px) {
+  /* Header tools compete with nav for space below ~1100px — hide the lang
+     switch first (theme toggle is more interactive and stays). EN/DE is
+     still accessible via the mobile bottom nav and footer. */
+  .bw-tools .lang { display: none; }
+}
+@media (max-width: 900px) {
+  .bw-nav { display: none; }
+}
+@media (max-width: 640px) {
+  /* On narrow viewports, the tools row (lang + toggle + CTA) overflows
+     the grid column. Drop the header CTA — the fixed bottom nav already
+     surfaces Kontakt. Shrink the brand and theme toggle so both still
+     fit inside a ~390-px phone viewport without clipping. */
+  .bw-tools .cta { display: none; }
+  .bw-brand { font-size: 18px; padding: 14px 16px; gap: 8px; letter-spacing: 0; }
+  .bw-brand .dot { width: 14px; height: 14px; }
+  .bw-tools > * { padding: 0 14px; font-size: 11px; }
+  .bw-tools .theme-toggle { padding: 0 14px; font-size: 11px; }
+}
+
+/* ==============================
+   BUTTONS / PILLS / LINKS
+   ============================== */
+.bw-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-head); font-weight: 800; font-size: 14px;
+  text-transform: uppercase; letter-spacing: .06em;
+  padding: 14px 22px;
+  background: var(--tomato); color: var(--paper);
+  border: 3px solid var(--ink); border-radius: 8px;
+  box-shadow: 5px 5px 0 var(--ink);
+  cursor: pointer;
+  transition: transform .12s var(--ease-pop), box-shadow .12s var(--ease-pop);
+}
+.bw-btn::after { display: none; }
+.bw-btn:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 var(--ink); }
+.bw-btn:active { transform: translate(3px,3px); box-shadow: 2px 2px 0 var(--ink); }
+.bw-btn--ghost { background: var(--paper-2); color: var(--ink); }
+.bw-btn--mint { background: var(--mint); color: var(--ink); }
+.bw-btn--yellow { background: var(--yellow); color: var(--ink); }
+.bw-btn--royal { background: var(--royal); color: var(--paper); }
+
+.bw-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-head); font-weight: 700;
+  text-transform: uppercase; letter-spacing: .04em; font-size: 13px;
+  padding: 4px 0;
+  border-bottom: 3px solid var(--ink);
+  color: var(--ink);
+}
+.bw-link::after { display: none; }
+.bw-link:hover { color: var(--tomato); border-color: var(--tomato); }
+.bw-link .arrow { display: inline-block; transition: transform .18s var(--ease-pop); }
+.bw-link:hover .arrow { transform: translateX(4px); }
+
+.bw-tag {
+  display: inline-block;
+  font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: .08em;
+  padding: 4px 10px;
+  background: var(--paper-2);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+}
+
+.bw-chip {
+  display: inline-flex; align-items: center;
+  font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: .1em;
+  padding: 6px 12px;
+  background: var(--ink); color: var(--paper);
+  border-radius: 999px;
+}
+
+/* ==============================
+   CHAPTER STRIP  ( § 01 — title )
+   ============================== */
+.bw-chapter {
+  display: grid; grid-template-columns: auto 1fr;
+  align-items: end; gap: 22px;
+  padding: 22px 0 18px;
+  border-bottom: 3px solid var(--ink);
+  margin-bottom: 48px;
+}
+.bw-chapter__num {
+  font-family: var(--font-mono); font-size: 14px;
+  background: var(--ink); color: var(--paper);
+  padding: 6px 12px;
+  text-transform: uppercase; letter-spacing: .12em;
+  align-self: start;
+  transform: rotate(-2deg);
+  box-shadow: 3px 3px 0 var(--tomato);
+  transition: transform .22s var(--ease-pop), box-shadow .22s var(--ease-pop);
+}
+.bw-chapter:hover .bw-chapter__num {
+  transform: rotate(0) translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--tomato);
+}
+/* Dark-section variant — used in ink sections where the default ink
+   background would vanish against the section. */
+.bw-chapter__num--yellow {
+  background: var(--yellow); color: var(--ink);
+  box-shadow: 3px 3px 0 var(--mint);
+}
+.bw-chapter__title {
+  font-family: var(--font-head); font-weight: 800;
+  font-size: clamp(28px, 3.6vw, 48px);
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  margin: 0;
+}
+.bw-chapter__title em {
+  font-style: normal;
+  background: var(--yellow);
+  padding: 0 6px;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+/* ==============================
+   MASTHEAD  ( per-page hero )
+   ============================== */
+.bw-mast {
+  position: relative;
+  background: var(--paper-2);
+  border-bottom: 3px solid var(--ink);
+  padding: 36px 0 72px;
+}
+.bw-mast--accent { background: var(--mint); }
+.bw-mast--lilac { background: var(--lilac); }
+.bw-mast--yellow { background: var(--yellow); }
+
+.bw-mast__meta {
+  display: flex; flex-wrap: wrap; gap: 14px;
+  align-items: center;
+  font-family: var(--font-mono); font-size: 12px;
+  text-transform: uppercase; letter-spacing: .1em;
+  margin-bottom: 24px;
+}
+.bw-mast__meta .sep { color: var(--ink); opacity: .4; }
+.bw-mast__crumb {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: .12em;
+  margin-bottom: 28px;
+}
+.bw-mast__crumb a::after { display: none; }
+.bw-mast__crumb a:hover { color: var(--tomato); }
+
+.bw-mast__title {
+  font-family: var(--font-head);
+  font-weight: 800;
+  /* Floor lowered from 56 → 40 so long German words (Domäne,
+     zwischen, Fünfzehn, ausgeliefert) don't overflow a ~390-px
+     mobile body. Further reduced on very narrow viewports below. */
+  font-size: clamp(40px, 9vw, 130px);
+  line-height: .96;
+  letter-spacing: -.025em;
+  margin: 0 0 36px;
+  max-width: 18ch;
+}
+/* Very narrow viewports (<420 px) — drop the masthead floor further
+   and allow hyphenation so long German compounds (Ausgeliefert,
+   Fünfzehn, zwischen) fit without horizontal clipping. */
+@media (max-width: 420px) {
+  .bw-mast__title {
+    font-size: clamp(30px, 8vw, 42px);
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    overflow-wrap: anywhere;
+  }
+  .bw-mast__title .brush,
+  .bw-mast__title em,
+  .bw-mast__title .uline {
+    max-width: 100%;
+  }
+}
+.bw-mast__title em {
+  font-style: normal;
+  color: var(--tomato);
+  display: inline-block;
+  transition: transform .2s var(--ease-pop), color .2s, text-shadow .2s;
+}
+.bw-mast__title .brush {
+  display: inline-block;
+  background: var(--yellow);
+  /* Vertical padding (.1em) is required because the masthead uses
+     line-height:.96 (sub-unity) so glyph ascenders/descenders extend
+     ABOVE and BELOW the line-box. Without it, the yellow highlight
+     only covers the middle of the letters — "half-highlighted". */
+  padding: .08em .15em .12em;
+  /* Hard-coded dark text (not var(--ink), which flips to white in dark
+     mode). Yellow bg is yellow in both themes — text must stay dark
+     to preserve contrast. Inline-style brushes (e.g. services hero's
+     tomato brush with paper text) override this when needed. */
+  color: #0A0A0A;
+  box-shadow: 4px 4px 0 var(--ink);
+  transform: rotate(-1.5deg);
+  transition: transform .22s var(--ease-pop),
+              box-shadow .22s,
+              background .22s,
+              color .22s;
+}
+.bw-mast__title .uline {
+  display: inline-block;
+  border-bottom: 8px solid var(--tomato);
+  padding-bottom: 4px;
+  transition: border-color .22s, border-bottom-width .22s, transform .22s var(--ease-pop);
+}
+
+/* Chapter-title highlights share the hover scaffolding with the hi-* variant
+   system — see "HIGHLIGHT HOVER VARIANTS" block near the end of this file. */
+.bw-chapter__title em {
+  transition: transform .25s var(--ease-pop),
+              box-shadow .25s,
+              background .25s,
+              color .25s,
+              text-shadow .25s;
+}
+
+.bw-mast__strip {
+  display: grid; grid-template-columns: 1.3fr 1fr;
+  gap: 56px; align-items: end;
+  padding-top: 24px;
+  border-top: 3px solid var(--ink);
+}
+.bw-mast__lede {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(18px, 1.5vw, 24px);
+  line-height: 1.5;
+  max-width: 44ch;
+}
+.bw-mast__cta { display: flex; flex-wrap: wrap; gap: 14px; justify-content: flex-end; }
+
+@media (max-width: 900px) {
+  /* minmax(0, 1fr) instead of plain 1fr so the track can SHRINK below
+     the lede's intrinsic max-content size (max-width: 44ch on the lede
+     would otherwise force the track to ~447 px, overflowing the body). */
+  .bw-mast__strip { grid-template-columns: minmax(0, 1fr); gap: 28px; align-items: start; }
+  .bw-mast__cta { justify-content: flex-start; }
+}
+
+/* Right-edge tomato band on home hero.
+   Reserve 200px of right-padding on the masthead .wrap so the band
+   sits beside, not through, the content (CTAs especially). */
+.bw-mast .wrap { padding-right: 200px; }
+@media (max-width: 900px) { .bw-mast .wrap { padding-right: 28px; } }
+
+.bw-mast__band {
+  position: absolute; top: 0; right: 72px;
+  width: 90px; height: 100%;
+  background: var(--tomato);
+  border-left: 3px solid var(--ink); border-right: 3px solid var(--ink);
+  z-index: 2;
+  pointer-events: none;
+}
+.bw-mast__band::before {
+  content: ""; position: absolute; inset: 0;
+  background-image: repeating-linear-gradient( -45deg, transparent 0 14px, rgba(0,0,0,.18) 14px 15px );
+}
+/* ---- Kontakt stub (home hero only)
+   A fixed-width chip that RUNS ON the tomato vertical band. Scrolls
+   with the viewport via pure CSS `position: sticky` inside a track
+   that spans the full height of the masthead. Once .bw-mast ends,
+   the stub scrolls out with it — going behind the sticky header
+   (header z-index:100, stub z-index:3).
+
+   Shadow is YELLOW (not tomato) specifically so it stays visible
+   against the tomato band underneath — no red-on-red invisibility. */
+.bw-mast__stub-track {
+  position: absolute;
+  /* Small 6 px offset — stub sits ON the tomato band but shifted 6 px
+     to the left, so a thin vertical strip of red rail stays visible
+     to the right of the stub. That's the "running on rails" look. */
+  top: 0; right: 78px;
+  width: 90px;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+}
+.bw-mast__stub {
+  position: sticky;
+  /* Header bottom sits at viewport y=67 (64 px header + 3 px border).
+     The stub has a 4 px drop-shadow, so the SHADOW starts at
+     stub_top + 4. To make the shadow's top edge flush with the header's
+     bottom edge, the stub's top needs to be at y=63 (so shadow top =
+     63+4 = 67 = header bottom).
+     Using `top: 63 + margin-top: -4` so the natural (unstuck) position
+     also lands at y=63 — otherwise there'd be a 4 px gap on the hero. */
+  top: 63px;
+  margin-top: -4px;
+  display: block;
+  width: 90px;
+  background: var(--ink); color: var(--yellow);
+  font-family: var(--font-head); font-weight: 800; font-size: 12px;
+  text-transform: uppercase; letter-spacing: .08em;
+  text-align: center; padding: 10px 0;
+  border: 3px solid var(--ink); border-top: 0;
+  border-bottom-left-radius: 18px; border-bottom-right-radius: 18px;
+  pointer-events: auto;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--yellow);
+  transition: background .18s, color .18s, box-shadow .18s, transform .2s var(--ease-pop);
+}
+.bw-mast__stub::after { display: none; }
+.bw-mast__stub:hover {
+  background: var(--yellow); color: var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  transform: translate(-2px, -2px);
+}
+@media (max-width: 900px) {
+  .bw-mast__band, .bw-mast__stub, .bw-mast__stub-track { display: none; }
+}
+
+/* ==============================
+   SECTION SCAFFOLD
+   ============================== */
+.bw-sec { padding: 96px 0; position: relative; }
+.bw-sec--tight { padding: 64px 0; }
+.bw-sec--paper { background: var(--paper); }
+.bw-sec--raised { background: var(--paper-2); border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink); }
+.bw-sec--sunken { background: var(--paper-3); border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink); }
+.bw-sec--mint { background: var(--mint); border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink); }
+.bw-sec--lilac { background: var(--lilac); border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink); }
+.bw-sec--ink { background: var(--ink); color: var(--paper); border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink); }
+.bw-sec--ink .bw-chapter { border-bottom-color: var(--paper); }
+.bw-sec--ink .bw-chapter__title { color: var(--paper); }
+/* Ink-section em: yellow background so it reads against ink. No inline
+   styles on the HTML — the section's class provides the context. */
+.bw-sec--ink .bw-chapter__title em {
+  background: var(--yellow); color: var(--ink);
+  padding: 0 8px; font-style: normal;
+  box-shadow: 3px 3px 0 var(--tomato);
+  display: inline-block;
+  transition: transform .26s var(--ease-pop), background .22s, color .22s, box-shadow .22s;
+}
+.bw-sec--ink .bw-chapter__title em:hover {
+  transform: rotate(2deg) translate(-3px, -3px);
+  box-shadow: 6px 6px 0 var(--tomato), 10px 10px 0 var(--paper);
+  background: var(--mint);
+}
+
+/* ==============================
+   PARTNERS — marquee/strip
+   ============================== */
+.bw-partners {
+  background: var(--ink); color: var(--paper);
+  border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink);
+  padding: 22px 0;
+  overflow: hidden;
+}
+.bw-partners__head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: .14em;
+  padding-bottom: 18px; border-bottom: 2px dashed rgba(255,248,225,.2);
+  margin-bottom: 24px;
+}
+.bw-partners__head h3 {
+  color: var(--yellow);
+  font-family: var(--font-head); font-weight: 700;
+  font-size: 18px;
+  margin: 0; letter-spacing: .04em; text-transform: uppercase;
+}
+.bw-partners__track {
+  display: flex; gap: 28px; flex-wrap: nowrap;
+  align-items: center;
+  animation: bw-scroll 48s linear infinite;
+}
+.bw-partners:hover .bw-partners__track { animation-play-state: paused; }
+@keyframes bw-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.bw-partner {
+  flex: 0 0 auto;
+  display: grid; grid-template-rows: 1fr auto; place-items: center;
+  gap: 10px;
+  background: var(--paper);
+  border: 3px solid var(--paper);
+  border-radius: 10px;
+  padding: 16px 22px;
+  min-width: 200px; height: 120px;
+  box-shadow: 4px 4px 0 var(--tomato);
+  transition: transform .18s var(--ease-pop), box-shadow .18s var(--ease-pop);
+}
+.bw-partner:nth-child(3n)    { transform: rotate(-1.5deg); box-shadow: 4px 4px 0 var(--mint); }
+.bw-partner:nth-child(3n+1)  { transform: rotate(1deg); }
+.bw-partner:nth-child(3n+2)  { transform: rotate(-.5deg); box-shadow: 4px 4px 0 var(--lilac); }
+.bw-partner::after { display: none; }
+.bw-partner:hover { transform: rotate(0) translate(-2px,-2px); box-shadow: 8px 8px 0 var(--yellow); }
+.bw-partner img { width: 140px; height: 52px; max-height: 52px; max-width: 140px; object-fit: contain; }
+.bw-partner img[src$=".svg"] { width: 140px; height: 52px; }
+.bw-partner small {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--ink); text-transform: uppercase; letter-spacing: .08em;
+}
+
+/* ==============================
+   BRIGHT-SURFACE TEXT OVERRIDE
+   --------------------------------------------
+   In night mode, --ink / --fg1 flip from near-black to cornsilk
+   (#FFF8E1). But these saturated "paper-cutout" surfaces stay bright
+   in both themes, which makes cornsilk text unreadable on yellow/mint
+   /lilac/sky/hot-pink backgrounds. Locally re-pin the ink/fg tokens
+   to dark values so all descendant text stays readable.
+   ============================== */
+.bw-mast--accent,   /* mint */
+.bw-mast--lilac,
+.bw-mast--yellow,
+.bw-sec--mint,
+.bw-sec--lilac,
+.bw-card--mint,
+.bw-card--yellow,
+.bw-card--lilac,
+.bw-card--sky,
+.bw-card--hot,
+.bw-phase:nth-child(4n+1),
+.bw-phase:nth-child(4n+2),
+.bw-phase:nth-child(4n+3),
+.bw-phase:nth-child(4n+4) {
+  --ink: #0A0A0A;
+  --fg1: #0A0A0A;
+  --fg2: #3B3B3B;
+  --fg3: #6A6A6A;
+  color: var(--fg1);
+}
+
+/* ==============================
+   CUTOUT CARDS (services / refs / misc)
+   ============================== */
+.bw-grid { display: grid; gap: 28px; }
+.bw-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.bw-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.bw-grid--4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 900px) {
+  .bw-grid--2, .bw-grid--3, .bw-grid--4 { grid-template-columns: minmax(0, 1fr); }
+}
+
+.bw-card {
+  position: relative;
+  background: var(--paper-2);
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  padding: 28px;
+  box-shadow: 6px 6px 0 var(--ink);
+  /* Base transform reads the nth-child rotation from a custom property
+     so that :hover can COMPOSE (translate + same rotation) instead of
+     replacing it. That's what lets the shadow visually stay put —
+     rotation must not change during the lift.
+     Transform AND box-shadow share the same easing curve so the
+     shadow's growth tracks the card's bouncy translate exactly —
+     otherwise the shadow finishes early and the two visually desync. */
+  transform: rotate(var(--card-rot, 0deg));
+  transition: transform .25s var(--ease-pop),
+              box-shadow .25s var(--ease-pop);
+  display: flex; flex-direction: column; gap: 16px;
+}
+.bw-card::after { display: none; }
+/* Cardboard-cutout LIFT: card moves up-left by 5 px while keeping its
+   resting rotation. Shadow grows from 6 → 11 px, so the shadow's absolute
+   on-screen position stays the same:
+     card_translate = (-5, -5)
+     shadow_offset_new - card_translate = (11 + 5, 11 + 5) — wait no:
+     visible shadow = card_pos + shadow_offset
+     at rest:   (0,0) + (6,6)   = (6,6)
+     on hover:  (-5,-5) + (11,11) = (6,6)   ✓ identical
+   Only the card moves. */
+.bw-card:hover {
+  transform: translate(-5px, -5px) rotate(var(--card-rot, 0deg));
+  box-shadow: 11px 11px 0 var(--ink);
+  z-index: 2;
+}
+.bw-card--tomato { background: var(--tomato); color: var(--paper); }
+.bw-card--mint { background: var(--mint); }
+.bw-card--yellow { background: var(--yellow); }
+.bw-card--lilac { background: var(--lilac); }
+.bw-card--royal { background: var(--royal); color: var(--paper); }
+.bw-card--ink { background: var(--ink); color: var(--paper); }
+.bw-card--sky { background: var(--sky); }
+.bw-card--hot { background: var(--hot-pink); }
+
+/* Dark-surface cards: colors_and_type.css sets a global h1–h6 { color: var(--fg1) }
+   which would collapse these titles to ink-on-ink. Force paper. */
+.bw-card--tomato .bw-card__title,
+.bw-card--royal  .bw-card__title,
+.bw-card--ink    .bw-card__title { color: var(--paper); }
+
+.bw-card__num {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: .14em; text-transform: uppercase;
+  opacity: .8;
+}
+.bw-card__title {
+  font-family: var(--font-head); font-weight: 700;
+  font-size: 22px; line-height: 1.15;
+  margin: 0;
+}
+.bw-card__body {
+  font-family: var(--font-body); font-weight: 400;
+  font-size: 15px; line-height: 1.6;
+  margin: 0;
+}
+.bw-card__foot {
+  margin-top: auto; padding-top: 12px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: .08em;
+  opacity: .85;
+}
+
+.bw-card ul.checks {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: 10px;
+  font-size: 14px;
+}
+/* Absolute-positioned marker, centered on the FIRST line of the item
+   (top: half of the line-height; translateY(-50%) finishes the centering).
+   This stays correct whether the item wraps to two lines or stays on one. */
+.bw-card ul.checks li {
+  position: relative;
+  padding-left: 30px;
+  line-height: 1.55;
+}
+/* Chunky cut-paper marker — each bullet a tiny coloured rectangle stamped
+   with an ink border + ink drop-shadow, slightly rotated. Rotations and
+   tints cycle by :nth-child so the list reads as hand-placed stickers.
+   Per-item hover: each bullet reacts on its own (different motion per
+   nth-child) so running the mouse down the list produces a cascade of
+   distinct cardboard-flutters. */
+.bw-card ul.checks li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .775em;          /* exactly half of the 1.55 line-height */
+  width: 18px; height: 11px;
+  background: var(--tomato);
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+  box-shadow: 2px 2px 0 var(--ink);
+  transform: translateY(-50%) rotate(-8deg);
+  transition: transform .25s var(--ease-pop),
+              box-shadow .22s,
+              background .22s;
+  transform-origin: center;
+}
+.bw-card ul.checks li:nth-child(3n+2)::before {
+  background: var(--yellow);
+  transform: translateY(-50%) rotate(4deg);
+}
+.bw-card ul.checks li:nth-child(3n+3)::before {
+  background: var(--mint);
+  transform: translateY(-50%) rotate(-3deg);
+}
+
+/* Per-item bullet hover — three distinct motions. Cursor over a single
+   row only animates THAT row's bullet, not the whole list. */
+.bw-card ul.checks li:hover::before {
+  transform: translateY(-50%) rotate(0deg) scale(1.25);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.bw-card ul.checks li:nth-child(3n+2):hover::before {
+  transform: translateY(-60%) rotate(-12deg);
+  box-shadow: -3px 3px 0 var(--ink);
+  background: var(--tomato);
+}
+.bw-card ul.checks li:nth-child(3n+3):hover::before {
+  transform: translateY(-50%) rotate(14deg) scale(1.1);
+  box-shadow: 3px 3px 0 var(--lilac), 6px 6px 0 var(--ink);
+}
+/* Dark-card variant: swap the ink border/shadow for paper so the bullets
+   still read against tomato/royal/ink backgrounds. */
+.bw-card--tomato ul.checks li::before,
+.bw-card--royal ul.checks li::before,
+.bw-card--ink ul.checks li::before {
+  background: var(--yellow);
+  border-color: var(--paper);
+  box-shadow: 2px 2px 0 var(--paper);
+}
+.bw-card--tomato ul.checks li:nth-child(3n+2)::before,
+.bw-card--royal ul.checks li:nth-child(3n+2)::before,
+.bw-card--ink ul.checks li:nth-child(3n+2)::before { background: var(--mint); }
+.bw-card--tomato ul.checks li:nth-child(3n+3)::before,
+.bw-card--royal ul.checks li:nth-child(3n+3)::before,
+.bw-card--ink ul.checks li:nth-child(3n+3)::before { background: var(--sky); }
+/* Per-item hover on dark-card bullets — NOT a card-hover cascade.
+   Each row's bullet only reacts to the cursor passing over THAT row. */
+.bw-card--tomato ul.checks li:hover::before,
+.bw-card--royal ul.checks li:hover::before,
+.bw-card--ink ul.checks li:hover::before {
+  transform: translateY(-50%) rotate(0deg) scale(1.2);
+  box-shadow: 3px 3px 0 var(--paper);
+}
+.bw-card--tomato ul.checks li:nth-child(3n+2):hover::before,
+.bw-card--royal ul.checks li:nth-child(3n+2):hover::before,
+.bw-card--ink ul.checks li:nth-child(3n+2):hover::before {
+  transform: translateY(-60%) rotate(-10deg);
+  box-shadow: -3px 3px 0 var(--paper);
+  background: var(--yellow);
+}
+.bw-card--tomato ul.checks li:nth-child(3n+3):hover::before,
+.bw-card--royal ul.checks li:nth-child(3n+3):hover::before,
+.bw-card--ink ul.checks li:nth-child(3n+3):hover::before {
+  transform: translateY(-50%) rotate(12deg) scale(1.1);
+  box-shadow: 3px 3px 0 var(--tomato), 6px 6px 0 var(--paper);
+}
+
+/* Rotations — applied per-nth so grids feel like collage. Stored as a
+   custom property so .bw-card:hover can COMPOSE translate + rotation
+   (see the card-lift comment). */
+.bw-grid .bw-card:nth-child(4n)   { --card-rot: -1.5deg; }
+.bw-grid .bw-card:nth-child(4n+1) { --card-rot: 1deg; }
+.bw-grid .bw-card:nth-child(4n+2) { --card-rot: -.5deg; }
+.bw-grid .bw-card:nth-child(4n+3) { --card-rot: 1.5deg; }
+
+/* ==============================
+   CONTENTS (§ TOC)
+   ============================== */
+.bw-toc {
+  display: grid; grid-template-columns: 1fr 1.6fr;
+  gap: 48px; align-items: start;
+  padding: 72px 0;
+  border-top: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+  background: var(--paper);
+}
+.bw-toc__head {
+  position: sticky; top: 120px;
+}
+.bw-toc__head .bw-chip { margin-bottom: 18px; }
+.bw-toc__head h2 {
+  font-family: var(--font-head); font-weight: 800;
+  font-size: clamp(32px, 4vw, 56px); line-height: 1; margin: 0;
+  letter-spacing: -.025em;
+}
+.bw-toc__list { display: flex; flex-direction: column; }
+.bw-toc__item {
+  display: grid; grid-template-columns: auto 1fr auto;
+  align-items: baseline; gap: 24px;
+  padding: 20px 0;
+  border-top: 2px dashed var(--ink);
+  color: var(--ink);
+}
+.bw-toc__list .bw-toc__item:first-child { border-top: 3px solid var(--ink); }
+.bw-toc__list .bw-toc__item:last-child { border-bottom: 3px solid var(--ink); }
+.bw-toc__item::after { display: none; }
+/* Hover: bg change only. We used to add padding-left/right here but that
+   shifted the grid columns and caused the title to jump — prohibited
+   under the "no layout changes on hover" rule. Use transform translate
+   for the same forward-motion cue. */
+.bw-toc__item:hover { background: var(--yellow); transform: translateX(12px); }
+.bw-toc__item { transition: background .15s, transform .2s var(--ease-pop); }
+.bw-toc__num { font-family: var(--font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: .14em; }
+.bw-toc__title {
+  font-family: var(--font-head); font-weight: 600;
+  font-size: clamp(18px, 2vw, 26px); letter-spacing: -.01em;
+}
+.bw-toc__page { font-family: var(--font-mono); font-size: 12px; letter-spacing: .1em; opacity: .6; }
+@media (max-width: 900px) {
+  .bw-toc { grid-template-columns: minmax(0, 1fr); }
+  .bw-toc__head { position: static; }
+}
+
+/* ==============================
+   WORKS (portfolio rows)
+   ============================== */
+.bw-works { display: flex; flex-direction: column; gap: 0; border-top: 3px solid var(--ink); }
+.bw-work {
+  display: grid; grid-template-columns: 140px 1fr 320px;
+  gap: 36px; align-items: start;
+  padding: 40px 28px;
+  border-bottom: 3px solid var(--ink);
+  background: var(--paper-2);
+  position: relative;
+  transition: background .15s;
+}
+.bw-work::after { display: none; }
+.bw-work:nth-child(odd) { background: var(--paper-3); }
+.bw-work:hover { background: var(--yellow); }
+.bw-work:hover .bw-work__title em { background: var(--tomato); color: var(--paper); }
+
+.bw-work__year {
+  font-family: var(--font-mono); font-size: 14px;
+  font-weight: 700;
+  padding: 6px 10px;
+  background: var(--ink); color: var(--paper);
+  text-transform: uppercase; letter-spacing: .08em;
+  justify-self: start;
+  transform: rotate(-2deg);
+  border-radius: 4px;
+}
+.bw-work__body h3 {
+  font-family: var(--font-head); font-weight: 800;
+  font-size: clamp(26px, 3vw, 40px);
+  margin: 0 0 12px;
+  letter-spacing: -.02em;
+}
+.bw-work__title em {
+  font-style: normal;
+  background: var(--ink); color: var(--yellow);
+  padding: 0 6px;
+}
+.bw-work__desc { font-size: 16px; line-height: 1.55; margin: 0 0 16px; max-width: 60ch; }
+.bw-work__tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0; }
+.bw-work__meta {
+  display: flex; flex-direction: column; gap: 10px;
+  font-family: var(--font-mono); font-size: 12px;
+  text-transform: uppercase; letter-spacing: .06em;
+  line-height: 1.4;
+  border-left: 3px solid var(--ink);
+  padding-left: 20px;
+}
+.bw-work__meta strong {
+  display: block;
+  font-family: var(--font-mono); font-weight: 700;
+  color: var(--tomato); font-size: 10px;
+  letter-spacing: .14em; margin-bottom: 2px;
+}
+@media (max-width: 960px) {
+  .bw-work { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .bw-work__meta { border-left: 0; border-top: 2px dashed var(--ink); padding: 14px 0 0; }
+}
+
+/* filter row */
+.bw-filters {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-bottom: 36px;
+}
+.bw-filter {
+  font-family: var(--font-head); font-weight: 700; font-size: 13px;
+  text-transform: uppercase; letter-spacing: .06em;
+  padding: 10px 16px;
+  background: var(--paper-2); color: var(--ink);
+  border: 3px solid var(--ink); border-radius: 999px;
+  box-shadow: 3px 3px 0 var(--ink);
+  cursor: pointer;
+  transition: transform .12s var(--ease-pop), background .1s, box-shadow .12s;
+}
+.bw-filter:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--tomato); }
+.bw-filter[aria-pressed="true"] { background: var(--tomato); color: var(--paper); box-shadow: 3px 3px 0 var(--ink); }
+
+/* ==============================
+   PULL QUOTE — giant yellow fill
+   ============================== */
+.bw-pullquote {
+  position: relative;
+  padding: 80px 0;
+  background: var(--royal);
+  color: var(--paper);
+  border-top: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+  overflow: hidden;
+}
+.bw-pullquote__ticker {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head); font-weight: 800;
+  font-size: clamp(80px, 14vw, 240px);
+  color: transparent; -webkit-text-stroke: 2px var(--yellow);
+  letter-spacing: -.04em;
+  white-space: nowrap; opacity: .5;
+  transform: rotate(-6deg);
+  pointer-events: none;
+}
+.bw-pullquote__body {
+  position: relative; z-index: 1;
+  max-width: 900px; margin: 0 auto;
+  padding: 0 28px;
+  text-align: center;
+}
+.bw-pullquote blockquote {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3.4vw, 48px);
+  line-height: 1.15;
+  margin: 0 0 24px;
+  letter-spacing: -.01em;
+}
+.bw-pullquote blockquote .mark {
+  background: var(--yellow); color: var(--ink);
+  padding: 0 .12em;
+  box-shadow: 4px 4px 0 var(--ink);
+  display: inline-block;
+  transform: rotate(-1deg);
+}
+.bw-pullquote cite {
+  font-family: var(--font-mono); font-size: 13px;
+  text-transform: uppercase; letter-spacing: .14em;
+  font-style: normal;
+  display: block;
+}
+.bw-pullquote cite b {
+  color: var(--yellow);
+}
+
+/* ==============================
+   WINDOWS (Mac-style panels)
+   ============================== */
+.bw-window {
+  position: relative;
+  background: var(--paper-2);
+  border: 3px solid var(--ink);
+  border-radius: 6px;
+  box-shadow: 10px 10px 0 var(--ink);
+  transition: transform .22s var(--ease-pop), box-shadow .22s var(--ease-pop);
+  font-family: var(--font-body);
+}
+/* !important to beat inline transform:rotate(…) on rotated windows —
+   without it, the publications-right window doesn't animate on hover
+   because its inline rotation has higher specificity than :hover. */
+.bw-window:hover {
+  transform: rotate(0deg) translate(-5px, -5px) !important;
+  box-shadow: 15px 15px 0 var(--ink);
+}
+/* Tilt modifiers — prefer these over inline transforms so :hover works
+   without !important. Use --tilt-right / --tilt-left on any window. */
+.bw-window--tilt-right { transform: rotate(.8deg); }
+.bw-window--tilt-left  { transform: rotate(-.6deg); }
+.bw-window__title {
+  position: relative;
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 16px;
+  border-bottom: 3px solid var(--ink);
+  font-family: var(--font-head); font-weight: 700; font-size: 13px;
+  text-transform: uppercase; letter-spacing: .08em;
+}
+.bw-window__title .lights { display: inline-flex; gap: 5px; margin-right: 4px; }
+.bw-window__title .lights span {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ink); opacity: .25;
+}
+.bw-window__body { padding: 24px; }
+
+/* sticky segment title, big yellow stroke-fill */
+.bw-segment {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink);
+  background: var(--lilac);
+}
+.bw-segment__sticky {
+  position: sticky; top: 64px; align-self: start;
+  padding: 72px 48px;
+  border-right: 3px solid var(--ink);
+  min-height: 520px;
+}
+/* Big display text with a coloured FILL layer + an ink OUTLINE layer
+   offset behind it. The visual LOOK at rest is unchanged from the
+   earlier subtle version (2 px stroke, 4/3 px offset) — what's new
+   is the scroll-triggered entry animation.
+
+   When the element enters the viewport (.is-in from IntersectionObserver),
+   the outline SLAMS into its offset via a short wobble, giving the
+   paper-cutout a satisfying punch on arrival. The fill nudges too.
+
+   Reuse-friendly: aliased as `.bw-bigtext` so any big span can opt in.
+*/
+.bw-segment__fill,
+.bw-bigtext {
+  font-family: var(--font-head); font-weight: 800;
+  font-size: clamp(60px, 8vw, 140px);
+  line-height: .92;
+  color: var(--yellow);
+  letter-spacing: -.03em;
+  position: relative;
+  display: block;
+  text-transform: none;
+}
+.bw-segment__fill::after,
+.bw-bigtext::after {
+  content: attr(data-text);
+  position: absolute; inset: 0;
+  -webkit-text-stroke: 2px var(--ink);
+  color: transparent;
+  transform: translate(4px, 3px);      /* resting offset — unchanged */
+  pointer-events: none;
+  transition: transform .35s var(--ease-pop);
+}
+/* Scroll-triggered SLAM — both layers wobble briefly, then settle into
+   the resting offset. This is visible only once per view. */
+@keyframes bw-bigtext-slam {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  30%  { transform: translate(-6px, -8px) rotate(-1.2deg); }
+  55%  { transform: translate(12px, 10px) rotate(1.5deg); }
+  80%  { transform: translate(1px, 0) rotate(-.5deg); }
+  100% { transform: translate(4px, 3px) rotate(0deg); }
+}
+@keyframes bw-bigtext-fillshake {
+  0%   { transform: scale(.94) rotate(-1deg); }
+  45%  { transform: scale(1.05) rotate(.8deg); }
+  75%  { transform: scale(.99) rotate(-.3deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .bw-segment__fill.is-in::after,
+  .bw-bigtext.is-in::after {
+    animation: bw-bigtext-slam .85s var(--ease-pop) forwards;
+  }
+  .bw-segment__fill.is-in,
+  .bw-bigtext.is-in {
+    animation: bw-bigtext-fillshake .75s var(--ease-pop);
+  }
+}
+/* Colour variants for .bw-bigtext so the effect drops into different
+   section palettes without a stroke colour battle. */
+.bw-bigtext--tomato    { color: var(--tomato); }
+.bw-bigtext--ink       { color: var(--ink); }
+.bw-bigtext--ink::after    { -webkit-text-stroke-color: var(--tomato); }
+.bw-bigtext--mint      { color: var(--mint); }
+.bw-bigtext--yellow    { color: var(--yellow); }
+.bw-segment__body { padding: 72px 48px; background: var(--paper); }
+.bw-segment__body p { font-size: 18px; line-height: 1.8; max-width: 52ch; }
+.bw-segment__body p + p { margin-top: 18px; }
+@media (max-width: 900px) {
+  .bw-segment { grid-template-columns: minmax(0, 1fr); }
+  .bw-segment__sticky { position: static; border-right: 0; border-bottom: 3px solid var(--ink); padding: 56px 28px; min-height: 0; }
+  .bw-segment__body { padding: 56px 28px; }
+}
+
+/* ==============================
+   STAT GRID  (numbers)
+   ============================== */
+.bw-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink);
+  background: var(--paper-2);
+  margin-top: 56px;
+}
+.bw-stats--3 { grid-template-columns: repeat(3, 1fr); }
+/* Dark variant — used inside .bw-sec--ink so the cell background,
+   numbers, labels and borders all flip to paper/yellow/mint. */
+.bw-stats--dark {
+  background: #1a1a1a;
+  border-top-color: var(--paper);
+  border-bottom-color: var(--paper);
+}
+.bw-stats--dark .bw-stat { border-right-color: var(--paper); }
+.bw-stats--dark .bw-stat__num   { color: var(--mint); }
+.bw-stats--dark .bw-stat__value { color: var(--yellow); }
+.bw-stats--dark .bw-stat__label { color: var(--paper); }
+.bw-stat {
+  padding: 28px 24px;
+  border-right: 3px solid var(--ink);
+  display: flex; flex-direction: column; gap: 6px;
+  position: relative;
+  transition: background .2s, transform .22s var(--ease-pop);
+}
+.bw-stat:last-child { border-right: 0; }
+.bw-stat__num {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--tomato); font-weight: 700;
+  transition: transform .22s var(--ease-pop), color .22s;
+}
+.bw-stat__value {
+  font-family: var(--font-head); font-weight: 800;
+  font-size: clamp(30px, 4vw, 52px); line-height: 1; letter-spacing: -.02em;
+  transition: transform .25s var(--ease-pop), text-shadow .2s;
+  display: inline-block;
+}
+.bw-stat__label {
+  font-family: var(--font-body); font-size: 13px; line-height: 1.4;
+  color: var(--fg2);
+  transition: color .2s, transform .2s;
+}
+/* Stats hover: the value pops up with a cardboard-cut ink shadow, the
+   eyebrow mono-number slides right, the cell background warms to paper.
+   Each cell tilts opposite to its neighbour so the row feels alive. */
+.bw-stat:hover { background: var(--paper); }
+.bw-stat:hover .bw-stat__value {
+  transform: translate(-2px, -4px) rotate(-2deg);
+  text-shadow: 4px 4px 0 var(--tomato);
+}
+.bw-stat:hover .bw-stat__num {
+  transform: translateX(6px);
+  color: var(--ink);
+}
+.bw-stat:hover .bw-stat__label { color: var(--ink); }
+.bw-stat:nth-child(2n):hover .bw-stat__value { transform: translate(-2px, -4px) rotate(2deg); }
+/* Dark-surface stat grids (e.g. portfolio "Zahlen") keep readable on hover */
+.bw-sec--ink .bw-stat:hover { background: #2a2a2a; }
+.bw-sec--ink .bw-stat:hover .bw-stat__num { color: var(--yellow); }
+.bw-sec--ink .bw-stat:hover .bw-stat__label { color: var(--paper); }
+.bw-sec--ink .bw-stat:hover .bw-stat__value { text-shadow: 4px 4px 0 var(--mint); }
+@media (max-width: 900px) {
+  .bw-stats, .bw-stats--3 { grid-template-columns: repeat(2, 1fr); }
+  .bw-stat:nth-child(2n) { border-right: 0; }
+  .bw-stat:not(:last-child):not(:nth-last-child(2)) { border-bottom: 3px solid var(--ink); }
+}
+
+/* ==============================
+   METHOD / PROFILE
+   ============================== */
+.bw-profile {
+  display: grid; grid-template-columns: 380px 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.bw-profile__image {
+  position: relative;
+  background: var(--mint);
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 10px 10px 0 var(--ink);
+  transform: rotate(-2deg);
+  transition: transform .25s var(--ease-pop);
+}
+.bw-profile__image:hover { transform: rotate(0); }
+.bw-profile__image img { display: block; width: 100%; border: 3px solid var(--ink); border-radius: 6px; background: var(--paper); }
+.bw-profile__caption {
+  display: flex; justify-content: space-between;
+  font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: .12em;
+  margin-top: 14px;
+}
+.bw-profile__body .lead {
+  font-family: var(--font-head); font-weight: 600;
+  font-size: clamp(20px, 2vw, 28px); line-height: 1.35;
+  margin: 0 0 24px;
+  letter-spacing: -.01em;
+}
+.bw-profile__body p { font-size: 16px; line-height: 1.7; }
+@media (max-width: 900px) {
+  .bw-profile { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ==============================
+   TIMELINE
+   ============================== */
+.bw-timeline { display: flex; flex-direction: column; gap: 0; border-top: 3px solid var(--ink); }
+.bw-time {
+  display: grid; grid-template-columns: 160px 1fr;
+  gap: 32px;
+  padding: 28px 0;
+  border-bottom: 2px dashed var(--ink);
+  align-items: start;
+  position: relative;
+  transition: background .2s, transform .22s var(--ease-pop);
+}
+.bw-time:last-child { border-bottom: 3px solid var(--ink); }
+/* Hover: bg change + row slide via transform only. Padding-change
+   would shift the grid and re-flow the text; prohibited. */
+.bw-time:hover { background: var(--paper); transform: translateX(10px); }
+.bw-time:hover .bw-time__year { transform: rotate(0) translate(-2px, -2px); box-shadow: 4px 4px 0 var(--tomato); }
+.bw-time__year {
+  font-family: var(--font-mono); font-weight: 700; font-size: 15px;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 6px 10px;
+  background: var(--yellow);
+  border: 3px solid var(--ink);
+  justify-self: start;
+  transform: rotate(-1.5deg);
+  transition: transform .22s var(--ease-pop), box-shadow .2s var(--ease-pop);
+}
+.bw-time h3 {
+  font-family: var(--font-head); font-weight: 700;
+  font-size: 22px; margin: 0 0 4px; letter-spacing: -.01em;
+}
+.bw-time__org {
+  display: block;
+  font-family: var(--font-mono); font-size: 12px;
+  text-transform: uppercase; letter-spacing: .08em;
+  color: var(--tomato);
+  margin-bottom: 8px;
+}
+.bw-time p { margin: 0; font-size: 15px; line-height: 1.6; }
+@media (max-width: 700px) {
+  .bw-time { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+}
+
+/* ==============================
+   PROCESS  (phases)
+   ============================== */
+.bw-process {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 10px 10px 0 var(--ink);
+  background: var(--paper-2);
+}
+.bw-process--3 { grid-template-columns: repeat(3, 1fr); }
+.bw-phase {
+  padding: 32px 24px;
+  border-right: 3px solid var(--ink);
+  position: relative;
+  transition: transform .3s var(--ease-pop), padding .3s, z-index 0s;
+}
+.bw-phase:last-child { border-right: 0; }
+/* Phases punch forward on hover — number pill straightens + drops shadow,
+   phase body shifts slightly up-left echoing the card lift. */
+.bw-phase:hover {
+  transform: translate(-4px, -4px);
+  z-index: 2;
+}
+.bw-phase:hover .bw-phase__num {
+  transform: rotate(0) translate(-2px, -2px);
+  box-shadow: 3px 3px 0 var(--tomato);
+}
+.bw-phase:hover h3 {
+  transform: translateX(4px);
+}
+.bw-phase h3,
+.bw-phase__num {
+  transition: transform .22s var(--ease-pop), box-shadow .22s var(--ease-pop);
+}
+.bw-phase:nth-child(4n+1) { background: var(--sky); }
+.bw-phase:nth-child(4n+2) { background: var(--yellow); }
+.bw-phase:nth-child(4n+3) { background: var(--hot-pink); }
+.bw-phase:nth-child(4n+4) { background: var(--mint); }
+.bw-phase__num {
+  font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: .14em;
+  padding: 3px 8px;
+  background: var(--ink); color: var(--paper);
+  display: inline-block;
+  margin-bottom: 14px;
+}
+.bw-phase h3 {
+  font-family: var(--font-head); font-weight: 800;
+  font-size: 26px; margin: 0 0 10px;
+  letter-spacing: -.01em;
+}
+.bw-phase p { font-size: 14px; line-height: 1.5; margin: 0 0 14px; }
+.bw-phase__meta {
+  font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: .08em;
+  border-top: 2px dashed var(--ink);
+  padding-top: 10px;
+}
+@media (max-width: 900px) {
+  .bw-process, .bw-process--3 { grid-template-columns: minmax(0, 1fr); }
+  .bw-phase { border-right: 0; border-bottom: 3px solid var(--ink); }
+  .bw-phase:last-child { border-bottom: 0; }
+}
+
+/* ==============================
+   FORM
+   ============================== */
+.bw-form { display: flex; flex-direction: column; gap: 18px; }
+.bw-field { display: flex; flex-direction: column; gap: 6px; }
+.bw-field label {
+  font-family: var(--font-mono); font-size: 12px;
+  text-transform: uppercase; letter-spacing: .12em;
+  font-weight: 700;
+}
+.bw-field input, .bw-field textarea, .bw-field select {
+  font-family: var(--font-body); font-size: 16px;
+  padding: 12px 14px;
+  background: var(--paper-2);
+  border: 3px solid var(--ink); border-radius: 6px;
+  box-shadow: 4px 4px 0 var(--ink);
+  outline: none;
+  color: var(--ink);
+  transition: box-shadow .18s var(--ease-pop),
+              transform .18s var(--ease-pop),
+              border-color .18s,
+              background .18s;
+}
+.bw-field:hover input,
+.bw-field:hover textarea,
+.bw-field:hover select {
+  background: var(--paper);
+  box-shadow: 5px 5px 0 var(--mint);
+  transform: translate(-1px, -1px);
+}
+.bw-field input:focus, .bw-field textarea:focus, .bw-field select:focus {
+  box-shadow: 7px 7px 0 var(--tomato);
+  transform: translate(-2px, -2px);
+  border-color: var(--tomato);
+  background: var(--paper);
+}
+.bw-field label { transition: color .18s, transform .18s var(--ease-pop); }
+.bw-field:hover label { color: var(--tomato); transform: translateX(3px); }
+.bw-field input:focus + *, /* no-op fallback */
+.bw-field:focus-within label { color: var(--tomato); transform: translateX(3px); }
+.bw-field textarea { min-height: 140px; resize: vertical; }
+.bw-field--row { flex-direction: row; gap: 10px; align-items: center; }
+.bw-form button[type="submit"] {
+  align-self: flex-start;
+  font-family: var(--font-head); font-weight: 800; font-size: 15px;
+  text-transform: uppercase; letter-spacing: .06em;
+  padding: 14px 28px;
+  background: var(--tomato); color: var(--paper);
+  border: 3px solid var(--ink); border-radius: 8px;
+  box-shadow: 5px 5px 0 var(--ink);
+  cursor: pointer;
+  transition: transform .12s var(--ease-pop), box-shadow .12s var(--ease-pop);
+}
+.bw-form button[type="submit"]:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 var(--ink); }
+.bw-form button[type="submit"]:active { transform: translate(3px,3px); box-shadow: 2px 2px 0 var(--ink); }
+
+/* ==============================
+   IMPRINT dl
+   ============================== */
+.bw-imprint {
+  display: grid; grid-template-columns: 240px 1fr;
+  gap: 0;
+  margin: 0;
+  border-top: 3px solid var(--ink);
+}
+.bw-imprint dt, .bw-imprint dd {
+  padding: 16px 20px;
+  border-bottom: 2px dashed var(--ink);
+  margin: 0;
+}
+.bw-imprint dt {
+  font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: .12em;
+  background: var(--paper-3);
+  border-right: 3px solid var(--ink);
+  color: var(--tomato);
+  font-weight: 700;
+}
+.bw-imprint dd { font-size: 15px; line-height: 1.5; background: var(--paper-2); }
+.bw-imprint > :nth-last-child(1), .bw-imprint > :nth-last-child(2) { border-bottom: 3px solid var(--ink); }
+
+/* ==============================
+   CTA BIG  (closing block)
+   ============================== */
+.bw-cta {
+  position: relative;
+  padding: 96px 0;
+  background: var(--tomato);
+  color: var(--paper);
+  border-top: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+  overflow: hidden;
+}
+.bw-cta::before {
+  content: ""; position: absolute;
+  top: -80px; left: 10%;
+  width: 200px; height: 200px;
+  background: var(--yellow);
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  transform: rotate(14deg);
+  box-shadow: 8px 8px 0 var(--ink);
+}
+.bw-cta::after {
+  content: ""; position: absolute;
+  bottom: -100px; right: 5%;
+  width: 260px; height: 260px;
+  background: var(--mint);
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  transform: rotate(-10deg);
+  box-shadow: -10px 10px 0 var(--ink);
+}
+.bw-cta__inner {
+  position: relative; z-index: 1;
+  max-width: 900px; margin: 0 auto;
+  padding: 0 28px;
+}
+.bw-cta__eyebrow {
+  font-family: var(--font-mono); font-size: 12px;
+  text-transform: uppercase; letter-spacing: .14em;
+  margin-bottom: 18px;
+}
+.bw-cta__title {
+  font-family: var(--font-head); font-weight: 800;
+  font-size: clamp(40px, 6vw, 84px);
+  line-height: .95;
+  letter-spacing: -.025em;
+  margin: 0 0 24px;
+}
+.bw-cta__title em { font-style: normal; background: var(--ink); color: var(--yellow); padding: 0 .12em; }
+.bw-cta__body { font-size: 18px; line-height: 1.6; margin: 0 0 32px; max-width: 56ch; }
+.bw-cta__row { display: flex; flex-wrap: wrap; gap: 14px; }
+.bw-cta .bw-btn { background: var(--ink); color: var(--yellow); }
+.bw-cta .bw-btn:hover { background: var(--yellow); color: var(--ink); }
+.bw-cta .bw-btn--ghost { background: var(--paper); color: var(--ink); }
+.bw-cta .bw-btn--ghost:hover { background: var(--yellow); }
+
+/* ==============================
+   FOOTER
+   ============================== */
+.bw-footer {
+  background: var(--ink); color: var(--paper);
+  border-top: 3px solid var(--ink);
+  padding: 64px 0 28px;
+}
+.bw-footer__row {
+  display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+.bw-footer__brand {
+  font-family: var(--font-display); font-size: 28px; line-height: 1;
+  color: var(--yellow);
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-bottom: 14px;
+}
+.bw-footer__brand .dot {
+  width: 16px; height: 16px; background: var(--tomato);
+  border: 2px solid var(--yellow); border-radius: 3px;
+  transform: rotate(-8deg);
+}
+.bw-footer p { font-size: 14px; line-height: 1.6; color: #cfc7a8; max-width: 40ch; }
+.bw-footer h4 {
+  font-family: var(--font-head); font-weight: 700;
+  font-size: 12px; text-transform: uppercase; letter-spacing: .14em;
+  color: var(--mint);
+  margin: 0 0 18px;
+}
+.bw-footer ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.bw-footer ul a { color: var(--paper); font-weight: 500; font-size: 14px; }
+.bw-footer ul a::after { background: var(--tomato); }
+.bw-footer ul a:hover { color: var(--tomato); }
+.bw-footer__colophon {
+  display: flex; justify-content: space-between;
+  padding-top: 22px;
+  border-top: 2px dashed rgba(255,248,225,.2);
+  font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: .12em;
+  color: #9d9884;
+}
+@media (max-width: 900px) {
+  .bw-footer__row { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .bw-footer__colophon { flex-direction: column; gap: 10px; }
+}
+
+/* ==============================
+   MOBILE NAV bottom bar
+   ============================== */
+.bw-mobnav { display: none; }
+@media (max-width: 900px) {
+  .bw-mobnav {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--paper-2);
+    border-top: 3px solid var(--ink);
+    z-index: 90;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .bw-mobnav a {
+    padding: 10px 4px;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    font-family: var(--font-mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: .04em;
+    color: var(--ink);
+    border-right: 2px solid var(--ink);
+  }
+  .bw-mobnav a::after { display: none; }
+  .bw-mobnav a:last-child { border-right: 0; }
+  .bw-mobnav a[aria-current="page"] { background: var(--yellow); }
+  .bw-mobnav svg { width: 18px; height: 18px; stroke-width: 2.4; }
+  body { padding-bottom: 58px; }
+}
+
+/* ==============================
+   HIGHLIGHT HOVER VARIANTS
+   --------------------------------------------
+   Every highlighted word on the site should react differently when
+   hovered. We ship six named variants (hi-A … hi-F) — each a distinct
+   cardboard-cut motion — and assign them to the `.brush`, `em`, `.uline`
+   and `.mark` spans across the pages via `data-hi="A"` attributes OR
+   via :nth-of-type rotation so that two adjacent ems in the same heading
+   animate differently.
+
+   The variants intentionally feel unrelated to each other: one lifts
+   flat, one wobbles, one swaps colours, one thickens its underline.
+   That's the point — variety.
+
+   Scoped only to headings / pullquotes / CTAs so body text stays calm. */
+
+/* Base transition scaffolding — applies to every highlight element that
+   participates in the variant system. */
+.bw-mast__title .brush,
+.bw-mast__title em,
+.bw-mast__title .uline,
+.bw-chapter__title em,
+.bw-chapter__title .brush,
+.bw-chapter__title .mark,
+.bw-cta__title em,
+.bw-cta__title .brush,
+.bw-pullquote blockquote .mark,
+.bw-pullquote blockquote em,
+.bw-work__title em,
+.bw-segment__body em,
+.brush, .mark,
+[data-hi] {
+  transition: transform .28s var(--ease-pop),
+              box-shadow .22s,
+              background .22s,
+              color .22s,
+              text-shadow .22s,
+              border-color .22s,
+              border-bottom-width .22s;
+  display: inline-block;
+}
+
+/* ---- Variant A — FLATTEN & DARKEN
+   Highlight loses its tilt, slides up-left, its background darkens to
+   tomato, the ink shadow jumps from 4 → 8 px. The default reading of
+   the original brush. */
+[data-hi="A"]:hover,
+.bw-mast__title .brush[data-hi="A"]:hover,
+.bw-mast__title .brush:not([data-hi]):hover {
+  transform: rotate(0deg) translate(-3px, -4px);
+  box-shadow: 8px 8px 0 var(--ink);
+  background: var(--tomato);
+  color: var(--paper);
+}
+
+/* ---- Variant B — SCALE POP
+   Zooms slightly, tilts -2°, gains a yellow highlight background.
+   No padding / border / size change on hover — those would cause the
+   heading to reflow and potentially wrap onto a new line. Hover-safe
+   properties only: transform / background / color / box-shadow. */
+[data-hi="B"]:hover,
+.bw-mast__title em[data-hi="B"]:hover {
+  transform: scale(1.08) rotate(-2deg);
+  background: var(--yellow);
+  color: var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+/* ---- Variant C — UNDERLINE SWIPE
+   For .uline — colour flips to ink, span lifts. The old version grew
+   the border-bottom-width which caused layout shift. Replaced with a
+   box-shadow inset trick to visually thicken the underline without
+   resizing the element. */
+[data-hi="C"]:hover,
+.bw-mast__title .uline[data-hi="C"]:hover,
+.bw-mast__title .uline:not([data-hi]):hover {
+  border-bottom-color: var(--ink);
+  transform: translateY(-4px) rotate(-.5deg);
+  box-shadow: inset 0 -16px 0 var(--ink);
+}
+
+/* ---- Variant D — COLOUR INVERT
+   Swaps background for ink, text for yellow. Looks like a stamp has
+   landed. Ideal for .mark highlights inside pullquotes. */
+[data-hi="D"]:hover,
+.bw-pullquote blockquote .mark[data-hi="D"]:hover,
+.bw-pullquote blockquote .mark:not([data-hi]):hover {
+  transform: rotate(0deg) translate(-2px, -3px);
+  background: var(--ink);
+  color: var(--yellow);
+  box-shadow: 5px 5px 0 var(--tomato);
+}
+
+/* ---- Variant E — WOBBLE STAMP
+   Tilts the opposite way from rest, drops a two-colour stack of
+   shadows. Palette intentionally avoids yellow+red+black (German flag). */
+[data-hi="E"]:hover {
+  transform: rotate(3deg) translate(2px, -4px);
+  box-shadow: -5px 5px 0 var(--lilac), -10px 10px 0 var(--ink);
+  background: var(--mint);
+  color: var(--ink);
+}
+
+/* ---- Variant F — MINT FLIP
+   Background switches UNIFORMLY to mint with a skew + lift. Uses
+   !important so it beats inline `style="background:var(--tomato)"`
+   on the services hero brush. Earlier version used a 50/50 yellow+
+   mint split gradient — that read as a "half-highlighted" state on
+   the contact page where the brush only partially changed colour. */
+[data-hi="F"]:hover {
+  transform: skewX(-4deg) translate(-2px, -3px);
+  background: var(--mint) !important;
+  color: #0A0A0A !important;
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+/* ---- FALLBACK rotation when an author forgets data-hi on a heading
+   with multiple highlighted children — cycle three distinct motions
+   via :nth-of-type so uninstrumented headings still read as varied.
+   PADDING IS DELIBERATELY OMITTED on hover: any padding change would
+   force the heading to reflow and could wrap "Modell" onto a new line.
+   Hover-safe properties only: transform / background / color /
+   box-shadow. */
+.bw-mast__title em:not([data-hi]):nth-of-type(1):hover,
+.bw-chapter__title em:not([data-hi]):nth-of-type(1):hover {
+  transform: scale(1.07) rotate(-2deg);
+  background: var(--yellow);
+  color: var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.bw-mast__title em:not([data-hi]):nth-of-type(2):hover,
+.bw-chapter__title em:not([data-hi]):nth-of-type(2):hover {
+  transform: rotate(3deg) translate(2px, -4px);
+  box-shadow: -5px 5px 0 var(--lilac), -10px 10px 0 var(--ink);
+  background: var(--mint);
+  color: var(--ink);
+}
+.bw-mast__title em:not([data-hi]):nth-of-type(3):hover,
+.bw-chapter__title em:not([data-hi]):nth-of-type(3):hover {
+  transform: skewX(-5deg) translate(-3px, -3px);
+  background: linear-gradient(90deg, var(--mint) 0 50%, var(--yellow) 50% 100%);
+  color: var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+/* Portfolio row title — em is an ink-on-yellow inline-block. Its hover
+   needs a colour that WON'T merge with the row's yellow hover bg. Use
+   a TOMATO text-shadow instead of tomato bg, so the stamp-offset is
+   clearly distinct from the row-hover fill. */
+.bw-work__title em:hover {
+  transform: translate(-3px, -3px) rotate(-1.5deg);
+  box-shadow: 5px 5px 0 var(--paper), 10px 10px 0 var(--ink);
+  background: var(--ink);
+  color: var(--mint);
+}
+
+/* Segment-body em (home, "nicht die Technik") — tomato background, paper
+   text. Hover inverts to ink/yellow. */
+.bw-segment__body em:hover {
+  transform: translate(-3px, -3px) rotate(-1deg);
+  background: var(--ink);
+  color: var(--yellow);
+  box-shadow: 6px 6px 0 var(--tomato);
+}
+
+/* CTA title em (closing block) — ink bg, yellow text at rest. On hover
+   the ink shadow punches out and it tilts a little. */
+.bw-cta__title em {
+  transition: transform .28s var(--ease-pop),
+              box-shadow .22s, background .22s, color .22s;
+  display: inline-block;
+}
+.bw-cta__title em:hover {
+  transform: rotate(-2deg) translate(-3px, -3px);
+  box-shadow: 6px 6px 0 var(--yellow);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* ---- Class-based em variants (replace inline-style ems across pages
+   so the :hover rules reliably win without !important.) */
+
+/* TOC em — yellow block with ink shadow at rest; variant-A hover
+   already cycles the lift via [data-hi="A"]. */
+.hi-toc {
+  display: inline-block;
+  background: var(--yellow);
+  padding: 0 8px;
+  box-shadow: 4px 4px 0 var(--ink);
+  font-style: normal;
+  color: var(--ink);
+}
+
+/* Segment body em — tomato block with paper text (home "nicht die
+   Technik"). data-hi="D" flips to ink/yellow on hover. */
+.hi-seg-tomato {
+  display: inline-block;
+  background: var(--tomato);
+  color: var(--paper);
+  padding: 0 6px;
+  font-style: normal;
+}
+
+/* ==============================
+   MIRRORED UNDERLINE (about masthead)
+   --------------------------------------------
+   H1 contains `<span class="uline">zwischen</span><br><em class="hi-domane">
+   Domäne</em> & <em class="hi-modell">Modell</em>.` — we want a top
+   marker-line over "zwischen" AND a mirrored marker-line BELOW "Modell",
+   both at font-cap thickness (≈18 px), both the same width. Hovering
+   "Domäne" triggers the top line; hovering "Modell" triggers the bottom.
+   ============================== */
+.bw-mast__title--mirrored {
+  /* Halved from the previous clamp(22-44) — these bars should accent
+     the word, not dominate it. */
+  --stroke-h: clamp(11px, 1.5vw, 22px);
+}
+
+/* Top + bottom bars both ride on ABSOLUTELY POSITIONED ::after pseudo
+   elements. Using transform-only animations keeps hover layout-shift-
+   free — previously, changing border-bottom-width on hover forced the
+   heading to reflow, which sometimes pushed "Modell" onto a new line. */
+.bw-mast__title--mirrored .uline,
+.bw-mast__title--mirrored em.hi-modell {
+  position: relative;
+  display: inline-block;
+  padding-bottom: calc(var(--stroke-h) + 6px);
+}
+.bw-mast__title--mirrored .uline::after,
+.bw-mast__title--mirrored em.hi-modell::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 2px;
+  height: var(--stroke-h);
+  background: var(--tomato);
+  transform-origin: center center;
+  transition: transform .28s var(--ease-pop),
+              background .22s;
+}
+/* "uline" used to carry an actual border-bottom; strip that so only
+   the pseudo draws the bar. */
+.bw-mast__title--mirrored .uline { border-bottom: 0; text-align: left; width: max-content; }
+
+/* "zwischen" / "between" itself has NO direct hover animation — the
+   top bar is driven exclusively by hovering "Domäne". `!important` is
+   required because the variant-C fallback selector
+   `.bw-mast__title .uline:not([data-hi]):hover` has higher specificity
+   (three classes) than this two-class rule. */
+.bw-mast__title--mirrored .uline:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  border-bottom-color: transparent !important;
+}
+
+/* HOVER: combine em + bar animations so one pointer-over fires both */
+/* Domäne + top bar */
+.bw-mast__title--mirrored em.hi-domane,
+.bw-mast__title--mirrored em.hi-modell {
+  transition: transform .26s var(--ease-pop), background .22s, color .22s, box-shadow .22s;
+}
+.bw-mast__title--mirrored em.hi-domane:hover,
+.bw-mast__title--mirrored:has(em.hi-domane:hover) .uline::after {
+  /* em gets scale+tilt+colour; bar gets scale+lift — TRANSFORM-ONLY
+     so no layout shift, no line break. */
+}
+.bw-mast__title--mirrored em.hi-domane:hover {
+  transform: scale(1.06) rotate(-2deg);
+  background: var(--yellow);
+  color: #0A0A0A;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.bw-mast__title--mirrored:has(em.hi-domane:hover) .uline::after {
+  transform: scaleY(1.7) translateY(-3px);
+  background: var(--ink);
+}
+
+/* Modell + bottom bar — matches Domäne colours (yellow on dark) by
+   request; only the rotation direction differs so the two words feel
+   mirrored in MOTION rather than in colour. */
+.bw-mast__title--mirrored em.hi-modell:hover {
+  transform: scale(1.06) rotate(2deg);
+  background: var(--yellow);
+  color: #0A0A0A;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.bw-mast__title--mirrored em.hi-modell:hover::after {
+  transform: scaleY(1.7) translateY(3px);
+  background: var(--ink);
+}
+
+/* ==============================
+   PULLQUOTE CAROUSEL (rotating testimonials)
+   --------------------------------------------
+   Markup: .bw-pullquote__body wraps several .bw-pullquote__slide, one
+   of which carries .is-active. script.js auto-cycles every 5 s; paused
+   on hover.
+
+   Layout trick: the body is a single-cell CSS grid and every slide is
+   placed in the SAME grid cell (`grid-area: 1 / 1`). That stacks them
+   on top of each other WITHOUT absolute positioning, so the grid row
+   sizes itself to the TALLEST slide — every quote, no matter how
+   long, gets the vertical room it needs.
+
+   Dots sit OUTSIDE / BELOW the body so they can't overlap cite text. */
+.bw-pullquote__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  justify-items: center;
+  padding-bottom: 8px;   /* breathing room above the dots */
+}
+.bw-pullquote__slide {
+  grid-area: 1 / 1;               /* all slides share the same cell */
+  width: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity .6s, transform .6s var(--ease-pop);
+  pointer-events: none;
+  padding: 0 28px;
+  text-align: center;
+}
+.bw-pullquote__slide.is-active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+.bw-pullquote__slide.is-leaving {
+  transform: translateX(-40px);
+}
+/* Dots live OUTSIDE the body (appended to .bw-pullquote by JS). They
+   used to be absolute inside the body and that overlapped long quote
+   text. Now they're a flex row under the quote card with margin. */
+.bw-pullquote__dots {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 28px;
+  z-index: 3;
+  position: relative;
+}
+.bw-pullquote__dot {
+  /* 44×44 transparent hit-area for WCAG-compliant mobile touch targets.
+     The visible pip is rendered via ::before, which is what animates. */
+  width: 44px; height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  color: inherit;
+}
+.bw-pullquote__dot::before {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 14px; height: 14px;
+  margin: -7px 0 0 -7px;
+  background: var(--yellow);
+  border: 2px solid var(--yellow);
+  opacity: .35;
+  transform: rotate(-8deg);
+  transition: opacity .2s, transform .2s var(--ease-pop), background .2s;
+}
+.bw-pullquote__dot:hover::before { opacity: .7; }
+.bw-pullquote__dot.is-active::before {
+  opacity: 1;
+  background: var(--tomato);
+  border-color: var(--yellow);
+  transform: rotate(0deg) scale(1.4);
+}
+
+/* ==============================
+   SCROLL-IN ANIMATIONS
+   --------------------------------------------
+   script.js adds `.bw-observable` markers once ready and toggles `.is-in`
+   as they enter the viewport. Elements start lifted & faded and snap into
+   place — visual echo of card lift. Non-JS clients see everything already
+   visible (graceful fallback). Timeline rows, phases, cards, partners and
+   stats participate.
+   ============================== */
+@media (prefers-reduced-motion: no-preference) {
+  /* Entry fade: opacity is the universal entry signal. The translateY
+     entry is opted-in below per element type. Cards keep their base
+     rotation so they don't participate in translate-entry.
+
+     CRITICAL: the combined `.bw-card.bw-observable` etc. rules below
+     restore each element's OWN transform + box-shadow transition —
+     otherwise the generic `.bw-observable` rule's transition-property
+     list wipes the box-shadow transition from cards, and the shadow
+     "jumps" on hover while the transform is still animating. */
+  .bw-observable {
+    opacity: 0;
+    transition: opacity .5s;
+  }
+  .bw-observable.is-in { opacity: 1; }
+
+  /* Per-type combined rules — each one re-declares transitions to
+     include the element's own transform + box-shadow timing. */
+  .bw-card.bw-observable,
+  .bw-step.bw-observable,
+  .bw-window.bw-observable,
+  .bw-partner.bw-observable,
+  .bw-phase.bw-observable,
+  .bw-toc__item.bw-observable,
+  .bw-stat.bw-observable,
+  .bw-work.bw-observable,
+  .bw-time.bw-observable {
+    transition: opacity .5s,
+                transform .25s var(--ease-pop),
+                box-shadow .25s var(--ease-pop);
+  }
+
+  .bw-phase.bw-observable,
+  .bw-time.bw-observable,
+  .bw-step.bw-observable,
+  .bw-work.bw-observable,
+  .bw-toc__item.bw-observable,
+  .bw-stat.bw-observable {
+    transform: translateY(24px);
+  }
+  .bw-phase.bw-observable.is-in,
+  .bw-time.bw-observable.is-in,
+  .bw-step.bw-observable.is-in,
+  .bw-work.bw-observable.is-in,
+  .bw-toc__item.bw-observable.is-in,
+  .bw-stat.bw-observable.is-in {
+    transform: translateY(0);
+  }
+
+  /* stagger by 40 ms per sibling so a row reads left → right */
+  .bw-observable:nth-child(2).is-in { transition-delay: .04s; }
+  .bw-observable:nth-child(3).is-in { transition-delay: .08s; }
+  .bw-observable:nth-child(4).is-in { transition-delay: .12s; }
+  .bw-observable:nth-child(5).is-in { transition-delay: .16s; }
+  .bw-observable:nth-child(6).is-in { transition-delay: .20s; }
+  .bw-observable:nth-child(7).is-in { transition-delay: .24s; }
+  .bw-observable:nth-child(8).is-in { transition-delay: .28s; }
+}
+
+/* ==============================
+   bw-step  (contact "Was passiert" cards)
+   --------------------------------------------
+   Replaces the inline-styled li elements on contact.html. Each step is a
+   rotated cardboard card with the same lift-on-hover behaviour as .bw-card.
+   ============================== */
+.bw-steps {
+  list-style: none; counter-reset: step; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 24px;
+}
+.bw-step {
+  counter-increment: step;
+  display: grid; grid-template-columns: 64px 1fr;
+  gap: 24px; padding: 24px;
+  background: var(--paper-2);
+  border: 3px solid var(--ink); border-radius: 10px;
+  box-shadow: 6px 6px 0 var(--ink);
+  transition: transform .25s var(--ease-pop), box-shadow .25s, background .2s;
+}
+.bw-step:nth-child(3n+1) { transform: rotate(-.8deg); }
+.bw-step:nth-child(3n+2) { transform: rotate(.6deg); background: var(--paper-3); }
+.bw-step:nth-child(3n+3) { transform: rotate(-.4deg); }
+.bw-step:hover {
+  transform: translate(-5px, -5px) rotate(0deg);
+  box-shadow: 11px 11px 0 var(--ink);
+  background: var(--yellow);
+  z-index: 2;
+}
+.bw-step__num {
+  font-family: var(--font-head); font-weight: 800;
+  font-size: 44px; line-height: 1; color: var(--tomato);
+  transition: transform .25s var(--ease-pop), text-shadow .2s;
+}
+.bw-step:hover .bw-step__num {
+  transform: rotate(-4deg) scale(1.12);
+  text-shadow: 3px 3px 0 var(--ink);
+}
+.bw-step h4 {
+  margin: 0 0 8px; font-size: 20px;
+  font-family: var(--font-head); font-weight: 700;
+  transition: transform .22s var(--ease-pop);
+}
+.bw-step p { margin: 0; font-size: 15px; line-height: 1.55; }
+.bw-step:hover h4 { transform: translateX(4px); }
+
+/* ==============================
+   PARALLAX ACCENTS (home hero band, cta decorations)
+   --------------------------------------------
+   script.js drives --scroll-y (in px) as a CSS custom property on <html>.
+   Accents read it and translate/rotate gently to build the cardboard
+   depth. No JS required for the accents — pure CSS reads the var.
+   ============================== */
+:root { --scroll-y: 0px; }
+
+.bw-mast__band {
+  /* The home-page vertical tomato rail slides down slightly as you scroll
+     — its pattern moves with you so the band feels physically attached
+     to the page, not painted on. */
+  transform: translateY(calc(var(--scroll-y) * -0.08));
+}
+.bw-cta::before {
+  transform: rotate(calc(14deg + (var(--scroll-y) * 0.01deg)));
+}
+.bw-cta::after {
+  transform: rotate(calc(-10deg + (var(--scroll-y) * -0.008deg)));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bw-mast__band,
+  .bw-cta::before,
+  .bw-cta::after { transform: none !important; }
+}
+
+/* ==============================
+   DECORATIVE SHAPE LAYER
+   --------------------------------------------
+   script.js injects .bw-decor at the top of <main>. Shapes ride over
+   section boundaries and parallax with scroll at per-shape speeds.
+   ============================== */
+main { position: relative; }
+
+.bw-decor {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  /* Above section backgrounds but below the sticky header (z:100) so
+     shapes peek over section boundaries. Placement is kept at the
+     left/right edges so the shapes don't smother body text. */
+  z-index: 5;
+  overflow: visible;
+}
+.bw-decor__shape {
+  position: absolute;
+  display: block;
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  /* pointer-events: auto — shapes are interactive enough to hover,
+     but because they live at the edges of .bw-decor (which itself is
+     pointer-events:none) they very rarely sit over clickable content. */
+  pointer-events: auto;
+  cursor: default;
+  opacity: 1;
+  /* Parallax: per-shape --dec-k scales --scroll-y (unitless) × 1 px
+     for a distinct translateY, PLUS a per-shape hover multiplier on
+     scale. `rotate` combines the base tilt + a slow scroll-driven
+     tumble. */
+  transform:
+    translateY(calc(var(--scroll-y, 0) * var(--dec-k, 0.06) * -1px))
+    rotate(calc(var(--dec-rot, 0deg) + (var(--scroll-y, 0) * 0.01deg)))
+    scale(var(--dec-scale, 1));
+  transition: transform .35s var(--ease-pop), box-shadow .25s, filter .25s;
+}
+/* Subtle hover: each shape wiggles, scales up a touch, and grows a
+   softer shadow — it's a playful reward for moving the cursor into
+   the edges. We don't change the parallax part; we bump --dec-scale
+   which the base transform multiplies in. */
+.bw-decor__shape:hover {
+  --dec-scale: 1.08;
+  box-shadow: 10px 10px 0 var(--ink);
+  filter: brightness(1.04);
+}
+
+.bw-decor__shape--rect    { border-radius: 6px; }
+.bw-decor__shape--circle  { border-radius: 50%; }
+
+/* "plus" is a bold ink cross, drawn with two ::before / ::after bars
+   on a transparent container (no outer border). */
+.bw-decor__shape--plus {
+  border: none;
+  background: transparent !important;
+  box-shadow: none;
+}
+.bw-decor__shape--plus::before,
+.bw-decor__shape--plus::after {
+  content: "";
+  position: absolute;
+  background: var(--ink);
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--tomato);
+  border-radius: 3px;
+}
+.bw-decor__shape--plus::before {
+  left: 50%; top: 0; bottom: 0;
+  width: 14px;
+  transform: translateX(-50%);
+}
+.bw-decor__shape--plus::after {
+  top: 50%; left: 0; right: 0;
+  height: 14px;
+  transform: translateY(-50%);
+}
+
+/* Diamond: a rotated rect with its own extra tilt on top of the
+   per-shape --dec-rot. Uses the same background, border, shadow as
+   .bw-decor__shape--rect. */
+.bw-decor__shape--diamond {
+  border-radius: 4px;
+  /* The diamond rotation stacks onto the base transform via --dec-rot
+     having +45 built into the JS shape pool. */
+}
+
+/* Narrow viewports — scale shapes down and reduce their count via
+   hiding the even-indexed ones so they don't crowd mobile. */
+@media (max-width: 900px) {
+  .bw-decor__shape { transform: scale(.7) translateY(calc(var(--scroll-y, 0) * var(--dec-k, 0.04) * -1px)) rotate(var(--dec-rot, 0deg)); }
+  .bw-decor__shape:nth-child(2n) { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bw-decor { display: none; }
+}
+
+/* ================================================================
+   DARK MODE — HIGH-CONTRAST, LOW-MOTION, ACCESSIBLE VARIANT
+   ----------------------------------------------------------------
+   Dark mode isn't just a colour inversion. It's the "reader mode"
+   of this site: text contrast goes up, motion comes down, focus
+   rings get bigger, and the more decorative flourishes step back
+   so the content reads cleanly. Users who find the collage design
+   overwhelming can turn dark mode on and get something calmer.
+   ================================================================ */
+
+:root[data-theme="dark"] {
+  /* Crank the contrast: pure white on near-black beats the cornsilk
+     on ink-indigo that the "brand dark mode" used. WCAG contrast
+     ratio between #FFFFFF and #0A0A0A is 20.39:1 — well into AAA. */
+  --ink:     #FFFFFF;
+  --paper:   #0A0A0A;
+  --paper-2: #141414;
+  --paper-3: #1E1E1E;
+  --fg1:     #FFFFFF;
+  --fg2:     #E8E8E8;
+  --fg3:     #BDBDBD;
+  --fg-invert: #0A0A0A;
+  --border:  #FFFFFF;
+
+  /* Keep the saturated cutout tints in dark mode too — they're iconic
+     to the design — but push them a touch brighter so they pop against
+     the near-black background without looking muddy. */
+  --tomato:   #FF7A66;
+  --yellow:   #FFE849;
+  --mint:     #34E5B3;
+  --lilac:    #A7A5FF;
+  --hot-pink: #FF6BD0;
+  --royal:    #5E5AFF;
+  --sky:      #7DCFFF;
+}
+
+/* -- BLANKET MOTION REDUCTION --------------------------------------
+   All keyframe animations cancelled; CSS transitions are ALSO disabled
+   via `transition: none` (not just shortened). An earlier version
+   capped duration at 100 ms, but that produced a Chrome glitch where
+   body's background-color got stuck mid-transition when the theme was
+   toggled at runtime. `transition: none` side-steps that entirely —
+   every state change is instant, which is exactly what a low-motion
+   mode should deliver anyway. */
+[data-theme="dark"] *,
+[data-theme="dark"] *::before,
+[data-theme="dark"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* -- CARD / PARTNER / WORK / WINDOW: no tilt, no lift -------------
+   Cardboard collage rotations are charming but visually noisy. In
+   dark mode we flatten everything to 0° so the layout reads as a
+   calm grid. Hover STILL gives informative feedback (background
+   flip) but no motion. */
+[data-theme="dark"] .bw-card,
+[data-theme="dark"] .bw-grid .bw-card,
+[data-theme="dark"] .bw-partner,
+[data-theme="dark"] .bw-time__year,
+[data-theme="dark"] .bw-step,
+[data-theme="dark"] .bw-window,
+[data-theme="dark"] .bw-window--tilt-right,
+[data-theme="dark"] .bw-window--tilt-left,
+[data-theme="dark"] .bw-profile__image {
+  transform: none !important;
+  --card-rot: 0deg;
+}
+[data-theme="dark"] .bw-card:hover,
+[data-theme="dark"] .bw-step:hover,
+[data-theme="dark"] .bw-partner:hover,
+[data-theme="dark"] .bw-window:hover,
+[data-theme="dark"] .bw-profile__image:hover {
+  transform: none !important;
+  outline: 3px solid var(--yellow);
+  outline-offset: 4px;
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+/* -- HIGHLIGHT HOVER VARIANTS: freeze the motion -------------------
+   Keep the colour / background change so highlights still respond,
+   but drop the scale/rotate/skew that makes headings "dance". */
+[data-theme="dark"] [data-hi]:hover,
+[data-theme="dark"] .bw-mast__title .brush:hover,
+[data-theme="dark"] .bw-mast__title em:hover,
+[data-theme="dark"] .bw-mast__title .uline:hover,
+[data-theme="dark"] .bw-chapter__title em:hover,
+[data-theme="dark"] .bw-work__title em:hover,
+[data-theme="dark"] .bw-pullquote blockquote .mark:hover,
+[data-theme="dark"] .bw-cta__title em:hover,
+[data-theme="dark"] .bw-toc__head h2 em:hover {
+  transform: none !important;
+  animation: none !important;
+}
+
+/* -- CARDBOARD MIRRORED UNDERLINE: calm down ---------------------- */
+[data-theme="dark"] .bw-mast__title--mirrored:has(em.hi-domane:hover) .uline,
+[data-theme="dark"] .bw-mast__title--mirrored em.hi-modell:hover::after,
+[data-theme="dark"] .bw-mast__title--mirrored em.hi-domane:hover,
+[data-theme="dark"] .bw-mast__title--mirrored em.hi-modell:hover {
+  transform: none !important;
+}
+
+/* -- DECORATIVE SHAPE LAYER: static and low-profile ---------------
+   Shapes still appear for brand continuity, but no parallax, no
+   hover wobble, and they drop to low opacity so they're background
+   texture rather than competing with content. */
+[data-theme="dark"] .bw-decor__shape {
+  transform: rotate(var(--dec-rot, 0deg)) !important;
+  opacity: .35;
+  transition: none !important;
+}
+[data-theme="dark"] .bw-decor__shape:hover {
+  --dec-scale: 1;
+  opacity: .55;
+  box-shadow: 6px 6px 0 var(--ink) !important;
+  filter: none !important;
+}
+
+/* -- PARTNERS MARQUEE: stop the auto-scroll ------------------------ */
+[data-theme="dark"] .bw-partners__track {
+  animation: none !important;
+  /* show the first set only — the duplicate for scrolling becomes
+     visual clutter when frozen. */
+  transform: none !important;
+}
+[data-theme="dark"] .bw-partners__track > [aria-hidden="true"] { display: none; }
+
+/* -- PULLQUOTE CAROUSEL: only show the first slide ----------------
+   The rotation is handled in script.js via setInterval — the CSS
+   override here just makes sure all slides display stacked only via
+   the first one being .is-active. script.js checks theme to skip the
+   interval. */
+[data-theme="dark"] .bw-pullquote__body { min-height: 0; }
+[data-theme="dark"] .bw-pullquote__slide {
+  position: relative;
+  opacity: 1;
+  transform: none !important;
+  padding: 0;
+}
+[data-theme="dark"] .bw-pullquote__slide:not(:first-child) { display: none; }
+[data-theme="dark"] .bw-pullquote__dots { display: none; }
+
+/* -- BIGTEXT: no slam, no fill-shake ------------------------------ */
+[data-theme="dark"] .bw-segment__fill,
+[data-theme="dark"] .bw-bigtext,
+[data-theme="dark"] .bw-segment__fill::after,
+[data-theme="dark"] .bw-bigtext::after {
+  animation: none !important;
+}
+
+/* -- SCROLL-IN: no translate entry, content visible immediately --- */
+[data-theme="dark"] .bw-observable,
+[data-theme="dark"] .bw-observable:not(.is-in) {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* -- PARALLAX DECOR on masthead band + CTA accents ----------------- */
+[data-theme="dark"] .bw-mast__band,
+[data-theme="dark"] .bw-cta::before,
+[data-theme="dark"] .bw-cta::after {
+  transform: none !important;
+}
+
+/* -- KONTAKT STUB: no hover wobble, no translate ------------------ */
+[data-theme="dark"] .bw-mast__stub:hover {
+  transform: none !important;
+  outline: 3px solid var(--yellow);
+  outline-offset: 3px;
+}
+
+/* -- FOCUS RING: bigger, brighter, always visible ----------------- */
+[data-theme="dark"] :focus-visible {
+  outline: 3px solid var(--yellow) !important;
+  outline-offset: 3px !important;
+}
+
+/* -- LINKS: underline by default so they're obvious --------------- */
+[data-theme="dark"] a:not(.bw-btn):not(.bw-nav a):not(.bw-mobnav a):not(.bw-footer ul a):not(.bw-tools .cta):not(.bw-toc__item):not(.bw-work):not(.bw-card a):not(.bw-contact):not(.bw-brand):not(.bw-skip):not(.bw-mast__stub):not(.bw-link):not(.bw-mast__crumb a):not(.bw-partner):not(.bw-tools .lang a) {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* -- HEADER / NAV: keep brand colours but let accessibility bits
+       punch through — link hover underlines stay visible. */
+[data-theme="dark"] .bw-nav a:hover {
+  outline: 2px solid var(--yellow);
+  outline-offset: -2px;
+}
+
+/* ================================================================
+   DARK MODE — CONTRAST FIX FOR "INVERTED ISLAND" SECTIONS
+   ----------------------------------------------------------------
+   Several sections were designed as DARK islands against a light
+   page (partners marquee, pullquote, CTA, footer, .bw-sec--ink).
+   Their backgrounds used var(--ink) which FLIPPED to near-white in
+   dark mode, turning them into bright rectangles full of light-on-
+   dark text — that became light-on-light. Contrast failures were:
+     • .bw-partners h3 yellow-on-white (1.24)
+     • .bw-cta__title em yellow-on-white (1.24)
+     • .bw-cta__title white-on-coral (2.55)
+     • .bw-footer p / h4 pale tokens on white
+     • .bw-segment__fill yellow-on-lilac (1.78)
+   We restore the island intent by hard-coding dark backgrounds and
+   light text inside them — unaffected by the token flip.
+   ================================================================ */
+
+/* PARTNERS MARQUEE — dark ink block with cornsilk text + yellow h3 */
+[data-theme="dark"] .bw-partners {
+  background: #0A0A0A;
+  color: #FFF8E1;
+  border-top-color: #FFF8E1;
+  border-bottom-color: #FFF8E1;
+}
+[data-theme="dark"] .bw-partners__head h3 { color: #FFEF00; }
+[data-theme="dark"] .bw-partners__head {
+  border-bottom-color: rgba(255, 248, 225, .25);
+}
+/* Individual partner cards keep a LIGHT background so the dark
+   brand logos inside stay visible (logos are designed for light). */
+[data-theme="dark"] .bw-partner {
+  background: #FFF8E1;
+  border-color: #FFF8E1;
+}
+[data-theme="dark"] .bw-partner small { color: #0A0A0A; }
+
+/* CTA BIG BLOCK — keep closing CTA dark-text-on-tomato */
+[data-theme="dark"] .bw-cta {
+  background: #FF5A43;
+  color: #0A0A0A;
+  border-top-color: #FFF8E1;
+  border-bottom-color: #FFF8E1;
+}
+[data-theme="dark"] .bw-cta__title,
+[data-theme="dark"] .bw-cta__body,
+[data-theme="dark"] .bw-cta__eyebrow { color: #0A0A0A; }
+/* CTA inline em highlight: dark ink chip + yellow text — keep the
+   light-mode intent when --ink flips to white. */
+[data-theme="dark"] .bw-cta__title em {
+  background: #0A0A0A;
+  color: #FFEF00;
+}
+/* CTA ghost button is paper-on-ink in light mode — lock to cornsilk
+   + dark text in dark mode so it stays legible on the tomato CTA bg. */
+[data-theme="dark"] .bw-cta .bw-btn {
+  background: #0A0A0A;
+  color: #FFEF00;
+}
+[data-theme="dark"] .bw-cta .bw-btn--ghost {
+  background: #FFF8E1;
+  color: #0A0A0A;
+}
+
+/* PULLQUOTE (royal blue block) — light text, yellow cite-author */
+[data-theme="dark"] .bw-pullquote {
+  background: #3C3AE0;
+  color: #FFF8E1;
+}
+[data-theme="dark"] .bw-pullquote blockquote,
+[data-theme="dark"] .bw-pullquote cite { color: #FFF8E1; }
+[data-theme="dark"] .bw-pullquote cite b { color: #FFEF00; }
+[data-theme="dark"] .bw-pullquote__ticker {
+  -webkit-text-stroke-color: #FFEF00;
+}
+
+/* FOOTER — deep dark block with cornsilk / mint / yellow accents */
+[data-theme="dark"] .bw-footer {
+  background: #0A0A0A;
+  color: #FFF8E1;
+  border-top-color: #FFF8E1;
+}
+[data-theme="dark"] .bw-footer p { color: #cfc7a8; }
+[data-theme="dark"] .bw-footer h4 { color: #34E5B3; }
+[data-theme="dark"] .bw-footer__brand { color: #FFEF00; }
+[data-theme="dark"] .bw-footer ul a { color: #FFF8E1; }
+[data-theme="dark"] .bw-footer ul a:hover { color: #FF7A66; }
+[data-theme="dark"] .bw-footer__colophon {
+  color: #9d9884;
+  border-top-color: rgba(255, 248, 225, .2);
+}
+
+/* SECTION .bw-sec--ink (portfolio "Zahlen") — keep dark */
+[data-theme="dark"] .bw-sec--ink {
+  background: #0A0A0A;
+  color: #FFF8E1;
+  border-top-color: #FFF8E1;
+  border-bottom-color: #FFF8E1;
+}
+[data-theme="dark"] .bw-sec--ink .bw-chapter__title { color: #FFF8E1; }
+[data-theme="dark"] .bw-sec--ink .bw-chapter { border-bottom-color: #FFF8E1; }
+/* Yellow em chip inside dark section: lock text to ink-dark (not the
+   flipped token which becomes white → fails WCAG against yellow). */
+[data-theme="dark"] .bw-sec--ink .bw-chapter__title em {
+  background: #FFEF00;
+  color: #0A0A0A;
+  box-shadow: 3px 3px 0 #FF5A43;
+}
+
+/* .bw-stats--dark — lock literal dark appearance */
+[data-theme="dark"] .bw-stats--dark {
+  background: #161616;
+  border-top-color: #FFF8E1;
+  border-bottom-color: #FFF8E1;
+}
+[data-theme="dark"] .bw-stats--dark .bw-stat { border-right-color: #FFF8E1; }
+[data-theme="dark"] .bw-stats--dark .bw-stat__num   { color: #34E5B3; }
+[data-theme="dark"] .bw-stats--dark .bw-stat__value { color: #FFEF00; }
+[data-theme="dark"] .bw-stats--dark .bw-stat__label { color: #FFF8E1; }
+
+/* BIGTEXT / SEGMENT FILL — home page fill sits on a LILAC panel
+   (which stays bright in dark mode via the bright-surface override).
+   Yellow or tomato both fail against lilac. Use ink fill with a
+   tomato stroke offset behind so the text reads as a bold dark
+   block with a red paper-cutout shadow. */
+[data-theme="dark"] .bw-segment__fill,
+[data-theme="dark"] .bw-bigtext {
+  color: #0A0A0A;
+}
+[data-theme="dark"] .bw-segment__fill::after,
+[data-theme="dark"] .bw-bigtext::after {
+  -webkit-text-stroke-color: #FF5A43;
+}
+[data-theme="dark"] .bw-bigtext--tomato    { color: #FF5A43; }
+[data-theme="dark"] .bw-bigtext--tomato::after { -webkit-text-stroke-color: #0A0A0A; }
+[data-theme="dark"] .bw-bigtext--ink       { color: #0A0A0A; }
+[data-theme="dark"] .bw-bigtext--ink::after { -webkit-text-stroke-color: #FF5A43; }
+[data-theme="dark"] .bw-bigtext--mint      { color: #34E5B3; }
+[data-theme="dark"] .bw-bigtext--yellow    { color: #FFEF00; }
+
+/* SATURATED CARDS — tomato in dark mode is a bright coral (#FF7A66),
+   so DARK text is the legible choice (cornsilk on coral fails).
+   Royal (#5E5AFF) gets cornsilk text (passes).
+   Ink card bg is white in dark mode (due to token flip), so inner
+   text becomes dark. */
+[data-theme="dark"] .bw-card--tomato {
+  color: #0A0A0A;
+}
+[data-theme="dark"] .bw-card--tomato .bw-card__title,
+[data-theme="dark"] .bw-card--tomato .bw-card__body,
+[data-theme="dark"] .bw-card--tomato .bw-card__num { color: #0A0A0A; }
+
+[data-theme="dark"] .bw-card--royal { color: #FFF8E1; }
+[data-theme="dark"] .bw-card--royal .bw-card__title,
+[data-theme="dark"] .bw-card--royal .bw-card__body,
+[data-theme="dark"] .bw-card--royal .bw-card__num { color: #FFF8E1; }
+
+/* .bw-card--ink in dark mode has --ink=white bg → keep inner text dark */
+[data-theme="dark"] .bw-card--ink { color: #0A0A0A; }
+[data-theme="dark"] .bw-card--ink .bw-card__title,
+[data-theme="dark"] .bw-card--ink .bw-card__body,
+[data-theme="dark"] .bw-card--ink .bw-card__num { color: #0A0A0A; }
+
+/* CHAPTER NUM chip + bw-chip — lock dark bg + cornsilk text */
+[data-theme="dark"] .bw-chapter__num:not(.bw-chapter__num--yellow) {
+  background: #0A0A0A;
+  color: #FFF8E1;
+}
+[data-theme="dark"] .bw-chip:not([style*="background"]) {
+  background: #0A0A0A;
+  color: #FFF8E1;
+}
+
+/* CHAPTER TITLE em chips — yellow bg, text inherits body-white in
+   dark mode and fails against yellow. Pin to ink-dark. */
+[data-theme="dark"] .bw-chapter__title em {
+  color: #0A0A0A;
+}
+
+/* hi-toc highlight in home TOC — yellow bg with --ink text that flips
+   white. Lock to ink-dark. */
+[data-theme="dark"] .hi-toc { color: #0A0A0A; }
+
+/* Inline-style chip with `background:var(--ink); color:var(--yellow)`
+   (home-page "§ 01 — Haltung / Stance"). In dark mode ink flips to
+   WHITE → yellow on white. Override the inline via attribute-selector. */
+[data-theme="dark"] [style*="background:var(--ink)"] {
+  background: #0A0A0A !important;
+}
+
+/* PHASE num chips — inside bw-phase where the bright-surface override
+   pins --ink dark, but --paper still flips via the root rule, landing
+   on the same dark value for both. Hard-code literal colours. */
+[data-theme="dark"] .bw-phase__num {
+  background: #0A0A0A;
+  color: #FFF8E1;
+}
+
+/* MAST TITLE em on coloured masts — tomato is the default em colour
+   (.bw-mast__title em). On yellow mast yellow+tomato fails; on lilac
+   mast (about page "Domäne / Modell") tomato+lilac also fails. Pin
+   to ink-dark for both. */
+[data-theme="dark"] .bw-mast--yellow .bw-mast__title em,
+[data-theme="dark"] .bw-mast--lilac .bw-mast__title em,
+[data-theme="dark"] .bw-mast--accent .bw-mast__title em {
+  color: #0A0A0A;
+}
+
+/* TIMELINE __year chip — yellow bg with border + parent-inherited
+   white text (fg1 flips in dark). Pin text to ink-dark. */
+[data-theme="dark"] .bw-time__year {
+  color: #0A0A0A;
+}
+
+/* WORK TITLE em — ink bg (flips to white in dark) + yellow text.
+   Yellow on white fails. Swap bg back to dark so intent holds. */
+[data-theme="dark"] .bw-work__title em {
+  background: #0A0A0A;
+  color: #FFEF00;
+}
+
+/* CHAPTER NUM chip --yellow variant — text uses --ink which flips
+   white. Lock to dark ink. */
+[data-theme="dark"] .bw-chapter__num--yellow {
+  color: #0A0A0A;
+}
+
+/* NAV current page + LANG current: bg is saturated (mint / yellow)
+   but text inherits white, failing. Pin dark text. */
+[data-theme="dark"] .bw-nav a[aria-current="page"] { color: #0A0A0A; }
+[data-theme="dark"] .bw-tools .lang a[aria-current="true"] { color: #0A0A0A; }
+
+/* GHOST button — background is paper-2 (dark gray in dark mode) and
+   text is ink (white normally). But inside a bright-surface parent
+   (yellow / mint / lilac mast), the bright-surface override pins
+   --ink dark → dark-on-dark. Lock the ghost button to a LIGHT bg
+   + dark text so it stays a readable "outlined" button regardless
+   of which section it sits in. */
+[data-theme="dark"] .bw-btn--ghost {
+  background: #FFF8E1;
+  color: #0A0A0A;
+}
+[data-theme="dark"] .bw-btn--royal { color: #FFF8E1; }
+[data-theme="dark"] .bw-btn--mint  { color: #0A0A0A; }
+[data-theme="dark"] .bw-btn--yellow { color: #0A0A0A; }
+
+/* PULLQUOTE .mark chip — yellow bg needs dark text (currently inherits
+   light in dark mode because --ink flips). */
+[data-theme="dark"] .bw-pullquote blockquote .mark { color: #0A0A0A; }
+
+/* SKIP link — focus-only element. Lock dark bg + yellow text. */
+[data-theme="dark"] .bw-skip { background: #0A0A0A; color: #FFEF00; }
+
+/* FOCUS/MOBNAV current-page: same treatment */
+[data-theme="dark"] .bw-mobnav a[aria-current="page"] { color: #0A0A0A; }
+
+/* CARD__num (eyebrow) on saturated cards — inherits colour via card
+   rules already covered. But on LILAC/MINT/YELLOW cards, the
+   bright-surface override pins --ink dark, so --ink-based colours are
+   fine. We've already handled tomato/royal/ink above. */
+
+/* INK card eyebrow — the HTML inline `style="color:var(--mint)"` was
+   designed for the BLACK ink card in light mode (mint on black = ~8).
+   In dark mode the card flips to WHITE and mint / tomato both fail on
+   white; lock to dark ink so the eyebrow stays legible. */
+[data-theme="dark"] .bw-card--ink .bw-card__num {
+  color: #0A0A0A !important;
+}
+
+/* THEME-TOGGLE "Nacht" indicator — royal bg + fg-invert dark text
+   was 4.13 (just below 4.5). Bump to cornsilk for easier reading. */
+[data-theme="dark"] .bw-tools .theme-toggle[data-edition="night"] .tt-night {
+  color: #FFF8E1;
+}
+
+/* bw-step h4 inside mint sec — bright-surface override pins --fg1
+   dark which combines with the card's own dark paper-2 bg to produce
+   dark-on-dark. Lock step cards to a light cornsilk bg in dark mode
+   so they stand out from the mint section AND their dark text reads. */
+[data-theme="dark"] .bw-step {
+  background: #FFF8E1;
+  color: #0A0A0A;
+}
+[data-theme="dark"] .bw-step:nth-child(3n+2) { background: #F2ECD4; }
+[data-theme="dark"] .bw-step h4,
+[data-theme="dark"] .bw-step p { color: #0A0A0A; }
+[data-theme="dark"] .bw-step:hover { background: #FFEF00; }
+[data-theme="dark"] .bw-step__num { color: #B83018; }  /* deeper tomato for AA on cornsilk */
+
+/* Inline-styled "Elsewhere" yellow card on contact page — text inside
+   inherits white body colour, failing against the yellow inline bg.
+   Attribute-selector targets the inline style so we don't have to
+   refactor the HTML. */
+[data-theme="dark"] [style*="background:var(--yellow)"] {
+  color: #0A0A0A !important;
+}
+[data-theme="dark"] [style*="background:var(--yellow)"] a,
+[data-theme="dark"] [style*="background:var(--yellow)"] span {
+  color: #0A0A0A;
+}
+
+/* MAST stub, when on a yellow mast — actually stub is only on home. */
+
+/* ==============================
+   LITTLE UTILITIES
+   ============================== */
+.bw-hide { display: none !important; }
+.bw-u-right { text-align: right; }
+.bw-u-center { text-align: center; }
+.bw-u-mt-lg { margin-top: 64px; }
+.bw-u-mt-xl { margin-top: 96px; }
+
+/* Contact form + aside grid (form left, hinweise.md window + Elsewhere
+   card right). 2 columns on desktop, stacks on mobile. Replaces the
+   previous inline-style grid that didn't collapse on narrow screens. */
+.bw-form-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 56px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .bw-form-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+}
+
+/* badges-row ribbon for contact formats */
+.bw-contacts {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 3px solid var(--ink); border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 8px 8px 0 var(--ink);
+}
+.bw-contact {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 28px;
+  border-right: 3px solid var(--ink);
+  background: var(--paper-2);
+  color: var(--ink);
+  transition: background .15s;
+}
+.bw-contact:last-child { border-right: 0; }
+.bw-contact::after { display: none; }
+.bw-contact:nth-child(1):hover { background: var(--yellow); }
+.bw-contact:nth-child(2):hover { background: var(--mint); }
+.bw-contact:nth-child(3):hover { background: var(--hot-pink); }
+.bw-contact__label {
+  font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: .14em;
+  color: var(--tomato);
+}
+.bw-contact__value {
+  font-family: var(--font-head); font-weight: 700; font-size: 22px;
+  letter-spacing: -.01em;
+}
+.bw-contact__note { font-family: var(--font-body); font-size: 13px; color: var(--fg2); }
+@media (max-width: 900px) {
+  .bw-contacts { grid-template-columns: minmax(0, 1fr); }
+  .bw-contact { border-right: 0; border-bottom: 3px solid var(--ink); }
+  .bw-contact:last-child { border-bottom: 0; }
+}

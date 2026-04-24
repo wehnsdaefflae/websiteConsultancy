@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="description" content="Fünfzehn Jahre zwischen Domäne und Modell. Dr. rer. nat., Fraunhofer, FAU Erlangen, seit 2019 selbstständig.">
+<meta name="description" content="Fünfzehn Jahre zwischen Domäne und Modell. PhD Cognitive Systems (Uni Bamberg), Uniklinikum Leipzig, FAU Erlangen-Nürnberg, The Bina School.">
 <meta name="author" content="Dr. Mark Wernsdorfer">
 <meta name="theme-color" content="#FFF8E1" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0E0D12" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://markwernsdorfer.com/about">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Profil — Dr. Mark Wernsdorfer">
-<meta property="og:description" content="Fünfzehn Jahre zwischen Domäne und Modell. Dr. rer. nat., Fraunhofer, FAU Erlangen, seit 2019 selbstständig.">
+<meta property="og:description" content="Fünfzehn Jahre zwischen Domäne und Modell. PhD Cognitive Systems (Uni Bamberg), Uniklinikum Leipzig, FAU Erlangen-Nürnberg, The Bina School.">
 <meta property="og:url" content="https://markwernsdorfer.com/about">
 <meta name="twitter:card" content="summary">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><rect width='48' height='48' fill='%23FFEF00'/><rect x='10' y='10' width='22' height='22' fill='%23FF5A43' stroke='%230A0A0A' stroke-width='3' transform='rotate(-8 21 21)'/></svg>">
@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Syne:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Caprasimo&display=swap">
 <link rel="stylesheet" href="colors_and_type.css" />
 <link rel="stylesheet" href="styles.css" />
-<script>(function(){try{var s=localStorage.getItem('bw.theme');var p=matchMedia('(prefers-color-scheme: dark)').matches;if((s?s==='dark':p))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var q=null;try{q=new URL(location.href).searchParams.get('t');}catch(e){}var s=(q==='dark'||q==='light')?q:localStorage.getItem('bw.theme');var p=matchMedia('(prefers-color-scheme: dark)').matches;if(s?s==='dark':p)document.documentElement.setAttribute('data-theme','dark');if(q==='dark'||q==='light'){try{localStorage.setItem('bw.theme',q);}catch(e){}}}catch(e){}})();</script>
 </head>
 <body>
 
@@ -37,7 +37,7 @@
       <a href="contact.html">Kontakt</a>
     </nav>
     <div class="bw-tools">
-      <div class="lang"><a href="#" aria-current="true">DE</a><span style="opacity:.3">/</span><a href="#">EN</a></div>
+      <div class="lang"><a href="#" aria-current="true">DE</a><span style="opacity:.3">/</span><a href="en/about.html">EN</a></div>
       <button class="theme-toggle" type="button" data-theme-toggle aria-label="Tag- / Nacht-Ausgabe umschalten"><span class="tt-day">Tag</span><span class="tt-sep">·</span><span class="tt-night">Nacht</span></button>
       <a href="contact.html" class="cta">Erstgespräch →</a>
     </div>
@@ -53,15 +53,15 @@
       <a href="index.html">Start</a> <span>/</span> <span>Profil</span>
     </div>
 
-    <h1 class="bw-mast__title">
+    <h1 class="bw-mast__title bw-mast__title--mirrored">
       Fünfzehn Jahre<br>
       <span class="uline">zwischen</span><br>
-      <em>Domäne</em> &amp; <em>Modell</em>.
+      <em class="hi-domane">Domäne</em> &amp; <em class="hi-modell">Modell</em>.
     </h1>
 
     <div class="bw-mast__strip">
       <p class="bw-mast__lede">
-        Ich bin Mark — Dr. rer. nat., Softwareentwickler, manchmal
+        Ich bin Mark — Dr. Cognitive Systems, Softwareentwickler, manchmal
         Hochschuldozent. Ich übersetze zwischen Fachabteilungen und Engineering,
         zwischen Forschungskonsortien und Startups. <strong>Mein Handwerk ist,
         KI verständlich zu machen — ohne sie zu verharmlosen.</strong>
@@ -85,49 +85,56 @@
     <div class="bw-profile">
       <div>
         <div class="bw-profile__image">
-          <img src="portrait-mark.png" alt="Dr. Mark Wernsdorfer, Portrait">
+          <img
+            src="images/profile-mark-wernsdorfer.webp"
+            srcset="images/profile-mark-wernsdorfer-320w.webp 320w, images/profile-mark-wernsdorfer-640w.webp 640w, images/profile-mark-wernsdorfer-960w.webp 960w, images/profile-mark-wernsdorfer.webp 1280w"
+            sizes="(max-width: 860px) 100vw, 38vw"
+            alt="Dr. Mark Wernsdorfer, Portrait"
+            loading="lazy" decoding="async">
         </div>
-        <div class="bw-profile__caption"><span>// Mark, 2024</span><span>Erlangen</span></div>
+        <div class="bw-profile__caption"><span>// Mark Wernsdorfer</span><span>Berlin</span></div>
 
         <div style="margin-top:36px" class="bw-window">
           <div class="bw-window__title"><span class="lights"><span></span><span></span><span></span></span>vitae.txt</div>
           <div class="bw-window__body" style="font-family:var(--font-mono); font-size:13px; line-height:1.7">
-            <strong>Mark Wernsdorfer, Dr. rer. nat.</strong><br>
-            <span style="color:var(--tomato)">//</span> Geb. 1983, Potsdam<br>
-            <span style="color:var(--tomato)">//</span> lebt in Erlangen<br>
-            <span style="color:var(--tomato)">//</span> spricht DE · EN · ein bisschen FR<br>
-            <span style="color:var(--tomato)">//</span> zeichnet, wenn er nachdenkt
+            <strong>Dr. Mark Wernsdorfer</strong><br>
+            <span style="color:var(--tomato)">//</span> PhD Cognitive Systems, Uni Bamberg<br>
+            <span style="color:var(--tomato)">//</span> lebt &amp; arbeitet in Berlin<br>
+            <span style="color:var(--tomato)">//</span> spricht DE · EN · FR<br>
+            <span style="color:var(--tomato)">//</span> zwischen Modell und Domäne
           </div>
         </div>
       </div>
 
       <div class="bw-profile__body">
         <p class="lead">
-          Angefangen habe ich mit einem Informatik-Diplom und der Frage, wie
-          Gehirne lernen. Promoviert habe ich dann über neuronale Modelle für
-          zeitliches Schließen — und dabei gemerkt, dass mich die Anwendung
-          mehr interessiert als die reine Theorie.
+          Halb Forscher, halb Entwickler. Ich komme aus der Grundlagen­forschung —
+          Symbol Grounding, Bewusstsein, die seltsameren Ecken der Kognition —
+          und baue seit fünfzehn Jahren ML-Systeme dort, wo Korrektheit
+          Menschen­leben, Nachrichten oder Klassen­stufen betrifft.
         </p>
         <p>
-          Sechs Jahre Fraunhofer, drei Jahre als Tech-Lead in einem KMU, seit
-          2019 selbstständig. Ich habe RAG-Systeme gebaut, bevor der Begriff
-          existierte, und Agent-Architekturen evaluiert, als ReAct noch ein
-          Paper war. Das heißt nicht, dass ich alles weiß. Es heißt, dass ich
-          einschätzen kann, was hält und was nicht.
+          Promotion an der Otto-Friedrich-Universität Bamberg zu Symbol Grounding —
+          zu der Frage, wie artifizielle Systeme Bedeutung entwickeln. Ausgezeichnet
+          mit dem Springer Best Paper auf der 11. AGI-Konferenz in Prag (2018).
+          Anschließend Key AI Architect am Uniklinikum Leipzig (AMPEL), Research
+          Associate an der FAU Erlangen-Nürnberg und Lead AI Developer für The
+          Bina School.
         </p>
         <p>
-          Ich arbeite gern mit Leuten, die ihre Domäne ernster nehmen als das
-          Werkzeug. Medizin, Verwaltung, Industrie, Forschung — überall da, wo
-          die Sachfrage komplizierter ist als die Modellauswahl.
+          Die Praxis pendelt zwischen zwei Polen: Grundlagenforschung zur
+          Bedeutungsbildung in künstlichen Systemen — und dem konkreten Bau von
+          ML-Systemen dort, wo Korrektheit zählt: klinische Labore, redaktionelle
+          Newsrooms, Klassenzimmer-Software.
         </p>
 
         <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:28px">
-          <span class="bw-tag">Python / Typescript</span>
-          <span class="bw-tag">LangChain / LlamaIndex</span>
-          <span class="bw-tag">PyTorch</span>
-          <span class="bw-tag">pgvector · Qdrant</span>
-          <span class="bw-tag">Llama · Mistral · Claude</span>
-          <span class="bw-tag">AWS / Hetzner</span>
+          <span class="bw-tag">Machine Learning</span>
+          <span class="bw-tag">LLMs · TensorFlow · PyTorch</span>
+          <span class="bw-tag">Python · Java · C++ · JS</span>
+          <span class="bw-tag">Clinical Decision Support</span>
+          <span class="bw-tag">Symbol Grounding</span>
+          <span class="bw-tag">Cognitive Science</span>
           <span class="bw-tag">EU-AI-Act</span>
         </div>
       </div>
@@ -169,10 +176,10 @@
 
       <article class="bw-card bw-card--tomato">
         <span class="bw-card__num">Prinzip 03</span>
-        <h3 class="bw-card__title">Übergeben statt einmauern.</h3>
+        <h3 class="bw-card__title">Abgeben statt einmauern.</h3>
         <p class="bw-card__body">
           Mein Erfolg ist, wenn Ihr mich nicht mehr braucht. Jedes Projekt endet
-          mit Doku, Übergabe-Workshops und einem Team, das den Code versteht
+          mit Doku, Handover-Workshops und einem Team, das den Code versteht
           und weiterentwickeln kann. Kein Lock-in, keine Retainer-Falle.
         </p>
         <div class="bw-card__foot" style="color:var(--paper)"><span>→ Mission-Complete ist das Ziel</span></div>
@@ -191,47 +198,74 @@
 
     <div class="bw-timeline">
       <div class="bw-time">
-        <span class="bw-time__year">seit 2019</span>
+        <span class="bw-time__year">2025</span>
         <div>
-          <h3>Selbstständige KI-Beratung</h3>
-          <span class="bw-time__org">Dr. Mark Wernsdorfer · Erlangen</span>
-          <p>Strategie, Entwicklung und angewandte Forschung für Fraunhofer, FAU, Bayerische Staatskanzlei, Universitätsklinikum Leipzig, mittelständische Kunden. Technical Lead auf Projektbasis.</p>
+          <h3>Lead AI Developer — The Bina School</h3>
+          <span class="bw-time__org">Cognia-akkreditierte Online-Schule · 40+ Länder</span>
+          <p>Leitung der KI-Entwicklung auf der Precision-Education-Plattform: adaptive Lernpfade, Echtzeit-Fortschrittserfassung, personalisierte Curricula für Alter 4 – 12.</p>
         </div>
       </div>
 
       <div class="bw-time">
-        <span class="bw-time__year">2022 – heute</span>
+        <span class="bw-time__year">2024</span>
         <div>
-          <h3>Lehrauftrag — Angewandtes Maschinelles Lernen</h3>
-          <span class="bw-time__org">FAU Erlangen-Nürnberg · Dept. Informatik</span>
-          <p>Zwei Semester pro Jahr. 30 – 40 Studierende, Schwerpunkt auf Engineering-Praxis: Daten, Pipelines, Evaluation, Deployment.</p>
+          <h3>Award Finalist — Innovation in Journalism</h3>
+          <span class="bw-time__org">Media Lab Bayern · 4D Digital Rights by Design Award</span>
+          <p>DoppelCheck ausgezeichnet als Finalist des „4D Digital Rights by Design 2024 Award" für Werkzeuge gegen Desinformation im Browser.</p>
         </div>
       </div>
 
       <div class="bw-time">
-        <span class="bw-time__year">2016 – 2019</span>
+        <span class="bw-time__year">2023 — 24</span>
         <div>
-          <h3>Tech-Lead, Machine Learning</h3>
-          <span class="bw-time__org">BINA GmbH · Nürnberg</span>
-          <p>Aufbau des ML-Teams (0 → 7 Personen). Verantwortung für Dokumenten-Extraktion, Anomalie-Erkennung, erste Chat-Assistenten im Versicherungs­umfeld.</p>
+          <h3>Fellow — Media Lab Bayern &amp; Prototype Fund</h3>
+          <span class="bw-time__org">BMBF · WPK Innovation Fund</span>
+          <p>Entwicklung von SpotTheBot und DoppelCheck — KI-Werkzeuge zur Erkennung von Desinformation und KI-generierten Texten, mit Unterstützung durch das BMBF und den WPK Innovation Fund.</p>
         </div>
       </div>
 
       <div class="bw-time">
-        <span class="bw-time__year">2011 – 2016</span>
+        <span class="bw-time__year">seit 2021</span>
         <div>
-          <h3>Wissenschaftlicher Mitarbeiter / Promotion</h3>
-          <span class="bw-time__org">Fraunhofer IIS + FAU Erlangen</span>
-          <p>Promotion in computationaler Neurowissenschaft — "Zeitliches Schließen mit rekurrenten neuronalen Netzen". Parallel Projektarbeit in industrieller Bildverarbeitung.</p>
+          <h3>Research Associate — FAU Erlangen-Nürnberg</h3>
+          <span class="bw-time__org">GeoZentrum Nordbayern · KNW-Opt · META-Studie</span>
+          <p>Maschinelles Lernen für oberflächennahe Geothermie: prädiktive Modellierung und Optimierung, inkl. peer-reviewter Arbeiten zur Vorhersage thermischer Leitfähigkeit.</p>
         </div>
       </div>
 
       <div class="bw-time">
-        <span class="bw-time__year">2004 – 2010</span>
+        <span class="bw-time__year">2019 — 21</span>
         <div>
-          <h3>Diplom Informatik</h3>
-          <span class="bw-time__org">Universität Potsdam</span>
-          <p>Schwerpunkt Künstliche Intelligenz &amp; Kognitive Systeme. Studentische Hilfskraft am Hasso-Plattner-Institut. Diplomarbeit über modellbasiertes Reinforcement Learning.</p>
+          <h3>Key AI Architect — AMPEL, Universitätsklinikum Leipzig</h3>
+          <span class="bw-time__org">Universitätsklinikum Leipzig · JMIR Medical Informatics</span>
+          <p>Architekt eines Clinical Decision Support Systems, ausgerollt über 1 500+ Klinikbetten. Co-Erstautor der primären AMPEL-Publikation in JMIR Medical Informatics (2021).</p>
+        </div>
+      </div>
+
+      <div class="bw-time">
+        <span class="bw-time__year">2018</span>
+        <div>
+          <h3>Springer Best Paper — 11. AGI-Konferenz, Prag</h3>
+          <span class="bw-time__org">AGI 2018 · "How Failure Facilitates Success"</span>
+          <p>Auszeichnung für die Dissertations­arbeit zu Symbol Grounding. Publikation in den Springer Lecture Notes in Artificial Intelligence.</p>
+        </div>
+      </div>
+
+      <div class="bw-time">
+        <span class="bw-time__year">2014 — 18</span>
+        <div>
+          <h3>Data Scientist — Orpheus GmbH</h3>
+          <span class="bw-time__org">Procurement Analytics · VC-finanziertes Startup (heute McKinsey Spendscape)</span>
+          <p>Maschinelles Lernen für Beschaffungs­analytik: automatisierte Datenextraktion, KI-gestützte Ausgaben­kategorisierung, prädiktive Analytik.</p>
+        </div>
+      </div>
+
+      <div class="bw-time">
+        <span class="bw-time__year">2011 — 14</span>
+        <div>
+          <h3>Promotions­stipendiat — BayEFG</h3>
+          <span class="bw-time__org">Otto-Friedrich-Universität Bamberg · Bayerische Elitenförderung</span>
+          <p>Prestigeträchtiges Promotions­stipendium für die Forschung zu Symbol Grounding und kognitiven Systemen.</p>
         </div>
       </div>
     </div>
@@ -278,54 +312,50 @@
   </div>
 </section>
 
-<!-- TALKS / PUBLICATIONS -->
+<!-- PUBLICATIONS -->
 <section class="bw-sec bw-sec--paper">
   <div class="wrap">
     <div class="bw-chapter">
-      <span class="bw-chapter__num">§ 05 — Sichtbar</span>
-      <h2 class="bw-chapter__title">Vorträge, Publikationen &amp; <em>Hin-&amp;-Weg</em>.</h2>
+      <span class="bw-chapter__num">§ 05 — Publikationen</span>
+      <h2 class="bw-chapter__title">Ausgewählte <em>Schriften</em>.</h2>
     </div>
 
     <div class="bw-grid bw-grid--2" style="gap:28px">
       <div class="bw-window">
-        <div class="bw-window__title"><span class="lights"><span></span><span></span><span></span></span>Vorträge · 2023 – 2025</div>
+        <div class="bw-window__title"><span class="lights"><span></span><span></span><span></span></span>Peer-reviewed · Auswahl</div>
         <div class="bw-window__body">
           <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:18px">
-            <li style="display:grid; grid-template-columns:90px 1fr; gap:16px; padding-bottom:14px; border-bottom:2px dashed var(--ink)">
-              <span style="font-family:var(--font-mono); font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--tomato)">Mrz 2025</span>
-              <div><strong>Was Agenten wirklich können.</strong><br><small style="color:var(--fg3)">Bitkom AI Summit · Berlin · Keynote</small></div>
+            <li style="padding-bottom:14px; border-bottom:2px dashed var(--ink)">
+              <span class="bw-tag" style="margin-bottom:8px">Journal · 2021</span>
+              <p style="font-size:14px; line-height:1.5; margin:8px 0 4px"><strong>Wernsdorfer, M.</strong> et al. — „AMPEL: A Clinical Decision Support System for Real-Time Patient Monitoring."<br><em>JMIR Medical Informatics, Co-Erstautor.</em> <a class="bw-link" style="margin-top:6px" href="https://medinform.jmir.org/2021/6/e20407" target="_blank" rel="noopener">Zur Publikation →</a></p>
             </li>
-            <li style="display:grid; grid-template-columns:90px 1fr; gap:16px; padding-bottom:14px; border-bottom:2px dashed var(--ink)">
-              <span style="font-family:var(--font-mono); font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--tomato)">Nov 2024</span>
-              <div><strong>RAG in der Klinik — Realitätscheck.</strong><br><small style="color:var(--fg3)">Medica · Düsseldorf · Panel</small></div>
+            <li style="padding-bottom:14px; border-bottom:2px dashed var(--ink)">
+              <span class="bw-tag" style="margin-bottom:8px">Conference · 2018</span>
+              <p style="font-size:14px; line-height:1.5; margin:8px 0 4px"><strong>Wernsdorfer, M.</strong> — „How Failure Facilitates Success: Symbol Grounding Revisited."<br><em>11. AGI-Konferenz, Prag · Springer Best Paper Award.</em></p>
             </li>
-            <li style="display:grid; grid-template-columns:90px 1fr; gap:16px; padding-bottom:14px; border-bottom:2px dashed var(--ink)">
-              <span style="font-family:var(--font-mono); font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--tomato)">Jun 2024</span>
-              <div><strong>Evaluation für LLM-Produkte.</strong><br><small style="color:var(--fg3)">re:publica · Berlin · Workshop</small></div>
-            </li>
-            <li style="display:grid; grid-template-columns:90px 1fr; gap:16px">
-              <span style="font-family:var(--font-mono); font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--tomato)">Okt 2023</span>
-              <div><strong>Wenn Forschung produktiv wird.</strong><br><small style="color:var(--fg3)">Fraunhofer Tech-Talk · München</small></div>
+            <li>
+              <span class="bw-tag" style="margin-bottom:8px">Dissertation · 2019</span>
+              <p style="font-size:14px; line-height:1.5; margin:8px 0 4px">Symbol Grounding — Foundations of conceptual understanding in artificial systems.<br><em>Otto-Friedrich-Universität Bamberg.</em> <a class="bw-link" style="margin-top:6px" href="https://d-nb.info/1182477194" target="_blank" rel="noopener">Zur Dissertation →</a></p>
             </li>
           </ul>
         </div>
       </div>
 
-      <div class="bw-window" style="transform:rotate(.8deg)">
-        <div class="bw-window__title"><span class="lights"><span></span><span></span><span></span></span>Publikationen · Auswahl</div>
+      <div class="bw-window bw-window--tilt-right">
+        <div class="bw-window__title"><span class="lights"><span></span><span></span><span></span></span>Forschung &amp; Sichtbarkeit</div>
         <div class="bw-window__body">
           <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:18px">
             <li style="padding-bottom:14px; border-bottom:2px dashed var(--ink)">
-              <span class="bw-tag" style="margin-bottom:8px">Journal · 2024</span>
-              <p style="font-size:14px; line-height:1.5; margin:8px 0 4px"><strong>Wernsdorfer, M.</strong> et al. — "Evaluation frameworks for clinical retrieval-augmented generation."<br><em>npj Digital Medicine, 7(2).</em></p>
+              <span class="bw-tag" style="margin-bottom:8px">Forschung · FAU</span>
+              <p style="font-size:14px; line-height:1.5; margin:8px 0 4px">Peer-reviewte Arbeiten zum ML-basierten Modellieren thermischer Leitfähigkeit in oberflächennahen Geothermie-Systemen (KNW-Opt, META-Studie). <a class="bw-link" style="margin-top:6px" href="https://cris.fau.de/persons/265215523/" target="_blank" rel="noopener">FAU CRIS-Profil →</a></p>
             </li>
             <li style="padding-bottom:14px; border-bottom:2px dashed var(--ink)">
-              <span class="bw-tag" style="margin-bottom:8px">Conference · 2023</span>
-              <p style="font-size:14px; line-height:1.5; margin:8px 0 4px"><strong>Wernsdorfer, M.</strong>, Riedel, A. — "Retrieval under distribution shift in rare-disease corpora."<br><em>EMNLP 2023, Findings.</em></p>
+              <span class="bw-tag" style="margin-bottom:8px">Open Source · 2023 – 24</span>
+              <p style="font-size:14px; line-height:1.5; margin:8px 0 4px">DoppelCheck &amp; SpotTheBot — quelloffene Werkzeuge zur Erkennung von Desinformation und KI-generiertem Text. <a class="bw-link" style="margin-top:6px" href="https://github.com/wehnsdaefflae" target="_blank" rel="noopener">GitHub-Profil →</a></p>
             </li>
             <li>
-              <span class="bw-tag" style="margin-bottom:8px">Buchbeitrag · 2022</span>
-              <p style="font-size:14px; line-height:1.5; margin:8px 0 4px">"KI im öffentlichen Sektor — ein Praxisleitfaden." Kapitel 4: Beschaffung &amp; Evaluation.<br><em>Springer Vieweg.</em></p>
+              <span class="bw-tag" style="margin-bottom:8px">Installation · 2023</span>
+              <p style="font-size:14px; line-height:1.5; margin:8px 0 4px">ARTeFact (Spiegelbox) — interaktive KI-Installation am Globe Theatre Leipzig zu ethischen Dimensionen der KI-Empathie.</p>
             </li>
           </ul>
         </div>
@@ -354,14 +384,14 @@
     <div class="bw-footer__row">
       <div>
         <div class="bw-footer__brand"><span class="dot"></span>WERNSDORFER</div>
-        <p>Dr. Mark Wernsdorfer · Interdisziplinäre KI-Beratung für Forschung, öffentlichen Sektor und Mittelstand. Aus Erlangen, für den deutschsprachigen Raum.</p>
+        <p>Dr. Mark Wernsdorfer · Interdisziplinäre KI-Beratung für Forschung, öffentlichen Sektor und Mittelstand. Aus Berlin, für den deutschsprachigen Raum.</p>
       </div>
       <div><h4>Navigation</h4><ul><li><a href="index.html">Start</a></li><li><a href="about.html">Profil</a></li><li><a href="services.html">Leistungen</a></li><li><a href="portfolio.html">Projekte</a></li><li><a href="contact.html">Kontakt</a></li></ul></div>
-      <div><h4>Kontakt</h4><ul><li><a href="mailto:hallo@markwernsdorfer.com">hallo@markwernsdorfer.com</a></li><li><a href="tel:+4991318523">+49 9131 85-23</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">GitHub</a></li></ul></div>
+      <div><h4>Kontakt</h4><ul><li><a href="mailto:wernsdorfer@gmail.com">wernsdorfer@gmail.com</a></li><li><a href="tel:+4917624003575">+49 176 24 003 575</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">GitHub</a></li></ul></div>
       <div><h4>Rechtliches</h4><ul><li><a href="contact.html#imprint">Impressum</a></li><li><a href="#">Datenschutz</a></li><li><a href="#">AGB</a></li></ul></div>
     </div>
     <div class="bw-footer__colophon">
-      <span>© 2019 – 2025 · Dr. Mark Wernsdorfer · Erlangen, DE</span>
+      <span>© 2014 – 2026 · Dr. Mark Wernsdorfer · Berlin, DE</span>
       <span>Gesetzt in Syne, Rubik &amp; Caprasimo · Kein Cookie-Banner, keine Tracker.</span>
     </div>
   </div>

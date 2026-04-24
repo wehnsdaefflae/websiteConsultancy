@@ -1,0 +1,19 @@
+# Files / dirs Plesk should NOT deploy even though they're in the repo.
+# Plesk reads this like .gitignore during its Git deployment step.
+
+# Legacy site — kept in-repo for reference, not shipped.
+deprecated/
+
+# Developer docs — not meant to be public.
+CLAUDE.md
+DEPLOY.md
+README.md
+*.md
+
+# Alternative receiver (Node.js); the PHP version is the default on Plesk.
+contact.node.js
+*.node.js
+
+# Git / editor metadata
+.git/
+.gitignore

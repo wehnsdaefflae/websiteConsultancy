@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Syne:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Caprasimo&display=swap">
 <link rel="stylesheet" href="colors_and_type.css" />
 <link rel="stylesheet" href="styles.css" />
-<script>(function(){try{var s=localStorage.getItem('bw.theme');var p=matchMedia('(prefers-color-scheme: dark)').matches;if((s?s==='dark':p))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{var q=null;try{q=new URL(location.href).searchParams.get('t');}catch(e){}var s=(q==='dark'||q==='light')?q:localStorage.getItem('bw.theme');var p=matchMedia('(prefers-color-scheme: dark)').matches;if(s?s==='dark':p)document.documentElement.setAttribute('data-theme','dark');if(q==='dark'||q==='light'){try{localStorage.setItem('bw.theme',q);}catch(e){}}}catch(e){}})();</script>
 </head>
 <body>
 
@@ -37,7 +37,7 @@
       <a href="contact.html">Kontakt</a>
     </nav>
     <div class="bw-tools">
-      <div class="lang"><a href="#" aria-current="true">DE</a><span style="opacity:.3">/</span><a href="#">EN</a></div>
+      <div class="lang"><a href="#" aria-current="true">DE</a><span style="opacity:.3">/</span><a href="en/services.html">EN</a></div>
       <button class="theme-toggle" type="button" data-theme-toggle aria-label="Tag- / Nacht-Ausgabe umschalten"><span class="tt-day">Tag</span><span class="tt-sep">·</span><span class="tt-night">Nacht</span></button>
       <a href="contact.html" class="cta">Erstgespräch →</a>
     </div>
@@ -54,8 +54,8 @@
 
     <h1 class="bw-mast__title">
       Vier Felder.<br>
-      <em>Ein</em> Versprechen:<br>
-      <span class="brush" style="background:var(--tomato); color:var(--paper)">es läuft.</span>
+      <em data-hi="B">Ein</em> Versprechen:<br>
+      <span class="brush" data-hi="F" style="background:var(--tomato); color:var(--paper)">es läuft.</span>
     </h1>
 
     <div class="bw-mast__strip">
@@ -91,7 +91,7 @@
       <article class="bw-card bw-card--lilac">
         <span class="bw-card__num">Vorteil 02</span>
         <h3 class="bw-card__title">Promoviert &amp; produktiv.</h3>
-        <p class="bw-card__body">Dr. rer. nat. plus 15 Jahre Code. Ich lese die Paper, die den Hype treiben — und ich baue die Systeme, die danach in Produktion gehen müssen.</p>
+        <p class="bw-card__body">Dr. Cognitive Systems plus 15 Jahre Code. Ich lese die Paper, die den Hype treiben — und ich baue die Systeme, die danach in Produktion gehen müssen.</p>
       </article>
 
       <article class="bw-card bw-card--tomato">
@@ -109,6 +109,12 @@
     <div class="bw-chapter">
       <span class="bw-chapter__num">§ 02 — Kerngeschäft</span>
       <h2 class="bw-chapter__title">Vier Leistungsfelder — <em>im Detail</em>.</h2>
+    </div>
+    <!-- Bigtext echo — the same fill+outline cardboard-slam effect as
+         on the home page ("Coden kann jeder"). It anchors the section
+         with oversized weight and re-uses the signature motion. -->
+    <div class="bw-u-center" style="margin: 8px 0 56px">
+      <span class="bw-bigtext bw-bigtext--tomato" data-text="Es läuft.">Es läuft.</span>
     </div>
 
     <div class="bw-grid bw-grid--2" style="gap:36px">
@@ -200,7 +206,7 @@
       </div>
       <div class="bw-phase">
         <span class="bw-phase__num">Phase 04</span>
-        <h3>Übergeben.</h3>
+        <h3>Abgeben.</h3>
         <p>Dokumentation, Handover-Workshops, 3 Monate Standby. Ihr könnt es jetzt selbst — mit mir als Rückhalt.</p>
         <div class="bw-phase__meta">2 Wo. + 3 Mo. Support</div>
       </div>
@@ -208,15 +214,34 @@
   </div>
 </section>
 
-<!-- SPECIALISED / PULLQUOTE -->
+<!-- SPECIALISED / PULLQUOTE — rotating testimonials, 5 s cadence -->
 <section class="bw-pullquote">
   <div class="bw-pullquote__ticker">Evaluation · Guardrails · Handover · Ship</div>
   <div class="bw-pullquote__body">
-    <blockquote>
-      "Sehr viele können eine <span class="mark">Demo bauen.</span> Sehr wenige
-      können sie in Produktion halten. Das ist der Unterschied, der zählt."
-    </blockquote>
-    <cite><b>Claudia Böhm</b> · CTO · BINA GmbH · 2025</cite>
+    <div class="bw-pullquote__slide">
+      <blockquote>
+        „Herausragendes, tief spezialisiertes Fachwissen. Außerordentlich
+        <span class="mark">analytisches Denken</span> und sehr rasche Auffassungs­gabe —
+        ein außergewöhnlich loyaler Kollege."
+      </blockquote>
+      <cite><b>Dr. Marija Radic</b> · Abteilungs­leiterin · Fraunhofer IMW</cite>
+    </div>
+    <div class="bw-pullquote__slide">
+      <blockquote>
+        „Für die schwierigsten Probleme fand er <span class="mark">wirkungsvolle Lösungen</span>
+        — und setzte sie stets in die Praxis um."
+      </blockquote>
+      <cite><b>Prof. Dr. Berend Isermann</b> · Institutsdirektor · Universität Leipzig</cite>
+    </div>
+    <div class="bw-pullquote__slide">
+      <blockquote>
+        „Widmete sich schwierigen Aufgaben mit großem Einsatz und fand stets
+        <span class="mark">kunden­orientierte, zielführende Lösungen</span>.
+        Dank seiner raschen Auffassungs­gabe erfasste er komplexe
+        Zusammen­hänge mühelos."
+      </blockquote>
+      <cite><b>Matthias Lauer</b> · Managing Partner · Orpheus GmbH</cite>
+    </div>
   </div>
 </section>
 
@@ -307,11 +332,11 @@
         <p>Dr. Mark Wernsdorfer · Interdisziplinäre KI-Beratung für Forschung, öffentlichen Sektor und Mittelstand.</p>
       </div>
       <div><h4>Navigation</h4><ul><li><a href="index.html">Start</a></li><li><a href="about.html">Profil</a></li><li><a href="services.html">Leistungen</a></li><li><a href="portfolio.html">Projekte</a></li><li><a href="contact.html">Kontakt</a></li></ul></div>
-      <div><h4>Kontakt</h4><ul><li><a href="mailto:hallo@markwernsdorfer.com">hallo@markwernsdorfer.com</a></li><li><a href="tel:+4991318523">+49 9131 85-23</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">GitHub</a></li></ul></div>
+      <div><h4>Kontakt</h4><ul><li><a href="mailto:wernsdorfer@gmail.com">wernsdorfer@gmail.com</a></li><li><a href="tel:+4917624003575">+49 176 24 003 575</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">GitHub</a></li></ul></div>
       <div><h4>Rechtliches</h4><ul><li><a href="contact.html#imprint">Impressum</a></li><li><a href="#">Datenschutz</a></li><li><a href="#">AGB</a></li></ul></div>
     </div>
     <div class="bw-footer__colophon">
-      <span>© 2019 – 2025 · Dr. Mark Wernsdorfer · Erlangen, DE</span>
+      <span>© 2014 – 2026 · Dr. Mark Wernsdorfer · Berlin, DE</span>
       <span>Gesetzt in Syne, Rubik &amp; Caprasimo · Kein Cookie-Banner, keine Tracker.</span>
     </div>
   </div>

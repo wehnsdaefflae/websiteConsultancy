@@ -1,9 +1,11 @@
 User-agent: *
 Allow: /
 
-# Disallow internal documentation and old pages
-Disallow: /additional_info/
-Disallow: /old_pages/
+# Dev-only paths — not actually deployed to the webroot, but
+# included here as a safety net in case a stale ref leaks out.
+Disallow: /deprecated/
+Disallow: /CLAUDE.md
+Disallow: /DEPLOY.md
+Disallow: /README.md
 
-# Sitemap location
 Sitemap: https://markwernsdorfer.com/sitemap.xml

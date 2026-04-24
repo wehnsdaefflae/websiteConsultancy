@@ -1,600 +1,468 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Dr. Mark Wernsdorfer — Interdisciplinary AI Consultancy</title>
-<meta name="description" content="Dr. Mark Wernsdorfer — interdisciplinary AI consultant. Bridging foundational research in symbol grounding, philosophy of mind and clinical machine learning with practical business outcomes.">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="description" content="KI-Beratung für Forschung, öffentlichen Sektor und Mittelstand. Prototyp in 2 Wochen, Produktion in 8. Keine Slides, kein Lock-in.">
 <meta name="author" content="Dr. Mark Wernsdorfer">
-<meta name="theme-color" content="#EAE6DC" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1C1A15" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#FFF8E1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E0D12" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://markwernsdorfer.com/">
-
-<meta property="og:title" content="Dr. Mark Wernsdorfer — Interdisciplinary AI Consultancy">
-<meta property="og:description" content="Strategic AI consulting that bridges deep theory and practical business outcomes — from clinical decision support to disinformation detection.">
 <meta property="og:type" content="website">
+<meta property="og:title" content="Dr. Mark Wernsdorfer — Interdisziplinäre KI-Beratung">
+<meta property="og:description" content="KI-Beratung für Forschung, öffentlichen Sektor und Mittelstand. Prototyp in 2 Wochen, Produktion in 8. Keine Slides, kein Lock-in.">
 <meta property="og:url" content="https://markwernsdorfer.com/">
-<meta property="og:image" content="images/profile-mark-wernsdorfer.webp">
-<meta name="twitter:card" content="summary_large_image">
-
-<!-- Favicon / app icons -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><rect width='48' height='48' fill='%23EAE6DC'/><text x='50%25' y='62%25' text-anchor='middle' font-family='Archivo,Helvetica,Arial,sans-serif' font-size='32' font-weight='700' letter-spacing='-1.5' fill='%232B3A5A'>W</text></svg>">
-<link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><rect width='48' height='48' fill='%23EAE6DC'/><text x='50%25' y='62%25' text-anchor='middle' font-family='Archivo,Helvetica,Arial,sans-serif' font-size='32' font-weight='700' letter-spacing='-1.5' fill='%232B3A5A'>W</text></svg>">
-<link rel="manifest" href="manifest.json">
-
-<!-- Flash-of-wrong-theme prevention — runs before first paint. -->
-<script>
-(function(){
-  try {
-    var saved = localStorage.getItem('mw.theme');
-    var prefers = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    var dark = saved ? saved === 'dark' : prefers;
-    if (dark) document.documentElement.classList.add('dark');
-  } catch(e) {}
-})();
-</script>
-
-<!-- Single family: Archivo (humanist grotesque, full variable weight + italic). -->
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><rect width='48' height='48' fill='%23FFEF00'/><rect x='10' y='10' width='22' height='22' fill='%23FF5A43' stroke='%230A0A0A' stroke-width='3' transform='rotate(-8 21 21)'/></svg>">
+<title>Dr. Mark Wernsdorfer — Interdisziplinäre KI-Beratung</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="css/site.css">
-<script src="js/site.js" defer></script>
-
-<!-- Structured data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Dr. Mark Wernsdorfer",
-  "jobTitle": "Interdisciplinary AI Consultant",
-  "description": "AI consultant bridging foundational research in symbol grounding, philosophy of mind, and cognitive science with practical machine-learning deployments.",
-  "url": "https://markwernsdorfer.com",
-  "email": "wernsdorfer@gmail.com",
-  "telephone": "+49-176-24003575",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Schivelbeiner Str. 11",
-    "addressLocality": "Berlin",
-    "postalCode": "10439",
-    "addressCountry": "DE"
-  },
-  "sameAs": ["https://linkedin.com/in/wernsdorfer", "https://github.com/wehnsdaefflae"],
-  "knowsAbout": ["Artificial Intelligence","Machine Learning","Cognitive Science","Philosophy of Mind","AI Strategy","Clinical Decision Support Systems","Symbol Grounding","Natural Language Processing"],
-  "alumniOf": {"@type":"EducationalOrganization","name":"University of Bamberg"},
-  "hasCredential": {"@type":"EducationalOccupationalCredential","credentialCategory":"Degree","name":"PhD in Cognitive Systems"},
-  "award": ["Springer Best Paper Award, AGI Conference 2018","DoppelCheck — Finalist, International Award for Innovation in Journalism 2024"]
-}
-</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Syne:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Caprasimo&display=swap">
+<link rel="stylesheet" href="colors_and_type.css" />
+<link rel="stylesheet" href="styles.css" />
+<script>(function(){try{var q=null;try{q=new URL(location.href).searchParams.get('t');}catch(e){}var s=(q==='dark'||q==='light')?q:localStorage.getItem('bw.theme');var p=matchMedia('(prefers-color-scheme: dark)').matches;if(s?s==='dark':p)document.documentElement.setAttribute('data-theme','dark');if(q==='dark'||q==='light'){try{localStorage.setItem('bw.theme',q);}catch(e){}}}catch(e){}})();</script>
 </head>
 <body>
 
-<a class="skip-link" href="#main">Skip to content</a>
+<a class="bw-skip" href="#main">Zum Inhalt springen</a>
 
-<header class="site-header">
-  <div class="site-header__inner">
-    <a href="/" class="brand" aria-label="Home — Dr. Mark Wernsdorfer">
-      <span class="brand__mark" aria-hidden="true">W</span>
-      <span class="brand__name">Wernsdorfer<em>·</em>Consulting</span>
-    </a>
-    <nav class="site-nav" aria-label="Primary">
-      <a href="en/about.html">About</a>
-      <a href="en/services.html">Services</a>
-      <a href="en/projects.html">Portfolio</a>
-      <a href="en/contact.html">Contact</a>
+<!-- =========== HEADER =========== -->
+<header class="bw-header">
+  <div class="bw-header__row">
+    <a href="index.html" class="bw-brand"><span class="dot"></span>WERNSDORFER</a>
+    <nav class="bw-nav">
+      <a href="index.html" aria-current="page">Start</a>
+      <a href="about.html">Profil</a>
+      <a href="services.html">Leistungen</a>
+      <a href="portfolio.html">Projekte</a>
+      <a href="contact.html">Kontakt</a>
     </nav>
-    <div class="header-tools">
-      <div class="lang-switch" aria-label="Language">
-        <a href="/" aria-current="true">EN</a>
-        <span>·</span>
-        <a href="de_index.html">DE</a>
-      </div>
-      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle day / night edition">
-        <span class="tt-day">Day</span>
-        <span class="tt-sep">·</span>
-        <span class="tt-night">Night</span>
-      </button>
+    <div class="bw-tools">
+      <div class="lang"><a href="#" aria-current="true">DE</a><span style="opacity:.3">/</span><a href="en/index.html">EN</a></div>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Tag- / Nacht-Ausgabe umschalten"><span class="tt-day">Tag</span><span class="tt-sep">·</span><span class="tt-night">Nacht</span></button>
+      <a href="contact.html" class="cta">Erstgespräch →</a>
     </div>
   </div>
 </header>
 
 <main id="main">
 
-<!-- ============== MASTHEAD =============================================== -->
-<section class="container masthead" aria-labelledby="masthead-title">
-  <div class="masthead__meta">
-    <span class="ref-code">WC / 00 · Masthead</span>
-    <span class="label">Berlin · Est. 2014</span>
+<!-- =========== MASTHEAD =========== -->
+<section class="bw-mast bw-mast--accent">
+  <div class="bw-mast__band"></div>
+  <div class="bw-mast__stub-track">
+    <a href="contact.html" class="bw-mast__stub">Kontakt<br>↓</a>
   </div>
 
-  <h1 id="masthead-title" class="display masthead__title">
-    A philosopher&#8209;engineer's practice<br>for <em class="display-em">serious</em> artificial intelligence.
-  </h1>
-
-  <div class="masthead__strip">
-    <div class="col-lede">
-      <p class="lead">
-        Dr. Mark Wernsdorfer advises research institutes, hospitals, and small and medium enterprises
-        on machine-learning systems where the theoretical stakes are as consequential as the technical ones —
-        from clinical decision support to disinformation detection.
-      </p>
+  <div class="wrap">
+    <div class="bw-mast__meta">
+      <span class="bw-chip">Dr. Mark Wernsdorfer</span>
+      <span class="sep">—</span>
+      <span>Berlin · seit 2014</span>
+      <span class="sep">—</span>
+      <span>Verfügbar Q2 2026</span>
     </div>
-    <div class="col-cta">
-      <a class="btn" href="en/contact.html">Schedule Consultation</a>
-      <a class="btn btn--ghost" href="en/services.html">Read Services</a>
-    </div>
-  </div>
 
-  <!-- Practice-at-a-glance specs (institutional data strip) -->
-  <dl class="specs-strip">
-    <div><dt>Areas</dt><dd>Machine Learning · Clinical Decision Support · Digital Literacy</dd></div>
-    <div><dt>Languages</dt><dd>Deutsch · English · Français</dd></div>
-    <div><dt>Mode</dt><dd>Remote &amp; On-site, Europe</dd></div>
-    <div><dt>Availability</dt><dd>2026 Q2 onward</dd></div>
-  </dl>
-</section>
+    <h1 class="bw-mast__title">
+      KI-ne<br>
+      <span class="brush" data-hi="A">Angst</span> vor<br>
+      <em data-hi="E">Neuland.</em>
+    </h1>
 
-<!-- ============== KEY FIGURES (institutional statistics panel) =========== -->
-<section class="figures-section" aria-labelledby="figures-title">
-  <div class="container">
-    <header class="arc-head arc-head--tight">
-      <span class="ref-code">WC / 01 · Key figures</span>
-      <h2 id="figures-title" class="arc-head__title">The practice at a glance.</h2>
-    </header>
-  </div>
-  <ul class="figures" role="list">
-    <li class="figure">
-      <span class="figure__value">15<span class="figure__unit">yr</span></span>
-      <span class="figure__label">Research &rarr; practice</span>
-      <span class="figure__note">Working between foundational research and deployed systems since 2011.</span>
-    </li>
-    <li class="figure">
-      <span class="figure__value">&euro;3<span class="figure__unit">M+</span></span>
-      <span class="figure__label">Funding secured</span>
-      <span class="figure__note">Competitive grants &amp; programme budgets across clinical and public-sector work.</span>
-    </li>
-    <li class="figure">
-      <span class="figure__value">40<span class="figure__unit">+</span></span>
-      <span class="figure__label">Countries reached</span>
-      <span class="figure__note">Bina School adaptive-learning deployment spans international cohorts, ages 4 &ndash; 12.</span>
-    </li>
-    <li class="figure">
-      <span class="figure__value">8<span class="figure__unit">×</span></span>
-      <span class="figure__label">Institutional partners</span>
-      <span class="figure__note">Fraunhofer, UKL Leipzig, BMBF, Media Lab Bayern, FAU, Staatskanzlei, Bina, LJKE.</span>
-    </li>
-  </ul>
-</section>
-
-<!-- ============== CLIENTS & COLLABORATORS (archive-style index) ========== -->
-<section class="container clients" aria-labelledby="clients-title">
-  <header class="arc-head">
-    <span class="ref-code">WC / 02 · Clients</span>
-    <h3 id="clients-title" class="arc-head__title">Selected institutions, 2014 — 2026.</h3>
-  </header>
-
-  <dl class="client-list">
-    <a href="https://www.barrier.fraunhofer.com/en/contact_team.html" target="_blank" rel="noopener">
-      <dt>Fraunhofer Institute</dt>
-      <dd><span>Public research</span><span>Germany</span></dd>
-    </a>
-    <a href="https://medinform.jmir.org/2021/6/e20407" target="_blank" rel="noopener">
-      <dt>Universitätsklinikum Leipzig</dt>
-      <dd><span>University hospital</span><span>Leipzig, DE</span></dd>
-    </a>
-    <a href="https://prototypefund.de/en/" target="_blank" rel="noopener">
-      <dt>BMBF · Prototype Fund</dt>
-      <dd><span>Federal research programme</span><span>Bonn, DE</span></dd>
-    </a>
-    <a href="https://www.media-lab.de/en/" target="_blank" rel="noopener">
-      <dt>Media Lab Bayern</dt>
-      <dd><span>Journalism innovation lab</span><span>Munich, DE</span></dd>
-    </a>
-    <a href="https://cris.fau.de/persons/265215523/" target="_blank" rel="noopener">
-      <dt>FAU Erlangen-Nürnberg</dt>
-      <dd><span>Research university</span><span>Erlangen, DE</span></dd>
-    </a>
-    <a href="https://www.bayern.de/staatsregierung/" target="_blank" rel="noopener">
-      <dt>Bayerische Staatskanzlei</dt>
-      <dd><span>State chancellery</span><span>Munich, DE</span></dd>
-    </a>
-    <a href="https://www.thebinaschool.com/about" target="_blank" rel="noopener">
-      <dt>The Bina School</dt>
-      <dd><span>Accredited online school</span><span>Int'l · 40+ countries</span></dd>
-    </a>
-    <a href="https://ljke-bayern.de/" target="_blank" rel="noopener">
-      <dt>LJKE Bayern</dt>
-      <dd><span>Educational media</span><span>Munich, DE</span></dd>
-    </a>
-  </dl>
-</section>
-
-<!-- ============== SERVICES — catalog of engagement types =============== -->
-<section class="container section arc-section" id="services">
-  <header class="arc-head">
-    <span class="ref-code">WC / 03 · Services</span>
-    <h2 class="arc-head__title">Four categories of engagement.</h2>
-  </header>
-
-  <table class="catalog">
-    <thead>
-      <tr>
-        <th class="c-ref">Ref.</th>
-        <th class="c-title">Engagement</th>
-        <th class="c-duration">Duration</th>
-        <th class="c-deliverable">Deliverable</th>
-        <th class="c-format">Format</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="c-ref">SVC.01</td>
-        <td class="c-title">
-          <a href="en/services.html">Strategic AI Advisory</a>
-          <p>Readiness assessment, roadmap, and ethical governance for organisations navigating the AI landscape with intent.</p>
-        </td>
-        <td class="c-duration">4 — 16 weeks</td>
-        <td class="c-deliverable">Written report &amp; roadmap</td>
-        <td class="c-format">Remote or on-site</td>
-      </tr>
-      <tr>
-        <td class="c-ref">SVC.02</td>
-        <td class="c-title">
-          <a href="en/services.html">Research → Production Translation</a>
-          <p>Commercialising academic work into shipped systems. Proof of concept, prototypes, grants. €2.8M+ secured.</p>
-        </td>
-        <td class="c-duration">3 — 18 months</td>
-        <td class="c-deliverable">Working prototype, grant application</td>
-        <td class="c-format">Embedded team</td>
-      </tr>
-      <tr>
-        <td class="c-ref">SVC.03</td>
-        <td class="c-title">
-          <a href="en/services.html">Domain-Specific AI Solutions</a>
-          <p>Healthcare, laboratory medicine, geosciences, cultural heritage. Where generic toolkits fail, domain models deliver.</p>
-        </td>
-        <td class="c-duration">6 — 24 months</td>
-        <td class="c-deliverable">Deployed system</td>
-        <td class="c-format">Custom, per domain</td>
-      </tr>
-      <tr>
-        <td class="c-ref">SVC.04</td>
-        <td class="c-title">
-          <a href="en/services.html">Responsible AI Implementation</a>
-          <p>Explainability, bias, privacy. Stakeholder engagement. Implementation that can be defended, not just demoed.</p>
-        </td>
-        <td class="c-duration">8 — 20 weeks</td>
-        <td class="c-deliverable">Governance framework &amp; audit</td>
-        <td class="c-format">Workshop + written</td>
-      </tr>
-    </tbody>
-  </table>
-</section>
-
-<!-- ============== PORTFOLIO — archive of engagements ==================== -->
-<section class="container arc-section" id="portfolio">
-  <header class="arc-head">
-    <span class="ref-code">WC / 04 · Engagements</span>
-    <h2 class="arc-head__title">Five representative projects, 2011 — 2025.</h2>
-  </header>
-
-  <ul class="engagements">
-
-    <li class="eng">
-      <a href="en/projects.html#doppelcheck" class="eng__link">
-        <span class="eng__code">ENG.2023.DC</span>
-        <span class="eng__block" style="--eng-hue: 214;"></span>
-        <h3 class="eng__title">DoppelCheck</h3>
-        <p class="eng__desc">Browser-based machine-learning tool for real-time identification of disinformation with privacy-first local processing.</p>
-        <dl class="eng__specs">
-          <div><dt>Period</dt><dd>2023 — 24</dd></div>
-          <div><dt>Role</dt><dd>Project Lead &amp; Sole Developer</dd></div>
-          <div><dt>Support</dt><dd>Media Lab Bayern · WPK Innovation Fund</dd></div>
-          <div><dt>Honour</dt><dd>Award Finalist, 2024</dd></div>
-          <div><dt>Class</dt><dd>Tool · Digital literacy · Open source</dd></div>
-        </dl>
-      </a>
-    </li>
-
-    <li class="eng">
-      <a href="en/projects.html#ampel" class="eng__link">
-        <span class="eng__code">ENG.2019.AMP</span>
-        <span class="eng__block" style="--eng-hue: 8;"></span>
-        <h3 class="eng__title">AMPEL</h3>
-        <p class="eng__desc">Clinical decision support system for real-time laboratory diagnostics, deployed across 1,500+ hospital beds at University Hospital Leipzig.</p>
-        <dl class="eng__specs">
-          <div><dt>Period</dt><dd>2019 — 21</dd></div>
-          <div><dt>Role</dt><dd>Key AI Architect</dd></div>
-          <div><dt>Institution</dt><dd>Universitätsklinikum Leipzig</dd></div>
-          <div><dt>Funding</dt><dd>€3M+ project scale</dd></div>
-          <div><dt>Class</dt><dd>Medical AI · CDSS · Real-time ML</dd></div>
-        </dl>
-      </a>
-    </li>
-
-    <li class="eng">
-      <a href="en/projects.html#bina" class="eng__link">
-        <span class="eng__code">ENG.2025.BIN</span>
-        <span class="eng__block" style="--eng-hue: 92;"></span>
-        <h3 class="eng__title">The Bina School</h3>
-        <p class="eng__desc">Lead AI developer for a Cognia-accredited online school reaching ages 4 – 12 across 40+ countries. Adaptive learning paths, personalised curricula.</p>
-        <dl class="eng__specs">
-          <div><dt>Period</dt><dd>2025</dd></div>
-          <div><dt>Role</dt><dd>Lead AI Developer</dd></div>
-          <div><dt>Reach</dt><dd>40+ Countries</dd></div>
-          <div><dt>Scope</dt><dd>Data-driven personalisation</dd></div>
-          <div><dt>Class</dt><dd>EdTech · Adaptive learning · Global scale</dd></div>
-        </dl>
-      </a>
-    </li>
-
-    <li class="eng">
-      <a href="en/projects.html#artefact" class="eng__link">
-        <span class="eng__code">ENG.2023.ART</span>
-        <span class="eng__block" style="--eng-hue: 320;"></span>
-        <h3 class="eng__title">ARTeFact <span class="muted">(Spiegelbox)</span></h3>
-        <p class="eng__desc">Interactive AI installation exhibited at Globe Theatre Leipzig, examining the ethical dimensions of AI empathy exploitation.</p>
-        <dl class="eng__specs">
-          <div><dt>Period</dt><dd>2023</dd></div>
-          <div><dt>Role</dt><dd>Sole Developer &amp; Designer</dd></div>
-          <div><dt>Venue</dt><dd>Globe Theatre, Leipzig</dd></div>
-          <div><dt>Focus</dt><dd>AI &amp; human experience</dd></div>
-          <div><dt>Class</dt><dd>AI ethics · Installation · HCI</dd></div>
-        </dl>
-      </a>
-    </li>
-
-    <li class="eng">
-      <a href="en/projects.html#symbol-grounding" class="eng__link">
-        <span class="eng__code">ENG.2011.SG</span>
-        <span class="eng__block" style="--eng-hue: 40;"></span>
-        <h3 class="eng__title">Symbol Grounding</h3>
-        <p class="eng__desc">Foundational doctoral research on how artificial systems develop conceptual understanding. Dissertation and award-winning publication, 11th AGI Conference.</p>
-        <dl class="eng__specs">
-          <div><dt>Period</dt><dd>2011 — 19</dd></div>
-          <div><dt>Role</dt><dd>Principal Investigator</dd></div>
-          <div><dt>Institution</dt><dd>University of Bamberg</dd></div>
-          <div><dt>Honour</dt><dd>Springer Best Paper, AGI 2018</dd></div>
-          <div><dt>Class</dt><dd>PhD research · Cognitive science · Phil. of mind</dd></div>
-        </dl>
-      </a>
-    </li>
-
-  </ul>
-
-  <p class="u-right arc-footnote"><a class="link arrow" href="en/projects.html">Complete archive</a></p>
-</section>
-
-<!-- ============== TESTIMONIAL / REFERENCES (numbered bibliography) ====== -->
-<section class="container arc-section" id="standing">
-  <header class="arc-head">
-    <span class="ref-code">WC / 05 · Attestation</span>
-    <h2 class="arc-head__title">Extracted from letters of reference.</h2>
-  </header>
-
-  <!-- Featured specimen quote — display-scale institutional testimonial -->
-  <figure class="specimen">
-    <blockquote class="specimen__quote">
-      For the most difficult problems he found very effective solutions &mdash; and <em>implemented</em> them, at all times, in practice.
-    </blockquote>
-    <figcaption class="specimen__meta">
-      <span class="specimen__source">Isermann, B.</span>
-      <span class="specimen__aff">Prof. Dr., Institute Director &middot; University of Leipzig</span>
-      <span class="specimen__ref">Ref. [1]</span>
-    </figcaption>
-  </figure>
-
-  <h3 class="bib__head">The complete reference set.</h3>
-
-  <ol class="bib">
-    <li class="bib__item">
-      <span class="bib__num">[1]</span>
-      <div>
-        <p class="bib__quote">For the most difficult problems he found very effective solutions, which he successfully implemented in practice at all times, thus always achieving excellent work results.</p>
-        <p class="bib__source">Isermann, B. <span class="bib__aff">Prof. Dr., Institute Director · University of Leipzig</span></p>
-      </div>
-    </li>
-    <li class="bib__item">
-      <span class="bib__num">[2]</span>
-      <div>
-        <p class="bib__quote">Outstanding and highly in-depth specialised knowledge. Exceptionally analytical thinking and very rapid comprehension. An extremely loyal colleague who integrated very well into the team.</p>
-        <p class="bib__source">Radic, M. <span class="bib__aff">Dr., Department Head · Fraunhofer IMW</span></p>
-      </div>
-    </li>
-    <li class="bib__item">
-      <span class="bib__num">[3]</span>
-      <div>
-        <p class="bib__quote">Thanks to his positive attitude, he contributed significantly to excellent teamwork at all times. He knew how to convince through his cooperative, confident, and accommodating manner.</p>
-        <p class="bib__source">Steuer-Flieser, D. <span class="bib__aff">Dr., Chancellor · Universität Bamberg</span></p>
-      </div>
-    </li>
-    <li class="bib__item">
-      <span class="bib__num">[4]</span>
-      <div>
-        <p class="bib__quote">Dedicated himself to difficult tasks with great enthusiasm and always found customer-oriented and goal-oriented solutions. Thanks to his quick comprehension, he easily grasped complex interrelations.</p>
-        <p class="bib__source">Lauer, M. <span class="bib__aff">Managing Partner · Orpheus GmbH</span></p>
-      </div>
-    </li>
-  </ol>
-</section>
-
-<!-- ============== METHOD / BIOGRAPHY ===================================== -->
-<section class="container arc-section" id="method">
-  <header class="arc-head">
-    <span class="ref-code">WC / 06 · Method</span>
-    <h2 class="arc-head__title">Biography &amp; working approach.</h2>
-  </header>
-
-  <!-- Practice schema — visual domain map. Four cells, each a colored swatch
-       + domain name + disciplines, showing how the practice spans research,
-       engineering, applied delivery, and ethics. -->
-  <aside class="schema" aria-labelledby="schema-title">
-    <header class="schema__head">
-      <span class="schema__plate">Plate &mdash; Domains of work</span>
-      <h3 class="schema__title" id="schema-title">An interdisciplinary surface.</h3>
-    </header>
-    <ol class="schema__grid">
-      <li class="schema__cell" style="--sc-hue: 214;">
-        <span class="schema__code">I</span>
-        <span class="schema__block"></span>
-        <h4 class="schema__domain">Foundational research</h4>
-        <p class="schema__disc">Symbol grounding · Philosophy of mind · Cognitive science</p>
-      </li>
-      <li class="schema__cell" style="--sc-hue: 8;">
-        <span class="schema__code">II</span>
-        <span class="schema__block"></span>
-        <h4 class="schema__domain">Clinical &amp; scientific</h4>
-        <p class="schema__disc">Clinical decision support · Laboratory medicine · Geosciences</p>
-      </li>
-      <li class="schema__cell" style="--sc-hue: 92;">
-        <span class="schema__code">III</span>
-        <span class="schema__block"></span>
-        <h4 class="schema__domain">Applied &amp; public</h4>
-        <p class="schema__disc">Digital literacy · Journalism · Educational technology</p>
-      </li>
-      <li class="schema__cell" style="--sc-hue: 40;">
-        <span class="schema__code">IV</span>
-        <span class="schema__block"></span>
-        <h4 class="schema__domain">Ethics &amp; governance</h4>
-        <p class="schema__disc">Explainability · Bias &amp; privacy · Stakeholder engagement</p>
-      </li>
-    </ol>
-  </aside>
-
-  <div class="profile">
-    <figure class="profile__image reveal">
-      <img
-        src="images/profile-mark-wernsdorfer.webp"
-        srcset="images/profile-mark-wernsdorfer-320w.webp 320w, images/profile-mark-wernsdorfer-640w.webp 640w, images/profile-mark-wernsdorfer-960w.webp 960w, images/profile-mark-wernsdorfer.webp 1280w"
-        sizes="(max-width: 860px) 100vw, 38vw"
-        alt="Dr. Mark Wernsdorfer"
-        loading="lazy" decoding="async">
-      <figcaption class="profile__caption"><span>Berlin, DE</span><span>Pl. 01</span></figcaption>
-    </figure>
-
-    <div class="profile__body">
-      <p class="lead">
-        The practice combines Artificial Intelligence, Machine Learning, Philosophy of Mind,
-        and Cognitive Science in a single working body — a rare combination that allows
-        theoretical problems and engineering problems to be addressed together, not serially.
+    <div class="bw-mast__strip">
+      <p class="bw-mast__lede">
+        Interdisziplinäre KI-Beratung für Forschung, öffentlichen Sektor und
+        Mittelstand. Keine Slides, kein Lock-in, kein Quatsch —
+        <strong>Prototype in 2 Wochen, Produktion in 8.</strong>
       </p>
-
-      <p class="prose" style="margin-top: var(--sp-5);">
-        Work moves between two poles: foundational inquiry into how artificial systems
-        represent meaning (symbol grounding, consciousness, phenomenology of computation)
-        and the concrete construction of machine-learning systems in environments where
-        correctness matters — clinical laboratories, editorial newsrooms, classroom software.
-        The result is advice and implementation that can be defended technically,
-        philosophically, and operationally.
-      </p>
-
-      <p class="prose">
-        The practice is based in Berlin. Multilingual in German, English, and French.
-        Available for remote and on-site engagements across Europe.
-      </p>
-
-      <div class="credentials" role="list">
-        <div class="credential" role="listitem">
-          <div class="credential__num">i</div>
-          <div class="credential__value">PhD</div>
-          <div class="credential__label">Cognitive Systems, Bamberg</div>
-        </div>
-        <div class="credential" role="listitem">
-          <div class="credential__num">ii</div>
-          <div class="credential__value">€3M+</div>
-          <div class="credential__label">AI Project Funding</div>
-        </div>
-        <div class="credential" role="listitem">
-          <div class="credential__num">iii</div>
-          <div class="credential__value">Best Paper</div>
-          <div class="credential__label">Springer · AGI 2018</div>
-        </div>
-        <div class="credential" role="listitem">
-          <div class="credential__num">iv</div>
-          <div class="credential__value">15 yr.</div>
-          <div class="credential__label">Research → Production</div>
-        </div>
+      <div class="bw-mast__cta">
+        <a href="contact.html" class="bw-btn">Kostenloses Erstgespräch</a>
+        <a href="services.html" class="bw-btn bw-btn--ghost">Leistungen ansehen</a>
       </div>
-
-      <p style="margin-top: var(--sp-6);"><a class="link arrow" href="en/about.html">Read the full biography &amp; method</a></p>
     </div>
   </div>
 </section>
 
-<!-- ============== COMMISSION (closing) =================================== -->
-<section class="container arc-section closing" aria-labelledby="closing-title">
-  <header class="arc-head">
-    <span class="ref-code">WC / 07 · Commission</span>
-    <h2 class="arc-head__title" id="closing-title">Have a difficult problem<br>worth thinking carefully about?</h2>
-  </header>
-  <p class="prose">
-    Initial consultations are free, 90-minute conversations — an opportunity to describe
-    the problem in detail and establish whether the practice is the right fit. Written
-    follow-up is provided; further engagement is by mutual agreement.
-  </p>
-  <div class="cta-row">
-    <a class="btn" href="en/contact.html">Schedule Consultation</a>
-    <a class="btn btn--ghost" href="mailto:wernsdorfer@gmail.com">wernsdorfer@gmail.com</a>
+<!-- =========== PARTNERS MARQUEE =========== -->
+<section class="bw-partners">
+  <div class="wrap">
+    <div class="bw-partners__head">
+      <h3>Vertrauen von</h3>
+      <span>// 08 Institutionen · 08 Projekte · 15 Jahre</span>
+    </div>
+  </div>
+  <div class="bw-partners__track">
+    <!-- set 1 -->
+    <a class="bw-partner" href="https://www.barrier.fraunhofer.com/en/contact_team.html" target="_blank" rel="noopener"><img src="logos/Fraunhofer-Gesellschaft_2009_logo.svg" alt="Fraunhofer"><small>Fraunhofer</small></a>
+    <a class="bw-partner" href="https://cris.fau.de/persons/265215523/" target="_blank" rel="noopener"><img src="logos/FAU_Kernmarke_H_RGB_blue.svg" alt="FAU Erlangen-Nürnberg"><small>FAU Erlangen</small></a>
+    <a class="bw-partner" href="https://prototypefund.de/en/" target="_blank" rel="noopener"><img src="logos/BMBF_Logo.svg" alt="BMBF · Prototype Fund"><small>BMBF · PF</small></a>
+    <a class="bw-partner" href="https://www.bayern.de/staatsregierung/" target="_blank" rel="noopener"><img src="logos/BayerischeStaatskanzlei-Logo.png" alt="Bayerische Staatskanzlei"><small>Bayer. Staatskanzlei</small></a>
+    <a class="bw-partner" href="https://prototypefund.de/en/demo-day-on-march-1st-2024/" target="_blank" rel="noopener"><img src="logos/PrototypeFund_Logo.svg" alt="Prototype Fund"><small>Prototype Fund</small></a>
+    <a class="bw-partner" href="https://www.media-lab.de/en/" target="_blank" rel="noopener"><img src="logos/media-lab-bayern-2024.svg" alt="Media Lab Bayern"><small>Media Lab Bayern</small></a>
+    <a class="bw-partner" href="https://medinform.jmir.org/2021/6/e20407" target="_blank" rel="noopener"><img src="logos/universitaetsklinikum-leipzig-logo-vector.svg" alt="Uniklinikum Leipzig"><small>UK Leipzig</small></a>
+    <a class="bw-partner" href="https://www.thebinaschool.com/about" target="_blank" rel="noopener"><img src="logos/bina.png" alt="The Bina School"><small>The Bina School</small></a>
+    <a class="bw-partner" href="https://ljke-bayern.de/" target="_blank" rel="noopener"><img src="logos/ljke.png" alt="LJKE Bayern"><small>LJKE Bayern</small></a>
+    <!-- duplicate for infinite scroll (aria-hidden to avoid duplicating links to assistive tech) -->
+    <a class="bw-partner" href="https://www.barrier.fraunhofer.com/en/contact_team.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="logos/Fraunhofer-Gesellschaft_2009_logo.svg" alt=""><small>Fraunhofer</small></a>
+    <a class="bw-partner" href="https://cris.fau.de/persons/265215523/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="logos/FAU_Kernmarke_H_RGB_blue.svg" alt=""><small>FAU Erlangen</small></a>
+    <a class="bw-partner" href="https://prototypefund.de/en/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="logos/BMBF_Logo.svg" alt=""><small>BMBF · PF</small></a>
+    <a class="bw-partner" href="https://www.bayern.de/staatsregierung/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="logos/BayerischeStaatskanzlei-Logo.png" alt=""><small>Bayer. Staatskanzlei</small></a>
+    <a class="bw-partner" href="https://prototypefund.de/en/demo-day-on-march-1st-2024/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="logos/PrototypeFund_Logo.svg" alt=""><small>Prototype Fund</small></a>
+    <a class="bw-partner" href="https://www.media-lab.de/en/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="logos/media-lab-bayern-2024.svg" alt=""><small>Media Lab Bayern</small></a>
+    <a class="bw-partner" href="https://medinform.jmir.org/2021/6/e20407" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="logos/universitaetsklinikum-leipzig-logo-vector.svg" alt=""><small>UK Leipzig</small></a>
+    <a class="bw-partner" href="https://www.thebinaschool.com/about" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="logos/bina.png" alt=""><small>The Bina School</small></a>
+    <a class="bw-partner" href="https://ljke-bayern.de/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="logos/ljke.png" alt=""><small>LJKE Bayern</small></a>
+  </div>
+</section>
+
+<!-- =========== CONTENTS / TOC =========== -->
+<section class="bw-toc">
+  <div class="wrap" style="display:contents">
+    <div class="bw-toc__head wrap" style="padding-left:28px; padding-right:0">
+      <span class="bw-chip">Inhalt</span>
+      <h2>Was Dich auf<br>dieser Seite<br><em class="hi-toc" data-hi="A">erwartet</em>.</h2>
+    </div>
+    <div class="bw-toc__list" style="padding-right:28px">
+      <a class="bw-toc__item" href="#standing"><span class="bw-toc__num">§ 01</span><span class="bw-toc__title">Haltung — warum ich so arbeite</span><span class="bw-toc__page">01 / 05</span></a>
+      <a class="bw-toc__item" href="services.html"><span class="bw-toc__num">§ 02</span><span class="bw-toc__title">Vier Leistungsfelder im Detail</span><span class="bw-toc__page">02 / 05</span></a>
+      <a class="bw-toc__item" href="portfolio.html"><span class="bw-toc__num">§ 03</span><span class="bw-toc__title">Ausgewählte Projekte 2014 – 2026</span><span class="bw-toc__page">03 / 05</span></a>
+      <a class="bw-toc__item" href="#method"><span class="bw-toc__num">§ 04</span><span class="bw-toc__title">Methode — vom Problem zum Prototyp</span><span class="bw-toc__page">04 / 05</span></a>
+      <a class="bw-toc__item" href="contact.html"><span class="bw-toc__num">§ 05</span><span class="bw-toc__title">Erstgespräch vereinbaren</span><span class="bw-toc__page">05 / 05</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- =========== STANDING / SEGMENT =========== -->
+<section id="standing" class="bw-segment">
+  <div class="bw-segment__sticky">
+    <span class="bw-chip" style="background:var(--ink); color:var(--yellow)">§ 01 — Haltung</span>
+    <div style="margin-top:36px">
+      <span class="bw-segment__fill" data-text="Coden">Coden</span>
+    </div>
+    <div style="margin-top:-16px">
+      <span class="bw-segment__fill" data-text="kann">kann</span>
+    </div>
+    <div style="margin-top:-16px">
+      <span class="bw-segment__fill" data-text="jeder.">jeder.</span>
+    </div>
+  </div>
+  <div class="bw-segment__body">
+    <p style="font-family:var(--font-head); font-weight:700; font-size:28px; line-height:1.25; letter-spacing:-.01em">
+      KI ist die erste Technologie, die <em class="hi-seg-tomato" data-hi="D">nicht die Technik</em> zur Hürde macht — sondern das Verstehen.
+    </p>
+    <p>
+      Die Modelle sind da. APIs, Open-Source-Gewichte, fertige Frameworks — die
+      technische Hürde war noch nie niedriger. Die eigentliche Arbeit hat sich
+      verschoben: Welche Frage stelle ich? Welche Daten kenne ich? Was darf das
+      System und was nicht? Was heißt "gut genug"?
+    </p>
+    <p>
+      Ich arbeite an dieser Schnittstelle — zwischen Domäne und Modell, zwischen
+      Forschung und Serienreife. Promoviert in Cognitive Systems
+      an der Universität Bamberg, 15 Jahre in interdisziplinären Teams, und noch immer
+      mit dem Editor offen.
+    </p>
+    <p>
+      Wenn Du einen Berater willst, der <strong>schreibt, wovon er redet</strong> —
+      und aufhört, wenn's reicht — bist Du hier richtig.
+    </p>
+  </div>
+</section>
+
+<!-- =========== SERVICES PREVIEW =========== -->
+<section class="bw-sec bw-sec--paper">
+  <div class="wrap">
+    <div class="bw-chapter">
+      <span class="bw-chapter__num">§ 02</span>
+      <h2 class="bw-chapter__title">Vier Felder — von <em>Strategie</em> bis <em>Serienreife</em>.</h2>
+    </div>
+
+    <div class="bw-grid bw-grid--2" style="gap:36px">
+      <article class="bw-card bw-card--lilac">
+        <span class="bw-card__num">01 · Strategie</span>
+        <h3 class="bw-card__title">KI-Roadmap &amp; Machbarkeit</h3>
+        <p class="bw-card__body">Wo lohnt sich KI in Deinem Unternehmen — und wo nicht? Technische Due-Diligence, Risikoabschätzung, Priorisierung. Am Ende ein 20-seitiges Papier, das Dein Vorstand lesen kann.</p>
+        <ul class="checks">
+          <li>Use-Case-Inventur &amp; Bewertung</li>
+          <li>Build-vs-Buy-Analyse</li>
+          <li>EU-AI-Act-Einstufung</li>
+        </ul>
+        <div class="bw-card__foot"><span>3 – 6 Wochen</span><a href="services.html#strategy" class="bw-link">Details <span class="arrow">→</span></a></div>
+      </article>
+
+      <article class="bw-card bw-card--tomato">
+        <span class="bw-card__num">02 · Entwicklung</span>
+        <h3 class="bw-card__title">Prototyp &amp; Produktion</h3>
+        <p class="bw-card__body">Vom Proof-of-Concept bis zum Produktivsystem. RAG-Pipelines, Agent-Systeme, Fine-Tuning. Ich schreibe den Code mit — nicht nur das Konzept.</p>
+        <ul class="checks">
+          <li>RAG &amp; semantische Suche</li>
+          <li>LLM-Agenten &amp; Tool-Use</li>
+          <li>Deployment &amp; Observability</li>
+        </ul>
+        <div class="bw-card__foot"><span>2 – 16 Wochen</span><a href="services.html#build" class="bw-link" style="color:var(--paper); border-color:var(--yellow)">Details <span class="arrow">→</span></a></div>
+      </article>
+
+      <article class="bw-card bw-card--mint">
+        <span class="bw-card__num">03 · Forschung</span>
+        <h3 class="bw-card__title">Angewandte Forschung</h3>
+        <p class="bw-card__body">Förderanträge, Konsortialprojekte, wissenschaftliche Evaluation. BMBF, Horizon Europe, Bayerische Forschungsstiftung — ich kenne den Stallgeruch.</p>
+        <ul class="checks">
+          <li>Antragsentwicklung &amp; Partnersuche</li>
+          <li>Projektkoordination</li>
+          <li>Publikation &amp; Dissemination</li>
+        </ul>
+        <div class="bw-card__foot"><span>6 – 36 Monate</span><a href="services.html#research" class="bw-link">Details <span class="arrow">→</span></a></div>
+      </article>
+
+      <article class="bw-card bw-card--yellow">
+        <span class="bw-card__num">04 · Weiterbildung</span>
+        <h3 class="bw-card__title">Workshops &amp; Coaching</h3>
+        <p class="bw-card__body">Für Teams, die KI verstehen müssen — nicht nur nutzen. Hands-on, auf Eurem Stack, mit Euren Daten. Keine Folien aus der Konserve.</p>
+        <ul class="checks">
+          <li>Executive-Briefings (0,5 Tage)</li>
+          <li>Team-Workshops (2 – 5 Tage)</li>
+          <li>1:1-Coaching für Tech-Leads</li>
+        </ul>
+        <div class="bw-card__foot"><span>½ – 5 Tage</span><a href="services.html#learn" class="bw-link">Details <span class="arrow">→</span></a></div>
+      </article>
+    </div>
+
+    <div class="bw-u-mt-lg bw-u-center">
+      <a href="services.html" class="bw-btn bw-btn--royal">Alle Leistungen ansehen →</a>
+    </div>
+  </div>
+</section>
+
+<!-- =========== PULL QUOTE — rotating testimonials =========== -->
+<section class="bw-pullquote">
+  <div class="bw-pullquote__ticker">Prototype · Production · Proof · Pragmatism</div>
+  <div class="bw-pullquote__body">
+    <div class="bw-pullquote__slide">
+      <blockquote>
+        „Für die schwierigsten Probleme fand er <span class="mark">wirkungsvolle Lösungen</span>
+        — und setzte sie stets in die Praxis um."
+      </blockquote>
+      <cite><b>Prof. Dr. Berend Isermann</b> · Institutsdirektor · Universität Leipzig</cite>
+    </div>
+    <div class="bw-pullquote__slide">
+      <blockquote>
+        „Herausragendes, tief spezialisiertes Fachwissen. Außerordentlich
+        <span class="mark">analytisches Denken</span> und sehr rasche Auffassungs­gabe —
+        ein außergewöhnlich loyaler Kollege."
+      </blockquote>
+      <cite><b>Dr. Marija Radic</b> · Abteilungs­leiterin · Fraunhofer IMW</cite>
+    </div>
+    <div class="bw-pullquote__slide">
+      <blockquote>
+        „Widmete sich schwierigen Aufgaben mit großem Einsatz und fand stets
+        <span class="mark">kunden­orientierte, zielführende Lösungen</span>.
+        Dank seiner raschen Auffassungs­gabe erfasste er komplexe
+        Zusammen­hänge mühelos."
+      </blockquote>
+      <cite><b>Matthias Lauer</b> · Managing Partner · Orpheus GmbH</cite>
+    </div>
+    <div class="bw-pullquote__slide">
+      <blockquote>
+        „Durch seine positive Einstellung trug er wesentlich zu
+        <span class="mark">hervorragender Team­arbeit</span> bei.
+        Er wusste durch sein kooperatives, sicheres und verbindliches
+        Auftreten zu überzeugen."
+      </blockquote>
+      <cite><b>Dr. Dagmar Steuer-Flieser</b> · Kanzlerin · Universität Bamberg</cite>
+    </div>
+  </div>
+</section>
+
+<!-- =========== PORTFOLIO PREVIEW =========== -->
+<section class="bw-sec bw-sec--sunken">
+  <div class="wrap">
+    <div class="bw-chapter">
+      <span class="bw-chapter__num">§ 03</span>
+      <h2 class="bw-chapter__title">Auswahl — drei Projekte, <em>drei Domänen</em>.</h2>
+    </div>
+
+    <div class="bw-works">
+      <a class="bw-work" href="portfolio.html#bina">
+        <span class="bw-work__year">2025</span>
+        <div class="bw-work__body">
+          <h3 class="bw-work__title">The Bina School — <em>Adaptive Lernpfade</em> für 40+ Länder</h3>
+          <p class="bw-work__desc">Lead AI Developer für eine Cognia-akkreditierte Online-Schule (Alter 4 – 12, weltweit). Adaptive Lernwege, Echtzeit-Fortschrittserfassung, personalisierte Curricula auf Datenbasis.</p>
+          <ul class="bw-work__tags">
+            <li class="bw-tag">EdTech</li><li class="bw-tag">Adaptive Learning</li><li class="bw-tag">Global</li>
+          </ul>
+        </div>
+        <div class="bw-work__meta">
+          <div><strong>Kunde</strong>The Bina School</div>
+          <div><strong>Rolle</strong>Lead AI Developer</div>
+          <div><strong>Reichweite</strong>40+ Länder · Alter 4 – 12</div>
+        </div>
+      </a>
+
+      <a class="bw-work" href="portfolio.html#doppelcheck">
+        <span class="bw-work__year">2023 — 24</span>
+        <div class="bw-work__body">
+          <h3 class="bw-work__title">DoppelCheck — <em>Desinformation erkennen</em> im Browser</h3>
+          <p class="bw-work__desc">Browser-Erweiterung mit lokal laufendem ML zur Echtzeit-Erkennung von Desinformation. Finalist beim International Award for Innovation in Journalism 2024. Media Lab Bayern · WPK Innovation Fund.</p>
+          <ul class="bw-work__tags">
+            <li class="bw-tag">Digital Literacy</li><li class="bw-tag">Privacy-first</li><li class="bw-tag">Open Source</li>
+          </ul>
+        </div>
+        <div class="bw-work__meta">
+          <div><strong>Kunde</strong>Media Lab Bayern</div>
+          <div><strong>Rolle</strong>Projektleitung &amp; Sole Developer</div>
+          <div><strong>Ehrung</strong>Award Finalist, 2024</div>
+        </div>
+      </a>
+
+      <a class="bw-work" href="portfolio.html#ampel">
+        <span class="bw-work__year">2019 — 21</span>
+        <div class="bw-work__body">
+          <h3 class="bw-work__title">AMPEL — <em>Kliniktaugliches CDSS</em> am Uniklinikum Leipzig</h3>
+          <p class="bw-work__desc">KI-basiertes Clinical Decision Support System für Echtzeit-Labordiagnostik, ausgerollt über 1 500+ Klinikbetten am Uniklinikum Leipzig. Co-Erstautor, JMIR Medical Informatics.</p>
+          <ul class="bw-work__tags">
+            <li class="bw-tag">Medical AI</li><li class="bw-tag">CDSS</li><li class="bw-tag">Real-time ML</li>
+          </ul>
+        </div>
+        <div class="bw-work__meta">
+          <div><strong>Kunde</strong>Universitätsklinikum Leipzig</div>
+          <div><strong>Rolle</strong>Key AI Architect</div>
+          <div><strong>Umfang</strong>€3M+ Projektvolumen</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="bw-u-mt-lg bw-u-center">
+      <a href="portfolio.html" class="bw-btn bw-btn--ghost">Alle Projekte ansehen →</a>
+    </div>
+  </div>
+</section>
+
+<!-- =========== METHOD =========== -->
+<section id="method" class="bw-sec bw-sec--paper">
+  <div class="wrap">
+    <div class="bw-chapter">
+      <span class="bw-chapter__num">§ 04</span>
+      <h2 class="bw-chapter__title">Vom <em>Problem</em> zum <em>Prototyp</em> — in vier Phasen.</h2>
+    </div>
+
+    <div class="bw-process">
+      <div class="bw-phase">
+        <span class="bw-phase__num">Phase 01</span>
+        <h3>Hinhören.</h3>
+        <p>Zwei halbe Tage bei Dir. Keine Folien. Ich frage, Du erzählst — von den Daten, dem Problem, den Leuten, die damit arbeiten. Am Ende eine Liste möglicher Einstiege, sortiert nach Aufwand &amp; Wirkung.</p>
+        <div class="bw-phase__meta">1 Woche · 3.500 €</div>
+      </div>
+      <div class="bw-phase">
+        <span class="bw-phase__num">Phase 02</span>
+        <h3>Prototyp.</h3>
+        <p>Ich baue den kleinstmöglichen Durchstich — echte Daten, echter Code, echtes UI. Kein Wireframe, kein Figma-Klickdummy. Am Ende läuft etwas, das Ihr anfassen könnt.</p>
+        <div class="bw-phase__meta">2 – 4 Wochen · Festpreis</div>
+      </div>
+      <div class="bw-phase">
+        <span class="bw-phase__num">Phase 03</span>
+        <h3>Härten.</h3>
+        <p>Evaluation, Edge-Cases, Sicherheit, Monitoring. Der Prototyp wird zum System. Hier trennt sich Demo von Produktion — und genau hier bin ich am nützlichsten.</p>
+        <div class="bw-phase__meta">4 – 12 Wochen · T&amp;M</div>
+      </div>
+      <div class="bw-phase">
+        <span class="bw-phase__num">Phase 04</span>
+        <h3>Abgeben.</h3>
+        <p>Dokumentation, Handover-Workshops, 3 Monate Standby. Mein Ziel ist, dass Ihr mich nicht mehr braucht. Kein Lock-in, keine Abhängigkeit — nur ein Team, das es jetzt selber kann.</p>
+        <div class="bw-phase__meta">2 Wochen + 3 Mo. Support</div>
+      </div>
+    </div>
+
+    <div class="bw-stats">
+      <div class="bw-stat">
+        <span class="bw-stat__num">// 001</span>
+        <span class="bw-stat__value">15&thinsp;J</span>
+        <span class="bw-stat__label">Zwischen Forschung &amp; Anwendung seit 2011</span>
+      </div>
+      <div class="bw-stat">
+        <span class="bw-stat__num">// 002</span>
+        <span class="bw-stat__value">€3M+</span>
+        <span class="bw-stat__label">Drittmittel in klinischen &amp; öffentlichen Projekten</span>
+      </div>
+      <div class="bw-stat">
+        <span class="bw-stat__num">// 003</span>
+        <span class="bw-stat__value">40+</span>
+        <span class="bw-stat__label">Länder (Bina-School-Reichweite)</span>
+      </div>
+      <div class="bw-stat">
+        <span class="bw-stat__num">// 004</span>
+        <span class="bw-stat__value">Dr.</span>
+        <span class="bw-stat__label">Cognitive Systems · Uni Bamberg</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== CTA =========== -->
+<section class="bw-cta">
+  <div class="bw-cta__inner">
+    <p class="bw-cta__eyebrow">§ 05 — Erstgespräch</p>
+    <h2 class="bw-cta__title">30 Minuten, <em>ehrlich</em>.</h2>
+    <p class="bw-cta__body">Du beschreibst Dein Thema, ich sage Dir, ob KI dafür der richtige Weg ist — und ob <em style="font-style:normal; text-decoration:underline; text-decoration-thickness:3px; text-underline-offset:4px">ich</em> der richtige Partner bin. Keine Verkaufsmasche, keine Folien. Wenn's passt, bauen wir weiter. Wenn nicht, hast Du 30 Minuten mit einem, der Ahnung hat.</p>
+    <div class="bw-cta__row">
+      <a href="contact.html" class="bw-btn">Termin wählen →</a>
+      <a href="mailto:wernsdorfer@gmail.com" class="bw-btn bw-btn--ghost">wernsdorfer@gmail.com</a>
+    </div>
   </div>
 </section>
 
 </main>
 
-<footer class="site-footer">
-  <div class="container site-footer__inner">
-    <div>
-      <span class="brand__name" style="font-family: var(--sans); font-weight: 700;">Wernsdorfer<em style="font-style: normal; color: var(--accent);">·</em>Consulting</span>
-      <p class="lede">An interdisciplinary AI practice based in Berlin, working between foundational research and deployed systems.</p>
+<!-- =========== FOOTER =========== -->
+<footer class="bw-footer">
+  <div class="wrap">
+    <div class="bw-footer__row">
+      <div>
+        <div class="bw-footer__brand"><span class="dot"></span>WERNSDORFER</div>
+        <p>Dr. Mark Wernsdorfer · Interdisziplinäre KI-Beratung für Forschung, öffentlichen Sektor und Mittelstand. Aus Berlin, für den deutschsprachigen Raum.</p>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Start</a></li>
+          <li><a href="about.html">Profil</a></li>
+          <li><a href="services.html">Leistungen</a></li>
+          <li><a href="portfolio.html">Projekte</a></li>
+          <li><a href="contact.html">Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="mailto:wernsdorfer@gmail.com">wernsdorfer@gmail.com</a></li>
+          <li><a href="tel:+4917624003575">+49 176 24 003 575</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">GitHub</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Rechtliches</h4>
+        <ul>
+          <li><a href="contact.html#imprint">Impressum</a></li>
+          <li><a href="#">Datenschutz</a></li>
+          <li><a href="#">Allg. Geschäftsbedingungen</a></li>
+        </ul>
+      </div>
     </div>
-    <div>
-      <h4>Practice</h4>
-      <ul>
-        <li><a href="en/about.html">About &amp; Method</a></li>
-        <li><a href="en/services.html">Services</a></li>
-        <li><a href="en/projects.html">Portfolio</a></li>
-        <li><a href="en/contact.html">Contact</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Elsewhere</h4>
-      <ul>
-        <li><a href="https://github.com/wehnsdaefflae" target="_blank" rel="noopener">GitHub</a></li>
-        <li><a href="https://www.linkedin.com/in/wernsdorfer/" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><a href="https://cris.fau.de/persons/265215523/" target="_blank" rel="noopener">FAU CRIS</a></li>
-        <li><a href="https://d-nb.info/1182477194" target="_blank" rel="noopener">Dissertation</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Imprint</h4>
-      <ul>
-        <li><a href="en/contact.html#imprint">Legal notice</a></li>
-        <li><a href="mailto:wernsdorfer@gmail.com">wernsdorfer@gmail.com</a></li>
-        <li><a href="tel:+4917624003575">+49 176 24 003 575</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="container site-footer__colophon">
-    <div class="colophon-line">
-      <span>© <span data-year>2026</span> Dr. Mark Wernsdorfer · Berlin, Federal Republic of Germany</span>
-      <span>Incorporated as an individual professional practice · Bilingual (EN/DE)</span>
-    </div>
-    <div class="colophon-line">
-      <span>Practice established 2014 · markwernsdorfer.com</span>
-      <span>Day / Night editions — reader preference honoured</span>
+    <div class="bw-footer__colophon">
+      <span>© 2014 – 2026 · Dr. Mark Wernsdorfer · Berlin, DE</span>
+      <span>Gesetzt in Syne, Rubik &amp; Caprasimo · Kein Cookie-Banner, keine Tracker.</span>
     </div>
   </div>
 </footer>
 
-<nav class="mobile-nav" aria-label="Primary (mobile)">
-  <ul>
-    <li><a href="/" aria-current="page"><span class="mn-num">i</span><span>Home</span></a></li>
-    <li><a href="en/about.html"><span class="mn-num">ii</span><span>About</span></a></li>
-    <li><a href="en/services.html"><span class="mn-num">iii</span><span>Services</span></a></li>
-    <li><a href="en/projects.html"><span class="mn-num">iv</span><span>Portfolio</span></a></li>
-    <li><a href="en/contact.html"><span class="mn-num">v</span><span>Contact</span></a></li>
-  </ul>
+<nav class="bw-mobnav">
+  <a href="index.html" aria-current="page"><svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M2 9L10 2l8 7v9h-6v-6H8v6H2z"/></svg>Start</a>
+  <a href="about.html"><svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" aria-hidden="true"><circle cx="10" cy="7" r="4"/><path d="M2 18c0-4 3.6-6 8-6s8 2 8 6"/></svg>Profil</a>
+  <a href="services.html"><svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M10 2L2 6l8 4 8-4zM2 10l8 4 8-4M2 14l8 4 8-4" fill="none" stroke="currentColor" stroke-width="2"/></svg>Leistungen</a>
+  <a href="portfolio.html"><svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M2 5h6l2 2h8v10H2z"/></svg>Projekte</a>
+  <a href="contact.html"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="16" height="12"/><path d="M2 5l8 6 8-6"/></svg>Kontakt</a>
 </nav>
 
+  <script src="script.js"></script>
 </body>
 </html>
