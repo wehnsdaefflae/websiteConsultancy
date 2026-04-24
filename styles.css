@@ -3,11 +3,18 @@
    Shared site styles (composes over ../colors_and_type.css)
    ============================================================ */
 
-/* overflow-x: clip (not hidden) clips horizontally WITHOUT turning the
-   other axis into `auto`. Plain `overflow-x: hidden` would implicitly
-   force `overflow-y: auto`, which put a second scrollbar on the body
-   next to the usual html scrollbar AND on iOS broke position: fixed
-   anchoring for the mobile bottom nav. `clip` sidesteps both. */
+/* overflow-x: clip (not hidden) clips horizontally WITHOUT turning
+   the other axis into `auto`. Plain `overflow-x: hidden` would
+   implicitly force `overflow-y: auto` — that put a second scrollbar
+   on the body next to the html one, AND on iOS broke `position: fixed`
+   anchoring for the mobile bottom nav. `clip` sidesteps both.
+
+   We apply it to BOTH html and body: on some mobile browsers
+   (notably iOS Safari when a grandchild has a transform with a
+   negative-offset translate), body-only clipping still lets the
+   document root grow wide enough to create a horizontal scrollbar.
+   Clipping the root stops that at the viewport boundary. */
+html { overflow-x: clip; }
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); overflow-x: clip; }
 main { display: block; }
 
@@ -2065,9 +2072,16 @@ main { position: relative; }
   pointer-events: none;
   /* Above section backgrounds but below the sticky header (z:100) so
      shapes peek over section boundaries. Placement is kept at the
-     left/right edges so the shapes don't smother body text. */
+     left/right edges so the shapes don't smother body text.
+
+     overflow-x: clip caps shapes to the main-column width — each shape
+     is absolutely positioned with an x-offset (often negative) so on
+     a narrow mobile viewport they were extending past the viewport
+     edge and creating a horizontal scrollbar. Clip here + clip on
+     <html>/<body> = three layers of defense-in-depth. */
   z-index: 5;
-  overflow: visible;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 .bw-decor__shape {
   position: absolute;
