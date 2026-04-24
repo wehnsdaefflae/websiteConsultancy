@@ -3,12 +3,13 @@
    Shared site styles (composes over ../colors_and_type.css)
    ============================================================ */
 
-/* Belt-and-braces: Safari/Chrome on iOS ignore body's overflow-x:hidden
-   when the viewport is narrower than a child element's computed width.
-   Setting overflow-x on <html> forces the clip there too. */
-html { overflow-x: hidden; }
-body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); overflow-x: hidden; }
-main { display: block; position: relative; overflow-x: hidden; }
+/* overflow-x: clip (not hidden) clips horizontally WITHOUT turning the
+   other axis into `auto`. Plain `overflow-x: hidden` would implicitly
+   force `overflow-y: auto`, which put a second scrollbar on the body
+   next to the usual html scrollbar AND on iOS broke position: fixed
+   anchoring for the mobile bottom nav. `clip` sidesteps both. */
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); overflow-x: clip; }
+main { display: block; }
 
 /* Skip link — keyboard accessibility. Hidden until focused. */
 .bw-skip {
@@ -155,7 +156,8 @@ a { text-decoration: none; }
   /* CTAs at their normal 14 px font + 22 px padding were exceeding a
      390-px phone viewport ("Kostenloses Erstgespräch" = 447 px).
      Compact padding, allow line-wrap, cap width at 100 % so long
-     German labels fit inside the body column. */
+     German labels fit inside the body column. `overflow-wrap: anywhere`
+     so an unbreakable email-address label also fits. */
   .bw-btn {
     padding: 12px 18px;
     font-size: 12px;
@@ -164,6 +166,8 @@ a { text-decoration: none; }
     white-space: normal;
     text-align: center;
     line-height: 1.25;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
   .bw-mast__cta .bw-btn,
   .bw-cta__row .bw-btn,
