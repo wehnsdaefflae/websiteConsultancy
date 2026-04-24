@@ -445,28 +445,39 @@
 
   // ------------------------------------------------------------
   //  Mobile bottom-nav viewport sync.
-  //  On Firefox Android (and iOS Safari) a fixed `bottom: 0` nav
-  //  drifts during URL-bar show/hide animations — the nav is anchored
-  //  to the LARGE viewport but the user sees the SMALL viewport's
-  //  bottom, so the nav floats above (or sits behind) the URL bar
-  //  until a scroll event triggers a relayout.
+  //  Two distinct bugs conspire on mobile: (1) iOS Safari anchors
+  //  `position: fixed` to the LARGE (URL-bar-hidden) viewport, so a
+  //  bottom:0 nav sits behind the URL bar when it's visible; (2) Firefox
+  //  Android (<149) has a native bug where fixed-bottom elements detach
+  //  from the bottom during URL-bar animation (Bugzilla #1880375).
   //
-  //  The definitive fix is the visualViewport API: it reports the
-  //  CURRENT visible viewport every frame. We expose the delta between
-  //  layout and visual heights as a CSS custom property; the nav's
-  //  `transform: translateY(calc(-1 * var(--vv-offset)))` rule reads
-  //  it and self-corrects every frame to stay flush with the visual
-  //  viewport bottom.
+  //  A single naive `innerHeight − vv.height` translate only fixes (1)
+  //  and is a no-op on (2). Instead we MEASURE: a 1×1 invisible sentinel
+  //  anchored at `bottom: 0` tells us where the browser actually placed
+  //  it. If that's below the current visual viewport bottom, we translate
+  //  the nav up by the delta. Self-calibrating per engine — no UA sniff.
   // ------------------------------------------------------------
   function initMobnavViewportSync() {
     if (!window.visualViewport) return;   // older browsers: no-op
     var root = document.documentElement;
+    var sentinel = document.createElement('div');
+    sentinel.setAttribute('aria-hidden', 'true');
+    sentinel.style.cssText =
+      'position:fixed;left:0;bottom:0;width:1px;height:1px;' +
+      'pointer-events:none;opacity:0;';
+    document.body.appendChild(sentinel);
     function sync() {
-      var delta = Math.max(0, window.innerHeight - window.visualViewport.height);
+      var vv = window.visualViewport;
+      var sentinelBottom = sentinel.getBoundingClientRect().bottom;
+      var visualBottom = vv.offsetTop + vv.height;
+      var delta = Math.max(0, sentinelBottom - visualBottom);
       root.style.setProperty('--vv-offset', delta + 'px');
     }
     window.visualViewport.addEventListener('resize', sync);
     window.visualViewport.addEventListener('scroll', sync);
+    // Firefox Android fires vv.scroll less reliably than Chrome during
+    // URL-bar animation — add window.scroll as a fallback ticker.
+    window.addEventListener('scroll', sync, { passive: true });
     sync();
   }
 
