@@ -1526,17 +1526,15 @@ a { text-decoration: none; }
   .bw-mobnav {
     display: grid; grid-template-columns: repeat(5, 1fr);
     position: fixed; bottom: 0; left: 0; right: 0;
+    /* JS overrides `bottom: 0` with inline `top: Npx; bottom: auto`,
+       computing N from the visualViewport so the nav's bottom edge
+       always sits flush with the visible bottom — bypassing whatever
+       the engine does with fixed-bottom during URL-bar animations.
+       Without JS / visualViewport, the `bottom: 0` fallback is used. */
     background: var(--paper-2);
     border-top: 3px solid var(--ink);
     z-index: 90;
     padding-bottom: env(safe-area-inset-bottom);
-    /* --vv-offset is written by script.js on visualViewport.resize /
-       .scroll events. It equals (window.innerHeight − visualViewport.height),
-       i.e. the number of pixels that browser chrome (URL bar, keyboard)
-       is currently covering. Translating up by that amount keeps the
-       nav pinned to the visual viewport bottom on every frame, no
-       matter what Firefox/Chrome/Safari do with the URL bar. */
-    transform: translateY(calc(-1 * var(--vv-offset, 0px)));
   }
   .bw-mobnav a {
     padding: 10px 4px;

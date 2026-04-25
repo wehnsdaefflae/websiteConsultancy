@@ -445,33 +445,35 @@
 
   // ------------------------------------------------------------
   //  Mobile bottom-nav viewport sync.
-  //  Two distinct bugs conspire on mobile: (1) iOS Safari anchors
-  //  `position: fixed` to the LARGE (URL-bar-hidden) viewport, so a
-  //  bottom:0 nav sits behind the URL bar when it's visible; (2) Firefox
-  //  Android (<149) has a native bug where fixed-bottom elements detach
-  //  from the bottom during URL-bar animation (Bugzilla #1880375).
+  //  Earlier attempts relied on `position: fixed; bottom: 0` plus a
+  //  translateY correction. That depends on where each engine anchors
+  //  fixed-bottom (iOS = layout viewport, Firefox Android = buggy paint
+  //  during URL-bar animation, Bugzilla #1880375). Sentinel measurement
+  //  reads the LAYOUT position, not the painted one — so when Firefox
+  //  paints fixed-bottom in the wrong place, the sentinel sees nothing
+  //  wrong and the correction is a no-op.
   //
-  //  A single naive `innerHeight − vv.height` translate only fixes (1)
-  //  and is a no-op on (2). Instead we MEASURE: a 1×1 invisible sentinel
-  //  anchored at `bottom: 0` tells us where the browser actually placed
-  //  it. If that's below the current visual viewport bottom, we translate
-  //  the nav up by the delta. Self-calibrating per engine — no UA sniff.
+  //  Robust fix: bypass fixed-bottom entirely. Compute the absolute pixel
+  //  position where the nav should sit (visual viewport bottom minus nav
+  //  height), and set `top` directly via a CSS custom property. The CSS
+  //  rule uses `top: var(--mobnav-top, auto)` so it falls back to the
+  //  default `bottom: 0` on browsers without visualViewport.
   // ------------------------------------------------------------
   function initMobnavViewportSync() {
-    if (!window.visualViewport) return;   // older browsers: no-op
-    var root = document.documentElement;
-    var sentinel = document.createElement('div');
-    sentinel.setAttribute('aria-hidden', 'true');
-    sentinel.style.cssText =
-      'position:fixed;left:0;bottom:0;width:1px;height:1px;' +
-      'pointer-events:none;opacity:0;';
-    document.body.appendChild(sentinel);
+    if (!window.visualViewport) return;   // older browsers: bottom:0 fallback
+    var nav = document.querySelector('.bw-mobnav');
+    if (!nav) return;
+    // Measure nav's natural height ONCE before we override its bottom anchor;
+    // subsequent measurements would include any stretching from `top + bottom`
+    // both being set during a transient state.
+    var navHeight = nav.offsetHeight;
     function sync() {
       var vv = window.visualViewport;
-      var sentinelBottom = sentinel.getBoundingClientRect().bottom;
-      var visualBottom = vv.offsetTop + vv.height;
-      var delta = Math.max(0, sentinelBottom - visualBottom);
-      root.style.setProperty('--vv-offset', delta + 'px');
+      // Switch nav from bottom-anchored to top-anchored. `bottom: auto`
+      // releases the default `bottom: 0` so the nav's height stays
+      // natural and its top edge sits where we tell it to.
+      nav.style.bottom = 'auto';
+      nav.style.top = (vv.offsetTop + vv.height - navHeight) + 'px';
     }
     window.visualViewport.addEventListener('resize', sync);
     window.visualViewport.addEventListener('scroll', sync);
