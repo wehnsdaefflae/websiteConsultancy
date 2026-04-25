@@ -2065,26 +2065,81 @@ a { text-decoration: none; }
      to the page, not painted on. */
   transform: translateY(calc(var(--scroll-y) * -0.08));
 }
+
+/* CTA decorative blobs — yellow square top-left, mint circle bottom-right.
+   Each gets its OWN registered idle-motion vars so the existing scroll-
+   driven rotation can compose with a slow bob and a slow continuous spin
+   on the circle. (See @property + @keyframes for --cta-bob / --cta-spin
+   below.) The vars default to 0 so the resting position is unchanged
+   in browsers that don't support @property animation. */
+@property --cta-bob   { syntax: '<length>'; inherits: false; initial-value: 0px; }
+@property --cta-spin  { syntax: '<angle>';  inherits: false; initial-value: 0deg; }
+
 .bw-cta::before {
-  transform: rotate(calc(14deg + (var(--scroll-y) * 0.01deg)));
+  transform:
+    translateY(var(--cta-bob, 0px))
+    rotate(calc(14deg + (var(--scroll-y) * 0.01deg) + var(--cta-spin, 0deg)));
+  animation: ctaBob 8s ease-in-out infinite;
 }
 .bw-cta::after {
-  transform: rotate(calc(-10deg + (var(--scroll-y) * -0.008deg)));
+  transform:
+    translateY(var(--cta-bob, 0px))
+    rotate(calc(-10deg + (var(--scroll-y) * -0.008deg) + var(--cta-spin, 0deg)));
+  /* Circle: slow continuous spin instead of bob — round shapes look
+     natural rotating, where rotating a square would clash with the
+     fixed-tilt cardboard collage. */
+  animation: ctaSpin 56s linear infinite;
+}
+@keyframes ctaBob {
+  0%, 100% { --cta-bob: 0px; }
+  50%      { --cta-bob: -14px; }
+}
+@keyframes ctaSpin {
+  from { --cta-spin: 0deg; }
+  to   { --cta-spin: 360deg; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .bw-mast__band,
   .bw-cta::before,
-  .bw-cta::after { transform: none !important; }
+  .bw-cta::after {
+    transform: none !important;
+    animation: none !important;
+  }
 }
 
 /* ==============================
    DECORATIVE SHAPE LAYER
    --------------------------------------------
    script.js injects .bw-decor at the top of <main>. Shapes ride over
-   section boundaries and parallax with scroll at per-shape speeds.
+   section boundaries and parallax with scroll at per-shape speeds,
+   plus three optional idle keyframes (bob / sway / spin) that animate
+   registered custom properties — those props feed back into the base
+   transform so scroll-parallax and idle motion compose cleanly.
    ============================== */
 main { position: relative; }
+
+/* @property registers each transform-driving custom property so CSS
+   keyframes can interpolate them (without registration, animations
+   on custom properties snap discretely between 0% and 100%). All
+   browsers shipping @property in 2024+ support this. Browsers that
+   don't will simply not interpolate idle motion — the static parallax
+   still works because the var() reads the initial-value. */
+@property --dec-bob {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+@property --dec-sway {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+@property --dec-spin {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
 
 .bw-decor {
   position: absolute;
@@ -2115,13 +2170,26 @@ main { position: relative; }
   pointer-events: auto;
   cursor: default;
   opacity: 1;
-  /* Parallax: per-shape --dec-k scales --scroll-y (unitless) × 1 px
-     for a distinct translateY, PLUS a per-shape hover multiplier on
-     scale. `rotate` combines the base tilt + a slow scroll-driven
-     tumble. */
+  will-change: transform;
+  /* The composed transform reads:
+       --dec-k    × --scroll-y → vertical scroll parallax (px)
+       --dec-kr   × --scroll-y → rotation tumble per scroll-px (deg)
+       --dec-rot              → per-shape resting tilt (deg)
+       --dec-bob, --dec-sway  → idle keyframe outputs (length)
+       --dec-spin             → idle keyframe rotation (deg)
+       --dec-scale            → hover bump (1 → 1.08)
+     All variables have safe defaults so a shape with no animation
+     class still gets pure scroll parallax. */
   transform:
-    translateY(calc(var(--scroll-y, 0) * var(--dec-k, 0.06) * -1px))
-    rotate(calc(var(--dec-rot, 0deg) + (var(--scroll-y, 0) * 0.01deg)))
+    translate(
+      var(--dec-sway, 0px),
+      calc(var(--scroll-y, 0) * var(--dec-k, 0.06) * -1px + var(--dec-bob, 0px))
+    )
+    rotate(calc(
+      var(--dec-rot, 0deg)
+      + (var(--scroll-y, 0) * var(--dec-kr, 0.012) * 1deg)
+      + var(--dec-spin, 0deg)
+    ))
     scale(var(--dec-scale, 1));
   transition: transform .35s var(--ease-pop), box-shadow .25s, filter .25s;
 }
@@ -2130,9 +2198,9 @@ main { position: relative; }
    the edges. We don't change the parallax part; we bump --dec-scale
    which the base transform multiplies in. */
 .bw-decor__shape:hover {
-  --dec-scale: 1.08;
-  box-shadow: 10px 10px 0 var(--ink);
-  filter: brightness(1.04);
+  --dec-scale: 1.12;
+  box-shadow: 11px 11px 0 var(--ink);
+  filter: brightness(1.06);
 }
 
 .bw-decor__shape--rect    { border-radius: 6px; }
@@ -2174,15 +2242,69 @@ main { position: relative; }
      having +45 built into the JS shape pool. */
 }
 
-/* Narrow viewports — scale shapes down and reduce their count via
-   hiding the even-indexed ones so they don't crowd mobile. */
+/* ---- IDLE MOTION VARIANTS --------------------------------------
+   Each variant animates ONE registered custom property via @keyframes,
+   which the base transform composes in. Periods are deliberately
+   different (7s / 9s / 38s) and JS sets a negative animation-delay per
+   shape so neighbouring shapes never sync up — the layer feels alive,
+   never mechanical. Amplitudes are small (≤10px / ≤8px) so idle motion
+   stays in the periphery and doesn't compete with the scroll parallax. */
+.bw-decor__shape--anim-bob  { animation: decBob  7s ease-in-out infinite; }
+.bw-decor__shape--anim-sway { animation: decSway 9s ease-in-out infinite; }
+.bw-decor__shape--anim-spin { animation: decSpin 38s linear infinite; }
+
+@keyframes decBob {
+  0%, 100% { --dec-bob: 0px; }
+  50%      { --dec-bob: -10px; }
+}
+@keyframes decSway {
+  0%, 100% { --dec-sway: 0px; }
+  50%      { --dec-sway: 8px; }
+}
+@keyframes decSpin {
+  from { --dec-spin: 0deg; }
+  to   { --dec-spin: 360deg; }
+}
+
+/* Narrow viewports — drop ~half the shapes and shrink the rest so
+   they don't crowd small screens. The transform mirrors the desktop
+   composition so idle animations still apply on mobile. */
 @media (max-width: 900px) {
-  .bw-decor__shape { transform: scale(.7) translateY(calc(var(--scroll-y, 0) * var(--dec-k, 0.04) * -1px)) rotate(var(--dec-rot, 0deg)); }
+  .bw-decor__shape {
+    transform:
+      translate(
+        var(--dec-sway, 0px),
+        calc(var(--scroll-y, 0) * var(--dec-k, 0.06) * -0.7px + var(--dec-bob, 0px))
+      )
+      rotate(calc(
+        var(--dec-rot, 0deg)
+        + (var(--scroll-y, 0) * var(--dec-kr, 0.012) * 1deg)
+        + var(--dec-spin, 0deg)
+      ))
+      scale(calc(var(--dec-scale, 1) * .7));
+  }
   .bw-decor__shape:nth-child(2n) { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .bw-decor { display: none; }
+}
+
+/* ---- "SHAPES DIVE UNDER" SECTIONS -------------------------------
+   The decor layer sits at z-index:5 so shapes ride OVER section
+   content by default. To create the inverse — a shape visibly
+   diving BEHIND a feature section as you scroll — we elevate
+   selected sections to z-index:7 with their own stacking context.
+   Decor shapes scrolling through the section's vertical span are
+   covered by the section's solid background, then re-emerge once
+   they exit. Keeps the strongest cardboard-layer moment for the
+   closing CTA and the partners marquee, where it doubles down on
+   the brand language without applying it to every section. */
+.bw-cta,
+.bw-partners {
+  position: relative;
+  z-index: 7;
+  isolation: isolate;
 }
 
 /* ================================================================

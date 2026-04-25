@@ -206,38 +206,103 @@
     if (!main) return;
 
     // ---- SHAPE POOL
-    //   Shapes are positioned on the LEFT / RIGHT edges (most poking
-    //   in from off-screen) so they don't land on body text. Each
-    //   shape has its OWN scroll-parallax coefficient (--dec-k) so
-    //   they glide at different speeds, and its OWN rotation base.
-    //   Pool is intentionally large (~22) — we pick ~12 per page via
-    //   pathname hash, so every subpage gets a different subset.
+    //   Shapes have one of three placement strategies:
+    //     x   (px from left)   — anchored to LEFT edge, often poking
+    //                            in from off-screen
+    //     xr  (px from right)  — anchored to RIGHT edge, same idea
+    //     xp  (percent of main) — placed CENTRALLY across the page,
+    //                            travelling OVER section content as
+    //                            you scroll. These are the shapes
+    //                            that feel like they cut across the
+    //                            cardboard collage rather than
+    //                            framing it.
+    //   Per-shape motion fingerprint:
+    //     k    — vertical scroll parallax coefficient
+    //              (range 0.05 .. 0.32 — bigger = floats further as
+    //              you scroll, "closer to the camera")
+    //     kr   — rotation per scroll-px in deg (default 0.012,
+    //              negative = tumbles the other way)
+    //     anim — optional idle keyframe: 'bob' | 'sway' | 'spin'
+    //              ('spin' only for round/diamond shapes; squares
+    //              spinning would feel wrong against the rest of the
+    //              cardboard collage which keeps a fixed tilt)
+    //   Pool is large — we pick ~26 per page via pathname hash, so
+    //   every subpage gets a distinct subset. .bw-cta and .bw-partners
+    //   are stacking contexts above the decor layer (see styles.css),
+    //   so as a central shape scrolls into one of those sections it
+    //   visibly DIVES UNDER it and re-emerges on the other side.
     var POOL = [
-      { shape: 'rect',    w: 130, h: 95,  top: 6,   x: -60,  rot: -16, bg: 'var(--yellow)',   k: 0.06 },
-      { shape: 'circle',  w: 160, h: 160, top: 11,  xr: -70, rot: 6,   bg: 'var(--mint)',     k: 0.05 },
-      { shape: 'diamond', w: 70,  h: 70,  top: 16,  x: -35,  rot: 45,  bg: 'var(--tomato)',   k: 0.08 },
-      { shape: 'rect',    w: 70,  h: 70,  top: 22,  x: -30,  rot: 24,  bg: 'var(--lilac)',    k: 0.09 },
-      { shape: 'circle',  w: 95,  h: 95,  top: 28,  xr: -35, rot: 0,   bg: 'var(--sky)',      k: 0.06 },
-      { shape: 'rect',    w: 155, h: 45,  top: 33,  x: -80,  rot: -8,  bg: 'var(--hot-pink)', k: 0.07 },
-      { shape: 'plus',    w: 70,  h: 70,  top: 38,  xr: -25, rot: 10,  bg: 'var(--ink)',      k: 0.09 },
-      { shape: 'diamond', w: 60,  h: 60,  top: 43,  x: -25,  rot: 48,  bg: 'var(--yellow)',   k: 0.05 },
-      { shape: 'circle',  w: 75,  h: 75,  top: 48,  xr: -10, rot: 0,   bg: 'var(--hot-pink)', k: 0.07 },
-      { shape: 'rect',    w: 190, h: 55,  top: 53,  x: -95,  rot: 9,   bg: 'var(--sky)',      k: 0.04 },
-      { shape: 'rect',    w: 85,  h: 85,  top: 58,  xr: -45, rot: -6,  bg: 'var(--mint)',     k: 0.08 },
-      { shape: 'plus',    w: 58,  h: 58,  top: 63,  x: -25,  rot: -15, bg: 'var(--ink)',      k: 0.1  },
-      { shape: 'circle',  w: 130, h: 130, top: 68,  xr: -70, rot: 0,   bg: 'var(--lilac)',    k: 0.05 },
-      { shape: 'diamond', w: 90,  h: 90,  top: 74,  x: -45,  rot: 40,  bg: 'var(--mint)',     k: 0.06 },
-      { shape: 'rect',    w: 120, h: 90,  top: 79,  xr: -55, rot: 15,  bg: 'var(--tomato)',   k: 0.08 },
-      { shape: 'plus',    w: 80,  h: 80,  top: 84,  x: -30,  rot: 18,  bg: 'var(--ink)',      k: 0.09 },
-      { shape: 'rect',    w: 100, h: 100, top: 88,  x: -50,  rot: -12, bg: 'var(--tomato)',   k: 0.08 },
-      { shape: 'circle',  w: 140, h: 140, top: 92,  xr: -70, rot: 0,   bg: 'var(--royal)',    k: 0.03 },
-      { shape: 'diamond', w: 55,  h: 55,  top: 96,  xr: -25, rot: 50,  bg: 'var(--yellow)',   k: 0.08 },
-      { shape: 'rect',    w: 115, h: 60,  top: 99,  x: -70,  rot: 8,   bg: 'var(--sky)',      k: 0.05 },
-      { shape: 'circle',  w: 80,  h: 80,  top: 101, xr: -35, rot: 0,   bg: 'var(--hot-pink)', k: 0.07 },
-      { shape: 'plus',    w: 65,  h: 65,  top: 103, x: -30,  rot: 24,  bg: 'var(--ink)',      k: 0.1  }
+      // ---- TOP BAND (0–25%) — densest near the hero
+      { shape: 'rect',    w: 130, h: 95,  top: 4,   x: -60,  rot: -16, bg: 'var(--yellow)',   k: 0.10, kr:  0.012, anim: 'sway' },
+      { shape: 'circle',  w: 170, h: 170, top: 9,   xr: -75, rot: 6,   bg: 'var(--mint)',     k: 0.08, kr:  0.010, anim: 'spin' },
+      { shape: 'diamond', w: 70,  h: 70,  top: 13,  x: -30,  rot: 45,  bg: 'var(--tomato)',   k: 0.18, kr:  0.020, anim: 'bob'  },
+      { shape: 'plus',    w: 60,  h: 60,  top: 16,  xr: -20, rot: -8,  bg: 'var(--ink)',      k: 0.22, kr: -0.024 },
+      { shape: 'rect',    w: 70,  h: 70,  top: 19,  x: -25,  rot: 24,  bg: 'var(--lilac)',    k: 0.14, kr:  0.018, anim: 'bob'  },
+      { shape: 'circle',  w: 95,  h: 95,  top: 23,  xr: -40, rot: 0,   bg: 'var(--sky)',      k: 0.11, kr:  0.014, anim: 'spin' },
+      { shape: 'rect',    w: 50,  h: 50,  top: 26,  x: -20,  rot: 12,  bg: 'var(--lime)',     k: 0.26, kr: -0.022, anim: 'sway' },
+
+      // ---- UPPER MIDDLE (25–50%)
+      { shape: 'rect',    w: 155, h: 45,  top: 30,  x: -85,  rot: -8,  bg: 'var(--hot-pink)', k: 0.12, kr:  0.014 },
+      { shape: 'plus',    w: 70,  h: 70,  top: 33,  xr: -25, rot: 10,  bg: 'var(--ink)',      k: 0.16, kr:  0.022, anim: 'sway' },
+      { shape: 'diamond', w: 60,  h: 60,  top: 37,  x: -22,  rot: 48,  bg: 'var(--yellow)',   k: 0.09, kr: -0.012, anim: 'bob'  },
+      { shape: 'circle',  w: 75,  h: 75,  top: 40,  xr: -10, rot: 0,   bg: 'var(--hot-pink)', k: 0.13, kr:  0.016, anim: 'spin' },
+      { shape: 'rect',    w: 40,  h: 40,  top: 43,  xr: -16, rot: 30,  bg: 'var(--orange)',   k: 0.28, kr:  0.026, anim: 'sway' },
+      { shape: 'rect',    w: 190, h: 55,  top: 46,  x: -95,  rot: 9,   bg: 'var(--sky)',      k: 0.07, kr:  0.008 },
+      { shape: 'plus',    w: 50,  h: 50,  top: 49,  x: -18,  rot: 18,  bg: 'var(--ink)',      k: 0.24, kr: -0.020 },
+
+      // ---- LOWER MIDDLE (50–75%)
+      { shape: 'rect',    w: 85,  h: 85,  top: 53,  xr: -45, rot: -6,  bg: 'var(--mint)',     k: 0.15, kr:  0.018, anim: 'bob'  },
+      { shape: 'plus',    w: 58,  h: 58,  top: 56,  x: -25,  rot: -15, bg: 'var(--ink)',      k: 0.20, kr:  0.024 },
+      { shape: 'diamond', w: 45,  h: 45,  top: 59,  xr: -18, rot: 50,  bg: 'var(--royal)',    k: 0.27, kr: -0.026, anim: 'bob'  },
+      { shape: 'circle',  w: 130, h: 130, top: 62,  xr: -70, rot: 0,   bg: 'var(--lilac)',    k: 0.08, kr:  0.010, anim: 'spin' },
+      { shape: 'rect',    w: 65,  h: 65,  top: 65,  x: -25,  rot: -22, bg: 'var(--lime)',     k: 0.22, kr:  0.020, anim: 'sway' },
+      { shape: 'diamond', w: 90,  h: 90,  top: 68,  x: -45,  rot: 40,  bg: 'var(--mint)',     k: 0.10, kr:  0.014 },
+      { shape: 'rect',    w: 120, h: 90,  top: 71,  xr: -55, rot: 15,  bg: 'var(--tomato)',   k: 0.13, kr:  0.016, anim: 'bob'  },
+      { shape: 'plus',    w: 80,  h: 80,  top: 74,  x: -30,  rot: 18,  bg: 'var(--ink)',      k: 0.17, kr: -0.018, anim: 'sway' },
+
+      // ---- BOTTOM BAND (75–100%) — looser, larger pieces
+      { shape: 'rect',    w: 100, h: 100, top: 78,  x: -50,  rot: -12, bg: 'var(--tomato)',   k: 0.12, kr:  0.014, anim: 'bob'  },
+      { shape: 'circle',  w: 55,  h: 55,  top: 81,  x: -22,  rot: 0,   bg: 'var(--orange)',   k: 0.25, kr:  0.022, anim: 'spin' },
+      { shape: 'circle',  w: 145, h: 145, top: 84,  xr: -70, rot: 0,   bg: 'var(--royal)',    k: 0.06, kr:  0.008, anim: 'spin' },
+      { shape: 'diamond', w: 55,  h: 55,  top: 87,  xr: -25, rot: 50,  bg: 'var(--yellow)',   k: 0.18, kr:  0.020, anim: 'sway' },
+      { shape: 'rect',    w: 115, h: 60,  top: 90,  x: -70,  rot: 8,   bg: 'var(--sky)',      k: 0.09, kr:  0.012 },
+      { shape: 'circle',  w: 80,  h: 80,  top: 93,  xr: -35, rot: 0,   bg: 'var(--hot-pink)', k: 0.14, kr:  0.016, anim: 'spin' },
+      { shape: 'plus',    w: 65,  h: 65,  top: 95,  x: -30,  rot: 24,  bg: 'var(--ink)',      k: 0.22, kr: -0.024 },
+      { shape: 'rect',    w: 75,  h: 75,  top: 97,  xr: -32, rot: -18, bg: 'var(--lilac)',    k: 0.16, kr:  0.020, anim: 'bob'  },
+      { shape: 'diamond', w: 70,  h: 70,  top: 99,  x: -28,  rot: 42,  bg: 'var(--lime)',     k: 0.11, kr:  0.014, anim: 'sway' },
+      { shape: 'rect',    w: 50,  h: 50,  top: 101, x: -20,  rot: 6,   bg: 'var(--mint)',     k: 0.28, kr:  0.026 },
+      { shape: 'circle',  w: 40,  h: 40,  top: 103, xr: -16, rot: 0,   bg: 'var(--tomato)',   k: 0.30, kr:  0.024, anim: 'spin' },
+      { shape: 'plus',    w: 55,  h: 55,  top: 105, xr: -22, rot: -10, bg: 'var(--ink)',      k: 0.19, kr:  0.022, anim: 'bob'  },
+
+      // ---- DEEP BACKGROUND (slow drifters, scattered across the page)
+      { shape: 'rect',    w: 220, h: 36,  top: 27,  xr: -120, rot: -22, bg: 'var(--royal)',   k: 0.04, kr:  0.006 },
+      { shape: 'rect',    w: 200, h: 32,  top: 67,  x: -110,  rot: 14,  bg: 'var(--hot-pink)',k: 0.05, kr:  0.006 },
+      { shape: 'circle',  w: 200, h: 200, top: 45,  xr: -110, rot: 0,   bg: 'var(--yellow)',  k: 0.04, kr:  0.006, anim: 'spin' },
+
+      // ---- CENTRAL CROSSING SHAPES — these sit OVER the page columns
+      //   and fly past content with stronger parallax (k ≥ 0.14). They
+      //   give the "cardboard cuts moving across the page" feel that
+      //   edge-anchored shapes can't. xp is a percentage of the main
+      //   column width. Sizes are kept modest (≤90px most) so body
+      //   text stays readable and the eye still finds typographic
+      //   focus over the moving graphics.
+      { shape: 'diamond', w: 65,  h: 65,  top: 8,   xp: 28,   rot: 35,  bg: 'var(--lime)',     k: 0.20, kr:  0.022, anim: 'bob'  },
+      { shape: 'plus',    w: 55,  h: 55,  top: 14,  xp: 65,   rot: 12,  bg: 'var(--ink)',      k: 0.26, kr: -0.024, anim: 'sway' },
+      { shape: 'circle',  w: 70,  h: 70,  top: 21,  xp: 42,   rot: 0,   bg: 'var(--orange)',   k: 0.18, kr:  0.018, anim: 'spin' },
+      { shape: 'rect',    w: 55,  h: 55,  top: 27,  xp: 78,   rot: -18, bg: 'var(--royal)',    k: 0.22, kr:  0.020, anim: 'bob'  },
+      { shape: 'diamond', w: 50,  h: 50,  top: 34,  xp: 16,   rot: 42,  bg: 'var(--hot-pink)', k: 0.28, kr:  0.026, anim: 'sway' },
+      { shape: 'circle',  w: 60,  h: 60,  top: 41,  xp: 70,   rot: 0,   bg: 'var(--mint)',     k: 0.16, kr:  0.014, anim: 'spin' },
+      { shape: 'plus',    w: 50,  h: 50,  top: 48,  xp: 35,   rot: 22,  bg: 'var(--ink)',      k: 0.24, kr: -0.022, anim: 'bob'  },
+      { shape: 'rect',    w: 65,  h: 65,  top: 55,  xp: 82,   rot: 8,   bg: 'var(--lilac)',    k: 0.20, kr:  0.018, anim: 'sway' },
+      { shape: 'diamond', w: 55,  h: 55,  top: 62,  xp: 24,   rot: 38,  bg: 'var(--tomato)',   k: 0.32, kr:  0.028, anim: 'bob'  },
+      { shape: 'circle',  w: 80,  h: 80,  top: 70,  xp: 58,   rot: 0,   bg: 'var(--sky)',      k: 0.14, kr:  0.012, anim: 'spin' },
+      { shape: 'plus',    w: 60,  h: 60,  top: 77,  xp: 18,   rot: -10, bg: 'var(--ink)',      k: 0.26, kr:  0.024, anim: 'sway' },
+      { shape: 'rect',    w: 50,  h: 50,  top: 84,  xp: 72,   rot: -22, bg: 'var(--yellow)',   k: 0.22, kr:  0.020, anim: 'bob'  },
+      { shape: 'diamond', w: 60,  h: 60,  top: 91,  xp: 38,   rot: 45,  bg: 'var(--mint)',     k: 0.30, kr: -0.026, anim: 'sway' },
+      { shape: 'circle',  w: 55,  h: 55,  top: 98,  xp: 80,   rot: 0,   bg: 'var(--lime)',     k: 0.18, kr:  0.018, anim: 'spin' }
     ];
 
-    // Pick ~12 shapes deterministically based on pathname — different
+    // Pick shapes deterministically based on pathname — different
     // subpages get distinct combinations. Uses a tiny hash for each
     // candidate index so the selected set isn't just a contiguous slice.
     function pathHash(s) {
@@ -247,8 +312,7 @@
     }
     var path = (location.pathname || location.hash || '').toLowerCase();
     var h = pathHash(path);
-    var want = Math.min(14, POOL.length);
-    // Select `want` items — ordered by (index + h * (index+1)) mod POOL.length
+    var want = Math.min(30, POOL.length);
     var chosen = [];
     var used = new Set();
     for (var i = 0; i < POOL.length && chosen.length < want; i++) {
@@ -269,15 +333,34 @@
       // scroll motion via --scroll-y × --dec-k. Adding .bw-observable
       // would clash (the generic rule sets translateY(24px) until
       // .is-in which overrides the parallax transform).
-      e.className = 'bw-decor__shape bw-decor__shape--' + s.shape;
+      var classes = ['bw-decor__shape', 'bw-decor__shape--' + s.shape];
+      if (s.anim) classes.push('bw-decor__shape--anim-' + s.anim);
+      e.className = classes.join(' ');
       e.style.top = s.top + '%';
       if (s.x !== undefined) e.style.left = s.x + 'px';
       if (s.xr !== undefined) e.style.right = s.xr + 'px';
+      // xp = percent of main column width — the central "crossing"
+      // shapes use this. We translate(-50%, 0) so xp reads as the
+      // shape's CENTRE, not its left edge — feels more natural to
+      // place a 60-wide blob "at 35%" meaning its midpoint sits there.
+      if (s.xp !== undefined) {
+        e.style.left = s.xp + '%';
+        e.style.marginLeft = (-s.w / 2) + 'px';
+        e.classList.add('bw-decor__shape--cross');
+      }
       e.style.width = s.w + 'px';
       e.style.height = s.h + 'px';
       e.style.background = s.bg;
       e.style.setProperty('--dec-rot', s.rot + 'deg');
       e.style.setProperty('--dec-k', s.k);
+      if (s.kr !== undefined) e.style.setProperty('--dec-kr', s.kr);
+      // Stagger idle animation phases so neighbouring shapes don't
+      // bob/sway in lockstep — that would look mechanical. Negative
+      // delay starts mid-cycle so motion is in progress at first paint.
+      if (s.anim) {
+        var delay = -((i * 0.83) % 6).toFixed(2);
+        e.style.animationDelay = delay + 's';
+      }
       layer.appendChild(e);
     });
 
