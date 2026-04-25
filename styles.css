@@ -104,7 +104,6 @@ a { text-decoration: none; }
 .bw-tools > *:last-child { border-right: 0; }
 .bw-tools .lang a { padding: 4px 6px; font-weight: 600; }
 .bw-tools .lang a::after { display: none; }
-.bw-tools .lang a[aria-current="true"] { background: var(--yellow); border: 2px solid var(--ink); }
 .bw-tools .cta {
   background: var(--tomato); color: var(--paper);
   font-family: var(--font-head); font-weight: 700;
@@ -132,37 +131,37 @@ a { text-decoration: none; }
   padding: 0 18px;
   gap: 6px;
 }
-.bw-tools .theme-toggle .tt-sep { opacity: .35; }
 .bw-tools .theme-toggle .tt-day,
-.bw-tools .theme-toggle .tt-night { font-weight: 600; transition: background var(--t-fast); }
-.bw-tools .theme-toggle[data-edition="day"] .tt-day {
-  background: var(--yellow); padding: 2px 6px; border: 2px solid var(--ink);
-}
-.bw-tools .theme-toggle[data-edition="night"] .tt-night {
-  background: var(--royal); color: var(--fg-invert);
-  padding: 2px 6px; border: 2px solid var(--ink);
-}
+.bw-tools .theme-toggle .tt-night { font-weight: 600; }
+/* Show only the OPPOSITE-state label — clicking swaps it. The visible
+   label answers "what will happen on click", not "what state am I in". */
+.bw-tools .theme-toggle .tt-sep,
+.bw-tools .theme-toggle[data-edition="day"] .tt-day,
+.bw-tools .theme-toggle[data-edition="night"] .tt-night { display: none; }
 .bw-tools .theme-toggle:hover { background: var(--paper); }
 
 @media (max-width: 1100px) {
-  /* Header tools compete with nav for space below ~1100px — hide the lang
-     switch first (theme toggle is more interactive and stays). EN/DE is
-     still accessible via the mobile bottom nav and footer. */
+  /* Tight space below ~1100px: hide lang to keep nav + theme + CTA from
+     overflowing. Restored at ≤900px when the desktop nav drops out — the
+     mobnav has no language switch, so this is the only mobile path. */
   .bw-tools .lang { display: none; }
 }
 @media (max-width: 900px) {
   .bw-nav { display: none; }
+  .bw-tools .lang { display: flex; }
 }
 @media (max-width: 640px) {
   /* On narrow viewports, the tools row (lang + toggle + CTA) overflows
      the grid column. Drop the header CTA — the fixed bottom nav already
-     surfaces Kontakt. Shrink the brand and theme toggle so both still
-     fit inside a ~390-px phone viewport without clipping. */
+     surfaces Kontakt. Shrink the brand, lang switch, and theme toggle so
+     all three still fit inside a ~360-px phone viewport without clipping. */
   .bw-tools .cta { display: none; }
-  .bw-brand { font-size: 18px; padding: 14px 16px; gap: 8px; letter-spacing: 0; }
+  .bw-brand { font-size: 18px; padding: 14px 12px; gap: 8px; letter-spacing: 0; }
   .bw-brand .dot { width: 14px; height: 14px; }
-  .bw-tools > * { padding: 0 14px; font-size: 11px; }
-  .bw-tools .theme-toggle { padding: 0 14px; font-size: 11px; }
+  .bw-tools > * { padding: 0 8px; font-size: 11px; gap: 4px; }
+  .bw-tools .lang { padding: 0 8px; }
+  .bw-tools .lang a { padding: 2px 4px; }
+  .bw-tools .theme-toggle { padding: 0 8px; font-size: 11px; }
 
   /* CTAs at their normal 14 px font + 22 px padding were exceeding a
      390-px phone viewport ("Kostenloses Erstgespräch" = 447 px).
@@ -2592,10 +2591,9 @@ main { position: relative; }
   color: #0A0A0A;
 }
 
-/* NAV current page + LANG current: bg is saturated (mint / yellow)
-   but text inherits white, failing. Pin dark text. */
+/* NAV current page: bg is saturated mint, but text inherits white,
+   failing contrast. Pin dark text. */
 [data-theme="dark"] .bw-nav a[aria-current="page"] { color: #0A0A0A; }
-[data-theme="dark"] .bw-tools .lang a[aria-current="true"] { color: #0A0A0A; }
 
 /* GHOST button — background is paper-2 (dark gray in dark mode) and
    text is ink (white normally). But inside a bright-surface parent

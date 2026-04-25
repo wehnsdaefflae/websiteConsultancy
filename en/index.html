@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Syne:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Caprasimo&display=swap">
 <link rel="stylesheet" href="../colors_and_type.css" />
 <link rel="stylesheet" href="../styles.css" />
-<script>(function(){try{var q=null;try{q=new URL(location.href).searchParams.get('t');}catch(e){}var s=(q==='dark'||q==='light')?q:localStorage.getItem('bw.theme');if(s==='dark')document.documentElement.setAttribute('data-theme','dark');if(q==='dark'||q==='light'){try{localStorage.setItem('bw.theme',q);}catch(e){}}}catch(e){}})();</script>
+<script>(function(){try{var q=null;try{q=new URL(location.href).searchParams.get('t');}catch(e){}var s=(q==='dark'||q==='light')?q:localStorage.getItem('bw.theme');if(s==='dark')document.documentElement.setAttribute('data-theme','dark');if(q==='dark'||q==='light'){try{localStorage.setItem('bw.theme',q);}catch(e){}}}catch(e){}try{if(!localStorage.getItem('bw.lang')){var p=location.pathname,inEn=p.indexOf('/en/')===0,br=(navigator.language||'').slice(0,2).toLowerCase()==='en';if(br&&!inEn){var t=(p==='/'||p==='/index.html')?'/en/':'/en'+p;localStorage.setItem('bw.lang','en');location.replace(t);return;}localStorage.setItem('bw.lang',inEn?'en':'de');}}catch(e){}})();</script>
 </head>
 <body>
 
@@ -38,7 +38,7 @@
       <a href="contact.html">Contact</a>
     </nav>
     <div class="bw-tools">
-      <div class="lang"><a href="../index.html">DE</a><span style="opacity:.3">/</span><a href="#" aria-current="true">EN</a></div>
+      <div class="lang"><a href="../index.html">DE</a></div>
       <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle day / night edition"><span class="tt-day">Day</span><span class="tt-sep">·</span><span class="tt-night">Night</span></button>
       <a href="contact.html" class="cta">First call →</a>
     </div>
