@@ -379,6 +379,11 @@
     var errBanner = form.querySelector('.bw-form__err');
     var submitBtn = form.querySelector('button[type="submit"]');
 
+    // Time-trap stamp — contact.php rejects submissions arriving faster
+    // than ~3s after this is set. Bots POST instantly; humans take ≥10s.
+    var rtField = form.querySelector('[name="_rt"]');
+    if (rtField) rtField.value = String(Date.now());
+
     function showOk()  { if (okBanner)  okBanner.style.display  = 'flex'; if (errBanner) errBanner.style.display = 'none'; }
     function showErr(msg) {
       if (errBanner) {

@@ -192,8 +192,15 @@
 
     <div class="bw-form-grid">
       <form class="bw-form" action="../contact.php" method="post">
-        <!-- Honeypot — real users don't fill this, bots often do -->
+        <!-- Spam defenses — see contact.php for the matching server-side
+             checks. Three honeypots (real users never fill these; bots
+             auto-fill every text input) plus a hidden render-time stamp
+             that JS sets to Date.now(); contact.php rejects submissions
+             faster than 3 s after page load. -->
         <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;">
+        <input type="text" name="phone2"  tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;">
+        <input type="text" name="fax"     tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;">
+        <input type="hidden" name="_rt" value=""><!-- populated by script.js on form mount -->
         <div class="bw-field">
           <label for="name">Name</label>
           <input id="name" name="name" type="text" placeholder="First and last name" required>
@@ -228,6 +235,13 @@
           <label for="nda" style="letter-spacing:.02em; text-transform:none; font-size:14px; font-family:var(--font-body); font-weight:400">I need an NDA before the first conversation.</label>
         </div>
 
+        <!-- Cloudflare Turnstile (optional, off by default). To activate:
+             1. Sign up free at https://dash.cloudflare.com/?to=/turnstile
+             2. Un-comment the two lines below; replace YOUR_SITEKEY.
+             3. Paste the matching secret into $TURNSTILE_SECRET in contact.php.
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+        <div class="cf-turnstile" data-sitekey="YOUR_SITEKEY" data-theme="auto" style="margin:8px 0"></div>
+        -->
         <button type="submit">Send →</button>
 
         <div class="bw-form__ok" style="display:none; align-items:center; gap:12px; padding:14px 18px; background:var(--mint); border:3px solid var(--ink); border-radius:8px; box-shadow:4px 4px 0 var(--ink); font-family:var(--font-head); font-weight:700">
