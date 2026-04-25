@@ -104,6 +104,7 @@ a { text-decoration: none; }
 .bw-tools > *:last-child { border-right: 0; }
 .bw-tools .lang a { padding: 4px 6px; font-weight: 600; }
 .bw-tools .lang a::after { display: none; }
+.bw-tools .lang a[aria-current="true"] { background: var(--yellow); border: 2px solid var(--ink); }
 .bw-tools .cta {
   background: var(--tomato); color: var(--paper);
   font-family: var(--font-head); font-weight: 700;
@@ -131,13 +132,16 @@ a { text-decoration: none; }
   padding: 0 18px;
   gap: 6px;
 }
+.bw-tools .theme-toggle .tt-sep { opacity: .35; }
 .bw-tools .theme-toggle .tt-day,
-.bw-tools .theme-toggle .tt-night { font-weight: 600; }
-/* Show only the OPPOSITE-state label — clicking swaps it. The visible
-   label answers "what will happen on click", not "what state am I in". */
-.bw-tools .theme-toggle .tt-sep,
-.bw-tools .theme-toggle[data-edition="day"] .tt-day,
-.bw-tools .theme-toggle[data-edition="night"] .tt-night { display: none; }
+.bw-tools .theme-toggle .tt-night { font-weight: 600; transition: background var(--t-fast); }
+.bw-tools .theme-toggle[data-edition="day"] .tt-day {
+  background: var(--yellow); padding: 2px 6px; border: 2px solid var(--ink);
+}
+.bw-tools .theme-toggle[data-edition="night"] .tt-night {
+  background: var(--royal); color: var(--fg-invert);
+  padding: 2px 6px; border: 2px solid var(--ink);
+}
 .bw-tools .theme-toggle:hover { background: var(--paper); }
 
 @media (max-width: 1100px) {
@@ -149,6 +153,15 @@ a { text-decoration: none; }
 @media (max-width: 900px) {
   .bw-nav { display: none; }
   .bw-tools .lang { display: flex; }
+  /* On mobile, both toggles collapse to a single label — the click
+     target ("what you'll switch to") rather than "current state".
+     Hides the active link and the separator, leaving only the opposite
+     option visible. Saves header width on narrow phones. */
+  .bw-tools .lang a[aria-current="true"],
+  .bw-tools .lang > span,
+  .bw-tools .theme-toggle .tt-sep,
+  .bw-tools .theme-toggle[data-edition="day"] .tt-day,
+  .bw-tools .theme-toggle[data-edition="night"] .tt-night { display: none; }
 }
 @media (max-width: 640px) {
   /* On narrow viewports, the tools row (lang + toggle + CTA) overflows
@@ -2591,9 +2604,10 @@ main { position: relative; }
   color: #0A0A0A;
 }
 
-/* NAV current page: bg is saturated mint, but text inherits white,
-   failing contrast. Pin dark text. */
+/* NAV current page + LANG current: bg is saturated (mint / yellow)
+   but text inherits white, failing. Pin dark text. */
 [data-theme="dark"] .bw-nav a[aria-current="page"] { color: #0A0A0A; }
+[data-theme="dark"] .bw-tools .lang a[aria-current="true"] { color: #0A0A0A; }
 
 /* GHOST button — background is paper-2 (dark gray in dark mode) and
    text is ink (white normally). But inside a bright-surface parent
