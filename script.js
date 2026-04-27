@@ -188,179 +188,289 @@
   }
 
   // ------------------------------------------------------------
-  //  Decorative shape layer — injects a set of cardboard-cut blobs
-  //  (rects, circles, tilted rectangles) at fixed document-relative
-  //  positions. Each shape:
-  //    - reads --scroll-y × a per-shape coefficient to produce its
-  //      own translate-Y on scroll (so they move at different speeds
-  //      and appear to float OVER section boundaries);
-  //    - starts hidden and fades in when entering the viewport
-  //      (bw-observable scroll-in).
-  //  Shape placements differ per page via a simple seed based on the
-  //  URL pathname — so profile/services/projects each feel unique
-  //  but deterministic, not chaotic on every reload.
+  //  Decorative shape layer — fewer, bigger, more varied cardboard-cut
+  //  shapes that ride over the page. About 10 are picked per pathname
+  //  so each subpage has a distinct silhouette set, with a path-derived
+  //  palette rotation so the same shape entry shows up in different
+  //  colors on different pages. Most center-crossing (xp) shapes use
+  //  a long horizontal "drift" idle animation so they continually
+  //  traverse the column rather than parking on a headline. Dark mode
+  //  hides the layer entirely (see styles.css [data-theme="dark"]).
   // ------------------------------------------------------------
   function initDecorLayer() {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (document.documentElement.dataset.theme === 'dark') return;
     var main = document.querySelector('main');
     if (!main) return;
 
-    // ---- SHAPE POOL
-    //   Shapes have one of three placement strategies:
-    //     x   (px from left)   — anchored to LEFT edge, often poking
-    //                            in from off-screen
-    //     xr  (px from right)  — anchored to RIGHT edge, same idea
-    //     xp  (percent of main) — placed CENTRALLY across the page,
-    //                            travelling OVER section content as
-    //                            you scroll. These are the shapes
-    //                            that feel like they cut across the
-    //                            cardboard collage rather than
-    //                            framing it.
-    //   Per-shape motion fingerprint:
-    //     k    — vertical scroll parallax coefficient
-    //              (range 0.05 .. 0.32 — bigger = floats further as
-    //              you scroll, "closer to the camera")
-    //     kr   — rotation per scroll-px in deg (default 0.012,
-    //              negative = tumbles the other way)
-    //     anim — optional idle keyframe: 'bob' | 'sway' | 'spin'
-    //              ('spin' only for round/diamond shapes; squares
-    //              spinning would feel wrong against the rest of the
-    //              cardboard collage which keeps a fixed tilt)
-    //   Pool is large — we pick ~26 per page via pathname hash, so
-    //   every subpage gets a distinct subset. .bw-cta and .bw-partners
-    //   are stacking contexts above the decor layer (see styles.css),
-    //   so as a central shape scrolls into one of those sections it
-    //   visibly DIVES UNDER it and re-emerges on the other side.
+    // SVG renderers — the wrapper element is positioner; the SVG fills
+    // it. CSS draws the chunky --ink stroke + offset drop-shadow so
+    // every shape stays inside the cardboard-collage grammar.
+    var SVG_RENDERERS = {
+      triangle: function () {
+        return '<svg viewBox="0 0 100 100" preserveAspectRatio="none">'
+          + '<polygon points="50,8 92,90 8,90" fill="var(--bg)"/></svg>';
+      },
+      hexagon: function () {
+        return '<svg viewBox="0 0 100 100" preserveAspectRatio="none">'
+          + '<polygon points="50,6 92,28 92,72 50,94 8,72 8,28" fill="var(--bg)"/></svg>';
+      },
+      star: function () {
+        return '<svg viewBox="0 0 100 100" preserveAspectRatio="none">'
+          + '<polygon points="50,6 62,38 95,38 68,58 79,94 50,72 21,94 32,58 5,38 38,38" fill="var(--bg)"/></svg>';
+      },
+      arrow: function () {
+        return '<svg viewBox="0 0 100 100" preserveAspectRatio="none">'
+          + '<polygon points="6,38 60,38 60,12 96,50 60,88 60,62 6,62" fill="var(--bg)"/></svg>';
+      },
+      squiggle: function () {
+        // Stroke-only; no fill. Color comes from --bg via CSS.
+        return '<svg viewBox="0 0 200 50" preserveAspectRatio="none">'
+          + '<path d="M8,25 Q38,-2 68,25 T128,25 T188,25" fill="none"/></svg>';
+      },
+      asterisk: function () {
+        return '<svg viewBox="0 0 100 100">'
+          + '<g><line x1="50" y1="8" x2="50" y2="92"/>'
+          + '<line x1="8" y1="50" x2="92" y2="50"/>'
+          + '<line x1="22" y1="22" x2="78" y2="78"/>'
+          + '<line x1="78" y1="22" x2="22" y2="78"/></g></svg>';
+      }
+    };
+    function isSvgShape(name) { return name in SVG_RENDERERS; }
+
+    // Palette rotated per pathname so the same shape entry shows up in
+    // different colors across subpages. Order matters: it's the
+    // rotation cycle, not a random shuffle.
+    var COLORS = ['yellow','mint','tomato','lilac','sky','lime','hot-pink','royal','orange'];
+
+    // ---- POOL — text-safe placement, scroll-driven motion ----------
+    //   Each shape's resting position (scroll=0 anchor) is in a known
+    //   text-safe zone: either an inter-section gutter or beyond the
+    //   text column (x / xr edge anchors). Motion comes ENTIRELY from
+    //   scroll: vertical parallax (k) lifts the shape up the page,
+    //   horizontal drift (kx) sweeps it across the column, rotation
+    //   (kr) tumbles it. When the user stops scrolling, the shape
+    //   stops moving — no idle drift, so a shape that sits clear of
+    //   text at rest never wanders onto text while reading.
+    //
+    //   xp values are chosen to land at section transitions (the
+    //   horizontal seams between coloured bands on the page), and
+    //   kx is signed so center shapes anchored on one side sweep
+    //   diagonally toward the other side as you scroll, giving the
+    //   "cuts cross the column" feel without idle motion.
     var POOL = [
-      // ---- TOP BAND (0–25%) — densest near the hero
-      { shape: 'rect',    w: 130, h: 95,  top: 4,   x: -60,  rot: -16, bg: 'var(--yellow)',   k: 0.10, kr:  0.012, anim: 'sway' },
-      { shape: 'circle',  w: 170, h: 170, top: 9,   xr: -75, rot: 6,   bg: 'var(--mint)',     k: 0.08, kr:  0.010, anim: 'spin' },
-      { shape: 'diamond', w: 70,  h: 70,  top: 13,  x: -30,  rot: 45,  bg: 'var(--tomato)',   k: 0.18, kr:  0.020, anim: 'bob'  },
-      { shape: 'plus',    w: 60,  h: 60,  top: 16,  xr: -20, rot: -8,  bg: 'var(--ink)',      k: 0.22, kr: -0.024 },
-      { shape: 'rect',    w: 70,  h: 70,  top: 19,  x: -25,  rot: 24,  bg: 'var(--lilac)',    k: 0.14, kr:  0.018, anim: 'bob'  },
-      { shape: 'circle',  w: 95,  h: 95,  top: 23,  xr: -40, rot: 0,   bg: 'var(--sky)',      k: 0.11, kr:  0.014, anim: 'spin' },
-      { shape: 'rect',    w: 50,  h: 50,  top: 26,  x: -20,  rot: 12,  bg: 'var(--lime)',     k: 0.26, kr: -0.022, anim: 'sway' },
+      // ---- CENTER-CROSSING SHAPES (xp) ----------------------------
+      //   Anchored at section seams (rest position is in an inter-
+      //   section gutter, not on text). Vertical k is small (0.04-0.07)
+      //   so the shape stays near its gutter row instead of traversing
+      //   text-bearing sections; horizontal kx is large (±0.10-0.16)
+      //   so as the user scrolls THROUGH that row, the shape sweeps
+      //   visibly across the column. The two together produce a
+      //   diagonal scroll-driven sweep without idle motion.
+      // Center shapes: k=0 (vertically locked to anchor row) + large kx
+      // (visible horizontal sweep on scroll). Anchored ONLY at the
+      // page's wide inter-section gutters where there's no body text:
+      //   ~12% — above the section sequence (off-paper stats stripe)
+      //   ~46% — Felder cards row 2 → pullquote (175px gap)
+      //   ~78% — projects last entry → Phasen heading (325px gap)
+      //   ~97% — under the CTA (dive-under z-stacking covers it)
+      // Skipped rows: the Haltung lede sits at ~22-24%, the projects
+      // cards span 55-72% with right-side metadata columns, the stats
+      // grid is 86-90% — all too text-dense for a center shape.
+      { shape: 'star',     w: 140, h: 140, top: 12, xp: 16, rot: -10, bg: 'orange',   k: 0, kx:  0.16, kr:  0.014, anim: 'spin' },
+      { shape: 'asterisk', w: 130, h: 130, top: 46, xp: 18, rot:   0, bg: 'hot-pink', k: 0, kx:  0.18, kr:  0.020, anim: 'spin' },
+      { shape: 'squiggle', w: 220, h: 50,  top: 78, xp: 84, rot:  -6, bg: 'royal',    k: 0, kx: -0.22, kr:  0.010 },
+      { shape: 'diamond',  w: 130, h: 130, top: 97, xp: 35, rot:  38, bg: 'lime',     k: 0, kx:  0.14, kr:  0.014 },
+      { shape: 'triangle', w: 160, h: 160, top: 99, xp: 70, rot: -12, bg: 'yellow',   k: 0, kx: -0.12, kr: -0.016 },
 
-      // ---- UPPER MIDDLE (25–50%)
-      { shape: 'rect',    w: 155, h: 45,  top: 30,  x: -85,  rot: -8,  bg: 'var(--hot-pink)', k: 0.12, kr:  0.014 },
-      { shape: 'plus',    w: 70,  h: 70,  top: 33,  xr: -25, rot: 10,  bg: 'var(--ink)',      k: 0.16, kr:  0.022, anim: 'sway' },
-      { shape: 'diamond', w: 60,  h: 60,  top: 37,  x: -22,  rot: 48,  bg: 'var(--yellow)',   k: 0.09, kr: -0.012, anim: 'bob'  },
-      { shape: 'circle',  w: 75,  h: 75,  top: 40,  xr: -10, rot: 0,   bg: 'var(--hot-pink)', k: 0.13, kr:  0.016, anim: 'spin' },
-      { shape: 'rect',    w: 40,  h: 40,  top: 43,  xr: -16, rot: 30,  bg: 'var(--orange)',   k: 0.28, kr:  0.026, anim: 'sway' },
-      { shape: 'rect',    w: 190, h: 55,  top: 46,  x: -95,  rot: 9,   bg: 'var(--sky)',      k: 0.07, kr:  0.008 },
-      { shape: 'plus',    w: 50,  h: 50,  top: 49,  x: -18,  rot: 18,  bg: 'var(--ink)',      k: 0.24, kr: -0.020 },
+      // ---- EDGE-ANCHORED FRAMERS ----------------------------------
+      //   Anchored outside the text column. kx is signed to push the
+      //   shape OUTWARD as you scroll (left shapes drift further left,
+      //   right shapes further right), so even at maximum scroll they
+      //   never invade the column. Most of each shape is off-screen at
+      //   rest; the visible peek grows as you scroll past them.
+      { shape: 'circle',   w: 220, h: 220, top:  6, xr: -150, rot:   0, bg: 'mint',     k: 0.10, kx:  0.04, kr:  0.008, anim: 'spin' },
+      { shape: 'rect',     w: 130, h: 110, top: 18, x:  -130, rot: -16, bg: 'yellow',   k: 0.14, kx: -0.05, kr:  0.012 },
+      { shape: 'plus',     w: 120, h: 120, top: 30, xr: -75,  rot:   8, bg: 'tomato',   k: 0.18, kx:  0.04, kr: -0.018 },
+      { shape: 'star',     w: 150, h: 150, top: 42, x:  -110, rot:  10, bg: 'lime',     k: 0.16, kx: -0.05, kr:  0.014, anim: 'spin' },
+      { shape: 'diamond',  w: 140, h: 140, top: 54, xr: -100, rot:  45, bg: 'hot-pink', k: 0.12, kx:  0.04, kr:  0.010 },
+      { shape: 'hexagon',  w: 160, h: 160, top: 66, x:  -130, rot:  18, bg: 'sky',      k: 0.14, kx: -0.04, kr:  0.012, anim: 'spin' },
+      { shape: 'arch',     w: 220, h: 110, top: 78, xr: -140, rot:  -6, bg: 'tomato',   k: 0.10, kx:  0.03, kr:  0.008 },
+      { shape: 'asterisk', w: 140, h: 140, top: 90, x:  -90,  rot:   0, bg: 'royal',    k: 0.16, kx: -0.05, kr:  0.014, anim: 'spin' },
 
-      // ---- LOWER MIDDLE (50–75%)
-      { shape: 'rect',    w: 85,  h: 85,  top: 53,  xr: -45, rot: -6,  bg: 'var(--mint)',     k: 0.15, kr:  0.018, anim: 'bob'  },
-      { shape: 'plus',    w: 58,  h: 58,  top: 56,  x: -25,  rot: -15, bg: 'var(--ink)',      k: 0.20, kr:  0.024 },
-      { shape: 'diamond', w: 45,  h: 45,  top: 59,  xr: -18, rot: 50,  bg: 'var(--royal)',    k: 0.27, kr: -0.026, anim: 'bob'  },
-      { shape: 'circle',  w: 130, h: 130, top: 62,  xr: -70, rot: 0,   bg: 'var(--lilac)',    k: 0.08, kr:  0.010, anim: 'spin' },
-      { shape: 'rect',    w: 65,  h: 65,  top: 65,  x: -25,  rot: -22, bg: 'var(--lime)',     k: 0.22, kr:  0.020, anim: 'sway' },
-      { shape: 'diamond', w: 90,  h: 90,  top: 68,  x: -45,  rot: 40,  bg: 'var(--mint)',     k: 0.10, kr:  0.014 },
-      { shape: 'rect',    w: 120, h: 90,  top: 71,  xr: -55, rot: 15,  bg: 'var(--tomato)',   k: 0.13, kr:  0.016, anim: 'bob'  },
-      { shape: 'plus',    w: 80,  h: 80,  top: 74,  x: -30,  rot: 18,  bg: 'var(--ink)',      k: 0.17, kr: -0.018, anim: 'sway' },
-
-      // ---- BOTTOM BAND (75–100%) — looser, larger pieces
-      { shape: 'rect',    w: 100, h: 100, top: 78,  x: -50,  rot: -12, bg: 'var(--tomato)',   k: 0.12, kr:  0.014, anim: 'bob'  },
-      { shape: 'circle',  w: 55,  h: 55,  top: 81,  x: -22,  rot: 0,   bg: 'var(--orange)',   k: 0.25, kr:  0.022, anim: 'spin' },
-      { shape: 'circle',  w: 145, h: 145, top: 84,  xr: -70, rot: 0,   bg: 'var(--royal)',    k: 0.06, kr:  0.008, anim: 'spin' },
-      { shape: 'diamond', w: 55,  h: 55,  top: 87,  xr: -25, rot: 50,  bg: 'var(--yellow)',   k: 0.18, kr:  0.020, anim: 'sway' },
-      { shape: 'rect',    w: 115, h: 60,  top: 90,  x: -70,  rot: 8,   bg: 'var(--sky)',      k: 0.09, kr:  0.012 },
-      { shape: 'circle',  w: 80,  h: 80,  top: 93,  xr: -35, rot: 0,   bg: 'var(--hot-pink)', k: 0.14, kr:  0.016, anim: 'spin' },
-      { shape: 'plus',    w: 65,  h: 65,  top: 95,  x: -30,  rot: 24,  bg: 'var(--ink)',      k: 0.22, kr: -0.024 },
-      { shape: 'rect',    w: 75,  h: 75,  top: 97,  xr: -32, rot: -18, bg: 'var(--lilac)',    k: 0.16, kr:  0.020, anim: 'bob'  },
-      { shape: 'diamond', w: 70,  h: 70,  top: 99,  x: -28,  rot: 42,  bg: 'var(--lime)',     k: 0.11, kr:  0.014, anim: 'sway' },
-      { shape: 'rect',    w: 50,  h: 50,  top: 101, x: -20,  rot: 6,   bg: 'var(--mint)',     k: 0.28, kr:  0.026 },
-      { shape: 'circle',  w: 40,  h: 40,  top: 103, xr: -16, rot: 0,   bg: 'var(--tomato)',   k: 0.30, kr:  0.024, anim: 'spin' },
-      { shape: 'plus',    w: 55,  h: 55,  top: 105, xr: -22, rot: -10, bg: 'var(--ink)',      k: 0.19, kr:  0.022, anim: 'bob'  },
-
-      // ---- DEEP BACKGROUND (slow drifters, scattered across the page)
-      { shape: 'rect',    w: 220, h: 36,  top: 27,  xr: -120, rot: -22, bg: 'var(--royal)',   k: 0.04, kr:  0.006 },
-      { shape: 'rect',    w: 200, h: 32,  top: 67,  x: -110,  rot: 14,  bg: 'var(--hot-pink)',k: 0.05, kr:  0.006 },
-      { shape: 'circle',  w: 200, h: 200, top: 45,  xr: -110, rot: 0,   bg: 'var(--yellow)',  k: 0.04, kr:  0.006, anim: 'spin' },
-
-      // ---- CENTRAL CROSSING SHAPES — these sit OVER the page columns
-      //   and fly past content with stronger parallax (k ≥ 0.14). They
-      //   give the "cardboard cuts moving across the page" feel that
-      //   edge-anchored shapes can't. xp is a percentage of the main
-      //   column width. Sizes are kept modest (≤90px most) so body
-      //   text stays readable and the eye still finds typographic
-      //   focus over the moving graphics.
-      { shape: 'diamond', w: 65,  h: 65,  top: 8,   xp: 28,   rot: 35,  bg: 'var(--lime)',     k: 0.20, kr:  0.022, anim: 'bob'  },
-      { shape: 'plus',    w: 55,  h: 55,  top: 14,  xp: 65,   rot: 12,  bg: 'var(--ink)',      k: 0.26, kr: -0.024, anim: 'sway' },
-      { shape: 'circle',  w: 70,  h: 70,  top: 21,  xp: 42,   rot: 0,   bg: 'var(--orange)',   k: 0.18, kr:  0.018, anim: 'spin' },
-      { shape: 'rect',    w: 55,  h: 55,  top: 27,  xp: 78,   rot: -18, bg: 'var(--royal)',    k: 0.22, kr:  0.020, anim: 'bob'  },
-      { shape: 'diamond', w: 50,  h: 50,  top: 34,  xp: 16,   rot: 42,  bg: 'var(--hot-pink)', k: 0.28, kr:  0.026, anim: 'sway' },
-      { shape: 'circle',  w: 60,  h: 60,  top: 41,  xp: 70,   rot: 0,   bg: 'var(--mint)',     k: 0.16, kr:  0.014, anim: 'spin' },
-      { shape: 'plus',    w: 50,  h: 50,  top: 48,  xp: 35,   rot: 22,  bg: 'var(--ink)',      k: 0.24, kr: -0.022, anim: 'bob'  },
-      { shape: 'rect',    w: 65,  h: 65,  top: 55,  xp: 82,   rot: 8,   bg: 'var(--lilac)',    k: 0.20, kr:  0.018, anim: 'sway' },
-      { shape: 'diamond', w: 55,  h: 55,  top: 62,  xp: 24,   rot: 38,  bg: 'var(--tomato)',   k: 0.32, kr:  0.028, anim: 'bob'  },
-      { shape: 'circle',  w: 80,  h: 80,  top: 70,  xp: 58,   rot: 0,   bg: 'var(--sky)',      k: 0.14, kr:  0.012, anim: 'spin' },
-      { shape: 'plus',    w: 60,  h: 60,  top: 77,  xp: 18,   rot: -10, bg: 'var(--ink)',      k: 0.26, kr:  0.024, anim: 'sway' },
-      { shape: 'rect',    w: 50,  h: 50,  top: 84,  xp: 72,   rot: -22, bg: 'var(--yellow)',   k: 0.22, kr:  0.020, anim: 'bob'  },
-      { shape: 'diamond', w: 60,  h: 60,  top: 91,  xp: 38,   rot: 45,  bg: 'var(--mint)',     k: 0.30, kr: -0.026, anim: 'sway' },
-      { shape: 'circle',  w: 55,  h: 55,  top: 98,  xp: 80,   rot: 0,   bg: 'var(--lime)',     k: 0.18, kr:  0.018, anim: 'spin' }
+      // ---- DEEP BACKGROUND --------------------------------------
+      { shape: 'circle',   w: 300, h: 300, top: 33, xr: -190, rot:   0, bg: 'yellow', k: 0.05, kx:  0.02, kr:  0.004 },
+      { shape: 'arch',     w: 340, h: 170, top: 70, x:  -220, rot:   8, bg: 'lilac',  k: 0.06, kx: -0.02, kr:  0.004 },
+      { shape: 'hexagon',  w: 260, h: 260, top: 95, xr: -180, rot: -12, bg: 'mint',   k: 0.04, kx:  0.02, kr:  0.003, anim: 'spin' }
     ];
 
-    // Pick shapes deterministically based on pathname — different
-    // subpages get distinct combinations. Uses a tiny hash for each
-    // candidate index so the selected set isn't just a contiguous slice.
     function pathHash(s) {
-      var h = 2166136261;
+      var h = 2166136261 >>> 0;
       for (var i = 0; i < s.length; i++) h = ((h ^ s.charCodeAt(i)) * 16777619) >>> 0;
       return h;
     }
-    var path = (location.pathname || location.hash || '').toLowerCase();
+    var path = (location.pathname || '/').toLowerCase();
     var h = pathHash(path);
-    var want = Math.min(30, POOL.length);
+
+    // Pick ~10 shapes — small enough that each subpage feels distinct
+    // rather than the same backdrop with minor shuffling.
+    var TARGET = 10;
     var chosen = [];
     var used = new Set();
-    for (var i = 0; i < POOL.length && chosen.length < want; i++) {
-      var idx = (i + ((h >>> (i % 16)) % POOL.length)) % POOL.length;
+    for (var i = 0; i < POOL.length && chosen.length < TARGET; i++) {
+      var idx = (i * 7 + ((h >>> (i % 24)) % POOL.length)) % POOL.length;
       while (used.has(idx)) idx = (idx + 1) % POOL.length;
       used.add(idx);
       chosen.push(POOL[idx]);
     }
-    var shapes = chosen;
+
+    // Palette rotation per pathname — same shape entry, different color
+    // on different pages. Keeps the pool small but pages feel singular.
+    var paletteShift = (h >>> 4) % COLORS.length;
+    function shiftColor(name) {
+      var i = COLORS.indexOf(name);
+      if (i < 0) return 'var(--' + name + ')';
+      return 'var(--' + COLORS[(i + paletteShift) % COLORS.length] + ')';
+    }
 
     var layer = document.createElement('div');
     layer.className = 'bw-decor';
     layer.setAttribute('aria-hidden', 'true');
 
-    shapes.forEach(function (s, i) {
+    // ---- TEXT-SAFE GUTTER DETECTION ---------------------------------
+    //   For center-crossing (xp) shapes we don't trust the pool's `top`
+    //   percent literally — different pages have different section
+    //   layouts, so a hard-coded 46% might land on a card row on one
+    //   page and on whitespace on another. Instead we scan main's
+    //   immediate <section> children, find the inter-section gaps
+    //   (whitespace between coloured bands), and snap each xp shape's
+    //   anchor to the closest gap-midpoint to its intended top%.
+    //   Edge-anchored shapes (x / xr) keep their literal top% — they
+    //   live outside the column so their vertical position can't hit
+    //   text regardless of section layout.
+    // Find text-free vertical bands inside main: scan every heading
+    // and large display paragraph, merge their Y-intervals, then take
+    // the gaps between merged intervals as safe anchor candidates.
+    // This works regardless of how the page is sectioned — what
+    // matters is where headlines and ledes actually sit. xp shapes
+    // snap to whichever gap-midpoint is closest to their requested
+    // top%, so the pool's intent ("ride near 46% of the page") is
+    // respected while the actual position lands in real whitespace.
+    var mainTop = main.getBoundingClientRect().top + window.scrollY;
+    var mainH = main.offsetHeight;
+    // Two kinds of text-anchors:
+    //   (a) Headings & display ledes — treat their bbox as one interval.
+    //   (b) Self-contained content blocks (cards / project entries /
+    //       phase cards / pullquote bodies) — treat their FULL rect as
+    //       a text interval, since a shape landing anywhere on a card
+    //       overlaps copy even if the heading itself is clear.
+    var headingEls = main.querySelectorAll('h1, h2, h3, .bw-mast__title, .bw-mast__lede, .bw-segment__body p, .bw-pq__quote, strong');
+    var blockEls = main.querySelectorAll('.bw-card, .bw-work, .bw-phase, .bw-pullquote, .bw-haltung, .bw-segment, .bw-stat, .bw-pubs, .bw-spec, .bw-format, .bw-step, .bw-mast__strip, .bw-mast__inner, .bw-imprint');
+    var intervals = [];
+    headingEls.forEach(function (e) {
+      var cs = window.getComputedStyle(e);
+      var fs = parseFloat(cs.fontSize);
+      var fw = parseInt(cs.fontWeight);
+      // Treat as text-anchor if it's a real heading-class element
+      // (h1/h2/h3, mast lede/title, pullquote body) regardless of
+      // size — section ledes can be 20px non-bold but still need
+      // protecting. <strong> and inline emphasis only count if the
+      // font is genuinely big OR bold-700.
+      var isHeadingClass = /^H[1-3]$/.test(e.tagName) ||
+        /bw-(mast__title|mast__lede|pq__quote|segment__body)/.test(e.className);
+      if (!isHeadingClass && fs < 22 && fw < 700) return;
+      var r = e.getBoundingClientRect();
+      if (r.height <= 0) return;
+      intervals.push([r.top + window.scrollY - mainTop, r.bottom + window.scrollY - mainTop]);
+    });
+    blockEls.forEach(function (e) {
+      var r = e.getBoundingClientRect();
+      if (r.height <= 0) return;
+      intervals.push([r.top + window.scrollY - mainTop, r.bottom + window.scrollY - mainTop]);
+    });
+    intervals.sort(function (a, b) { return a[0] - b[0]; });
+    // Merge intervals that abut or come within 30px of each other.
+    var merged = [];
+    intervals.forEach(function (iv) {
+      if (merged.length && iv[0] <= merged[merged.length - 1][1] + 30) {
+        merged[merged.length - 1][1] = Math.max(merged[merged.length - 1][1], iv[1]);
+      } else {
+        merged.push(iv.slice());
+      }
+    });
+    // Gaps between text bands are our safe anchor candidates. Require
+    // ≥180px so a shape (up to 160px + rotation/shadow expansion ~30%)
+    // sits centered with at least ~10px buffer above and below the
+    // nearest text band. Each anchor is the gap midpoint as a percent
+    // of main height.
+    var anchors = [];
+    var prevEnd = 0;
+    merged.forEach(function (iv) {
+      if (iv[0] - prevEnd >= 180) {
+        anchors.push(((prevEnd + iv[0]) / 2) / mainH * 100);
+      }
+      prevEnd = iv[1];
+    });
+    if (mainH - prevEnd >= 180) {
+      anchors.push(((prevEnd + mainH) / 2) / mainH * 100);
+    }
+
+    function snapToAnchor(targetPct) {
+      if (!anchors.length) return targetPct;
+      var best = anchors[0];
+      var bestDist = Math.abs(best - targetPct);
+      for (var i = 1; i < anchors.length; i++) {
+        var d = Math.abs(anchors[i] - targetPct);
+        if (d < bestDist) { best = anchors[i]; bestDist = d; }
+      }
+      return best;
+    }
+
+    chosen.forEach(function (s, i) {
       var e = document.createElement('span');
-      // Decor shapes are NOT .bw-observable — they manage their own
-      // scroll motion via --scroll-y × --dec-k. Adding .bw-observable
-      // would clash (the generic rule sets translateY(24px) until
-      // .is-in which overrides the parallax transform).
       var classes = ['bw-decor__shape', 'bw-decor__shape--' + s.shape];
+      if (isSvgShape(s.shape)) classes.push('bw-decor__shape--svg');
       if (s.anim) classes.push('bw-decor__shape--anim-' + s.anim);
       e.className = classes.join(' ');
-      e.style.top = s.top + '%';
+
+      // Snap xp-anchored shapes into a real text-free band, then
+      // adjust so the shape's CENTER (not top edge) sits at the
+      // band midpoint — otherwise a 150px-tall shape extends down
+      // into the heading immediately below the gap.
+      var topPct;
+      if (s.xp !== undefined) {
+        var snappedPct = snapToAnchor(s.top);
+        topPct = snappedPct - (s.h / 2 / mainH * 100);
+      } else {
+        topPct = s.top;
+      }
+      e.style.top = topPct + '%';
       if (s.x !== undefined) e.style.left = s.x + 'px';
       if (s.xr !== undefined) e.style.right = s.xr + 'px';
-      // xp = percent of main column width — the central "crossing"
-      // shapes use this. We translate(-50%, 0) so xp reads as the
-      // shape's CENTRE, not its left edge — feels more natural to
-      // place a 60-wide blob "at 35%" meaning its midpoint sits there.
       if (s.xp !== undefined) {
         e.style.left = s.xp + '%';
         e.style.marginLeft = (-s.w / 2) + 'px';
         e.classList.add('bw-decor__shape--cross');
       }
+
       e.style.width = s.w + 'px';
       e.style.height = s.h + 'px';
-      e.style.background = s.bg;
+      e.style.setProperty('--bg', shiftColor(s.bg));
       e.style.setProperty('--dec-rot', s.rot + 'deg');
       e.style.setProperty('--dec-k', s.k);
+      if (s.kx !== undefined) e.style.setProperty('--dec-kx', s.kx);
       if (s.kr !== undefined) e.style.setProperty('--dec-kr', s.kr);
-      // Stagger idle animation phases so neighbouring shapes don't
-      // bob/sway in lockstep — that would look mechanical. Negative
-      // delay starts mid-cycle so motion is in progress at first paint.
-      if (s.anim) {
-        var delay = -((i * 0.83) % 6).toFixed(2);
+
+      // Only spin uses an idle keyframe; stagger its phase so adjacent
+      // shapes don't rotate in lockstep. Negative delay starts mid-cycle
+      // so motion is already underway at first paint.
+      if (s.anim === 'spin') {
+        var delay = -((i * 5.3 + ((h >>> i) & 7)) % 38).toFixed(2);
         e.style.animationDelay = delay + 's';
       }
+
+      if (isSvgShape(s.shape)) e.innerHTML = SVG_RENDERERS[s.shape]();
+
       layer.appendChild(e);
     });
 

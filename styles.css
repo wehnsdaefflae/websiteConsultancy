@@ -271,9 +271,16 @@ a { text-decoration: none; }
   .bw-chapter { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .bw-chapter__num { justify-self: start; }
   /* Long German compound words (Selbstständigkeit, Kommunikation,
-     Verantwortlichkeit) can exceed a 375-px column even at 28 px
-     font. Allow break-anywhere as a last resort. */
-  .bw-chapter__title { overflow-wrap: anywhere; hyphens: auto; }
+     Leistungsfelder, Verantwortlichkeit) can exceed a 375-px column
+     even at 28 px font. Use hyphens:auto so the browser breaks at
+     real German morpheme boundaries (Leis-tungs-fel-der) using its
+     German dictionary, instead of overflow-wrap:anywhere which
+     produced ugly mid-word breaks like "Leistungsfeld | er". */
+  .bw-chapter__title {
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    overflow-wrap: break-word;
+  }
 }
 .bw-chapter__num {
   font-family: var(--font-mono); font-size: 14px;
@@ -2111,50 +2118,25 @@ a { text-decoration: none; }
 /* ==============================
    DECORATIVE SHAPE LAYER
    --------------------------------------------
-   script.js injects .bw-decor at the top of <main>. Shapes ride over
-   section boundaries and parallax with scroll at per-shape speeds,
-   plus three optional idle keyframes (bob / sway / spin) that animate
-   registered custom properties — those props feed back into the base
-   transform so scroll-parallax and idle motion compose cleanly.
+   script.js injects .bw-decor at the top of <main>. ~10 shapes per
+   page parallax with scroll, with five optional idle keyframes
+   (bob / sway / spin / drift / pulse) animating @property-registered
+   custom properties that compose into a single transform. Center-
+   crossing shapes default to drift so they continually traverse the
+   column rather than parking on body copy. Hidden in dark mode.
    ============================== */
 main { position: relative; }
 
-/* @property registers each transform-driving custom property so CSS
-   keyframes can interpolate them (without registration, animations
-   on custom properties snap discretely between 0% and 100%). All
-   browsers shipping @property in 2024+ support this. Browsers that
-   don't will simply not interpolate idle motion — the static parallax
-   still works because the var() reads the initial-value. */
-@property --dec-bob {
-  syntax: '<length>';
-  inherits: false;
-  initial-value: 0px;
-}
-@property --dec-sway {
-  syntax: '<length>';
-  inherits: false;
-  initial-value: 0px;
-}
-@property --dec-spin {
-  syntax: '<angle>';
-  inherits: false;
-  initial-value: 0deg;
-}
+/* @property registers --dec-spin so its keyframe interpolates smoothly.
+   Other motion is purely scroll-driven (no idle keyframes), so we only
+   need this one registered custom property. */
+@property --dec-spin { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
 
 .bw-decor {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
   pointer-events: none;
-  /* Above section backgrounds but below the sticky header (z:100) so
-     shapes peek over section boundaries. Placement is kept at the
-     left/right edges so the shapes don't smother body text.
-
-     overflow-x: clip caps shapes to the main-column width — each shape
-     is absolutely positioned with an x-offset (often negative) so on
-     a narrow mobile viewport they were extending past the viewport
-     edge and creating a horizontal scrollbar. Clip here + clip on
-     <html>/<body> = three layers of defense-in-depth. */
   z-index: 5;
   overflow-x: clip;
   overflow-y: visible;
@@ -2162,144 +2144,147 @@ main { position: relative; }
 .bw-decor__shape {
   position: absolute;
   display: block;
-  border: 3px solid var(--ink);
-  box-shadow: 6px 6px 0 var(--ink);
-  /* pointer-events: auto — shapes are interactive enough to hover,
-     but because they live at the edges of .bw-decor (which itself is
-     pointer-events:none) they very rarely sit over clickable content. */
-  pointer-events: auto;
-  cursor: default;
-  opacity: 1;
+  /* No interaction — shapes never steal hover from text/links beneath. */
+  pointer-events: none;
   will-change: transform;
-  /* The composed transform reads:
-       --dec-k    × --scroll-y → vertical scroll parallax (px)
-       --dec-kr   × --scroll-y → rotation tumble per scroll-px (deg)
-       --dec-rot              → per-shape resting tilt (deg)
-       --dec-bob, --dec-sway  → idle keyframe outputs (length)
-       --dec-spin             → idle keyframe rotation (deg)
-       --dec-scale            → hover bump (1 → 1.08)
-     All variables have safe defaults so a shape with no animation
-     class still gets pure scroll parallax. */
+  /* Motion is entirely scroll-driven so a shape stops moving the moment
+     the user stops scrolling, and never wanders onto text while reading.
+       --dec-kx × --scroll-y → horizontal drift per scroll-px (px)
+       --dec-k  × --scroll-y → vertical parallax per scroll-px (px, up)
+       --dec-rot             → per-shape resting tilt (deg)
+       --dec-kr × --scroll-y → rotation per scroll-px (deg)
+       --dec-spin            → optional idle rotation (deg, no translation) */
   transform:
     translate(
-      var(--dec-sway, 0px),
-      calc(var(--scroll-y, 0) * var(--dec-k, 0.06) * -1px + var(--dec-bob, 0px))
+      calc(var(--scroll-y, 0) * var(--dec-kx, 0)    *  1px),
+      calc(var(--scroll-y, 0) * var(--dec-k,  0.06) * -1px)
     )
     rotate(calc(
       var(--dec-rot, 0deg)
       + (var(--scroll-y, 0) * var(--dec-kr, 0.012) * 1deg)
       + var(--dec-spin, 0deg)
-    ))
-    scale(var(--dec-scale, 1));
-  transition: transform .35s var(--ease-pop), box-shadow .25s, filter .25s;
-}
-/* Subtle hover: each shape wiggles, scales up a touch, and grows a
-   softer shadow — it's a playful reward for moving the cursor into
-   the edges. We don't change the parallax part; we bump --dec-scale
-   which the base transform multiplies in. */
-.bw-decor__shape:hover {
-  --dec-scale: 1.12;
-  box-shadow: 11px 11px 0 var(--ink);
-  filter: brightness(1.06);
+    ));
 }
 
-.bw-decor__shape--rect    { border-radius: 6px; }
+/* ---- CSS-DRAWN SHAPES ---------------------------------------------
+   rect / circle / diamond share the chunky ink border + offset shadow
+   that defines the cardboard-collage grammar. Background comes from
+   --bg so per-page palette rotation works without re-injecting class. */
+.bw-decor__shape--rect,
+.bw-decor__shape--circle,
+.bw-decor__shape--diamond {
+  border: 4px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  background: var(--bg, var(--yellow));
+}
+.bw-decor__shape--rect    { border-radius: 8px; }
 .bw-decor__shape--circle  { border-radius: 50%; }
+.bw-decor__shape--diamond { border-radius: 6px; }
 
-/* "plus" is a bold ink cross, drawn with two ::before / ::after bars
-   on a transparent container (no outer border). */
+/* "plus" — two crossed ink bars on a transparent positioner. */
 .bw-decor__shape--plus {
-  border: none;
-  background: transparent !important;
-  box-shadow: none;
+  background: transparent;
 }
 .bw-decor__shape--plus::before,
 .bw-decor__shape--plus::after {
   content: "";
   position: absolute;
   background: var(--ink);
-  border: 3px solid var(--ink);
-  box-shadow: 4px 4px 0 var(--tomato);
-  border-radius: 3px;
+  border: 4px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--bg, var(--tomato));
+  border-radius: 4px;
 }
 .bw-decor__shape--plus::before {
   left: 50%; top: 0; bottom: 0;
-  width: 14px;
+  width: 18px;
   transform: translateX(-50%);
 }
 .bw-decor__shape--plus::after {
   top: 50%; left: 0; right: 0;
-  height: 14px;
+  height: 18px;
   transform: translateY(-50%);
 }
 
-/* Diamond: a rotated rect with its own extra tilt on top of the
-   per-shape --dec-rot. Uses the same background, border, shadow as
-   .bw-decor__shape--rect. */
-.bw-decor__shape--diamond {
-  border-radius: 4px;
-  /* The diamond rotation stacks onto the base transform via --dec-rot
-     having +45 built into the JS shape pool. */
+/* "arch" — a half-dome opening downward; the simplest CSS-drawn shape
+   that adds a non-square silhouette to the vocabulary. */
+.bw-decor__shape--arch {
+  border: 4px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  background: var(--bg, var(--mint));
+  border-radius: 100% 100% 0 0 / 100% 100% 0 0;
 }
 
-/* ---- IDLE MOTION VARIANTS --------------------------------------
-   Each variant animates ONE registered custom property via @keyframes,
-   which the base transform composes in. Periods are deliberately
-   different (7s / 9s / 38s) and JS sets a negative animation-delay per
-   shape so neighbouring shapes never sync up — the layer feels alive,
-   never mechanical. Amplitudes are small (≤10px / ≤8px) so idle motion
-   stays in the periphery and doesn't compete with the scroll parallax. */
-.bw-decor__shape--anim-bob  { animation: decBob  7s ease-in-out infinite; }
-.bw-decor__shape--anim-sway { animation: decSway 9s ease-in-out infinite; }
+/* ---- SVG-DRAWN SHAPES ---------------------------------------------
+   triangle / hexagon / star / arrow / squiggle / asterisk are inlined
+   SVGs. CSS handles stroke + the offset drop-shadow so they share the
+   visual language of the CSS-drawn shapes. */
+.bw-decor__shape--svg {
+  filter: drop-shadow(8px 8px 0 var(--ink));
+}
+.bw-decor__shape--svg svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+.bw-decor__shape--svg svg polygon {
+  stroke: var(--ink);
+  stroke-width: 8;
+  stroke-linejoin: round;
+}
+/* squiggle path: stroke-only, no fill, color from --bg. */
+.bw-decor__shape--squiggle svg path {
+  stroke: var(--bg, var(--royal));
+  stroke-width: 14;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* asterisk: spokes drawn with --bg color, capped round. */
+.bw-decor__shape--asterisk svg line {
+  stroke: var(--bg, var(--hot-pink));
+  stroke-width: 14;
+  stroke-linecap: round;
+}
+
+/* ---- IDLE MOTION ---------------------------------------------------
+   Only spin is allowed as an idle animation: it rotates a shape in
+   place without translating or growing it, so a shape that sits clear
+   of text at rest never drifts onto text while the user reads. All
+   other motion is driven by --scroll-y (kx, k, kr above). */
 .bw-decor__shape--anim-spin { animation: decSpin 38s linear infinite; }
 
-@keyframes decBob {
-  0%, 100% { --dec-bob: 0px; }
-  50%      { --dec-bob: -10px; }
-}
-@keyframes decSway {
-  0%, 100% { --dec-sway: 0px; }
-  50%      { --dec-sway: 8px; }
-}
-@keyframes decSpin {
-  from { --dec-spin: 0deg; }
-  to   { --dec-spin: 360deg; }
-}
+@keyframes decSpin { from { --dec-spin: 0deg; } to { --dec-spin: 360deg; } }
 
-/* Narrow viewports — drop ~half the shapes and shrink the rest so
-   they don't crowd small screens. The transform mirrors the desktop
-   composition so idle animations still apply on mobile. */
+/* Narrow viewports — hide center-crossing shapes entirely (the column
+   is too tight for them to traverse without crashing into text), shrink
+   the remaining edge-anchored shapes, and halve the scroll motion so
+   they don't wander far from their edge anchor. */
 @media (max-width: 900px) {
+  .bw-decor__shape--cross { display: none; }
   .bw-decor__shape {
     transform:
       translate(
-        var(--dec-sway, 0px),
-        calc(var(--scroll-y, 0) * var(--dec-k, 0.06) * -0.7px + var(--dec-bob, 0px))
+        calc(var(--scroll-y, 0) * var(--dec-kx, 0)    *  0.5px),
+        calc(var(--scroll-y, 0) * var(--dec-k,  0.06) * -0.7px)
       )
       rotate(calc(
         var(--dec-rot, 0deg)
         + (var(--scroll-y, 0) * var(--dec-kr, 0.012) * 1deg)
         + var(--dec-spin, 0deg)
       ))
-      scale(calc(var(--dec-scale, 1) * .7));
+      scale(.65);
   }
-  .bw-decor__shape:nth-child(2n) { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .bw-decor { display: none; }
 }
 
-/* ---- "SHAPES DIVE UNDER" SECTIONS -------------------------------
-   The decor layer sits at z-index:5 so shapes ride OVER section
-   content by default. To create the inverse — a shape visibly
-   diving BEHIND a feature section as you scroll — we elevate
-   selected sections to z-index:7 with their own stacking context.
-   Decor shapes scrolling through the section's vertical span are
-   covered by the section's solid background, then re-emerge once
-   they exit. Keeps the strongest cardboard-layer moment for the
-   closing CTA and the partners marquee, where it doubles down on
-   the brand language without applying it to every section. */
+/* ---- "SHAPES DIVE UNDER" SECTIONS ---------------------------------
+   .bw-cta and .bw-partners create their own stacking contexts above
+   the decor layer (z:7 vs z:5) so shapes scroll BEHIND them rather
+   than over — the strongest cardboard-layer moment, kept for the
+   closing CTA and the partners marquee. */
 .bw-cta,
 .bw-partners {
   position: relative;
@@ -2410,21 +2395,12 @@ main { position: relative; }
   transform: none !important;
 }
 
-/* -- DECORATIVE SHAPE LAYER: static and low-profile ---------------
-   Shapes still appear for brand continuity, but no parallax, no
-   hover wobble, and they drop to low opacity so they're background
-   texture rather than competing with content. */
-[data-theme="dark"] .bw-decor__shape {
-  transform: rotate(var(--dec-rot, 0deg)) !important;
-  opacity: .35;
-  transition: none !important;
-}
-[data-theme="dark"] .bw-decor__shape:hover {
-  --dec-scale: 1;
-  opacity: .55;
-  box-shadow: 6px 6px 0 var(--ink) !important;
-  filter: none !important;
-}
+/* -- DECORATIVE SHAPE LAYER: hidden in dark mode -------------------
+   The cardboard-collage shapes carry the brand language well in
+   light mode but compete with content readability against dark
+   neutrals — so we drop them entirely. JS also short-circuits
+   layer construction when [data-theme="dark"] is set at boot. */
+[data-theme="dark"] .bw-decor { display: none; }
 
 /* -- PARTNERS MARQUEE: stop the auto-scroll ------------------------ */
 [data-theme="dark"] .bw-partners__track {
