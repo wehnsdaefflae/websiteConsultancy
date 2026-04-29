@@ -2301,7 +2301,18 @@ a { text-decoration: none; }
     display: flex;
     flex-direction: column;
     justify-content: safe center;
+    /* Breathing room between the title-group wrap and the strip
+       (partners marquee / contact channels). `gap` only applies
+       between visible flex children, so the absolutely-positioned
+       band / stub-track on the home masthead don't double-count. */
+    gap: 24px;
     padding-bottom: 0;
+  }
+  @media (max-width: 900px) {
+    html.bw-slideshow main > section.bw-mast:has(> .bw-partners),
+    html.bw-slideshow main > section.bw-mast:has(> .bw-mast__contacts) {
+      gap: 14px;
+    }
   }
   /* `:not(.bw-mast__contacts)` because the contacts strip is itself
      a `<div class="wrap bw-mast__contacts">` — without the negation,
