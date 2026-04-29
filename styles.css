@@ -2255,14 +2255,14 @@ a { text-decoration: none; }
      slideshow block). */
   @media (max-width: 900px) {
     html.bw-slideshow .bw-partners              {
-      padding: 6px 0 4px;
+      padding: 4px 0 2px;
       flex-shrink: 0;
     }
-    html.bw-slideshow .bw-partners__head        { padding-bottom: 4px; margin-bottom: 6px; }
-    html.bw-slideshow .bw-partners__head h3     { font-size: 13px; }
+    html.bw-slideshow .bw-partners__head        { padding-bottom: 3px; margin-bottom: 4px; }
+    html.bw-slideshow .bw-partners__head h3     { font-size: 12px; }
     html.bw-slideshow .bw-partners__head span   { display: none; }    /* the "// 09 ..." meta line */
-    html.bw-slideshow .bw-partner               { height: 58px; min-width: 120px; padding: 6px 12px; gap: 3px; }
-    html.bw-slideshow .bw-partner img           { width: 88px; height: 26px; max-height: 26px; max-width: 88px; }
+    html.bw-slideshow .bw-partner               { height: auto; min-height: 0; min-width: 110px; padding: 4px 10px; gap: 2px; }
+    html.bw-slideshow .bw-partner img           { width: 80px; height: 22px; max-height: 22px; max-width: 80px; }
     html.bw-slideshow .bw-partner small         { font-size: 9px; }
   }
   /* Subpage mastheads compact more aggressively than the home one
@@ -2317,8 +2317,8 @@ a { text-decoration: none; }
     html.bw-slideshow main > section.bw-mast:has(> .bw-partners),
     html.bw-slideshow main > section.bw-mast:has(> .bw-mast__contacts) {
       justify-content: flex-start;
-      gap: 14px;
-      padding-top: 12px;
+      gap: 10px;
+      padding-top: 8px;
     }
     html.bw-slideshow main > section.bw-mast > .bw-partners,
     html.bw-slideshow main > section.bw-mast > .bw-mast__contacts {
@@ -2444,11 +2444,11 @@ a { text-decoration: none; }
        under ~190 px and the wrap above has room for title + lede +
        CTAs. The strip's job here is just "here are the three ways
        to reach me" — no need for the explanatory notes. */
-    html.bw-slideshow .bw-mast__contacts { padding: 0 0 8px; }
-    html.bw-slideshow .bw-mast__contacts .bw-contact { padding: 6px 12px; gap: 2px; }
+    html.bw-slideshow .bw-mast__contacts { padding: 0 0 4px; }
+    html.bw-slideshow .bw-mast__contacts .bw-contact { padding: 3px 10px; gap: 0; }
     html.bw-slideshow .bw-mast__contacts .bw-contact__note { display: none; }
-    html.bw-slideshow .bw-mast__contacts .bw-contact__label { font-size: 10px; }
-    html.bw-slideshow .bw-mast__contacts .bw-contact__value { font-size: 15px; }
+    html.bw-slideshow .bw-mast__contacts .bw-contact__label { font-size: 9px; }
+    html.bw-slideshow .bw-mast__contacts .bw-contact__value { font-size: 12px; }
 
     /* Mobile masthead text compaction — the wrap's content (title +
        lede + 2 CTAs) was overflowing the wrap by ~30 px in DE and
@@ -2456,12 +2456,12 @@ a { text-decoration: none; }
        to 5 lines instead of DE's 3). Shrink strip/cta padding +
        title font on mobile so both languages fit without internal
        scroll. */
-    html.bw-slideshow .bw-mast__title { font-size: clamp(26px, 6.6vw, 44px); margin-bottom: 12px; }
-    html.bw-slideshow .bw-mast__meta  { margin-bottom: 12px; gap: 8px; }
-    html.bw-slideshow .bw-mast__lede  { font-size: 15px; line-height: 1.4; }
-    html.bw-slideshow .bw-mast__strip { padding-top: 10px; gap: 10px; }
-    html.bw-slideshow .bw-mast__cta .bw-btn { padding: 9px 14px; font-size: 13px; }
-    html.bw-slideshow .bw-mast__crumb { margin-bottom: 8px; }
+    html.bw-slideshow .bw-mast__title { font-size: clamp(24px, 6.4vw, 42px); margin-bottom: 10px; }
+    html.bw-slideshow .bw-mast__meta  { margin-bottom: 10px; gap: 6px; font-size: 11px; }
+    html.bw-slideshow .bw-mast__lede  { font-size: 14px; line-height: 1.4; }
+    html.bw-slideshow .bw-mast__strip { padding-top: 8px; gap: 10px; }
+    html.bw-slideshow .bw-mast__cta .bw-btn { padding: 8px 12px; font-size: 12px; }
+    html.bw-slideshow .bw-mast__crumb { margin-bottom: 6px; }
 
     /* Portfolio filter+works header was eating ~55 % of the mobile
        slide (3-line title chip + 6 wrap-into-2-rows filter buttons).
