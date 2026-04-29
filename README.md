@@ -52,6 +52,7 @@ Static site for Dr. Mark Wernsdorfer's AI consultancy. Two languages
 ├── robots.txt              SEO
 ├── sitemap.xml             SEO
 │
+├── deprecated/             Old Tailwind site (reference only)
 ├── CLAUDE.md               guidance for Claude Code
 ├── DEPLOY.md               Plesk deployment instructions
 └── README.md               this file
@@ -223,4 +224,4 @@ just edit and refresh.
 
 See `DEPLOY.md`. TL;DR: Plesk Git integration, deployment path blank
 (= repo root), push to trigger deploy. `.pleskignore` keeps the
-dev-only files out of the webroot.
+`deprecated/` folder and dev-only files out of the webroot.
