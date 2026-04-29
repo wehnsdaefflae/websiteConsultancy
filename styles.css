@@ -2278,17 +2278,19 @@ a { text-decoration: none; }
      bottom.
 
      Layout:
-       • masthead is `display: flex; flex-direction: column`.
-       • the title-group `.wrap` becomes `flex: 1 1 0; min-height: 0`
-         so it takes the REMAINING space (slot − strip), no more, and
-         clips/scrolls if its title + lede + CTAs would overflow.
-         Without `min-height: 0` the wrap defaults to its content
-         size and pushes its CTAs DOWN into the strip's territory,
-         which is what was happening on narrow mobile viewports
-         (the email-CTA button overlapped the channel cards).
-       • the wrap is itself a flex column with `justify-content: safe
-         center` so its content centers when there's spare room and
-         reverts to top-aligned when content overflows.
+       • masthead is `display: flex; flex-direction: column;
+         justify-content: safe center` — when total natural height
+         (title group + strip) is shorter than the slot, the WHOLE
+         pair is centered as a unit, so the strip stays attached
+         visually instead of glueing to the bottom and leaving a
+         tall gap above. On narrow screens where the natural total
+         exceeds the slot, `safe` falls back to start-alignment so
+         nothing scrolls off the top edge.
+       • the title-group `.wrap` is `flex: 0 1 auto` (auto-size to
+         content, shrinkable when the slot is too small).
+         `min-height: 0` lets it actually shrink under flex, and
+         `overflow-y: auto` lets the wrap scroll internally on small
+         viewports so the strip remains visible above the mobnav.
        • the strip (`.bw-partners` / `.bw-mast__contacts`) is
          `flex-shrink: 0` so it never collapses; the wrap absorbs
          any tightness instead. */
@@ -2298,21 +2300,19 @@ a { text-decoration: none; }
     height: calc(100vh - var(--slide-top) - var(--slide-bottom));
     display: flex;
     flex-direction: column;
+    justify-content: safe center;
     padding-bottom: 0;
   }
   /* `:not(.bw-mast__contacts)` because the contacts strip is itself
      a `<div class="wrap bw-mast__contacts">` — without the negation,
-     the strip would inherit `flex: 1 1 0` and grow to fill, doubling
-     its rendered height. */
+     the strip would inherit the wrap rules and grow/scroll
+     unexpectedly. */
   html.bw-slideshow main > section.bw-mast:has(> .bw-partners) > .wrap:not(.bw-mast__contacts),
   html.bw-slideshow main > section.bw-mast:has(> .bw-mast__contacts) > .wrap:not(.bw-mast__contacts) {
-    flex: 1 1 0;
+    flex: 0 1 auto;
     min-height: 0;
     overflow-y: auto;
     overscroll-behavior: contain;
-    display: flex;
-    flex-direction: column;
-    justify-content: safe center;
   }
   html.bw-slideshow main > section.bw-mast > .bw-partners,
   html.bw-slideshow main > section.bw-mast > .bw-mast__contacts {
