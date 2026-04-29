@@ -949,6 +949,128 @@ a { text-decoration: none; }
   .bw-work__meta { border-left: 0; border-top: 2px dashed var(--ink); padding: 14px 0 0; }
 }
 
+/* ==============================
+   bw-work__video — VHS-tape preview tile inside a portfolio entry
+   --------------------------------------------
+   Click-to-play YouTube embed. At rest: static thumbnail (no iframe,
+   no YT cookie until interaction → fast LCP, GDPR-friendly). On
+   click, JS swaps the <img> for a youtube-nocookie iframe with
+   autoplay. Tilted -1.5° at rest like other cardboard cards; lifts
+   (-4px,-4px) on parent .bw-work hover.
+   ============================== */
+.bw-work__video {
+  position: relative;
+  grid-column: 1 / -1;
+  margin-top: 16px;
+  width: 100%;
+  max-width: 720px;
+  justify-self: center;
+  aspect-ratio: 16 / 9;
+  background: var(--ink);
+  border: 3px solid var(--ink);
+  border-radius: 4px;
+  box-shadow: 6px 6px 0 var(--ink);
+  overflow: hidden;
+  transform: rotate(-1.5deg);
+  transition: transform .25s var(--ease-pop), box-shadow .25s var(--ease-pop);
+}
+.bw-work:hover .bw-work__video {
+  transform: rotate(-1.5deg) translate(-4px, -4px);
+  box-shadow: 10px 10px 0 var(--ink);
+}
+.bw-work__video img,
+.bw-work__video iframe {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block; border: 0;
+}
+.bw-work__video-tape {
+  position: absolute; top: 12px; left: 12px;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .08em;
+  background: var(--yellow); color: var(--ink);
+  border: 2px solid var(--ink);
+  padding: 4px 8px;
+  transform: rotate(-3deg);
+  z-index: 2;
+  pointer-events: none;
+}
+.bw-work__video-play {
+  position: absolute; inset: 0; margin: auto;
+  width: 88px; height: 88px;
+  background: var(--tomato);
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  box-shadow: 4px 4px 0 var(--ink);
+  cursor: pointer;
+  display: grid; place-items: center;
+  z-index: 2;
+  transition: transform .25s var(--ease-pop), box-shadow .25s var(--ease-pop), background .15s;
+}
+.bw-work__video-play-tri {
+  display: block;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 14px 0 14px 22px;
+  border-color: transparent transparent transparent var(--ink);
+  margin-left: 6px;
+}
+.bw-work__video-play:hover,
+.bw-work__video-play:focus-visible {
+  transform: scale(1.08) rotate(-6deg);
+  box-shadow: 7px 7px 0 var(--ink);
+  background: var(--yellow);
+  outline: none;
+}
+.bw-work__video.is-playing .bw-work__video-play,
+.bw-work__video.is-playing .bw-work__video-tape,
+.bw-work__video.is-playing img {
+  display: none;
+}
+/* While a card's video is playing, lift the whole card above the
+   slide's sticky filter header (`html.bw-slideshow .bw-works-head`
+   sits at z-index: 3). Without this the iframe+close stay in the
+   work card's auto stacking context and the head paints over them. */
+.bw-work:has(.bw-work__video.is-playing) { z-index: 5; }
+
+/* Close button — only visible while playing. Lilac corner badge that
+   wobble-rotates to tomato on hover. `display: none` at rest also
+   removes it from the tab order. */
+.bw-work__video-close {
+  position: absolute; top: 12px; right: 12px;
+  width: 36px; height: 36px;
+  background: var(--lilac);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  box-shadow: 3px 3px 0 var(--ink);
+  font-family: var(--font-head); font-weight: 800;
+  font-size: 22px; line-height: 1;
+  display: none;
+  place-items: center;
+  cursor: pointer;
+  transform: rotate(6deg);
+  z-index: 4;
+  transition: transform .25s var(--ease-pop), box-shadow .25s var(--ease-pop), background .15s, color .15s;
+}
+.bw-work__video.is-playing .bw-work__video-close { display: grid; }
+.bw-work__video-close:hover,
+.bw-work__video-close:focus-visible {
+  transform: scale(1.1) rotate(-8deg);
+  box-shadow: 5px 5px 0 var(--ink);
+  background: var(--tomato);
+  color: var(--paper);
+  outline: none;
+}
+
+@media (max-width: 960px) {
+  .bw-work__video { max-width: 100%; margin-top: 8px; }
+  .bw-work__video-play { width: 64px; height: 64px; }
+  .bw-work__video-play-tri { border-width: 10px 0 10px 16px; margin-left: 4px; }
+  .bw-work__video-close { width: 32px; height: 32px; font-size: 20px; top: 8px; right: 8px; }
+}
+
 /* filter row */
 .bw-filters {
   display: flex; flex-wrap: wrap; gap: 10px;

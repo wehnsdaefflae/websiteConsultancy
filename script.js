@@ -682,6 +682,68 @@
   }
 
   // ------------------------------------------------------------
+  //  Portfolio video tiles — click-to-play YouTube embeds.
+  //  At rest each .bw-work__video shows a static thumbnail (no
+  //  iframe = no YT cookie until the user opts in, faster LCP).
+  //  On play-button click the <img> is swapped for a youtube-
+  //  nocookie iframe with autoplay. The play handler also
+  //  preventDefaults the parent <a class="bw-work"> so clicking
+  //  the play button doesn't follow the project's external link.
+  // ------------------------------------------------------------
+  function initVideoPlay() {
+    document.querySelectorAll('.bw-work__video').forEach(function (card) {
+      var play  = card.querySelector('.bw-work__video-play');
+      var close = card.querySelector('.bw-work__video-close');
+      var img   = card.querySelector('img');
+      var id    = card.dataset.video;
+      if (!play || !id) return;
+
+      // Try to upgrade the thumbnail to maxresdefault.jpg (1280×720).
+      // YouTube returns a 120×90 placeholder when the video has no
+      // maxres render — detect via naturalWidth and only swap the
+      // src if the high-res actually loaded.
+      if (img) {
+        var hi = new Image();
+        hi.onload = function () {
+          if (hi.naturalWidth > 320) img.src = hi.src;
+        };
+        hi.src = 'https://i.ytimg.com/vi/' + id + '/maxresdefault.jpg';
+      }
+
+      function start(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (card.classList.contains('is-playing')) return;
+        card.classList.add('is-playing');
+        var iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+        iframe.title = 'YouTube-Video';
+        iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+        iframe.allowFullscreen = true;
+        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+        card.appendChild(iframe);
+      }
+      function stop(e) {
+        if (e) { e.preventDefault(); e.stopPropagation(); }
+        if (!card.classList.contains('is-playing')) return;
+        var ifr = card.querySelector('iframe');
+        if (ifr) ifr.remove();
+        card.classList.remove('is-playing');
+      }
+      play.addEventListener('click', start);
+      play.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') start(e);
+      });
+      if (close) {
+        close.addEventListener('click', stop);
+        close.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') stop(e);
+        });
+      }
+    });
+  }
+
+  // ------------------------------------------------------------
   //  Slideshow — turn every <section> into a full-viewport panel.
   //  The current slide is fixed at top:0 with its own internal scroll.
   //  Other slides are parked off-screen at their assigned direction
@@ -1160,6 +1222,7 @@
     initQuoteCarousel();
     initContactForm();
     initMobnavViewportSync();
+    initVideoPlay();
   }
 
   if (document.readyState === 'loading') {
