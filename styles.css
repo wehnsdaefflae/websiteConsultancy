@@ -358,14 +358,30 @@ a { text-decoration: none; }
   margin: 0 0 36px;
   max-width: 18ch;
 }
+/* Mobile / tablet (≤900 px) — let long German compounds (Ausgeliefert,
+   Fünfzehn, zwischen, Forschungskonsortien) hyphenate so they don't
+   force horizontal overflow or push the title to a 4-line block. The
+   `lang="de"` on <html> drives the dictionary; English text on /en/
+   pages uses the English dictionary automatically. */
+@media (max-width: 900px) {
+  .bw-mast__title,
+  .bw-mast__lede,
+  .bw-chapter__title,
+  .bw-cta__title,
+  .bw-cta__body,
+  .bw-pullquote blockquote {
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    overflow-wrap: break-word;
+  }
+}
+
 /* Very narrow viewports (<420 px) — drop the masthead floor further
-   and allow hyphenation so long German compounds (Ausgeliefert,
-   Fünfzehn, zwischen) fit without horizontal clipping. */
+   and allow more aggressive overflow-wrap so long unbreakable strings
+   still fit. */
 @media (max-width: 420px) {
   .bw-mast__title {
     font-size: clamp(30px, 8vw, 42px);
-    hyphens: auto;
-    -webkit-hyphens: auto;
     overflow-wrap: anywhere;
   }
   .bw-mast__title .brush,
@@ -565,12 +581,24 @@ a { text-decoration: none; }
 .bw-partners__track {
   display: flex; gap: 28px; flex-wrap: nowrap;
   align-items: center;
-  animation: bw-scroll 48s linear infinite;
+  /* Was 48 s — felt sluggish, especially on mobile where the visible
+     window is shorter so each logo crosses the screen slower in
+     absolute pixel terms. ~22 s desktop / ~9 s mobile reads as a
+     deliberate ticker without becoming a strobe. */
+  animation: bw-scroll 22s linear infinite;
+}
+@media (max-width: 900px) {
+  .bw-partners__track { animation-duration: 9s; }
 }
 .bw-partners:hover .bw-partners__track { animation-play-state: paused; }
+/* Loop seamlessness: with `gap: 28px` between cards, a plain
+   translateX(-50%) jumps 14 px (= half a gap) at every loop boundary
+   because the gap between the first and second SETS isn't accounted
+   for in -50% of the total width. Subtract `14px` (gap/2) from the
+   end-state translation so card 10 lands exactly where card 1 sat. */
 @keyframes bw-scroll {
   from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  to   { transform: translateX(calc(-50% - 14px)); }
 }
 .bw-partner {
   flex: 0 0 auto;
@@ -1064,6 +1092,19 @@ a { text-decoration: none; }
   position: relative;
   display: block;
   text-transform: none;
+  cursor: default;
+}
+/* Higher-specificity (.bw-observable comes later in the file with
+   `transition: opacity .5s` which would replace any shorthand we set
+   above). The `.bw-observable` chained selector matches both fills
+   because the markObservables() JS auto-tags both bigtext variants. */
+.bw-bigtext.bw-observable,
+.bw-segment__fill.bw-observable {
+  transition: transform .25s var(--ease-pop), opacity .5s;
+}
+.bw-segment__fill:hover,
+.bw-bigtext:hover {
+  transform: rotate(-1.5deg) scale(1.04);
 }
 .bw-segment__fill::after,
 .bw-bigtext::after {
@@ -1074,6 +1115,10 @@ a { text-decoration: none; }
   transform: translate(4px, 3px);      /* resting offset — unchanged */
   pointer-events: none;
   transition: transform .35s var(--ease-pop);
+}
+.bw-segment__fill:hover::after,
+.bw-bigtext:hover::after {
+  transform: translate(12px, 9px) rotate(1.2deg);
 }
 /* Scroll-triggered SLAM — both layers wobble briefly, then settle into
    the resting offset. This is visible only once per view. */
@@ -1091,13 +1136,18 @@ a { text-decoration: none; }
   100% { transform: scale(1) rotate(0); }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .bw-segment__fill.is-in::after,
-  .bw-bigtext.is-in::after {
-    animation: bw-bigtext-slam .85s var(--ease-pop) forwards;
-  }
+  /* Fill shakes in immediately on scroll-in. */
   .bw-segment__fill.is-in,
   .bw-bigtext.is-in {
     animation: bw-bigtext-fillshake .75s var(--ease-pop);
+  }
+  /* Outline slams in 0.25 s LATER and runs longer — the eye reads
+     the fill arriving first, then the cardboard outline catching up
+     and locking it in place. Two distinct moments instead of one
+     simultaneous wobble. */
+  .bw-segment__fill.is-in::after,
+  .bw-bigtext.is-in::after {
+    animation: bw-bigtext-slam 1s var(--ease-pop) .25s forwards;
   }
 }
 /* Colour variants for .bw-bigtext so the effect drops into different
@@ -2010,6 +2060,404 @@ a { text-decoration: none; }
   .bw-observable:nth-child(6).is-in { transition-delay: .20s; }
   .bw-observable:nth-child(7).is-in { transition-delay: .24s; }
   .bw-observable:nth-child(8).is-in { transition-delay: .28s; }
+}
+
+/* ==============================
+   SLIDESHOW
+   --------------------------------------------
+   script.js (initSlideshow) takes every <section> direct child of
+   <main> and re-stages them as a deck of full-viewport panels. The
+   page no longer scrolls top-to-bottom — wheel/key/touch input is
+   intercepted by the controller and either scrolls within the active
+   slide (if its content is taller than the viewport) or, when the
+   user reaches the slide's bottom edge, advances the deck so the
+   next slide translates IN from its assigned direction.
+
+   Layout rules:
+     • body becomes a fixed-height viewport (no native scroll).
+     • main is positioned for absolute children; the slides are fixed
+       so they don't fight each other for layout.
+     • z-index: i (set inline by JS) so a higher-numbered slide
+       always paints over a lower one. Previous slides stay parked
+       at translate(0,0) underneath the active one — they DO NOT
+       animate out when covered, only when the user scrolls back UP
+       past the active slide's top edge.
+     • opaque background per slide so it covers what's underneath
+       (sections that already paint a section background — bw-mast,
+       bw-sec--*, bw-cta — keep theirs; the bare ones inherit
+       --paper).
+
+   Header was sticky; sticky inside an overflow:hidden ancestor sticks
+   relative to that ancestor, not the viewport, which would let the
+   header scroll inside a slide. Pin it to fixed instead. Mobnav
+   is already fixed and stays put.
+
+   Reduced-motion users never enter slideshow mode — the JS bails
+   early and the page renders as a normal scrolling document, which
+   is the correct accessible default.
+   ============================== */
+@media (prefers-reduced-motion: no-preference) {
+  html.bw-slideshow,
+  html.bw-slideshow body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  /* Header offset: pin the header on top, push slide contents below
+     it. Mobnav offset only on the breakpoint where it appears. */
+  html.bw-slideshow {
+    --slide-top: 67px;     /* .bw-header height (64 + 3 px border) */
+    --slide-bottom: 0px;
+  }
+  @media (max-width: 900px) {
+    html.bw-slideshow { --slide-bottom: 64px; }   /* .bw-mobnav */
+  }
+
+  html.bw-slideshow .bw-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+  }
+
+  html.bw-slideshow main {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  html.bw-slideshow main > section.bw-slide {
+    position: fixed;
+    /* Vertical center offset (`--slide-y`, set inline by JS) shifts
+       short slides down to the middle of the slot. Tall slides have
+       --slide-y: 0 and stay anchored to the slot's top. The off-state
+       transforms below subtract this offset back so slides park
+       fully off-screen regardless of how much they've been centered. */
+    top: calc(var(--slide-top) + var(--slide-y, 0px));
+    left: 0;
+    width: 100vw;
+    /* Each slide is sized to its content. Tall sections cap at the
+       viewport slot and scroll internally; short sections (CTAs, the
+       pullquote, the imprint) end where their content ends, so the
+       previous slide remains visible in the unused vertical space
+       below. The mast-with-partners override below opts out of
+       max-height so the marquee can pin to a fixed bottom. */
+    max-height: calc(100vh - var(--slide-top) - var(--slide-bottom));
+    overflow-x: hidden;
+    overflow-y: auto;
+    will-change: transform;
+    /* Smooth touch scroll on iOS for the in-slide scroll case. */
+    -webkit-overflow-scrolling: touch;
+    /* Stop scroll-chain reaching the body (which is overflow:hidden,
+       but some browsers still report the wheel event upward). */
+    overscroll-behavior: contain;
+    /* Slide outline — always visible. Outline (not border) keeps it
+       out of layout flow — a real border would change the content
+       box and re-flow text. Offset of -3 px draws the line INSIDE
+       the slide's edge, so adjacent slides at rest don't show double
+       lines stacking. */
+    outline: 3px solid var(--ink);
+    outline-offset: -3px;
+    /* Cardboard drop shadow — same offset-style as the page's other
+       cards (6/6 ink), scaled up because slides are big. The transform
+       rotates the slide AND its shadow together, so the shadow tracks
+       the per-slide tilt naturally. Right edge is clipped by body
+       overflow:hidden; the bottom strip falls onto the slide
+       underneath, visually grounding each card on the deck. */
+    box-shadow: 10px 12px 0 var(--ink);
+    transition: transform .35s var(--ease-pop), filter .25s linear;
+    /* Per-slide cardboard tilt (set inline by JS on init) +
+       depth darkening (updated by JS as `current` advances). Older
+       slides buried under newer ones get visibly dimmer — gives the
+       deck a sense of physical layering. */
+    filter: brightness(calc(1 - var(--slide-darken, 0)));
+  }
+  /* Paper fallback for sections that don't paint their own background
+     (`.bw-toc`, `.bw-segment`, bare `.bw-sec`). Wrapped in `:where()`
+     for zero specificity so any section with its own background
+     (`.bw-mast--lilac`, `.bw-cta`, `.bw-partners`, …) still wins. */
+  :where(html.bw-slideshow main > section.bw-slide) {
+    background-color: var(--paper);
+  }
+
+  /* Off-stage parking positions. With slides sized to content, percent-
+     of-self pushes them off by exactly their own width/height. Top
+     adds the header offset back (the slide naturally sits below the
+     header, so a pure -100% would still leave the slide-top region
+     visible above the slide). Bottom uses 100vh - slide-top so the
+     slide's TOP edge meets the viewport bottom regardless of slide
+     height. Each transform composes the per-slide cardboard tilt
+     (`--slide-rot`) so a slide reads as a slightly-cocked card whether
+     it's parked off-screen or sitting on the deck. */
+  /* `-50% - 50vw` = own-half-width plus half viewport — places the
+     slide's right edge at the viewport's left edge regardless of the
+     slide's width. The previous `-100%` only worked for slides that
+     were exactly viewport-wide; narrow slides (CTA, pullquote) were
+     centered with margin-auto, so `-100%` of own width still left a
+     visible chunk peeking on the opposite side. */
+  html.bw-slideshow main > section.bw-slide--off.bw-slide--left   { transform: translate3d(calc(-50% - 50vw), 0, 0) rotate(var(--slide-rot, 0deg)); }
+  html.bw-slideshow main > section.bw-slide--off.bw-slide--right  { transform: translate3d(calc( 50% + 50vw), 0, 0) rotate(var(--slide-rot, 0deg)); }
+  /* Top / bottom subtract --slide-y so a centered slide still parks
+     fully off-screen (its rest position is shifted DOWN by --slide-y;
+     the off-translation pushes it that much further). */
+  html.bw-slideshow main > section.bw-slide--off.bw-slide--top    { transform: translate3d(0, calc(-100% - var(--slide-top) - var(--slide-y, 0px)), 0) rotate(var(--slide-rot, 0deg)); }
+  html.bw-slideshow main > section.bw-slide--off.bw-slide--bottom { transform: translate3d(0, calc(100vh - var(--slide-top) - var(--slide-y, 0px)), 0) rotate(var(--slide-rot, 0deg)); }
+
+  html.bw-slideshow main > section.bw-slide--in {
+    transform: translate3d(0, 0, 0) rotate(var(--slide-rot, 0deg));
+  }
+
+  /* Decor layer was scroll-driven; in slideshow mode there's no scroll
+     to drive it and the layer would also intercept the slides' fixed
+     layer with its own absolute positioning. Hide it. */
+  html.bw-slideshow .bw-decor { display: none; }
+
+  /* Home masthead Kontakt stub: in body-scroll mode it was sticky
+     at viewport y=63 (4 px above the 67 px header bottom — its 4 px
+     shadow lined up with the header's bottom edge). In slideshow
+     mode the masthead is `position: fixed` and (when it has the
+     partners marquee) `display: flex; height: 100%-slot`. With that
+     flex layout, sticky-top with a negative value lands ~24 px below
+     where it should — the position calc seems to ignore the negative
+     margin once the masthead becomes the scroll container. The
+     masthead never scrolls internally either (its content is sized
+     to fit), so the sticky behavior isn't needed. Use plain
+     absolute positioning anchored to the track instead — predictable
+     and pixel-perfect with the header. */
+  html.bw-slideshow .bw-mast__stub {
+    position: absolute;
+    top: -4px;
+    margin-top: 0;
+  }
+
+  /* ----- Section compaction inside the slideshow ----------------
+     Natural-flow paddings (96 / 80 / 72 px) leave breathing room when
+     sections stack vertically, but wedged into a fixed (100vh −
+     header) viewport they push CTAs and short masthead-adjacent
+     sections over the edge. Halving the vertical paddings keeps the
+     visual rhythm but lets CTAs / pullquote / shorter sections fit
+     without internal scroll. Sections that are genuinely taller than
+     a viewport (Standing, Method, the big about-page CV section) keep
+     their internal scroll — we don't try to mash 1800 px into 730. */
+  html.bw-slideshow .bw-sec        { padding: 48px 0; }
+  html.bw-slideshow .bw-sec--tight { padding: 32px 0; }
+  html.bw-slideshow .bw-cta        { padding: 36px 0; }
+  html.bw-slideshow .bw-pullquote  { padding: 32px 0; }
+  html.bw-slideshow .bw-toc        { padding: 24px 0; }
+  html.bw-slideshow .bw-partners   { padding: 14px 0; }
+
+  /* Mobile partners marquee — on mobile the masthead's wrap (title +
+     lede + CTAs) easily takes 600+ px, leaving only ~80 px at the
+     bottom for the marquee. The natural marquee is 200 px tall (head
+     58 + 24 margin + 120-px partner cards). Drop the meta-span,
+     tighten the head, and shrink the cards so the whole strip fits
+     in ~110 px. `flex-shrink: 0` reserves the marquee's height in
+     the flex column; the wrap above it absorbs the remaining space
+     (and scrolls internally — see the wrap rule near the END of the
+     slideshow block). */
+  @media (max-width: 900px) {
+    html.bw-slideshow .bw-partners              {
+      padding: 8px 0 6px;
+      flex-shrink: 0;
+    }
+    html.bw-slideshow .bw-partners__head        { padding-bottom: 6px; margin-bottom: 8px; }
+    html.bw-slideshow .bw-partners__head h3     { font-size: 14px; }
+    html.bw-slideshow .bw-partners__head span   { display: none; }    /* the "// 09 ..." meta line */
+    html.bw-slideshow .bw-partner               { height: 70px; min-width: 130px; padding: 8px 14px; gap: 4px; }
+    html.bw-slideshow .bw-partner img           { width: 96px; height: 32px; max-height: 32px; max-width: 96px; }
+    html.bw-slideshow .bw-partner small         { font-size: 9px; }
+  }
+  /* Subpage mastheads compact more aggressively than the home one
+     because the subpages currently overshoot by 130–280 px. The home
+     masthead already fits at its natural 36 / 72 padding (mint slot
+     measured at 730 / 730), so it benefits from the smaller numbers
+     without going below the original visual weight. */
+  html.bw-slideshow .bw-mast { padding: 24px 0 36px; }
+
+  /* Mastheads that host a pinned-to-bottom strip (home → partners
+     marquee, contact → channels) opt out of `max-height` and force a
+     full-slot height so the strip can pin to the actual viewport
+     bottom.
+
+     Layout:
+       • masthead is `display: flex; flex-direction: column`.
+       • the title-group `.wrap` becomes `flex: 1 1 0; min-height: 0`
+         so it takes the REMAINING space (slot − strip), no more, and
+         clips/scrolls if its title + lede + CTAs would overflow.
+         Without `min-height: 0` the wrap defaults to its content
+         size and pushes its CTAs DOWN into the strip's territory,
+         which is what was happening on narrow mobile viewports
+         (the email-CTA button overlapped the channel cards).
+       • the wrap is itself a flex column with `justify-content: safe
+         center` so its content centers when there's spare room and
+         reverts to top-aligned when content overflows.
+       • the strip (`.bw-partners` / `.bw-mast__contacts`) is
+         `flex-shrink: 0` so it never collapses; the wrap absorbs
+         any tightness instead. */
+  html.bw-slideshow main > section.bw-mast:has(> .bw-partners),
+  html.bw-slideshow main > section.bw-mast:has(> .bw-mast__contacts) {
+    max-height: none;
+    height: calc(100vh - var(--slide-top) - var(--slide-bottom));
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+  }
+  /* `:not(.bw-mast__contacts)` because the contacts strip is itself
+     a `<div class="wrap bw-mast__contacts">` — without the negation,
+     the strip would inherit `flex: 1 1 0` and grow to fill, doubling
+     its rendered height. */
+  html.bw-slideshow main > section.bw-mast:has(> .bw-partners) > .wrap:not(.bw-mast__contacts),
+  html.bw-slideshow main > section.bw-mast:has(> .bw-mast__contacts) > .wrap:not(.bw-mast__contacts) {
+    flex: 1 1 0;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    display: flex;
+    flex-direction: column;
+    justify-content: safe center;
+  }
+  html.bw-slideshow main > section.bw-mast > .bw-partners,
+  html.bw-slideshow main > section.bw-mast > .bw-mast__contacts {
+    flex-shrink: 0;
+  }
+  html.bw-slideshow .bw-mast__contacts { padding: 0 0 24px; }
+  html.bw-slideshow .bw-mast__title {
+    font-size: clamp(36px, 6.4vw, 88px);
+    margin-bottom: 20px;
+  }
+  html.bw-slideshow .bw-mast__crumb { margin-bottom: 16px; }
+  html.bw-slideshow .bw-mast__strip { padding-top: 16px; }
+  /* CTA copy area: tighten margins + body line-height so the eyebrow/
+     title/body/buttons stack into ~360 px instead of the natural 600+. */
+  html.bw-slideshow .bw-cta__eyebrow { margin-bottom: 10px; }
+  html.bw-slideshow .bw-cta__title   { margin-bottom: 14px; font-size: clamp(34px, 4.4vw, 60px); }
+  html.bw-slideshow .bw-cta__body    { margin-bottom: 18px; font-size: 16px; line-height: 1.5; }
+  /* Pullquote: dial down the body min-height + dot row spacing. The
+     blockquote itself stays large; we just stop reserving extra
+     vertical track for slide-swap easing. */
+  html.bw-slideshow .bw-pullquote__body { padding-bottom: 0; }
+  html.bw-slideshow .bw-pullquote__dots { margin-top: 14px; }
+  html.bw-slideshow .bw-pullquote blockquote { font-size: clamp(22px, 3.2vw, 36px); line-height: 1.3; }
+
+  /* CTA + pullquote have absolutely-positioned cardboard decorations
+     that hang past their section's content box (top:-80, bottom:-100
+     etc.). The default slide rule sets overflow-y: auto, which makes
+     scrollHeight include those decorations and gives the slide a fake
+     scrollable region of empty space. Clip them instead — content
+     here is sized to fit a viewport, no scroll needed.
+
+     Same pair also opt into a NARROWER slide width — the inner copy
+     is constrained to ~900 px anyway, so the slide can shrink to a
+     centered card with the previous slide showing on the sides. The
+     percentage-based off-state transforms (`-100%` / `100%`) still
+     park them fully off-screen by their own width, no special-casing
+     needed. Specificity here matches `main > section.bw-slide` so it
+     wins both for `overflow` and the width / margin set. */
+  html.bw-slideshow main > section.bw-cta,
+  html.bw-slideshow main > section.bw-pullquote {
+    overflow: hidden;
+    width: auto;
+    left: 0; right: 0;
+    max-width: min(820px, calc(100vw - 32px));
+    margin-left: auto; margin-right: auto;
+  }
+
+  /* CTA decorations: the natural-flow design lets a 200-px yellow
+     square + 260-px mint circle hang off the section's edges with
+     `overflow: hidden` clipping the bits outside the colored band.
+     In slideshow mode the slide is sized to its CONTENT — the bottom
+     half of the mint circle would protrude past where the slide
+     ends, making the slide look ~100 px taller than it is (the
+     circle reads as part of the slide area). Pull both decorations
+     INSIDE the content box (top/bottom positive offsets) and shrink
+     them so they stay ornamental without extending the visual
+     footprint of the card. */
+  html.bw-slideshow .bw-cta::before {
+    width: 110px; height: 110px;
+    top: 12px; left: 6%;
+  }
+  html.bw-slideshow .bw-cta::after {
+    width: 140px; height: 140px;
+    bottom: 12px; right: 4%;
+  }
+
+  /* Portfolio's filter+works combined slide: pin the heading + filter
+     row to the top of the slot so they remain visible while the user
+     scrolls through the project entries. Without this they'd scroll
+     out of view and the slide would feel like two separate slides
+     (filter, then projects) even though it's one section.
+
+     The bottom border + extra negative top margin pulls the head
+     flush with the slide's top edge, so the filter chips read as
+     part of the slide's frame rather than floating in mid-air. */
+  html.bw-slideshow .bw-works-head {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    background: var(--paper);
+    margin: -32px 0 12px;          /* cancels the slide's top padding */
+    padding: 16px 0 12px;
+    border-bottom: 3px solid var(--ink);
+  }
+  html.bw-slideshow .bw-works-head .bw-filters { margin-bottom: 0; }
+  html.bw-slideshow .bw-works-head .bw-chapter { border-bottom: 0; }
+
+  /* Mobile-only overrides — placed at the END of the slideshow block
+     so they win over the desktop slideshow rules above (same
+     specificity, source order decides).
+
+     Strategy: keep the masthead text at its natural mobile size (no
+     forced shrinking — long German words need to read at full weight)
+     and let the wrap SCROLL inside the masthead if title + lede + CTAs
+     exceed the room left over by the marquee / channels. The pinned
+     bottom strip always stays visible; the user scrolls within the
+     wrap if necessary. */
+  @media (max-width: 900px) {
+    html.bw-slideshow main > section.bw-mast > .wrap {
+      min-height: 0;             /* lets the wrap shrink under flex */
+      overflow-y: auto;          /* internal scroll when content overflows */
+      overscroll-behavior: contain;
+    }
+
+    /* Contact masthead's pinned channels: stack vertically (the
+       desktop 3-col grid is too narrow on phones), drop the long
+       note text, tighten padding aggressively so the strip stays
+       under ~190 px and the wrap above has room for title + lede +
+       CTAs. The strip's job here is just "here are the three ways
+       to reach me" — no need for the explanatory notes. */
+    html.bw-slideshow .bw-mast__contacts { padding: 0 0 8px; }
+    html.bw-slideshow .bw-mast__contacts .bw-contact { padding: 6px 12px; gap: 2px; }
+    html.bw-slideshow .bw-mast__contacts .bw-contact__note { display: none; }
+    html.bw-slideshow .bw-mast__contacts .bw-contact__label { font-size: 10px; }
+    html.bw-slideshow .bw-mast__contacts .bw-contact__value { font-size: 15px; }
+
+    /* Mobile masthead text compaction — the wrap's content (title +
+       lede + 2 CTAs) was overflowing the wrap by ~30 px in DE and
+       ~140 px in EN (where "Tell me what you're working on." breaks
+       to 5 lines instead of DE's 3). Shrink strip/cta padding +
+       title font on mobile so both languages fit without internal
+       scroll. */
+    html.bw-slideshow .bw-mast__title { font-size: clamp(26px, 6.6vw, 44px); margin-bottom: 16px; }
+    html.bw-slideshow .bw-mast__strip { padding-top: 12px; gap: 12px; }
+    html.bw-slideshow .bw-mast__cta .bw-btn { padding: 10px 14px; }
+    html.bw-slideshow .bw-mast__crumb { margin-bottom: 8px; }
+
+    /* Portfolio filter+works header was eating ~55 % of the mobile
+       slide (3-line title chip + 6 wrap-into-2-rows filter buttons).
+       Compact title margin + smaller filter chips so the projects list
+       starts within the first half of the slot. */
+    html.bw-slideshow .bw-works-head .bw-chapter {
+      padding: 8px 0 8px;
+      margin-bottom: 12px;
+    }
+    html.bw-slideshow .bw-works-head .bw-chapter__title {
+      font-size: clamp(22px, 5.5vw, 32px);
+    }
+    html.bw-slideshow .bw-works-head .bw-filter {
+      font-size: 11px;
+      padding: 6px 10px;
+      letter-spacing: .04em;
+    }
+    html.bw-slideshow .bw-works-head .bw-filters { gap: 6px; }
+  }
 }
 
 /* ==============================

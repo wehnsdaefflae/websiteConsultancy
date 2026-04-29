@@ -682,6 +682,403 @@
   }
 
   // ------------------------------------------------------------
+  //  Slideshow — turn every <section> into a full-viewport panel.
+  //  The current slide is fixed at top:0 with its own internal scroll.
+  //  Other slides are parked off-screen at their assigned direction
+  //  (left / right / top / bottom), randomised per page. Wheel /
+  //  keyboard / touch input scrolls within the active slide until the
+  //  user reaches its bottom — one more scroll past that triggers the
+  //  next slide to translate IN over it. Previous slides never move;
+  //  they sit underneath, revealed when the user scrolls back UP past
+  //  the active slide's top edge (the active slide animates back to
+  //  its off-screen direction).
+  //
+  //  Reduced-motion users get the original natural-scroll page (we
+  //  bail early). Same for browsers without IntersectionObserver — too
+  //  much of the existing scroll-in machinery depends on it.
+  // ------------------------------------------------------------
+  function initSlideshow() {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!('IntersectionObserver' in window)) return;
+    var main = document.querySelector('main');
+    if (!main) return;
+    var slides = Array.prototype.slice.call(
+      main.querySelectorAll(':scope > section')
+    );
+    if (slides.length < 2) return;
+
+    // Per-page seed (FNV-1a of pathname) so direction sequence is
+    // stable across reloads but varies per page.
+    var path = (location.pathname || '/').toLowerCase();
+    var seed = 2166136261 >>> 0;
+    for (var i = 0; i < path.length; i++) {
+      seed = ((seed ^ path.charCodeAt(i)) * 16777619) >>> 0;
+    }
+    // (seed, index) → 0..3, with avalanche mixing so consecutive
+    // indices don't correlate (a plain LCG step's low bits cycle
+    // short and produced strict L-R-L-R patterns earlier).
+    function pick4(idx) {
+      var h = (seed ^ (idx * 2654435761)) >>> 0;
+      h = ((h ^ (h >>> 16)) * 2246822507) >>> 0;
+      h = ((h ^ (h >>> 13)) * 3266489909) >>> 0;
+      h = (h ^ (h >>> 16)) >>> 0;
+      return h & 3;
+    }
+    var DIRS = ['left', 'right', 'top', 'bottom'];
+    var prev = null;
+    var pickIdx = 0;
+
+    // Stage every slide. Slide 0 starts on-screen; the rest start
+    // parked at their assigned direction. z-index = index so a higher-
+    // numbered slide always covers a lower one.
+    slides.forEach(function (slide, i) {
+      slide.classList.add('bw-slide');
+      slide.style.zIndex = String(i);
+      // Per-slide cardboard tilt. Slide 0 (masthead) stays at 0°
+      // because the home masthead's "Kontakt" stub anchors against
+      // the masthead box; a rotated masthead box re-projects the
+      // sticky offset and the stub drifts ~30 px below the header.
+      // Keeping the base card straight also reads as "the deck
+      // started here, the rest are stacked on top".
+      if (i === 0) {
+        slide.style.setProperty('--slide-rot', '0deg');
+        slide.classList.add('bw-slide--in');
+      } else {
+        // Magnitude varied by hash so adjacent slides aren't perfect
+        // mirrors; sign alternates by index. CSS composes the angle
+        // into every transform via `var(--slide-rot)`.
+        var rotMag = 0.6 + ((pick4(pickIdx) & 1) ? 0.5 : 0); // 0.6° or 1.1°
+        var rot = (i % 2 ? -1 : 1) * rotMag;
+        slide.style.setProperty('--slide-rot', rot.toFixed(2) + 'deg');
+        var d;
+        if (i === 1) {
+          // The first non-masthead slide always enters from below —
+          // the masthead "ends" with the user scrolling past it, so
+          // the natural follow-on is content rising into view, not
+          // sliding sideways or dropping in.
+          d = 'bottom';
+        } else {
+          for (var a = 0; a < 8; a++) {
+            d = DIRS[pick4(pickIdx++)];
+            if (d !== prev) break;
+          }
+        }
+        prev = d;
+        slide.classList.add('bw-slide--' + d, 'bw-slide--off');
+      }
+    });
+
+    var current = 0;
+    var snapMs = 360;            // matches the CSS commit-transition duration (.35s + slack)
+    var SCROLL_FOR_FULL = 0.6;   // scroll = 0.6 viewport-heights drives 0→1 progress
+    var snapping = false;        // true while a commit/abandon CSS transition is running
+
+    // Live transition state. While `trans` is non-null, wheel / touch deltas
+    // drive `trans.progress` (0 = source state, 1 = target state) and the
+    // moving slide's transform is set inline each tick. The transition only
+    // commits when progress reaches 1 or abandons at 0 — there's no idle
+    // snap, so a slide left at 60 % stays at 60 % until the user keeps
+    // scrolling in either direction.
+    var trans = null;
+    var slideTopPx = 0;          // header offset; refreshed on resize
+
+    var slideBottomPx = 0;       // mobnav offset; refreshed on resize
+
+    function refreshSlideTop() {
+      // Measure the live header / mobnav heights and write them back
+      // to the CSS vars. The header collapses from 67 → 49 px on
+      // mobile (nav links + lang toggle hide), and the mobnav (61 px
+      // tall) only exists ≤ 900 px. Reading actual offsetHeight keeps
+      // the slide slot exactly aligned regardless of breakpoint or
+      // future header tweaks.
+      var header = document.querySelector('.bw-header');
+      var mobnav = document.querySelector('.bw-mobnav');
+      var headerH = header ? header.offsetHeight : 67;
+      // Mobnav is `position: fixed`, so offsetParent is null even when
+      // visible — fall back to checking computed display.
+      var mobnavVisible = mobnav && getComputedStyle(mobnav).display !== 'none';
+      var mobnavH = mobnavVisible ? mobnav.offsetHeight : 0;
+      document.documentElement.style.setProperty('--slide-top',    headerH + 'px');
+      document.documentElement.style.setProperty('--slide-bottom', mobnavH + 'px');
+      slideTopPx = headerH;
+      slideBottomPx = mobnavH;
+      recenterSlides();
+    }
+
+    // Vertical centering — slides shorter than the slot get shifted
+    // down so their CENTER aligns with the slot center. Sets
+    // `--slide-y` inline; CSS reads it for both `top` and the
+    // off-state translations. Tall slides (no room to spare) get 0.
+    function recenterSlides() {
+      var slotH = window.innerHeight - slideTopPx - slideBottomPx;
+      slides.forEach(function (s) {
+        // Read offsetHeight before the centering offset is applied —
+        // briefly clear it so the measurement reflects natural size.
+        s.style.setProperty('--slide-y', '0px');
+        var h = s.offsetHeight;
+        var y = h < slotH ? Math.round((slotH - h) / 2) : 0;
+        s.style.setProperty('--slide-y', y + 'px');
+      });
+    }
+    refreshSlideTop();
+    window.addEventListener('resize', refreshSlideTop);
+
+    // Slideshow active flag — gates every wheel/touch/keyboard
+    // handler so we can fall back to the natural-scroll page when
+    // night mode is on (user wants no animations in dark mode).
+    var slideshowOn = false;
+
+    function activate() {
+      if (slideshowOn) return;
+      document.documentElement.classList.add('bw-slideshow');
+      slideshowOn = true;
+      // Recompute centering NOW that bw-slideshow's CSS is in effect.
+      // Without this, the initial recenterSlides() call ran while the
+      // slides were still in natural-flow layout, so it measured their
+      // natural document heights — usually much taller than the
+      // max-height-capped slot, so --slide-y was 0 and short slides
+      // sat at the top instead of centered.
+      recenterSlides();
+    }
+    function deactivate() {
+      if (!slideshowOn) return;
+      document.documentElement.classList.remove('bw-slideshow');
+      // Strip any inline transforms or transitions left mid-flight,
+      // and abandon any in-progress transition. Without this, a
+      // half-translated slide would stay stuck off-screen in the
+      // natural-scroll layout.
+      slides.forEach(function (s) {
+        s.style.transform = '';
+        s.style.transition = '';
+      });
+      trans = null;
+      slideshowOn = false;
+    }
+    function syncTheme() {
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (dark) deactivate(); else activate();
+    }
+    syncTheme();
+
+    // Watch theme toggle so flipping to night mode immediately drops
+    // the slideshow, and flipping back to day re-activates it.
+    new MutationObserver(syncTheme)
+      .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+    function dirOf(slide) {
+      var m = slide.className.match(/bw-slide--(left|right|top|bottom)/);
+      return m ? m[1] : null;
+    }
+    function offCoords(slide) {
+      // Pixel offset that places `slide` at its parked position. Mirrors
+      // the .bw-slide--off CSS rules. Slides are sized to their content,
+      // so a 300-px tall slide gets pushed off-screen by exactly 300 px
+      // on L/R/top — not the full viewport — by reading its own
+      // offsetWidth / offsetHeight. Top / bottom subtract the per-slide
+      // vertical centering offset (`--slide-y`) so a centered slide
+      // still parks fully off-screen.
+      // Half-of-self + half-viewport so narrow slides (CTAs, pullquote;
+       // centered with margin-auto) park completely off-screen, not just
+       // -100% of their own width (which would still leave a chunk
+       // peeking on the opposite side of the viewport).
+      var sy = parseFloat(slide.style.getPropertyValue('--slide-y')) || 0;
+      var hx = slide.offsetWidth / 2 + window.innerWidth / 2;
+      switch (dirOf(slide)) {
+        case 'left':   return { x: -hx, y: 0 };
+        case 'right':  return { x:  hx, y: 0 };
+        case 'top':    return { x: 0, y: -(slide.offsetHeight + slideTopPx + sy) };
+        case 'bottom': return { x: 0, y: window.innerHeight - slideTopPx - sy };
+        default:       return { x: 0, y: 0 };
+      }
+    }
+    function applyProgress(t) {
+      // The MOVING slide is `to` on forward (off → in), `from` on backward
+      // (in → off). Interpolate transform between the off-coords and 0.
+      // Compose with the per-slide cardboard tilt — `var(--slide-rot)`
+      // resolves to e.g. -1.1deg, set on each slide at init.
+      var moving = (t.dir === 'forward') ? slides[t.to] : slides[t.from];
+      var off = offCoords(moving);
+      var k = (t.dir === 'forward') ? (1 - t.progress) : t.progress;
+      moving.style.transform = 'translate3d(' + (off.x * k) + 'px,' + (off.y * k) + 'px,0) rotate(var(--slide-rot, 0deg))';
+    }
+
+    // Recompute per-slide darkening: each slide buried under N higher
+    // slides gets its `--slide-darken` set to N × DARKEN_STEP. The
+    // CSS uses it as `filter: brightness(calc(1 - var(--slide-darken)))`
+    // so older slides peek through dimmer where they're visible behind
+    // the active (smaller-than-viewport) slide above.
+    var DARKEN_STEP = 0.12;  // each new slide on top dims older slides 12 %
+    function updateDarken() {
+      slides.forEach(function (s, i) {
+        var depth = Math.max(0, current - i);
+        s.style.setProperty('--slide-darken', (depth * DARKEN_STEP).toFixed(2));
+      });
+    }
+    updateDarken();
+
+    function startTrans(dir, from, to) {
+      var moving = (dir === 'forward') ? slides[to] : slides[from];
+      // Disable CSS transition for transform so JS can drive it per-frame
+      // without the browser easing every tiny step.
+      moving.style.transition = 'transform 0s';
+      if (dir === 'forward') {
+        // Reset target's internal scroll so each entry starts at its top.
+        moving.scrollTop = 0;
+      }
+      trans = { dir: dir, from: from, to: to, progress: 0 };
+    }
+
+    function settle(t, commit) {
+      var moving = (t.dir === 'forward') ? slides[t.to] : slides[t.from];
+      // Restore CSS transition so the final ~1 px of travel eases
+      // smoothly to the rest position (the JS drives in fractional
+      // px and we want the very-end snap to land cleanly).
+      moving.style.transition = '';
+      if (commit) {
+        if (t.dir === 'forward') {
+          moving.classList.remove('bw-slide--off');
+          moving.classList.add('bw-slide--in');
+        } else {
+          moving.classList.remove('bw-slide--in');
+          moving.classList.add('bw-slide--off');
+          // Reset the revealed slide's scroll to its top.
+          slides[t.to].scrollTop = 0;
+        }
+        current = t.to;
+      }
+      // Strip inline transform — CSS rule for the new state class wins.
+      moving.style.transform = '';
+      trans = null;
+      snapping = true;
+      // Recompute darkening: a new slide came in (forward commit) or
+      // an older one was revealed (backward commit). Either way the
+      // depth of every slide changed.
+      updateDarken();
+      setTimeout(function () { snapping = false; }, snapMs);
+    }
+
+    function isScrollable(s) {
+      // A slide whose CSS overflow-y is hidden / clip / visible can't
+      // scroll internally — any wheel/touch on it is a slide-advance
+      // attempt, not a scroll-within. Some sections (CTA, pullquote)
+      // intentionally use overflow:hidden so their decorative absolute
+      // pseudos don't pad the scrollHeight.
+      var oy = getComputedStyle(s).overflowY;
+      return oy === 'auto' || oy === 'scroll';
+    }
+    function atTop() {
+      var s = slides[current];
+      return !isScrollable(s) || s.scrollTop <= 0;
+    }
+    function atBottom() {
+      var s = slides[current];
+      return !isScrollable(s) || s.scrollTop + s.clientHeight >= s.scrollHeight - 1;
+    }
+
+    // Drive a transition (or start one) from a positive `delta`. `delta`
+    // is the user's downward scroll input in pixels — positive means
+    // "advance forward / toward next slide", negative means "retreat".
+    function driveDelta(delta) {
+      var perFull = window.innerHeight * SCROLL_FOR_FULL;
+      if (!trans) {
+        // No active transition. If at a boundary, start one; otherwise
+        // delegate to native scroll inside the active slide.
+        var slide = slides[current];
+        if (delta > 0 && atBottom() && current < slides.length - 1) {
+          startTrans('forward', current, current + 1);
+        } else if (delta < 0 && atTop() && current > 0) {
+          startTrans('backward', current, current - 1);
+        } else {
+          slide.scrollTop += delta;
+          return false;
+        }
+      }
+      // Apply delta to progress. Forward: positive delta → progress↑;
+      // Backward: negative delta → progress↑ (we invert so progress is
+      // always 0=start, 1=committed). Mid-progress is sticky — there's
+      // no idle snap. The transition only commits when progress reaches
+      // 1 (fully in) or abandons at 0 (fully back to off-state). If the
+      // user stops mid-drag, the slide stays where they left it until
+      // they keep scrolling in either direction.
+      var dp = (trans.dir === 'forward' ? delta : -delta) / perFull;
+      trans.progress = Math.max(0, Math.min(1, trans.progress + dp));
+      applyProgress(trans);
+      if (trans.progress >= 1) {
+        settle(trans, true);
+      } else if (trans.progress <= 0) {
+        settle(trans, false);
+      }
+      return true;
+    }
+
+    // ---- Wheel ------------------------------------------------------
+    window.addEventListener('wheel', function (e) {
+      if (!slideshowOn) return;          // night mode: native scroll
+      if (snapping) { e.preventDefault(); return; }
+      var consumed = driveDelta(e.deltaY);
+      if (consumed || trans) e.preventDefault();
+    }, { passive: false });
+
+    // ---- Keyboard ---------------------------------------------------
+    // Arrows / PageUp / PageDown / Space advance only when at boundary
+    // (so an in-slide scroll position can be navigated via keyboard
+    // first). Each press jumps a chunk; let it commit in one go rather
+    // than dribbling.
+    window.addEventListener('keydown', function (e) {
+      if (!slideshowOn) return;          // night mode: native scroll
+      if (snapping || trans) return;
+      if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable="true"]')) return;
+      var k = e.key;
+      var fwd = (k === 'PageDown' || k === 'ArrowDown' || (k === ' ' && !e.shiftKey));
+      var bwd = (k === 'PageUp'   || k === 'ArrowUp'   || (k === ' ' &&  e.shiftKey));
+      if (fwd && atBottom() && current < slides.length - 1) {
+        e.preventDefault();
+        startTrans('forward', current, current + 1);
+        trans.progress = 1;
+        applyProgress(trans);
+        settle(trans, true);
+      } else if (bwd && atTop() && current > 0) {
+        e.preventDefault();
+        startTrans('backward', current, current - 1);
+        trans.progress = 1;
+        applyProgress(trans);
+        settle(trans, true);
+      } else if (fwd) {
+        e.preventDefault();
+        slides[current].scrollTop += window.innerHeight * 0.7;
+      } else if (bwd) {
+        e.preventDefault();
+        slides[current].scrollTop -= window.innerHeight * 0.7;
+      }
+    });
+
+    // ---- Touch ------------------------------------------------------
+    // Map touchmove deltaY (finger movement) to scroll delta. A swipe
+    // UP (finger moving up, dy < 0) corresponds to scrolling DOWN, so
+    // the sign matches wheel deltaY (down = positive).
+    var touchY = null;
+    window.addEventListener('touchstart', function (e) {
+      if (!slideshowOn) return;          // night mode: native scroll
+      if (snapping) { touchY = null; return; }
+      touchY = e.touches[0].clientY;
+    }, { passive: true });
+    window.addEventListener('touchmove', function (e) {
+      if (!slideshowOn) return;          // night mode: native scroll
+      if (snapping || touchY === null) return;
+      var y = e.touches[0].clientY;
+      var delta = touchY - y;     // finger up → positive (scroll down)
+      touchY = y;
+      var consumed = driveDelta(delta);
+      if (consumed || trans) e.preventDefault();
+    }, { passive: false });
+    // Touch end: just clear the tracker. Don't snap — the slide
+    // stays where the gesture left it (matches wheel behaviour).
+    function endTouch() { touchY = null; }
+    window.addEventListener('touchend',   endTouch);
+    window.addEventListener('touchcancel', endTouch);
+  }
+
+  // ------------------------------------------------------------
   //  Boot
   // ------------------------------------------------------------
   function boot() {
@@ -691,6 +1088,10 @@
     // Decor layer first (it appends to <main>), then observable marking,
     // so decor shapes participate in scroll-in.
     initDecorLayer();
+    // Slideshow takes over body/main/section layout. Once active,
+    // each section is a fixed-positioned full-viewport panel; the
+    // wheel/key/touch handlers run their own scroll dispatch.
+    initSlideshow();
     markObservables();
     initScrollIn();
     initScrollVar();
