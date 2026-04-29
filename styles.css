@@ -2384,7 +2384,7 @@ a { text-decoration: none; }
      slideshow block). */
   @media (max-width: 900px) {
     html.bw-slideshow .bw-partners              {
-      padding: 4px 0 2px;
+      padding: 4px 0 14px;
       flex-shrink: 0;
     }
     html.bw-slideshow .bw-partners__head        { padding-bottom: 3px; margin-bottom: 4px; }
@@ -2594,7 +2594,7 @@ a { text-decoration: none; }
        under ~190 px and the wrap above has room for title + lede +
        CTAs. The strip's job here is just "here are the three ways
        to reach me" — no need for the explanatory notes. */
-    html.bw-slideshow .bw-mast__contacts { padding: 0 0 4px; }
+    html.bw-slideshow .bw-mast__contacts { padding: 0 0 4px; max-width: 80%; }
     html.bw-slideshow .bw-mast__contacts .bw-contact { padding: 3px 10px; gap: 0; }
     html.bw-slideshow .bw-mast__contacts .bw-contact__note { display: none; }
     html.bw-slideshow .bw-mast__contacts .bw-contact__label { font-size: 9px; }
@@ -2606,7 +2606,7 @@ a { text-decoration: none; }
        to 5 lines instead of DE's 3). Shrink strip/cta padding +
        title font on mobile so both languages fit without internal
        scroll. */
-    html.bw-slideshow .bw-mast__title { font-size: clamp(24px, 6.4vw, 42px); margin-bottom: 10px; }
+    html.bw-slideshow .bw-mast__title { font-size: clamp(36px, 10vw, 64px); margin-bottom: 10px; }
     html.bw-slideshow .bw-mast__meta  { margin-bottom: 10px; gap: 6px; font-size: 11px; }
     html.bw-slideshow .bw-mast__lede  { font-size: 14px; line-height: 1.4; }
     html.bw-slideshow .bw-mast__strip { padding-top: 8px; gap: 10px; }
