@@ -2309,9 +2309,20 @@ a { text-decoration: none; }
     padding-bottom: 0;
   }
   @media (max-width: 900px) {
+    /* Mobile: skip the centering. Vertical space is too tight to
+       afford 40+ px of slack above the chip — anchor the title group
+       to the top of the slot and pin the strip to the bottom with
+       `margin-top: auto`. Slack falls between them, which reads as
+       deliberate spacing rather than wasted padding above. */
     html.bw-slideshow main > section.bw-mast:has(> .bw-partners),
     html.bw-slideshow main > section.bw-mast:has(> .bw-mast__contacts) {
+      justify-content: flex-start;
       gap: 14px;
+      padding-top: 12px;
+    }
+    html.bw-slideshow main > section.bw-mast > .bw-partners,
+    html.bw-slideshow main > section.bw-mast > .bw-mast__contacts {
+      margin-top: auto;
     }
   }
   /* `:not(.bw-mast__contacts)` because the contacts strip is itself
