@@ -4,8 +4,7 @@
 
 The live site sits at the repo root. Everything it needs is already
 there: HTML, CSS, JS, images, logos, and the PHP contact-form
-receiver. Legacy code is in `deprecated/` and is excluded from
-deployment via `.pleskignore`.
+receiver. `.pleskignore` keeps dev-only files out of the webroot.
 
 ---
 
@@ -30,7 +29,6 @@ That's it. `git commit && git push` is the deploy flow.
 `.pleskignore` at the repo root controls which paths Plesk copies
 into the webroot. Excluded:
 
-- `deprecated/` — the old Tailwind site, reference only
 - `CLAUDE.md`, `DEPLOY.md`, `README.md`, any other `*.md` — dev docs
 - `contact.node.js` — alternative Node.js receiver (PHP is used)
 - `.git/`, `.gitignore`

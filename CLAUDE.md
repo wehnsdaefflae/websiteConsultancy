@@ -31,16 +31,8 @@ Guidance for Claude Code (claude.ai/code) when working in this repo.
 ├── sitemap.xml
 ├── README.md               live site's architecture doc
 ├── DEPLOY.md               Plesk setup instructions
-├── CLAUDE.md               this file
-│
-└── deprecated/             the OLD Tailwind site (reference only)
-    ├── index.html, css/, js/, en/, de/, images/, logos/, manifest.json
-    └── .htaccess           (legacy one — not used)
+└── CLAUDE.md               this file
 ```
-
-**When asked to change / fix / build something**, it's always the
-root live site — not `deprecated/`. Touch `deprecated/` only if the
-user explicitly names a file inside it.
 
 ---
 
@@ -50,7 +42,7 @@ See `DEPLOY.md`. TL;DR:
 
 - Plesk Git integration pulls from this repo on `git push`.
 - **Deployment path** in Plesk: **blank** (repo root = webroot).
-- `.pleskignore` excludes `deprecated/`, dev docs, Node receiver.
+- `.pleskignore` excludes dev docs and the Node receiver.
 - `git push` → live, no build step.
 
 ---
@@ -153,17 +145,6 @@ them otherwise.
    `.<class>.bw-observable { transition: opacity .5s, transform .25s var(--ease-pop), box-shadow .25s var(--ease-pop); }`
    rule is what lets hover work after scroll-in entry. Keep the new
    component in that selector list if it participates.
-
----
-
-## Legacy site (`deprecated/`, reference only)
-
-The old Tailwind site is preserved under `deprecated/` for asset
-salvage or archaeological reference. It uses a completely different
-architecture (Tailwind CDN + modular CSS under `deprecated/css/` +
-modular JS with ScrollManager / ResizeManager / IntersectionManager
-patterns + `safeExecute()` error-boundary wrappers). None of that
-applies to the live site.
 
 ---
 
