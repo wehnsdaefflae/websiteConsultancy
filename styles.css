@@ -2328,13 +2328,19 @@ a { text-decoration: none; }
   /* `:not(.bw-mast__contacts)` because the contacts strip is itself
      a `<div class="wrap bw-mast__contacts">` — without the negation,
      the strip would inherit the wrap rules and grow/scroll
-     unexpectedly. */
+     unexpectedly.
+
+     `flex: 0 0 auto` keeps the wrap at its natural content size — no
+     shrinking under flex pressure. Earlier we set `overflow-y: auto`
+     here as a safety valve for tiny viewports, but it had a nasty
+     side-effect: the wrap's box clipped the bottom button's drop
+     shadow exactly at the last button's box-bottom, so the
+     `box-shadow: 6px 6px` of the ghost CTA looked sliced off. Drop
+     the wrap-level scroll and let the slide's existing overflow-y:
+     auto handle the spillover when total content exceeds the slot. */
   html.bw-slideshow main > section.bw-mast:has(> .bw-partners) > .wrap:not(.bw-mast__contacts),
   html.bw-slideshow main > section.bw-mast:has(> .bw-mast__contacts) > .wrap:not(.bw-mast__contacts) {
-    flex: 0 1 auto;
-    min-height: 0;
-    overflow-y: auto;
-    overscroll-behavior: contain;
+    flex: 0 0 auto;
   }
   html.bw-slideshow main > section.bw-mast > .bw-partners,
   html.bw-slideshow main > section.bw-mast > .bw-mast__contacts {
@@ -2427,18 +2433,11 @@ a { text-decoration: none; }
      specificity, source order decides).
 
      Strategy: keep the masthead text at its natural mobile size (no
-     forced shrinking — long German words need to read at full weight)
-     and let the wrap SCROLL inside the masthead if title + lede + CTAs
-     exceed the room left over by the marquee / channels. The pinned
-     bottom strip always stays visible; the user scrolls within the
-     wrap if necessary. */
+     forced shrinking — long German words need to read at full weight).
+     If title + lede + CTAs + strip exceed the slot, the slide's own
+     overflow-y: auto handles the spillover (slide-level scroll) so
+     button drop-shadows aren't clipped at a wrap boundary. */
   @media (max-width: 900px) {
-    html.bw-slideshow main > section.bw-mast > .wrap {
-      min-height: 0;             /* lets the wrap shrink under flex */
-      overflow-y: auto;          /* internal scroll when content overflows */
-      overscroll-behavior: contain;
-    }
-
     /* Contact masthead's pinned channels: stack vertically (the
        desktop 3-col grid is too narrow on phones), drop the long
        note text, tighten padding aggressively so the strip stays
