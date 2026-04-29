@@ -2140,7 +2140,14 @@ a { text-decoration: none; }
        previous slide remains visible in the unused vertical space
        below. The mast-with-partners override below opts out of
        max-height so the marquee can pin to a fixed bottom. */
-    max-height: calc(100vh - var(--slide-top) - var(--slide-bottom));
+    /* `dvh` (dynamic viewport) instead of `vh` so the slot shrinks when
+       the mobile URL bar is visible. The mobnav is positioned via
+       visualViewport (see initMobnavViewportSync in script.js) and sits
+       at the visible bottom; using `vh` here makes the slide extend down
+       to the LAYOUT bottom (past the visible area), so content pinned
+       to the slide's bottom (e.g. the partners marquee on the home
+       masthead) gets covered by the opaque mobnav. */
+    max-height: calc(100dvh - var(--slide-top) - var(--slide-bottom));
     overflow-x: hidden;
     overflow-y: auto;
     will-change: transform;
@@ -2297,7 +2304,12 @@ a { text-decoration: none; }
   html.bw-slideshow main > section.bw-mast:has(> .bw-partners),
   html.bw-slideshow main > section.bw-mast:has(> .bw-mast__contacts) {
     max-height: none;
-    height: calc(100vh - var(--slide-top) - var(--slide-bottom));
+    /* `dvh` (matches the slide-cap rule above) so the masthead's bottom
+       — where the partners marquee / contacts strip is pinned — sits
+       flush with the visible viewport bottom (where the mobnav top is),
+       not the larger layout bottom. With `vh`, an open URL bar pushes
+       the strip behind the opaque mobnav. */
+    height: calc(100dvh - var(--slide-top) - var(--slide-bottom));
     display: flex;
     flex-direction: column;
     justify-content: safe center;
