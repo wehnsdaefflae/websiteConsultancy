@@ -2443,16 +2443,22 @@ a { text-decoration: none; }
     padding-bottom: 0;
   }
   @media (max-width: 900px) {
-    /* Mobile: skip the centering. Vertical space is too tight to
-       afford 40+ px of slack above the chip — anchor the title group
-       to the top of the slot and pin the strip to the bottom with
-       `margin-top: auto`. Slack falls between them, which reads as
-       deliberate spacing rather than wasted padding above. */
+    /* Mobile: drop the desktop full-height + flex-column layout. On
+       phones the slot is taller than the natural content (title group
+       + strip sum to ~520 px vs a ~700 px slot), and the desktop
+       layout used `space-between` to fill the gap — which read as a
+       big empty band between the buttons and the partners marquee.
+       Let the masthead size to its content like the about/services/
+       portfolio mastheads do; strip stacks directly below the wrap.
+       Cream body bg shows below the slide, mobnav pins at the bottom
+       — same visual rhythm as the strip-less mastheads. */
     html.bw-slideshow main > section.bw-mast:has(> .bw-partners),
     html.bw-slideshow main > section.bw-mast:has(> .bw-mast__contacts) {
-      justify-content: flex-start;
-      gap: 10px;
-      padding-top: 8px;
+      height: auto;
+      display: block;
+      padding-top: 18px;
+      padding-bottom: 18px;
+      gap: 0;
     }
   }
   /* `:not(.bw-mast__contacts)` because the contacts strip is itself
@@ -2572,11 +2578,14 @@ a { text-decoration: none; }
   @media (max-width: 900px) {
     html.bw-slideshow main > section.bw-mast:has(> .bw-partners) > .wrap:not(.bw-mast__contacts),
     html.bw-slideshow main > section.bw-mast:has(> .bw-mast__contacts) > .wrap:not(.bw-mast__contacts) {
-      flex: 1 1 0;                 /* fills space left by the strip */
-      min-height: 0;               /* allow shrink under flex pressure */
-      overflow-y: auto;            /* internal scroll if content too tall */
-      overscroll-behavior: contain;
-      padding-bottom: 12px;        /* keep button drop-shadow inside scroll box */
+      /* With the masthead in block layout (see the section override
+         above), the wrap sizes to its natural content. Drop the
+         flex-fill + internal-scroll setup that paired with the
+         desktop full-height layout. */
+      flex: initial;
+      min-height: auto;
+      overflow-y: visible;
+      padding-bottom: 18px;        /* breathing room above the strip */
     }
 
     /* Contact masthead's pinned channels: stack vertically (the
