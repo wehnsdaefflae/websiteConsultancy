@@ -1076,6 +1076,68 @@
     function endTouch() { touchY = null; }
     window.addEventListener('touchend',   endTouch);
     window.addEventListener('touchcancel', endTouch);
+
+    // ---- Anchor links ----------------------------------------------
+    // In slideshow mode, target slides for "#form" / "#imprint" / etc.
+    // are translated off-screen, so the browser's native scroll-to-
+    // anchor goes nowhere. Intercept same-page anchor clicks and snap
+    // every slide up to the target into its on-state, every later one
+    // into its off-state — instant, no animation (a nav click should
+    // not animate through three intermediate slides).
+    function findSlideIndexFor(hash) {
+      if (!hash || hash === '#' || hash === '#main') return 0;
+      var target;
+      try { target = document.querySelector(hash); } catch (e) { return -1; }
+      if (!target) return -1;
+      for (var i = 0; i < slides.length; i++) {
+        if (slides[i] === target || slides[i].contains(target)) return i;
+      }
+      return -1;
+    }
+    function jumpTo(idx) {
+      if (idx < 0 || idx >= slides.length || idx === current) return;
+      trans = null;
+      slides.forEach(function (s, i) {
+        s.style.transition = 'transform 0s';
+        s.style.transform = '';
+        if (i <= idx) {
+          s.classList.remove('bw-slide--off');
+          s.classList.add('bw-slide--in');
+        } else {
+          s.classList.remove('bw-slide--in');
+          s.classList.add('bw-slide--off');
+        }
+        s.scrollTop = 0;
+      });
+      // Force reflow so the inline `transition: 0s` takes effect for
+      // the class swap, then restore the stylesheet transitions on the
+      // next tick so future wheel-driven moves animate normally.
+      void main.offsetHeight;
+      setTimeout(function () {
+        slides.forEach(function (s) { s.style.transition = ''; });
+      }, 0);
+      current = idx;
+      updateDarken();
+    }
+    document.addEventListener('click', function (e) {
+      if (!slideshowOn) return;          // night mode: native scroll
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a) return;
+      var href = a.getAttribute('href');
+      if (!href || href.length < 2) return;
+      var idx = findSlideIndexFor(href);
+      if (idx < 0) return;
+      e.preventDefault();
+      jumpTo(idx);
+      if (history.replaceState) history.replaceState(null, '', href);
+    });
+    // Boot-time: external links like "/contact.html#form" land with a
+    // hash already set; jump straight to that slide so the user sees
+    // the section they were promised, not the masthead.
+    if (location.hash) {
+      var bootIdx = findSlideIndexFor(location.hash);
+      if (bootIdx > 0) jumpTo(bootIdx);
+    }
   }
 
   // ------------------------------------------------------------
