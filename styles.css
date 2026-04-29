@@ -3226,6 +3226,21 @@ main { position: relative; }
 
 /* MAST stub, when on a yellow mast — actually stub is only on home. */
 
+/* CONTACT CHANNEL CARDS inside the accent masthead — bg is paper-2
+   (flips dark) and text inherits --ink. Inside the bright mint
+   accent island the bright-surface override pins --ink dark, so
+   the card collapses to dark-on-dark. Lock to cornsilk + dark text,
+   alternate middle card for visual rhythm, deepen the tomato label
+   so 11px caption text passes AA on cornsilk. */
+[data-theme="dark"] .bw-contact {
+  background: #FFF8E1;
+  color: #0A0A0A;
+}
+[data-theme="dark"] .bw-contact:nth-child(2) { background: #F2ECD4; }
+[data-theme="dark"] .bw-contact__value { color: #0A0A0A; }
+[data-theme="dark"] .bw-contact__note  { color: #3B3B3B; }
+[data-theme="dark"] .bw-contact__label { color: #B83018; }
+
 /* ==============================
    LITTLE UTILITIES
    ============================== */
