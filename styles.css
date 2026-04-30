@@ -369,20 +369,55 @@ a { text-decoration: none; }
   .bw-chapter__title,
   .bw-cta__title,
   .bw-cta__body,
-  .bw-pullquote blockquote {
+  .bw-pullquote blockquote,
+  /* Title-bearing children of every card/work/phase/step/window/time
+     stat — long German compound words (Desinformation, Kliniktauglich,
+     Universitätsklinikum, ausgeliefert) overflow a 343-px slide
+     without dictionary-based hyphenation. The `<html lang="de">` /
+     `lang="en">` declaration on each page picks the right dictionary;
+     here we just opt in.
+
+     `overflow-wrap: break-word` (NOT `anywhere`) — `anywhere` lets
+     Chrome split mid-word with NO visible hyphen, defeating the point
+     of hyphenation. `break-word` only kicks in as a true last resort,
+     so the browser prefers `hyphens: auto`'s dictionary breaks (with
+     the soft hyphen rendered as "‐") and only falls back to a
+     dashless split if no other option fits. JS in script.js
+     (`autoHyphenate`) injects soft hyphens at common German morpheme
+     boundaries on browsers without a built-in pattern set, so
+     hyphens:auto has something to chew on either way. */
+  .bw-work__title,
+  .bw-work__title em,
+  .bw-work__desc,
+  .bw-card__title,
+  .bw-card__body,
+  .bw-phase h3,
+  .bw-phase p,
+  .bw-step h3,
+  .bw-step p,
+  .bw-window h3,
+  .bw-time h3,
+  .bw-time p,
+  .bw-stat__label,
+  .bw-toc__title,
+  .bw-segment__body p {
     hyphens: auto;
     -webkit-hyphens: auto;
     overflow-wrap: break-word;
   }
 }
 
-/* Very narrow viewports (<420 px) — drop the masthead floor further
-   and allow more aggressive overflow-wrap so long unbreakable strings
-   still fit. */
+/* Very narrow viewports (<420 px) — drop the masthead floor further.
+   `overflow-wrap` was set to `anywhere` here, which let Chrome split
+   words mid-syllable with NO visible hyphen even when `hyphens: auto`
+   was available. Using `break-word` instead lets dictionary
+   hyphenation (real dash) win when the browser has German patterns;
+   only falls back to a dashless break when there's literally no
+   other option. */
 @media (max-width: 420px) {
   .bw-mast__title {
     font-size: clamp(30px, 8vw, 42px);
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
   }
   .bw-mast__title .brush,
   .bw-mast__title em,
@@ -581,6 +616,15 @@ a { text-decoration: none; }
 .bw-partners__track {
   display: flex; gap: 28px; flex-wrap: nowrap;
   align-items: center;
+  /* `width: max-content` is load-bearing for the loop. Without it the
+     track's layout width clamps to the parent (.bw-partners) width,
+     so `translateX(-50%)` only shifts by half-of-PARENT-width — the
+     marquee resets when only ~one card has moved off, and the visible
+     content snaps back to "Fraunhofer first" mid-cycle. With
+     `max-content`, the track sizes to its full content (set 1 + set 2
+     + 17 gaps), so `-50% - 14px` correctly lands set 2 exactly where
+     set 1 started — seamless loop. */
+  width: max-content;
   /* Was 48 s — felt sluggish, especially on mobile where the visible
      window is shorter so each logo crosses the screen slower in
      absolute pixel terms. ~22 s desktop / ~9 s mobile reads as a
@@ -2230,6 +2274,15 @@ a { text-decoration: none; }
   html.bw-slideshow {
     --slide-top: 67px;     /* .bw-header height (64 + 3 px border) */
     --slide-bottom: 0px;
+    /* Horizontal inset so slides read as cards floating on cream
+       paper instead of stretching flush to the viewport corners.
+       Mobile gets a wider gap (16 px) since cards sit on a narrow
+       canvas; desktop overrides below to 0 because the surrounding
+       page already breathes at large widths. */
+    --slide-inset-x: 16px;
+  }
+  @media (min-width: 901px) {
+    html.bw-slideshow { --slide-inset-x: 0px; }
   }
   @media (max-width: 900px) {
     html.bw-slideshow { --slide-bottom: 64px; }   /* .bw-mobnav */
@@ -2254,8 +2307,8 @@ a { text-decoration: none; }
        transforms below subtract this offset back so slides park
        fully off-screen regardless of how much they've been centered. */
     top: calc(var(--slide-top) + var(--slide-y, 0px));
-    left: 0;
-    width: 100vw;
+    left: var(--slide-inset-x, 0px);
+    width: calc(100vw - 2 * var(--slide-inset-x, 0px));
     /* Each slide is sized to its content. Tall sections cap at the
        viewport slot and scroll internally; short sections (CTAs, the
        pullquote, the imprint) end where their content ends, so the
@@ -2321,14 +2374,28 @@ a { text-decoration: none; }
      slide's width. The previous `-100%` only worked for slides that
      were exactly viewport-wide; narrow slides (CTA, pullquote) were
      centered with margin-auto, so `-100%` of own width still left a
-     visible chunk peeking on the opposite side. */
-  html.bw-slideshow main > section.bw-slide--off.bw-slide--left   { transform: translate3d(calc(-50% - 50vw), 0, 0) rotate(var(--slide-rot, 0deg)); }
-  html.bw-slideshow main > section.bw-slide--off.bw-slide--right  { transform: translate3d(calc( 50% + 50vw), 0, 0) rotate(var(--slide-rot, 0deg)); }
+     visible chunk peeking on the opposite side.
+
+     `--slide-off-buf` (30 px) absorbs two things that otherwise leak
+     a parked slide's edge into the viewport on the active side:
+       • per-slide rotation (`--slide-rot`, up to ±1.1°) tilts the
+         layout box around its center, so the rotated bounding box is
+         ~sin(rot)·height wider than the layout width — corners poke
+         in by ~3–14 px depending on slide height.
+       • the cardboard `box-shadow: 10px 12px 0 ink` extends another
+         10 px right (and 12 px down) of the slide's edge, peeking
+         into the viewport from off-left / off-top neighbours.
+     30 px is enough headroom for 1.1° rotation on a full-height
+     slide (~14 px overshoot) plus the 10 px shadow plus a few pixels
+     slack. JS `offCoords` mirrors the same buffer. */
+  html.bw-slideshow { --slide-off-buf: 30px; }
+  html.bw-slideshow main > section.bw-slide--off.bw-slide--left   { transform: translate3d(calc(-50% - 50vw - var(--slide-off-buf)), 0, 0) rotate(var(--slide-rot, 0deg)); }
+  html.bw-slideshow main > section.bw-slide--off.bw-slide--right  { transform: translate3d(calc( 50% + 50vw + var(--slide-off-buf)), 0, 0) rotate(var(--slide-rot, 0deg)); }
   /* Top / bottom subtract --slide-y so a centered slide still parks
      fully off-screen (its rest position is shifted DOWN by --slide-y;
      the off-translation pushes it that much further). */
-  html.bw-slideshow main > section.bw-slide--off.bw-slide--top    { transform: translate3d(0, calc(-100% - var(--slide-top) - var(--slide-y, 0px)), 0) rotate(var(--slide-rot, 0deg)); }
-  html.bw-slideshow main > section.bw-slide--off.bw-slide--bottom { transform: translate3d(0, calc(100vh - var(--slide-top) - var(--slide-y, 0px)), 0) rotate(var(--slide-rot, 0deg)); }
+  html.bw-slideshow main > section.bw-slide--off.bw-slide--top    { transform: translate3d(0, calc(-100% - var(--slide-top) - var(--slide-y, 0px) - var(--slide-off-buf)), 0) rotate(var(--slide-rot, 0deg)); }
+  html.bw-slideshow main > section.bw-slide--off.bw-slide--bottom { transform: translate3d(0, calc(100vh - var(--slide-top) - var(--slide-y, 0px) + var(--slide-off-buf)), 0) rotate(var(--slide-rot, 0deg)); }
 
   html.bw-slideshow main > section.bw-slide--in {
     transform: translate3d(0, 0, 0) rotate(var(--slide-rot, 0deg));
@@ -2459,6 +2526,24 @@ a { text-decoration: none; }
       padding-top: 18px;
       padding-bottom: 18px;
       gap: 0;
+      /* The trusted-bar / contacts strip below breaks out of the
+         slide's horizontal inset (negative margin + 100vw width) to
+         span the full viewport. The default slide rule clips that
+         horizontal overflow with `overflow-x: hidden`; switch the
+         slide-with-strip variant to `overflow: visible` so the
+         break-out bar actually shows. Vertical scroll isn't needed
+         here — the masthead is `height: auto` and sized to fit. */
+      overflow: visible;
+    }
+    /* Trusted bar / contact strip span the full viewport width, even
+       though their parent slide is inset 16 px each side. The negative
+       margin pulls the strip left of the slide; `100vw` width takes
+       it back to the viewport's right edge. */
+    html.bw-slideshow .bw-mast > .bw-partners,
+    html.bw-slideshow .bw-mast > .bw-mast__contacts {
+      width: 100vw;
+      margin-left: calc(-1 * var(--slide-inset-x, 0px));
+      margin-right: calc(-1 * var(--slide-inset-x, 0px));
     }
   }
   /* `:not(.bw-mast__contacts)` because the contacts strip is itself
@@ -2543,23 +2628,58 @@ a { text-decoration: none; }
     bottom: 12px; right: 4%;
   }
 
-  /* Portfolio's filter+works combined slide: pin the heading + filter
-     row to the top of the slot so they remain visible while the user
-     scrolls through the project entries. Without this they'd scroll
-     out of view and the slide would feel like two separate slides
-     (filter, then projects) even though it's one section.
+  /* Portfolio works slide: split scroll responsibility.
+     ----------------------------------------------------
+     The slide is laid out as a flex column with `.bw-works-head`
+     fixed at the top (chip + title + filter chips) and `.bw-works`
+     (the project list) as the actual scroll container. The slide
+     itself does not scroll.
 
-     The bottom border + extra negative top margin pulls the head
-     flush with the slide's top edge, so the filter chips read as
-     part of the slide's frame rather than floating in mid-air. */
+     Why not `position: sticky`? Sticky lets cards pass *behind*
+     the head — the filter then covers each card's top border as
+     it scrolls under, and any padding above the sticky element
+     (from the section or scroll container) becomes a stripe of
+     paper through which project content remains visible. With a
+     dedicated scroll container the head is structurally outside
+     the scroll, so cards literally cannot enter its space and
+     the filter never overlaps a card's frame. */
+  html.bw-slideshow main > section#works {
+    /* 3 px matches the slide's `outline: 3px solid; outline-offset:
+       -3px`, which draws the slide's frame INSIDE the box. Without
+       a top inset, the head's paper background paints over the
+       interior 3 px of the top outline (descendants paint after
+       the parent's outline per CSS UI 3 §3 paint order), hiding
+       the slide's top frame in the head's horizontal range. A
+       3 px slide-level padding-top pushes the head down past the
+       outline so the slide reads as a complete framed card. */
+    padding-top: 3px;
+    overflow: hidden;                 /* hand off scroll to .bw-works */
+    display: flex;
+    flex-direction: column;
+  }
+  html.bw-slideshow main > section#works > .wrap {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;                    /* lets the flex child shrink */
+  }
   html.bw-slideshow .bw-works-head {
-    position: sticky;
-    top: 0;
-    z-index: 3;
+    flex: 0 0 auto;
     background: var(--paper);
-    margin: -32px 0 12px;          /* cancels the slide's top padding */
+    margin: 0 0 12px;
     padding: 16px 0 12px;
     border-bottom: 3px solid var(--ink);
+    /* z-index so any rotated card chrome (year chip, video tile)
+       can't paint above the head when scrolling fast. */
+    z-index: 3;
+    position: relative;
+  }
+  html.bw-slideshow main > section#works > .wrap > .bw-works {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    min-height: 0;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
   html.bw-slideshow .bw-works-head .bw-filters { margin-bottom: 0; }
   html.bw-slideshow .bw-works-head .bw-chapter { border-bottom: 0; }
@@ -2617,20 +2737,97 @@ a { text-decoration: none; }
        slide (3-line title chip + 6 wrap-into-2-rows filter buttons).
        Compact title margin + smaller filter chips so the projects list
        starts within the first half of the slot. */
+    html.bw-slideshow .bw-works-head {
+      /* Smooth padding animation when the scroll-driven
+         `--compact` class lands. Excludes transform/box-shadow so
+         the slideshow's slide-level transitions remain unaffected. */
+      transition: padding .2s var(--ease-pop);
+      padding: 12px 0 8px;
+      margin-bottom: 0;
+    }
     html.bw-slideshow .bw-works-head .bw-chapter {
-      padding: 8px 0 8px;
-      margin-bottom: 12px;
+      padding: 0;
+      margin-bottom: 10px;
     }
     html.bw-slideshow .bw-works-head .bw-chapter__title {
       font-size: clamp(22px, 5.5vw, 32px);
+      max-height: 200px;
+      overflow: hidden;
+      transition: max-height .25s var(--ease-pop),
+                  margin .25s var(--ease-pop),
+                  opacity .2s linear;
     }
     html.bw-slideshow .bw-works-head .bw-filter {
       font-size: 11px;
       padding: 6px 10px;
       letter-spacing: .04em;
+      transition: padding .2s var(--ease-pop), font-size .2s var(--ease-pop);
     }
-    html.bw-slideshow .bw-works-head .bw-filters { gap: 6px; }
+    html.bw-slideshow .bw-works-head .bw-filters { gap: 6px; transition: gap .2s var(--ease-pop); }
+
+    /* Compact state: as soon as the user scrolls past ~30 px in the
+       project list (initWorksHeadCompact in script.js stamps the
+       class), only the chapter TITLE (`Filtern nach Domäne oder
+       Leistung.`) collapses; the `§ 01 — Projekte` chip and the
+       filter chips stay visible so the user always knows where they
+       are and can re-filter without scrolling back to the top. */
+    html.bw-slideshow .bw-works-head--compact .bw-chapter__title {
+      max-height: 0;
+      margin: 0;
+      opacity: 0;
+    }
+    html.bw-slideshow .bw-works-head--compact .bw-chapter {
+      margin-bottom: 8px;
+    }
+    html.bw-slideshow .bw-works-head--compact .bw-filter {
+      font-size: 10px;
+      padding: 4px 9px;
+    }
+    html.bw-slideshow .bw-works-head--compact .bw-filters { gap: 5px; }
+
+    /* Reduce the work card's top/bottom padding on mobile too — the
+       40-px desktop padding is overkill when the slot is already
+       compressed by the filter strip above. 18 px keeps the
+       year-chip / title visually breathing without squandering rows. */
+    html.bw-slideshow .bw-work { padding: 18px 20px; }
   }
+}
+
+/* ==============================
+   CROSS-PAGE HORIZONTAL TRANSITIONS
+   --------------------------------------------
+   View Transitions API (Chrome 126+, Safari 18+) animates the whole
+   document horizontally when navigating between subpages — same
+   "card sliding in" rhythm the in-page slideshow uses, so a click on
+   "Profil" reads as the same gesture as scrolling to the next slide.
+
+   Direction is set by `data-nav-dir` on `<html>` (see initPageTransitions
+   in script.js): 'fwd' for nav-bar order forward (Start → Profil →
+   Leistungen → Projekte → Kontakt), 'bwd' for the reverse. Without
+   the attribute (back/forward navigation, refresh, lang switch), the
+   browser's default cross-fade applies.
+
+   `@view-transition` outside the reduced-motion media so reduced-motion
+   users still get the default cross-fade — only the directional slide
+   keyframes are gated on motion preference.
+   ============================== */
+@view-transition { navigation: auto; }
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: .42s;
+    animation-timing-function: cubic-bezier(.6, 0, .2, 1);
+  }
+  html[data-nav-dir="fwd"]::view-transition-old(root) { animation-name: bw-page-leave-left; }
+  html[data-nav-dir="fwd"]::view-transition-new(root) { animation-name: bw-page-enter-right; }
+  html[data-nav-dir="bwd"]::view-transition-old(root) { animation-name: bw-page-leave-right; }
+  html[data-nav-dir="bwd"]::view-transition-new(root) { animation-name: bw-page-enter-left; }
+
+  @keyframes bw-page-leave-left  { from { transform: translateX(0);     } to { transform: translateX(-100%); } }
+  @keyframes bw-page-enter-right { from { transform: translateX( 100%); } to { transform: translateX(0);     } }
+  @keyframes bw-page-leave-right { from { transform: translateX(0);     } to { transform: translateX( 100%); } }
+  @keyframes bw-page-enter-left  { from { transform: translateX(-100%); } to { transform: translateX(0);     } }
 }
 
 /* ==============================

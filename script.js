@@ -20,6 +20,55 @@
   var root = document.documentElement;
 
   // ------------------------------------------------------------
+  //  Cross-page horizontal slide transitions
+  //  --------------------------------------------------------
+  //  Listens for the View Transitions API's `pageswap` (firing on
+  //  the OLD doc just before unload) and `pagereveal` (firing on
+  //  the NEW doc just before its first paint), reads source +
+  //  destination URLs from `event.activation`, and stamps
+  //  `data-nav-dir="fwd"|"bwd"` on `<html>` so the matching CSS
+  //  keyframes pick up.
+  //
+  //  Registered immediately (not deferred to DOMContentLoaded)
+  //  because pagereveal fires at the new doc's first rendering
+  //  opportunity — i.e., as soon as parsing finishes — and the
+  //  listener must already exist.
+  //
+  //  Browsers without View Transitions (Firefox today) fall back
+  //  to plain navigation; @view-transition is a no-op there.
+  // ------------------------------------------------------------
+  (function initPageTransitions() {
+    var RANK = { index: 0, about: 1, services: 2, portfolio: 3, contact: 4 };
+    function pageRank(href) {
+      try {
+        var u = new URL(href, location.href);
+        var path = u.pathname.replace(/^\/+/, '').replace(/\.html?$/, '').replace(/\/$/, '');
+        if (path.indexOf('en/') === 0) path = path.slice(3);
+        if (path === '') path = 'index';
+        return path in RANK ? RANK[path] : null;
+      } catch (e) { return null; }
+    }
+    function setDir(from, to) {
+      if (from === null || to === null || from === to) {
+        root.removeAttribute('data-nav-dir');
+        return;
+      }
+      root.setAttribute('data-nav-dir', to > from ? 'fwd' : 'bwd');
+    }
+    window.addEventListener('pageswap', function (e) {
+      if (!e.viewTransition || !e.activation) return;
+      var fromUrl = e.activation.from && e.activation.from.url;
+      var toUrl   = e.activation.entry && e.activation.entry.url;
+      setDir(pageRank(fromUrl || location.href), pageRank(toUrl));
+    });
+    window.addEventListener('pagereveal', function (e) {
+      if (!e.viewTransition || !e.activation) return;
+      var fromUrl = e.activation.from && e.activation.from.url;
+      setDir(pageRank(fromUrl), pageRank(location.href));
+    });
+  })();
+
+  // ------------------------------------------------------------
   //  Theme (unchanged behaviour)
   // ------------------------------------------------------------
   function applyTheme(t) {
@@ -152,7 +201,13 @@
       '.bw-work',
       '.bw-window',
       '.bw-toc__item',
-      '.bw-partner',
+      // `.bw-partner` was here, but the only place partners live is
+      // inside `.bw-partners__track` — the always-running marquee. The
+      // generic `.bw-observable { opacity: 0 }` rule made every card
+      // fade in once on first viewport entry, which on the home page
+      // overlapped with the marquee's first sweep and read as a
+      // separate animation on top of the scroll. Skip the auto-mark;
+      // partners are visible from t=0 and just translate.
       '.bw-segment__fill',
       '.bw-bigtext'
     ];
@@ -945,11 +1000,16 @@
        // peeking on the opposite side of the viewport).
       var sy = parseFloat(slide.style.getPropertyValue('--slide-y')) || 0;
       var hx = slide.offsetWidth / 2 + window.innerWidth / 2;
+      // Mirrors the CSS `--slide-off-buf` — extra 30 px past pure
+      // off-screen to absorb rotation overshoot + 10-px box-shadow.
+      // Without it, a parked slide's tilted corner + shadow leaks
+      // into the active slide's viewport edge.
+      var buf = 30;
       switch (dirOf(slide)) {
-        case 'left':   return { x: -hx, y: 0 };
-        case 'right':  return { x:  hx, y: 0 };
-        case 'top':    return { x: 0, y: -(slide.offsetHeight + slideTopPx + sy) };
-        case 'bottom': return { x: 0, y: window.innerHeight - slideTopPx - sy };
+        case 'left':   return { x: -hx - buf, y: 0 };
+        case 'right':  return { x:  hx + buf, y: 0 };
+        case 'top':    return { x: 0, y: -(slide.offsetHeight + slideTopPx + sy + buf) };
+        case 'bottom': return { x: 0, y: window.innerHeight - slideTopPx - sy + buf };
         default:       return { x: 0, y: 0 };
       }
     }
@@ -1028,13 +1088,25 @@
       var oy = getComputedStyle(s).overflowY;
       return oy === 'auto' || oy === 'scroll';
     }
+    // Some slides delegate their scroll to a child (the works slide
+    // hands scroll off to `.bw-works` so the head stays outside the
+    // scroll surface). Returns the actual scroll target — the slide
+    // itself when it scrolls, otherwise the first scrollable
+    // descendant whose content actually overflows.
+    function scrollerOf(s) {
+      if (isScrollable(s)) return s;
+      // Known delegate: portfolio works slide.
+      var w = s.querySelector('.bw-works');
+      if (w && isScrollable(w)) return w;
+      return s;
+    }
     function atTop() {
-      var s = slides[current];
-      return !isScrollable(s) || s.scrollTop <= 0;
+      var t = scrollerOf(slides[current]);
+      return !isScrollable(t) || t.scrollTop <= 0;
     }
     function atBottom() {
-      var s = slides[current];
-      return !isScrollable(s) || s.scrollTop + s.clientHeight >= s.scrollHeight - 1;
+      var t = scrollerOf(slides[current]);
+      return !isScrollable(t) || t.scrollTop + t.clientHeight >= t.scrollHeight - 1;
     }
 
     // Drive a transition (or start one) from a positive `delta`. `delta`
@@ -1044,14 +1116,17 @@
       var perFull = window.innerHeight * SCROLL_FOR_FULL;
       if (!trans) {
         // No active transition. If at a boundary, start one; otherwise
-        // delegate to native scroll inside the active slide.
+        // delegate to native scroll inside the active slide (or its
+        // inner scroll delegate, e.g. `.bw-works` on the portfolio
+        // slide).
         var slide = slides[current];
+        var scroller = scrollerOf(slide);
         if (delta > 0 && atBottom() && current < slides.length - 1) {
           startTrans('forward', current, current + 1);
         } else if (delta < 0 && atTop() && current > 0) {
           startTrans('backward', current, current - 1);
         } else {
-          slide.scrollTop += delta;
+          scroller.scrollTop += delta;
           return false;
         }
       }
@@ -1223,6 +1298,239 @@
     initContactForm();
     initMobnavViewportSync();
     initVideoPlay();
+    initAutoHyphenate();
+    initWorksHeadCompact();
+  }
+
+  // ------------------------------------------------------------
+  //  Portfolio works-head scroll compaction
+  //  --------------------------------------------------------
+  //  The mobile works slide pins a tall sticky header (chapter
+  //  title + filter chips) at the slot's top. At ~245 px tall it
+  //  ate close to half the visible slot — the user wanted it to
+  //  shrink as soon as they started scrolling project cards.
+  //
+  //  Listens on the works slide's internal scroll (slideshow-mode
+  //  slides scroll their own overflow:auto, not the document) and
+  //  toggles `.bw-works-head--compact`, which the CSS uses to
+  //  collapse the chapter title to zero height and tighten the
+  //  filter chips. Threshold is 28 px — enough to feel like an
+  //  intentional scroll, not jittery on a fingertip touch.
+  //
+  //  Body-scroll case (dark mode = no slideshow) gets the same
+  //  treatment via `window` scroll instead.
+  // ------------------------------------------------------------
+  function initWorksHeadCompact() {
+    var head = document.querySelector('.bw-works-head');
+    if (!head) return;
+    // The project list (`.bw-works`) is the actual scroll
+    // container in slideshow mode (the slide flex-column hands
+    // scroll off to it so the head stays structurally outside).
+    // In native-flow mode (dark / no-slideshow) the page scrolls
+    // normally and we listen on `window` instead.
+    var works = head.parentElement && head.parentElement.querySelector('.bw-works');
+    var slide = head.closest('section');
+    var THRESH = 28;
+    function onScroll() {
+      var y;
+      if (works && works.scrollTop > 0)         y = works.scrollTop;
+      else if (slide && slide.scrollTop > 0)    y = slide.scrollTop;
+      else                                       y = window.scrollY;
+      head.classList.toggle('bw-works-head--compact', y > THRESH);
+    }
+    if (works) works.addEventListener('scroll', onScroll, { passive: true });
+    if (slide) slide.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  // ------------------------------------------------------------
+  //  Auto-hyphenation
+  //  --------------------------------------------------------
+  //  CSS `hyphens: auto` only works when the BROWSER ships the
+  //  language's hyphenation patterns — true for retail Chrome /
+  //  Edge / Safari on macOS / Windows / Android, but NOT for
+  //  Linux Chromium (and Electron-based shells), and patchy on
+  //  Firefox. Without patterns, long German compound words like
+  //  `Desinformation` / `Universitätsklinikum` / `ausgeliefert`
+  //  overflow narrow mobile columns or — under
+  //  `overflow-wrap: anywhere` — split mid-syllable WITH NO
+  //  visible hyphen, which reads as a typo.
+  //
+  //  This walker injects Unicode soft hyphens (U+00AD) at
+  //  morpheme boundaries detected by a compact heuristic:
+  //  recognised German prefixes / linking elements / suffixes /
+  //  CamelCase joins. The browser then renders a real "‐" at the
+  //  break point regardless of whether it has its own dictionary.
+  //
+  //  Walks a fixed list of typography-heavy elements (titles,
+  //  ledes, body copy) so navigation chrome / monospace tags
+  //  aren't touched. Re-entrant via a WeakSet so re-runs (theme
+  //  flip, slideshow init) don't double-hyphenate.
+  // ------------------------------------------------------------
+  // German prefix list — match at word start, longest first so
+  // `entscheidungs` wins over `ent`. Each entry carries a min
+  // remaining-tail length so `Entwurf` (entw·urf) doesn't get
+  // hacked apart by the `ent` rule. The length picker biases
+  // toward leaving 3+ chars on each side of the break, which is
+  // also the German typesetting convention (Mindestabstand).
+  var DE_PREFIXES = [
+    'unterstützung','entscheidungs','wissenschaft','gesellschaft',
+    'forschungs','entwicklungs','desinformation','universitäts',
+    'unternehmens','organisations','informations',
+    'klinikum','plattform','arbeit','erkennung','sicherheit','bildung',
+    'beratung','fassung','schaft','klinik','doktor','software','hardware',
+    'projekt','system','institut','fortschritts','gesund',
+    'durch','gegen','haupt','inter','trans','zwischen','zusammen',
+    'hoch','tief','neben','unter','über','unter','gegen',
+    'desin','prototyp','mittel','ober','unter','vorder','hinter',
+    'aus','ein','vor','nach','mit','zur','beim','vom','zum',
+    'auf','ab','an','bei','um','zu','ge','ver','ent','er','be',
+    'inter','para','meta','mono','poly','multi','selbst'
+  ];
+  // Suffixes — match at word end, longest first.
+  var DE_SUFFIXES = [
+    'unterstützung','entwicklung','plattform','klinikum','akkreditiert',
+    'erkennung','fassung','arbeit','schaft','heitlich','keitlich',
+    'tauglich','würdig','verträglich','fähig','wertig','bezogen',
+    'mation','sation','tation','dation','ration','sation',
+    'tion','sion','ität','ismus','enz','anz','ung','heit','keit',
+    'tum','schaft','haft','isch','lich','bar','sam','los','voll',
+    'erzeugt','generiert','basiert','orientiert','spezifisch'
+  ];
+  // Linking elements that often live between compound parts; we
+  // break BEFORE them when they're followed by another long
+  // morpheme. (German Fugenelement: -s-, -n-, -es-.)
+  // Currently handled implicitly via prefix/suffix entries
+  // (`forschungs`, `entscheidungs`); leaving as comment for the
+  // future morpheme-detection pass.
+  var SHY = '\u00AD';
+  var hyphenated = new WeakSet();
+
+  // Insert SHY after a recognised prefix at the start of `w`.
+  // Returns the modified word, or `w` unchanged if no prefix
+  // matches with enough tail left over.
+  function applyPrefix(w) {
+    var lower = w.toLowerCase();
+    for (var i = 0; i < DE_PREFIXES.length; i++) {
+      var p = DE_PREFIXES[i];
+      if (lower.length >= p.length + 3 && lower.indexOf(p) === 0) {
+        return w.slice(0, p.length) + SHY + w.slice(p.length);
+      }
+    }
+    return w;
+  }
+  // Insert SHY before a recognised suffix at the end of `w`.
+  function applySuffix(w) {
+    var lower = w.toLowerCase();
+    for (var i = 0; i < DE_SUFFIXES.length; i++) {
+      var s = DE_SUFFIXES[i];
+      if (lower.length >= s.length + 3 && lower.lastIndexOf(s) === lower.length - s.length) {
+        var at = w.length - s.length;
+        // Skip if the previous char is already a SHY (prefix
+        // rule placed one and the suffix would land adjacent).
+        if (w.charAt(at - 1) === SHY) return w;
+        return w.slice(0, at) + SHY + w.slice(at);
+      }
+    }
+    return w;
+  }
+  // CamelCase splits: lowercase or digit followed by an uppercase
+  // letter is a likely compound boundary (DoppelCheck, RegEx).
+  function applyCamel(w) {
+    return w.replace(/([a-zäöüß0-9])([A-ZÄÖÜ])/g, '$1' + SHY + '$2');
+  }
+  function hyphenateWord(w) {
+    if (w.length < 8) return w;            // short words don't need help
+    if (w.indexOf('-') !== -1) return w;   // already has a real dash
+    if (w.indexOf(SHY) !== -1) return w;   // already has a soft hyphen
+    var out = applyCamel(w);
+    out = applyPrefix(out);
+    out = applySuffix(out);
+    return out;
+  }
+
+  function initAutoHyphenate() {
+    // Only run on German-language pages — heuristic is tuned for
+    // German morphology and would mangle English compound words
+    // (e.g. `something` → `some·thing` is fine, but `nothing` →
+    // `no·thing` is wrong, and the `ung` suffix rule would split
+    // `going` as `go·ing`).
+    var lang = (document.documentElement.lang || '').slice(0, 2).toLowerCase();
+    if (lang !== 'de') return;
+    // Element types where overflow on narrow viewports has been
+    // observed. Excludes nav links, monospace meta lines, button
+    // labels, and code — places where the layout already accounts
+    // for word length or where a soft hyphen would read as noise.
+    var sels = [
+      '.bw-mast__title','.bw-mast__lede',
+      '.bw-work__title','.bw-work__desc',
+      '.bw-card__title','.bw-card__body',
+      '.bw-chapter__title',
+      '.bw-cta__title','.bw-cta__body',
+      '.bw-phase h3','.bw-phase p',
+      '.bw-step h3','.bw-step p',
+      '.bw-window h3',
+      '.bw-time h3','.bw-time p',
+      '.bw-toc__title',
+      '.bw-pullquote blockquote',
+      '.bw-segment__body p',
+      '.bw-stat__label',
+      '.bw-contact__value','.bw-contact__note'
+    ];
+    // Canvas-based width measurement: pixel-accurate, ~µs per call,
+    // no reflow. Cache by `font|word` so a word that appears N times
+    // in the same context is measured once.
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    var widthCache = new Map();
+    function measure(word, font) {
+      var key = font + '|' + word;
+      if (widthCache.has(key)) return widthCache.get(key);
+      ctx.font = font;
+      var w = ctx.measureText(word).width;
+      widthCache.set(key, w);
+      return w;
+    }
+    function fontOf(el) {
+      var s = getComputedStyle(el);
+      return s.fontStyle + ' ' + s.fontWeight + ' ' + s.fontSize + ' ' + s.fontFamily;
+    }
+    function contentWidth(el) {
+      var s = getComputedStyle(el);
+      return el.clientWidth
+        - (parseFloat(s.paddingLeft) || 0)
+        - (parseFloat(s.paddingRight) || 0);
+    }
+
+    var roots = document.querySelectorAll(sels.join(','));
+    roots.forEach(function (root) {
+      if (hyphenated.has(root)) return;
+      hyphenated.add(root);
+      // Skip not-laid-out / hidden elements — measuring against a
+      // 0-width box would mark every word as too long.
+      var availW = contentWidth(root);
+      if (!availW || availW < 40) return;
+      var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+      var node;
+      while ((node = walker.nextNode())) {
+        var p = node.parentNode;
+        if (p && /^(CODE|KBD|PRE|SAMP|VAR)$/.test(p.nodeName)) continue;
+        var font = fontOf(p);
+        var src = node.nodeValue;
+        // For each word ≥ 8 chars, measure it in its parent's font.
+        // Only hyphenate if the word's own rendered width exceeds
+        // the root's content width — i.e., the word is too long to
+        // fit on a line by itself, regardless of what's around it.
+        // Shorter / narrower words wrap fine at space boundaries
+        // and don't need a soft-hyphen detour.
+        var out = src.replace(/[\p{L}\u00DF]{8,}/gu, function (w) {
+          if (measure(w, font) <= availW) return w;
+          return hyphenateWord(w);
+        });
+        if (out !== src) node.nodeValue = out;
+      }
+    });
   }
 
   if (document.readyState === 'loading') {
