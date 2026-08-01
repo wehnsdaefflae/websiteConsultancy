@@ -2253,8 +2253,8 @@ a { text-decoration: none; }
      One-shot keyframes, deliberately NOT transitions — the hover
      transition system stays untouched, and dark mode's blanket
      animation-kill plus this media gate disable them automatically. */
-  @keyframes bwEnterLeft  { from { opacity: 0; transform: translateX(-72px) rotate(-1.5deg); } }
-  @keyframes bwEnterRight { from { opacity: 0; transform: translateX(72px) rotate(1.5deg); } }
+  @keyframes bwEnterLeft  { from { opacity: 0; transform: translateX(calc(-1 * var(--enter-x, 72px))) rotate(-1.5deg); } }
+  @keyframes bwEnterRight { from { opacity: 0; transform: translateX(var(--enter-x, 72px)) rotate(1.5deg); } }
   @keyframes bwEnterRise  { from { opacity: 0; transform: translateY(48px) scale(.96); } }
   .bw-work.bw-observable.is-in:nth-child(odd) {
     animation: bwEnterLeft .6s var(--ease-pop) backwards;
@@ -2265,6 +2265,11 @@ a { text-decoration: none; }
   .bw-stat.bw-observable.is-in,
   .bw-profile__image.bw-observable.is-in {
     animation: bwEnterRise .55s var(--ease-pop) backwards;
+  }
+  /* Narrow viewports: shorter slide distance so a mid-animation card
+     never pokes past the 375px viewport edge. */
+  @media (max-width: 900px) {
+    :root { --enter-x: 28px; }
   }
 }
 

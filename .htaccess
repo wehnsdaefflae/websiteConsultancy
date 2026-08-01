@@ -35,6 +35,28 @@ DirectoryIndex index.html index.php
   ExpiresByType font/woff2                   "access plus 6 months"
 </IfModule>
 
+# mod_expires is NOT active on the production Plesk stack — the block
+# above silently no-ops (verified: no Expires/Cache-Control on any
+# response), which left browsers heuristically caching even the HTML
+# for hours. mod_headers IS active, so it carries the caching policy:
+# HTML always revalidates (ETag -> cheap 304s, push-to-deploy stays
+# instant); css/js a week (the ?v= query busts them on release);
+# fonts and images long + immutable.
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+  <FilesMatch "\.(webp|png|jpe?g|svg)$">
+    Header set Cache-Control "public, max-age=2592000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.woff2$">
+    Header set Cache-Control "public, max-age=15552000, immutable"
+  </FilesMatch>
+</IfModule>
+
 # -----------------------------------------------------------
 #  COMPRESSION
 # -----------------------------------------------------------
