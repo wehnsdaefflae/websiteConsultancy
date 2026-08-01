@@ -663,7 +663,10 @@
           showOk();
           form.reset();
         } else {
-          showErr((r.body && r.body.error) || null);
+          // Keep the page's localized error message (it carries the
+          // mailto fallback link) — the server's English error string
+          // would replace both.
+          showErr(null);
         }
       })
       .catch(function (err) {
@@ -678,17 +681,24 @@
         var org   = get('org');
         var topic = get('topic');
         var msg   = get('msg');
+        var en = (document.documentElement.lang || 'de').slice(0, 2) === 'en';
         var ndaEl = form.querySelector('#nda');
-        var ndaLn = ndaEl && ndaEl.checked ? 'NDA: ja — bitte vor dem Gespräch senden.' : '';
-        var body = [
-          'Name: ' + name, 'E-Mail: ' + email, 'Organisation: ' + org,
-          'Thema: ' + topic, '', 'Nachricht:', msg, '', ndaLn
-        ].filter(Boolean).join('\n');
-        var subject = 'Anfrage über markwernsdorfer.com — ' + (topic || 'Allgemein');
+        var ndaLn = ndaEl && ndaEl.checked
+          ? (en ? 'NDA: yes — please send before the call.' : 'NDA: ja — bitte vor dem Gespräch senden.')
+          : '';
+        var body = en
+          ? ['Name: ' + name, 'Email: ' + email, 'Organisation: ' + org,
+             'Topic: ' + topic, '', 'Message:', msg, '', ndaLn].filter(Boolean).join('\n')
+          : ['Name: ' + name, 'E-Mail: ' + email, 'Organisation: ' + org,
+             'Thema: ' + topic, '', 'Nachricht:', msg, '', ndaLn].filter(Boolean).join('\n');
+        var subject = (en ? 'Enquiry via markwernsdorfer.com — ' : 'Anfrage über markwernsdorfer.com — ')
+          + (topic || (en ? 'General' : 'Allgemein'));
         window.location.href =
           'mailto:wernsdorfer@gmail.com?subject=' + encodeURIComponent(subject) +
           '&body=' + encodeURIComponent(body);
-        showErr('Senden fehlgeschlagen — Dein E-Mail-Programm öffnet sich als Fallback.');
+        showErr(en
+          ? 'Sending failed — your email client opens as a fallback.'
+          : 'Senden fehlgeschlagen — Dein E-Mail-Programm öffnet sich als Fallback.');
       })
       .then(function () {
         if (submitBtn) { submitBtn.disabled = false; submitBtn.style.opacity = ''; }

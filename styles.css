@@ -698,6 +698,17 @@ a { text-decoration: none; }
   color: var(--fg1);
 }
 
+/* Imprint cells inside bright islands read --paper-2/-3 for their
+   backgrounds; keep those bright locally so the island's pinned dark
+   text stays readable in night mode. Deliberately scoped to the
+   imprint — pinning paper island-wide would flip other descendants
+   that rely on the dark-mode values (e.g. .bw-btn text on tomato). */
+.bw-sec--lilac .bw-imprint,
+.bw-sec--mint .bw-imprint {
+  --paper-2: #FFFFFF;
+  --paper-3: #F2ECD4;
+}
+
 /* ==============================
    CUTOUT CARDS (services / refs / misc)
    ============================== */
@@ -3517,6 +3528,26 @@ main { position: relative; }
 /* CHAPTER NUM chip --yellow variant — text uses --ink which flips
    white. Lock to dark ink. */
 [data-theme="dark"] .bw-chapter__num--yellow {
+  color: #0A0A0A;
+}
+
+/* IMPRINT dt labels inside bright-island sections — dark-mode coral
+   (#FF7A66) on the cornsilk dt cell misses AA; reuse the deeper
+   tomato the step numbers use for the same surface. */
+[data-theme="dark"] .bw-sec--lilac .bw-imprint dt { color: #B83018; }
+
+/* VHS VIDEO TILES — tape chip, play triangle and close glyph use
+   --ink, which flips white in dark mode (white on yellow/lilac is
+   unreadable). Lock the glyphs to dark ink; the chip/button surfaces
+   keep their saturated dark-mode tints. */
+[data-theme="dark"] .bw-work__video-tape {
+  color: #0A0A0A;
+  border-color: #0A0A0A;
+}
+[data-theme="dark"] .bw-work__video-play-tri {
+  border-left-color: #0A0A0A;
+}
+[data-theme="dark"] .bw-work__video-close {
   color: #0A0A0A;
 }
 
