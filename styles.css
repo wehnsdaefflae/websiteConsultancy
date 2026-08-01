@@ -1524,7 +1524,7 @@ a { text-decoration: none; }
 }
 .bw-phase:nth-child(4n+1) { background: var(--sky); }
 .bw-phase:nth-child(4n+2) { background: var(--yellow); }
-.bw-phase:nth-child(4n+3) { background: var(--hot-pink); }
+.bw-phase:nth-child(4n+3) { background: var(--lilac); }
 .bw-phase:nth-child(4n+4) { background: var(--mint); }
 .bw-phase__num {
   font-family: var(--font-mono); font-size: 11px;
