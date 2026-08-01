@@ -738,10 +738,10 @@
 
   // ------------------------------------------------------------
   //  Portfolio video tiles — click-to-play YouTube embeds.
-  //  At rest each .bw-work__video shows a static thumbnail (no
-  //  iframe = no YT cookie until the user opts in, faster LCP).
-  //  On play-button click the <img> is swapped for a youtube-
-  //  nocookie iframe with autoplay. The play handler also
+  //  At rest each .bw-work__video shows a locally hosted poster
+  //  (images/yt-<id>.jpg) — zero requests to YouTube until the
+  //  user opts in. On play-button click a youtube-nocookie
+  //  iframe with autoplay is appended. The play handler also
   //  preventDefaults the parent <a class="bw-work"> so clicking
   //  the play button doesn't follow the project's external link.
   // ------------------------------------------------------------
@@ -749,21 +749,8 @@
     document.querySelectorAll('.bw-work__video').forEach(function (card) {
       var play  = card.querySelector('.bw-work__video-play');
       var close = card.querySelector('.bw-work__video-close');
-      var img   = card.querySelector('img');
       var id    = card.dataset.video;
       if (!play || !id) return;
-
-      // Try to upgrade the thumbnail to maxresdefault.jpg (1280×720).
-      // YouTube returns a 120×90 placeholder when the video has no
-      // maxres render — detect via naturalWidth and only swap the
-      // src if the high-res actually loaded.
-      if (img) {
-        var hi = new Image();
-        hi.onload = function () {
-          if (hi.naturalWidth > 320) img.src = hi.src;
-        };
-        hi.src = 'https://i.ytimg.com/vi/' + id + '/maxresdefault.jpg';
-      }
 
       function start(e) {
         e.preventDefault();
