@@ -607,7 +607,7 @@ a { text-decoration: none; }
   padding-bottom: 18px; border-bottom: 2px dashed rgba(255,248,225,.2);
   margin-bottom: 24px;
 }
-.bw-partners__head h3 {
+.bw-partners__head h2 {
   color: var(--yellow);
   font-family: var(--font-head); font-weight: 700;
   font-size: 18px;
@@ -1728,7 +1728,7 @@ a { text-decoration: none; }
   transform: rotate(-8deg);
 }
 .bw-footer p { font-size: 14px; line-height: 1.6; color: #cfc7a8; max-width: 40ch; }
-.bw-footer h4 {
+.bw-footer h3 {
   font-family: var(--font-head); font-weight: 700;
   font-size: 12px; text-transform: uppercase; letter-spacing: .14em;
   color: var(--mint);
@@ -2455,7 +2455,7 @@ a { text-decoration: none; }
       flex-shrink: 0;
     }
     html.bw-slideshow .bw-partners__head        { padding-bottom: 3px; margin-bottom: 4px; }
-    html.bw-slideshow .bw-partners__head h3     { font-size: 12px; }
+    html.bw-slideshow .bw-partners__head h2     { font-size: 12px; }
     html.bw-slideshow .bw-partners__head span   { display: none; }    /* the "// 09 ..." meta line */
     html.bw-slideshow .bw-partner               { height: auto; min-height: 0; min-width: 110px; padding: 4px 10px; gap: 2px; }
     html.bw-slideshow .bw-partner img           { width: 80px; height: 22px; max-height: 22px; max-width: 80px; }
@@ -2867,13 +2867,13 @@ a { text-decoration: none; }
   transform: rotate(-4deg) scale(1.12);
   text-shadow: 3px 3px 0 var(--ink);
 }
-.bw-step h4 {
+.bw-step h3 {
   margin: 0 0 8px; font-size: 20px;
   font-family: var(--font-head); font-weight: 700;
   transition: transform .22s var(--ease-pop);
 }
 .bw-step p { margin: 0; font-size: 15px; line-height: 1.55; }
-.bw-step:hover h4 { transform: translateX(4px); }
+.bw-step:hover h3 { transform: translateX(4px); }
 
 /* ==============================
    PARALLAX ACCENTS (home hero band, cta decorations)
@@ -3318,7 +3318,7 @@ main { position: relative; }
   border-top-color: #FFF8E1;
   border-bottom-color: #FFF8E1;
 }
-[data-theme="dark"] .bw-partners__head h3 { color: #FFEF00; }
+[data-theme="dark"] .bw-partners__head h2 { color: #FFEF00; }
 [data-theme="dark"] .bw-partners__head {
   border-bottom-color: rgba(255, 248, 225, .25);
 }
@@ -3376,7 +3376,7 @@ main { position: relative; }
   border-top-color: #FFF8E1;
 }
 [data-theme="dark"] .bw-footer p { color: #cfc7a8; }
-[data-theme="dark"] .bw-footer h4 { color: #34E5B3; }
+[data-theme="dark"] .bw-footer h3 { color: #34E5B3; }
 [data-theme="dark"] .bw-footer__brand { color: #FFEF00; }
 [data-theme="dark"] .bw-footer ul a { color: #FFF8E1; }
 [data-theme="dark"] .bw-footer ul a:hover { color: #FF7A66; }
@@ -3568,7 +3568,7 @@ main { position: relative; }
   color: #FFF8E1;
 }
 
-/* bw-step h4 inside mint sec — bright-surface override pins --fg1
+/* bw-step h3 inside mint sec — bright-surface override pins --fg1
    dark which combines with the card's own dark paper-2 bg to produce
    dark-on-dark. Lock step cards to a light cornsilk bg in dark mode
    so they stand out from the mint section AND their dark text reads. */
@@ -3577,7 +3577,7 @@ main { position: relative; }
   color: #0A0A0A;
 }
 [data-theme="dark"] .bw-step:nth-child(3n+2) { background: #F2ECD4; }
-[data-theme="dark"] .bw-step h4,
+[data-theme="dark"] .bw-step h3,
 [data-theme="dark"] .bw-step p { color: #0A0A0A; }
 [data-theme="dark"] .bw-step:hover { background: #FFEF00; }
 [data-theme="dark"] .bw-step__num { color: #B83018; }  /* deeper tomato for AA on cornsilk */
