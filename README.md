@@ -10,7 +10,9 @@ Static site for Dr. Mark Wernsdorfer's AI consultancy. Two languages
 - **HTML5, vanilla CSS (CSS custom properties + `@media`), vanilla JS**
   — no framework, no bundler, no npm install
 - **Fonts**: Rubik (body), Syne (headline), Space Mono (meta),
-  Caprasimo (display accent) — loaded from Google Fonts
+  Caprasimo (display accent) — self-hosted woff2 in `fonts/`
+  (latin + latin-ext), declared via `@font-face` at the top of
+  `colors_and_type.css`. No Google Fonts requests (GDPR).
 - **PHP** for the contact-form receiver (`contact.php`). Node.js
   equivalent (`contact.node.js`) ships alongside for servers that
   prefer Node.
