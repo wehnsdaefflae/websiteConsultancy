@@ -14,6 +14,9 @@ README.md
 contact.node.js
 *.node.js
 
+# Full-size portrait source — pages use the webp derivatives in images/.
+portrait-mark.png
+
 # Git / editor metadata
 .git/
 .gitignore
