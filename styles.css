@@ -92,6 +92,9 @@ a { text-decoration: none; }
 .bw-nav a::after { display: none; }
 .bw-nav a:hover { background: var(--yellow); }
 .bw-nav a[aria-current="page"] { background: var(--mint); }
+/* The last item needs its own closing rule — without it the box (and
+   the hover/current tint) bleeds into the header's empty middle. */
+.bw-nav a:last-child { border-right: 3px solid var(--ink); }
 
 .bw-tools { display: flex; align-items: stretch; border-left: 3px solid var(--ink); }
 .bw-tools > * {
@@ -328,6 +331,12 @@ a { text-decoration: none; }
 .bw-mast--accent { background: var(--mint); }
 .bw-mast--lilac { background: var(--lilac); }
 .bw-mast--yellow { background: var(--yellow); }
+
+/* Natural-flow breathing room: the slideshow's slot-centering used to
+   absorb this — without it the masthead CTA row sat flush against the
+   partners band (home) / the contact-channel cards (contact page). */
+.bw-mast > .bw-partners { margin-top: 56px; }
+.bw-mast__contacts { margin-top: 56px; }
 
 .bw-mast__meta {
   display: flex; flex-wrap: wrap; gap: 14px;
@@ -620,7 +629,13 @@ a { text-decoration: none; }
      strip (see media block below). */
   display: flex; flex-wrap: wrap; gap: 20px 24px;
   align-items: center; justify-content: center;
-  max-width: 1240px; margin: 0 auto; padding: 0 24px;
+  max-width: 1010px; margin: 0 auto; padding: 0 24px;
+}
+/* 901-1009px: slightly slimmer cards so the wall keeps its balanced
+   5 + 4 rows instead of degrading to 4 + 4 + 1. */
+@media (min-width: 901px) and (max-width: 1009px) {
+  .bw-partner { min-width: 150px; }
+  .bw-partner img { width: 104px; height: 38px; max-width: 104px; max-height: 38px; }
 }
 /* ≤900px: wrapped rows would stack 4–5 deep under the masthead, so
    the strip becomes a user-paced swipe row instead — no animation. */
@@ -1235,7 +1250,6 @@ a { text-decoration: none; }
 .bw-segment__sticky {
   position: sticky; top: 64px; align-self: start;
   padding: 72px 48px;
-  border-right: 3px solid var(--ink);
   min-height: 520px;
 }
 /* Big display text with a coloured FILL layer + an ink OUTLINE layer
@@ -1324,13 +1338,20 @@ a { text-decoration: none; }
 .bw-bigtext--ink::after    { -webkit-text-stroke-color: var(--tomato); }
 .bw-bigtext--mint      { color: var(--mint); }
 .bw-bigtext--yellow    { color: var(--yellow); }
-.bw-segment__body { padding: 72px 48px; background: var(--paper); }
+.bw-segment__body {
+  padding: 72px 48px; background: var(--paper);
+  /* Column divider lives HERE (not on the sticky title): the body cell
+     stretches the full grid-row height, so the line runs from the top
+     black border to the bottom one instead of scrolling with the
+     sticky "Coden kann jeder" block. */
+  border-left: 3px solid var(--ink);
+}
 .bw-segment__body p { font-size: 18px; line-height: 1.8; max-width: 52ch; }
 .bw-segment__body p + p { margin-top: 18px; }
 @media (max-width: 900px) {
   .bw-segment { grid-template-columns: minmax(0, 1fr); }
-  .bw-segment__sticky { position: static; border-right: 0; border-bottom: 3px solid var(--ink); padding: 56px 28px; min-height: 0; }
-  .bw-segment__body { padding: 56px 28px; }
+  .bw-segment__sticky { position: static; border-bottom: 3px solid var(--ink); padding: 56px 28px; min-height: 0; }
+  .bw-segment__body { padding: 56px 28px; border-left: 0; }
 }
 
 /* ==============================
@@ -1423,7 +1444,7 @@ a { text-decoration: none; }
   transition: transform .25s var(--ease-pop);
 }
 .bw-profile__image:hover { transform: rotate(0); }
-.bw-profile__image img { display: block; width: 100%; border: 3px solid var(--ink); border-radius: 6px; background: var(--paper); }
+.bw-profile__image img { display: block; width: 100%; height: auto; border: 3px solid var(--ink); border-radius: 6px; background: var(--paper); }
 .bw-profile__caption {
   display: flex; justify-content: space-between;
   font-family: var(--font-mono); font-size: 11px;
@@ -2189,6 +2210,7 @@ a { text-decoration: none; }
   /* Per-type combined rules — each one re-declares transitions to
      include the element's own transform + box-shadow timing. */
   .bw-card.bw-observable,
+  .bw-profile__image.bw-observable,
   .bw-step.bw-observable,
   .bw-window.bw-observable,
   .bw-partner.bw-observable,
@@ -2205,28 +2227,45 @@ a { text-decoration: none; }
   .bw-phase.bw-observable,
   .bw-time.bw-observable,
   .bw-step.bw-observable,
-  .bw-work.bw-observable,
-  .bw-toc__item.bw-observable,
-  .bw-stat.bw-observable {
+  .bw-toc__item.bw-observable {
     transform: translateY(24px);
   }
   .bw-phase.bw-observable.is-in,
   .bw-time.bw-observable.is-in,
   .bw-step.bw-observable.is-in,
-  .bw-work.bw-observable.is-in,
-  .bw-toc__item.bw-observable.is-in,
-  .bw-stat.bw-observable.is-in {
+  .bw-toc__item.bw-observable.is-in {
     transform: translateY(0);
   }
 
   /* stagger by 40 ms per sibling so a row reads left → right */
-  .bw-observable:nth-child(2).is-in { transition-delay: .04s; }
-  .bw-observable:nth-child(3).is-in { transition-delay: .08s; }
-  .bw-observable:nth-child(4).is-in { transition-delay: .12s; }
-  .bw-observable:nth-child(5).is-in { transition-delay: .16s; }
-  .bw-observable:nth-child(6).is-in { transition-delay: .20s; }
-  .bw-observable:nth-child(7).is-in { transition-delay: .24s; }
-  .bw-observable:nth-child(8).is-in { transition-delay: .28s; }
+  .bw-observable:nth-child(2).is-in { transition-delay: .04s; animation-delay: .04s; }
+  .bw-observable:nth-child(3).is-in { transition-delay: .08s; animation-delay: .08s; }
+  .bw-observable:nth-child(4).is-in { transition-delay: .12s; animation-delay: .12s; }
+  .bw-observable:nth-child(5).is-in { transition-delay: .16s; animation-delay: .16s; }
+  .bw-observable:nth-child(6).is-in { transition-delay: .20s; animation-delay: .20s; }
+  .bw-observable:nth-child(7).is-in { transition-delay: .24s; animation-delay: .24s; }
+  .bw-observable:nth-child(8).is-in { transition-delay: .28s; animation-delay: .28s; }
+
+  /* ---- SELECTIVE SLIDE-IN ENTRANCES ------------------------------
+     A few standout components enter with directional inertia (the
+     ease-pop overshoot) instead of the quiet fade: project rows swing
+     in from alternating sides, stat cells and the portrait pop up.
+     One-shot keyframes, deliberately NOT transitions — the hover
+     transition system stays untouched, and dark mode's blanket
+     animation-kill plus this media gate disable them automatically. */
+  @keyframes bwEnterLeft  { from { opacity: 0; transform: translateX(-72px) rotate(-1.5deg); } }
+  @keyframes bwEnterRight { from { opacity: 0; transform: translateX(72px) rotate(1.5deg); } }
+  @keyframes bwEnterRise  { from { opacity: 0; transform: translateY(48px) scale(.96); } }
+  .bw-work.bw-observable.is-in:nth-child(odd) {
+    animation: bwEnterLeft .6s var(--ease-pop) backwards;
+  }
+  .bw-work.bw-observable.is-in:nth-child(even) {
+    animation: bwEnterRight .6s var(--ease-pop) backwards;
+  }
+  .bw-stat.bw-observable.is-in,
+  .bw-profile__image.bw-observable.is-in {
+    animation: bwEnterRise .55s var(--ease-pop) backwards;
+  }
 }
 
 /* ==============================
@@ -2977,12 +3016,28 @@ main { position: relative; }
     translate(
       calc(var(--scroll-y, 0) * var(--dec-kx, 0)    *  1px),
       calc(var(--scroll-y, 0) * var(--dec-k,  0.06) * -1px)
-    )
-    rotate(calc(
-      var(--dec-rot, 0deg)
-      + (var(--scroll-y, 0) * var(--dec-kr, 0.012) * 1deg)
-      + var(--dec-spin, 0deg)
-    ));
+    );
+  /* The hard offset shadow sits on this translate-only outer span while
+     rotation happens on .bw-decor__inner below — so the shadow's light
+     source stays fixed instead of orbiting with the shape. */
+  filter: drop-shadow(8px 8px 0 var(--dec-shadow, var(--ink)));
+}
+/* Rotation layer — resting tilt, scroll tumble and idle spin. Custom
+   props inherit from the outer span (script.js sets them inline). */
+.bw-decor__inner {
+  position: absolute;
+  inset: 0;
+  display: block;
+  will-change: transform;
+  transform: rotate(calc(
+    var(--dec-rot, 0deg)
+    + (var(--scroll-y, 0) * var(--dec-kr, 0.012) * 1deg)
+    + var(--dec-spin, 0deg)
+  ));
+}
+/* plus draws ink bars — its shadow keeps the shape tint. */
+.bw-decor__shape:has(.bw-decor__shape--plus) {
+  --dec-shadow: var(--bg, var(--tomato));
 }
 
 /* ---- CSS-DRAWN SHAPES ---------------------------------------------
@@ -2993,7 +3048,6 @@ main { position: relative; }
 .bw-decor__shape--circle,
 .bw-decor__shape--diamond {
   border: 4px solid var(--ink);
-  box-shadow: 8px 8px 0 var(--ink);
   background: var(--bg, var(--yellow));
 }
 .bw-decor__shape--rect    { border-radius: 8px; }
@@ -3010,7 +3064,6 @@ main { position: relative; }
   position: absolute;
   background: var(--ink);
   border: 4px solid var(--ink);
-  box-shadow: 6px 6px 0 var(--bg, var(--tomato));
   border-radius: 4px;
 }
 .bw-decor__shape--plus::before {
@@ -3028,7 +3081,6 @@ main { position: relative; }
    that adds a non-square silhouette to the vocabulary. */
 .bw-decor__shape--arch {
   border: 4px solid var(--ink);
-  box-shadow: 8px 8px 0 var(--ink);
   background: var(--bg, var(--mint));
   border-radius: 100% 100% 0 0 / 100% 100% 0 0;
 }
@@ -3037,9 +3089,6 @@ main { position: relative; }
    triangle / hexagon / star / arrow / squiggle / asterisk are inlined
    SVGs. CSS handles stroke + the offset drop-shadow so they share the
    visual language of the CSS-drawn shapes. */
-.bw-decor__shape--svg {
-  filter: drop-shadow(8px 8px 0 var(--ink));
-}
 .bw-decor__shape--svg svg {
   width: 100%;
   height: 100%;
@@ -3086,11 +3135,6 @@ main { position: relative; }
         calc(var(--scroll-y, 0) * var(--dec-kx, 0)    *  0.5px),
         calc(var(--scroll-y, 0) * var(--dec-k,  0.06) * -0.7px)
       )
-      rotate(calc(
-        var(--dec-rot, 0deg)
-        + (var(--scroll-y, 0) * var(--dec-kr, 0.012) * 1deg)
-        + var(--dec-spin, 0deg)
-      ))
       scale(.65);
   }
 }

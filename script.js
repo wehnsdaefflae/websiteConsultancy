@@ -217,6 +217,7 @@
       '.bw-step',
       '.bw-work',
       '.bw-window',
+      '.bw-profile__image',
       '.bw-toc__item',
       // `.bw-partner` was here, but the only place partners live is
       // inside `.bw-partners__track` — the always-running marquee. The
@@ -384,6 +385,14 @@
     var path = (location.pathname || '/').toLowerCase();
     var h = pathHash(path);
 
+    // Per-page motion variance (deterministic from the same hash):
+    // center-crossing shapes sweep the opposite way on some pages,
+    // tumble direction flips, sizes breathe 80-100 %, spins run at
+    // different speeds — the same pool reads differently per page
+    // instead of repeating one choreography everywhere.
+    var flipX = ((h >>> 8) & 1) === 1;
+    var flipR = ((h >>> 9) & 1) === 1;
+
     // Pick ~10 shapes — small enough that each subpage feels distinct
     // rather than the same backdrop with minor shuffling.
     var TARGET = 10;
@@ -500,10 +509,21 @@
 
     chosen.forEach(function (s, i) {
       var e = document.createElement('span');
-      var classes = ['bw-decor__shape', 'bw-decor__shape--' + s.shape];
-      if (isSvgShape(s.shape)) classes.push('bw-decor__shape--svg');
-      if (s.anim) classes.push('bw-decor__shape--anim-' + s.anim);
-      e.className = classes.join(' ');
+      e.className = 'bw-decor__shape';
+      // Rotation lives on an inner layer so the outer's drop-shadow
+      // keeps a fixed light source (see .bw-decor__inner in CSS).
+      var inner = document.createElement('span');
+      var innerClasses = ['bw-decor__inner', 'bw-decor__shape--' + s.shape];
+      if (isSvgShape(s.shape)) innerClasses.push('bw-decor__shape--svg');
+      if (s.anim) innerClasses.push('bw-decor__shape--anim-' + s.anim);
+      inner.className = innerClasses.join(' ');
+      // Deterministic per-page, per-shape size breath (80-100 %).
+      var sizeScale = 0.8 + (((h >>> ((i * 3) % 24)) & 7) / 7) * 0.2;
+      var w = Math.round(s.w * sizeScale);
+      var hgt = Math.round(s.h * sizeScale);
+      var kx = s.kx, kr = s.kr;
+      if (s.xp !== undefined && flipX && kx !== undefined) kx = -kx;
+      if (flipR && kr !== undefined) kr = -kr;
 
       // Snap xp-anchored shapes into a real text-free band, then
       // adjust so the shape's CENTER (not top edge) sits at the
@@ -512,7 +532,7 @@
       var topPct;
       if (s.xp !== undefined) {
         var snappedPct = snapToAnchor(s.top);
-        topPct = snappedPct - (s.h / 2 / mainH * 100);
+        topPct = snappedPct - (hgt / 2 / mainH * 100);
       } else {
         topPct = s.top;
       }
@@ -521,28 +541,30 @@
       if (s.xr !== undefined) e.style.right = s.xr + 'px';
       if (s.xp !== undefined) {
         e.style.left = s.xp + '%';
-        e.style.marginLeft = (-s.w / 2) + 'px';
+        e.style.marginLeft = (-w / 2) + 'px';
         e.classList.add('bw-decor__shape--cross');
       }
 
-      e.style.width = s.w + 'px';
-      e.style.height = s.h + 'px';
+      e.style.width = w + 'px';
+      e.style.height = hgt + 'px';
       e.style.setProperty('--bg', shiftColor(s.bg));
       e.style.setProperty('--dec-rot', s.rot + 'deg');
       e.style.setProperty('--dec-k', s.k);
-      if (s.kx !== undefined) e.style.setProperty('--dec-kx', s.kx);
-      if (s.kr !== undefined) e.style.setProperty('--dec-kr', s.kr);
+      if (kx !== undefined) e.style.setProperty('--dec-kx', kx);
+      if (kr !== undefined) e.style.setProperty('--dec-kr', kr);
 
       // Only spin uses an idle keyframe; stagger its phase so adjacent
       // shapes don't rotate in lockstep. Negative delay starts mid-cycle
       // so motion is already underway at first paint.
       if (s.anim === 'spin') {
         var delay = -((i * 5.3 + ((h >>> i) & 7)) % 38).toFixed(2);
-        e.style.animationDelay = delay + 's';
+        inner.style.animationDelay = delay + 's';
+        inner.style.animationDuration = (30 + ((h >>> ((i + 2) % 24)) & 15)) + 's';
       }
 
-      if (isSvgShape(s.shape)) e.innerHTML = SVG_RENDERERS[s.shape]();
+      if (isSvgShape(s.shape)) inner.innerHTML = SVG_RENDERERS[s.shape]();
 
+      e.appendChild(inner);
       layer.appendChild(e);
     });
 
