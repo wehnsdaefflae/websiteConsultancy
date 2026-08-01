@@ -72,8 +72,25 @@
   //  Theme (unchanged behaviour)
   // ------------------------------------------------------------
   function applyTheme(t) {
+    // Freeze every CSS transition for the frames in which the theme
+    // attribute flips. Chrome restarts color/background transitions
+    // from the OLD theme's computed values on the flip and — when the
+    // flip leaves the transition-killing dark scope — can freeze them
+    // mid-flight (footer/nav links stuck white-on-cream after a
+    // night→day toggle). The forced reflow commits the no-transition
+    // state before the attribute changes; the double rAF re-enables
+    // transitions only after the first fully re-themed frame painted.
+    root.classList.add('bw-theme-snap');
+    void root.offsetHeight;
     if (t === 'dark') root.setAttribute('data-theme', 'dark');
     else root.removeAttribute('data-theme');
+    void root.offsetHeight;
+    // rAF never fires in hidden/backgrounded tabs — the timer backup
+    // guarantees transitions come back regardless. Removal is
+    // idempotent, so whichever fires first wins.
+    var unsnap = function () { root.classList.remove('bw-theme-snap'); };
+    requestAnimationFrame(function () { requestAnimationFrame(unsnap); });
+    setTimeout(unsnap, 300);
   }
   function writeThemeToUrl(t) {
     try {

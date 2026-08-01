@@ -3635,6 +3635,15 @@ main { position: relative; }
 /* ==============================
    LITTLE UTILITIES
    ============================== */
+/* Theme-flip transition guard — script.js (applyTheme) adds this
+   class around the data-theme attribute swap so no color/background
+   transition restarts mid-flip; Chrome can otherwise freeze such
+   transitions at the old theme's values. Removed two frames later. */
+.bw-theme-snap *,
+.bw-theme-snap *::before,
+.bw-theme-snap *::after {
+  transition: none !important;
+}
 .bw-hide { display: none !important; }
 .bw-u-right { text-align: right; }
 .bw-u-center { text-align: center; }
