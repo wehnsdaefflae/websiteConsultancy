@@ -969,13 +969,18 @@
       slideshowOn = false;
     }
     function syncTheme() {
-      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
-      if (dark) deactivate(); else activate();
+      // Slideshow retired as the default: the page scrolls like a
+      // normal document in BOTH themes (this was previously the
+      // dark-mode "reader" behaviour only — conservative visitors
+      // found hijacked wheel input disorienting). All slideshow
+      // machinery below is kept intact; to bring it back, restore
+      // `if (dark) deactivate(); else activate();` here.
+      deactivate();
     }
     syncTheme();
 
-    // Watch theme toggle so flipping to night mode immediately drops
-    // the slideshow, and flipping back to day re-activates it.
+    // Kept although syncTheme now always deactivates — harmless, and
+    // the re-enable path above depends on it firing on theme flips.
     new MutationObserver(syncTheme)
       .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
