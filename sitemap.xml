@@ -2,11 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-  <!-- DE default at root; EN mirror under /en/ -->
+  <!-- DE default at root; EN mirror under /en/. Every row carries the
+       full de/en/x-default alternate set (bidirectional hreflang).
+       Legal pages (datenschutz.html, en/privacy.html) are noindex and
+       deliberately absent. -->
 
   <url>
     <loc>https://markwernsdorfer.com/</loc>
-    <lastmod>2026-04-24</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="de" href="https://markwernsdorfer.com/"/>
@@ -16,68 +19,94 @@
 
   <url>
     <loc>https://markwernsdorfer.com/about.html</loc>
-    <lastmod>2026-04-24</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="de" href="https://markwernsdorfer.com/about.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://markwernsdorfer.com/en/about.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://markwernsdorfer.com/about.html"/>
   </url>
 
   <url>
     <loc>https://markwernsdorfer.com/services.html</loc>
-    <lastmod>2026-04-24</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="de" href="https://markwernsdorfer.com/services.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://markwernsdorfer.com/en/services.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://markwernsdorfer.com/services.html"/>
   </url>
 
   <url>
     <loc>https://markwernsdorfer.com/portfolio.html</loc>
-    <lastmod>2026-04-24</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="de" href="https://markwernsdorfer.com/portfolio.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://markwernsdorfer.com/en/portfolio.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://markwernsdorfer.com/portfolio.html"/>
   </url>
 
   <url>
     <loc>https://markwernsdorfer.com/contact.html</loc>
-    <lastmod>2026-04-24</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="de" href="https://markwernsdorfer.com/contact.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://markwernsdorfer.com/en/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://markwernsdorfer.com/contact.html"/>
   </url>
 
   <!-- EN variants as primary entries so each language has its own sitemap row -->
 
   <url>
+    <loc>https://markwernsdorfer.com/en/</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://markwernsdorfer.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markwernsdorfer.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://markwernsdorfer.com/"/>
+  </url>
+
+  <url>
     <loc>https://markwernsdorfer.com/en/about.html</loc>
-    <lastmod>2026-04-24</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://markwernsdorfer.com/about.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markwernsdorfer.com/en/about.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://markwernsdorfer.com/about.html"/>
   </url>
 
   <url>
     <loc>https://markwernsdorfer.com/en/services.html</loc>
-    <lastmod>2026-04-24</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://markwernsdorfer.com/services.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markwernsdorfer.com/en/services.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://markwernsdorfer.com/services.html"/>
   </url>
 
   <url>
     <loc>https://markwernsdorfer.com/en/portfolio.html</loc>
-    <lastmod>2026-04-24</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://markwernsdorfer.com/portfolio.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markwernsdorfer.com/en/portfolio.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://markwernsdorfer.com/portfolio.html"/>
   </url>
 
   <url>
     <loc>https://markwernsdorfer.com/en/contact.html</loc>
-    <lastmod>2026-04-24</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://markwernsdorfer.com/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markwernsdorfer.com/en/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://markwernsdorfer.com/contact.html"/>
   </url>
 
 </urlset>
