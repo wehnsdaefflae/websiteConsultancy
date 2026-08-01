@@ -14,7 +14,7 @@
    Instead, every ELEMENT that can legitimately extend past the body
    column does its own clipping:
      • .bw-decor clips its absolute decor shapes (see below).
-     • .bw-partners clips the horizontal marquee.
+     • .bw-partners clips the partner logo strip.
      • .bw-btn wraps long labels inside its own box on mobile.
      • Grids use minmax(0, 1fr) so tracks can shrink to container.
    So there's nothing at body-level to overflow anymore, and fixed
@@ -614,35 +614,25 @@ a { text-decoration: none; }
   margin: 0; letter-spacing: .04em; text-transform: uppercase;
 }
 .bw-partners__track {
-  display: flex; gap: 28px; flex-wrap: nowrap;
-  align-items: center;
-  /* `width: max-content` is load-bearing for the loop. Without it the
-     track's layout width clamps to the parent (.bw-partners) width,
-     so `translateX(-50%)` only shifts by half-of-PARENT-width — the
-     marquee resets when only ~one card has moved off, and the visible
-     content snaps back to "Fraunhofer first" mid-cycle. With
-     `max-content`, the track sizes to its full content (set 1 + set 2
-     + 17 gaps), so `-50% - 14px` correctly lands set 2 exactly where
-     set 1 started — seamless loop. */
-  width: max-content;
-  /* Was 48 s — felt sluggish, especially on mobile where the visible
-     window is shorter so each logo crosses the screen slower in
-     absolute pixel terms. ~22 s desktop / ~9 s mobile reads as a
-     deliberate ticker without becoming a strobe. */
-  animation: bw-scroll 22s linear infinite;
+  /* Static wall, not a marquee: the logos are the site's strongest
+     trust evidence — readers inspect them at their own pace. Wraps
+     into centred rows on desktop; ≤900px turns into a swipeable
+     strip (see media block below). */
+  display: flex; flex-wrap: wrap; gap: 20px 24px;
+  align-items: center; justify-content: center;
+  max-width: 1240px; margin: 0 auto; padding: 0 24px;
 }
+/* ≤900px: wrapped rows would stack 4–5 deep under the masthead, so
+   the strip becomes a user-paced swipe row instead — no animation. */
 @media (max-width: 900px) {
-  .bw-partners__track { animation-duration: 9s; }
-}
-.bw-partners:hover .bw-partners__track { animation-play-state: paused; }
-/* Loop seamlessness: with `gap: 28px` between cards, a plain
-   translateX(-50%) jumps 14 px (= half a gap) at every loop boundary
-   because the gap between the first and second SETS isn't accounted
-   for in -50% of the total width. Subtract `14px` (gap/2) from the
-   end-state translation so card 10 lands exactly where card 1 sat. */
-@keyframes bw-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(calc(-50% - 14px)); }
+  .bw-partners__track {
+    flex-wrap: nowrap; justify-content: flex-start;
+    overflow-x: auto; max-width: none;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+  .bw-partner { scroll-snap-align: center; }
 }
 .bw-partner {
   flex: 0 0 auto;
@@ -651,8 +641,8 @@ a { text-decoration: none; }
   background: var(--paper);
   border: 3px solid var(--paper);
   border-radius: 10px;
-  padding: 16px 22px;
-  min-width: 200px; height: 120px;
+  padding: 14px 18px;
+  min-width: 172px; height: 104px;
   box-shadow: 4px 4px 0 var(--tomato);
   transition: transform .18s var(--ease-pop), box-shadow .18s var(--ease-pop);
 }
@@ -661,8 +651,8 @@ a { text-decoration: none; }
 .bw-partner:nth-child(3n+2)  { transform: rotate(-.5deg); box-shadow: 4px 4px 0 var(--lilac); }
 .bw-partner::after { display: none; }
 .bw-partner:hover { transform: rotate(0) translate(-2px,-2px); box-shadow: 8px 8px 0 var(--yellow); }
-.bw-partner img { width: 140px; height: 52px; max-height: 52px; max-width: 140px; object-fit: contain; }
-.bw-partner img[src$=".svg"] { width: 140px; height: 52px; }
+.bw-partner img { width: 120px; height: 44px; max-height: 44px; max-width: 120px; object-fit: contain; }
+.bw-partner img[src$=".svg"] { width: 120px; height: 44px; }
 .bw-partner small {
   font-family: var(--font-mono); font-size: 10px;
   color: var(--ink); text-transform: uppercase; letter-spacing: .08em;
