@@ -11,11 +11,13 @@ Guidance for Claude Code (claude.ai/code) when working in this repo.
 ├── services.html           DE "Leistungen"
 ├── portfolio.html          DE "Projekte"
 ├── contact.html            DE "Kontakt"
-├── en/                     English mirror (5 pages)
+├── datenschutz.html        DE "Datenschutz" (legal)
+├── en/                     English mirror (6 pages; privacy = en/privacy.html)
 │
-├── styles.css              1 file, ~2.7k lines — grep-friendly
+├── .well-known/security.txt  RFC 9116 security contact
+├── styles.css              1 file, ~3.7k lines — grep-friendly
 ├── colors_and_type.css     design tokens only
-├── script.js               1 file, single IIFE
+├── script.js               1 file, single IIFE (~1.5k lines)
 │
 ├── contact.php             server-side form receiver (primary)
 ├── contact.node.js         Node.js alternative (excluded from Plesk deploy)
@@ -41,6 +43,22 @@ Guidance for Claude Code (claude.ai/code) when working in this repo.
 **When asked to change / fix / build something**, it's always the
 root live site — not `deprecated/`. Touch `deprecated/` only if the
 user explicitly names a file inside it.
+
+---
+
+## Local dev
+
+No build step, no watcher, no `package.json` — edit and refresh.
+
+```bash
+python3 -m http.server 8787   # static preview; contact form's PHP won't run
+php -S localhost:8787          # full preview, exercises contact.php
+```
+
+Then open <http://localhost:8787/>. (In this harness, prefer the
+`preview_*` tools over launching a server by hand.)
+
+There is no test/lint/build tooling — "build" = `git push`.
 
 ---
 
@@ -110,8 +128,15 @@ Full detail in `README.md`. Do not violate these:
    `<nav class="bw-mobnav">` in every existing page's header.
 4. Wire the language switch: `href="en/<newpage>.html"` on the DE
    version, `href="../<newpage>.html"` on the EN version.
+   **Exception**: the legal page filename differs by language —
+   DE is `datenschutz.html`, EN is `en/privacy.html`. The switch
+   links cross-name (DE → `en/privacy.html`, EN → `../datenschutz.html`).
 5. Use relative paths (no leading `/`).
 6. Add the URL to `sitemap.xml`.
+
+Note: the inline `<head>` script also does a one-time **language
+auto-redirect** (browser `en` → `/en/…`, stored in `bw.lang`),
+in addition to the theme logic in rule #6. Don't strip it.
 
 ### Change colours or typography
 
