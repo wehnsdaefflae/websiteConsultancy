@@ -986,7 +986,7 @@ a { text-decoration: none; }
 .bw-work__meta strong {
   display: block;
   font-family: var(--font-mono); font-weight: 700;
-  color: var(--tomato); font-size: 10px;
+  color: var(--tomato-deep); font-size: 10px;
   letter-spacing: .14em; margin-bottom: 2px;
 }
 @media (max-width: 960px) {
@@ -1365,7 +1365,7 @@ a { text-decoration: none; }
 .bw-stat:last-child { border-right: 0; }
 .bw-stat__num {
   font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--tomato); font-weight: 700;
+  text-transform: uppercase; color: var(--tomato-deep); font-weight: 700;
   transition: transform .22s var(--ease-pop), color .22s;
 }
 .bw-stat__value {
@@ -1477,7 +1477,7 @@ a { text-decoration: none; }
   display: block;
   font-family: var(--font-mono); font-size: 12px;
   text-transform: uppercase; letter-spacing: .08em;
-  color: var(--tomato);
+  color: var(--tomato-deep);
   margin-bottom: 8px;
 }
 .bw-time p { margin: 0; font-size: 15px; line-height: 1.6; }
@@ -1627,7 +1627,7 @@ a { text-decoration: none; }
   text-transform: uppercase; letter-spacing: .12em;
   background: var(--paper-3);
   border-right: 3px solid var(--ink);
-  color: var(--tomato);
+  color: var(--tomato-deep);
   font-weight: 700;
 }
 .bw-imprint dd { font-size: 15px; line-height: 1.5; background: var(--paper-2); }
@@ -3678,7 +3678,7 @@ main { position: relative; }
 .bw-contact__label {
   font-family: var(--font-mono); font-size: 11px;
   text-transform: uppercase; letter-spacing: .14em;
-  color: var(--tomato);
+  color: var(--tomato-deep);
 }
 .bw-contact__value {
   font-family: var(--font-head); font-weight: 700; font-size: 22px;

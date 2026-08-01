@@ -382,6 +382,7 @@
   --lilac:          #9E9CE5;
   --mint:           #42E2B8;
   --tomato:         #FF5A43;
+  --tomato-deep:    #B83018;   /* AA-safe tomato for small mono labels on light surfaces */
   --yellow:         #FFEF00;
   --hot-pink:       #FF6EC7;
   --royal:          #1E1BE5;   /* evolved darkblue */
@@ -509,6 +510,7 @@
   --lilac:    #7A77E0;
   --mint:     #2BD1A6;
   --tomato:   #FF6A55;
+  --tomato-deep: #FF7A66;  /* small labels sit on dark surfaces in night mode — needs the bright coral */
   --yellow:   #FFE14A;
   --hot-pink: #FF5FBF;
   --royal:    #4C49FF;
