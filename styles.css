@@ -42,7 +42,7 @@ a { text-decoration: none; }
 
 /* override the global a { white-space: nowrap } from colors_and_type.css
    for any anchors used as layout blocks (cards, rows, TOC items, partners...) */
-.bw-work, .bw-card, .bw-toc__item, .bw-partner, .bw-contact,
+.bw-work, .bw-work__project, .bw-card, .bw-toc__item, .bw-partner, .bw-contact,
 .bw-nav a, .bw-mobnav a, .bw-filter, .bw-link, .bw-btn,
 .bw-brand, .bw-tools .cta, .bw-mast__stub {
   white-space: normal;
@@ -963,6 +963,7 @@ a { text-decoration: none; }
   transition: background .15s;
 }
 .bw-work::after { display: none; }
+.bw-work__project { display: contents; } /* PTF-card restructure: inner project link transparent to the 3-col grid */
 .bw-work:nth-child(odd) { background: var(--paper-3); }
 .bw-work:hover { background: var(--yellow); }
 .bw-work:hover .bw-work__title em { background: var(--tomato); color: var(--paper); }
