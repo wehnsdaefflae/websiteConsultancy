@@ -1004,6 +1004,13 @@ a { text-decoration: none; }
   color: var(--tomato-deep); font-size: 10px;
   letter-spacing: .14em; margin-bottom: 2px;
 }
+.bw-work__logo-ptf {
+  max-width: 240px; height: auto;
+}
+:root[data-theme="dark"] .bw-work__logo-ptf,
+.theme-dark .bw-work__logo-ptf {
+  filter: invert(1);
+}
 @media (max-width: 960px) {
   .bw-work { grid-template-columns: minmax(0, 1fr); gap: 18px; }
   .bw-work__meta { border-left: 0; border-top: 2px dashed var(--ink); padding: 14px 0 0; }
