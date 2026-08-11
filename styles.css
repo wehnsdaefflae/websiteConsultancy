@@ -1796,7 +1796,7 @@ a { text-decoration: none; }
     display: flex; align-items: center; justify-content: center;
     background: transparent; color: var(--ink);
     border: 0; cursor: pointer;
-    padding: 0 18px;
+    padding: 0 0 0 18px;   /* no right padding — burger glyph sits flush to the page edge */
   }
   .mobnav-toggle:hover,
   .mobnav-toggle[aria-expanded="true"] { background: var(--yellow); }
