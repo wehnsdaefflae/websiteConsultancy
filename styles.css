@@ -1038,6 +1038,16 @@ a { text-decoration: none; }
 .theme-dark .bw-work__logo-ptf {
   filter: invert(1);
 }
+/* Funding logos stack as their own column at every width. The gap is
+   generous enough that the underline-sweep on the linked (BMFTR) logo
+   clears the Prototype Fund logo below it; the link hugs its image so
+   the sweep sits right at the image edge instead of floating below it. */
+.bw-work__meta-logos {
+  display: flex; flex-direction: column; gap: 16px;
+}
+.bw-work__logo-link {
+  display: inline-block; line-height: 0;
+}
 @media (max-width: 960px) {
   /* Card stacks to one column at ≤960px. */
   .bw-work { grid-template-columns: minmax(0, 1fr); gap: 18px; }
@@ -1062,7 +1072,7 @@ a { text-decoration: none; }
      first and second stat. Cards without logos have no wrappers and
      fall back to a single flex column. */
   .bw-work__meta-stats { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
-  .bw-work__meta-logos { flex: 0 0 auto; display: flex; flex-direction: column; gap: 8px; }
+  .bw-work__meta-logos { flex: 0 0 auto; } /* gap comes from the base rule */
 }
 
 /* ==============================
