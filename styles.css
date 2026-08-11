@@ -1048,6 +1048,9 @@ a { text-decoration: none; }
 .bw-work__logo-link {
   display: inline-block; line-height: 0;
 }
+.bw-work__logo-link img {
+  display: block;
+}
 @media (max-width: 960px) {
   /* Card stacks to one column at ≤960px. */
   .bw-work { grid-template-columns: minmax(0, 1fr); gap: 18px; }
