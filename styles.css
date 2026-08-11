@@ -62,14 +62,12 @@ a { text-decoration: none; }
   border-bottom: 3px solid var(--ink);
 }
 .bw-header__row {
-  /* Outer tracks shrink below their content so the tools column (which
-     WRAPS internally at ≤900px) never forces the header wider than the
-     viewport — the old auto tracks overflowed, and shrinking the items
-     themselves made them overlap. Wrapping instead keeps every item at
-     natural size; the brand track can also compress, so the brand text
-     wraps onto extra lines instead of clipping on very narrow screens.
-     The middle 1fr caps via minmax(0, 1fr). */
-  display: grid; grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
+  /* Known-good responsive grid. Outer tracks keep natural size — the
+     header is only ever too tight below ~700px, handled by the ≤700px
+     breakpoint below (CTA hidden) instead of any grid/flex shrinking.
+     minmax(0, 1fr) lets the middle column (nav) shrink so the layout
+     never forces horizontal overflow. */
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: stretch;
 }
 .bw-brand {
