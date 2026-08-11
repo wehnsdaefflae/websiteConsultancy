@@ -62,10 +62,13 @@ a { text-decoration: none; }
   border-bottom: 3px solid var(--ink);
 }
 .bw-header__row {
-  /* minmax(0, auto) on both outer tracks — they can shrink below their
-     content instead of forcing the row wider than the viewport, which
-     caused horizontal overflow (and induced vertical scrollbars) on
-     narrow widths. The middle 1fr also caps via minmax(0, 1fr). */
+  /* Outer tracks shrink below their content so the tools column (which
+     WRAPS internally at ≤900px) never forces the header wider than the
+     viewport — the old auto tracks overflowed, and shrinking the items
+     themselves made them overlap. Wrapping instead keeps every item at
+     natural size; the brand track can also compress, so the brand text
+     wraps onto extra lines instead of clipping on very narrow screens.
+     The middle 1fr caps via minmax(0, 1fr). */
   display: grid; grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
   align-items: stretch;
 }
@@ -159,14 +162,13 @@ a { text-decoration: none; }
 }
 @media (max-width: 900px) {
   .bw-nav { display: none; }
-  /* Tools column and its children may shrink below their content so the
-     header compresses instead of overflowing the viewport (which dragged
-     in horizontal/vertical scrollbars) in the 641-900px band. The CTA
-     wraps inside its own box rather than poking past the edge; items keep
-     their positions when there's room. */
-  .bw-tools { min-width: 0; }
-  .bw-tools > * { min-width: 0; }
-  .bw-tools .cta { white-space: normal; text-align: center; line-height: 1.1; }
+  /* Tools items keep their natural size — shrinking them made the boxes
+     collapse under their text and overlap at mid-narrow widths. Instead
+     the tools column wraps onto further rows when the header is tight, so
+     the header grows taller but nothing overlaps and nothing overflows
+     the viewport. */
+  .bw-tools { flex-wrap: wrap; }
+  .bw-tools .cta { white-space: nowrap; }
   .bw-tools .lang { display: flex; }
   /* On mobile, both toggles collapse to a single label — the click
      target ("what you'll switch to") rather than "current state".
@@ -1025,8 +1027,22 @@ a { text-decoration: none; }
   filter: invert(1);
 }
 @media (max-width: 960px) {
+  /* Card stacks to one column; meta row sits full-width beneath the body.
+     Put the funding logos BESIDE the stats (right column, dense-packed)
+     instead of stacked under them on these mid-wide screens. Cards without
+     logos keep a single left column — identical to before. */
   .bw-work { grid-template-columns: minmax(0, 1fr); gap: 18px; }
-  .bw-work__meta { border-left: 0; border-top: 2px dashed var(--ink); padding: 14px 0 0; }
+  .bw-work__meta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-auto-flow: dense;
+    align-items: start;
+    gap: 8px 28px;
+    border-left: 0; border-top: 2px dashed var(--ink); padding: 14px 0 0;
+  }
+  .bw-work__meta > div { grid-column: 1; }
+  .bw-work__meta > div:has(.bw-work__logo-link),
+  .bw-work__meta > div:has(.bw-work__logo-ptf) { grid-column: 2; }
 }
 
 /* ==============================
