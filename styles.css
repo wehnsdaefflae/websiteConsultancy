@@ -62,7 +62,11 @@ a { text-decoration: none; }
   border-bottom: 3px solid var(--ink);
 }
 .bw-header__row {
-  display: grid; grid-template-columns: auto 1fr auto;
+  /* minmax(0, auto) on both outer tracks — they can shrink below their
+     content instead of forcing the row wider than the viewport, which
+     caused horizontal overflow (and induced vertical scrollbars) on
+     narrow widths. The middle 1fr also caps via minmax(0, 1fr). */
+  display: grid; grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
   align-items: stretch;
 }
 .bw-brand {
@@ -155,6 +159,14 @@ a { text-decoration: none; }
 }
 @media (max-width: 900px) {
   .bw-nav { display: none; }
+  /* Tools column and its children may shrink below their content so the
+     header compresses instead of overflowing the viewport (which dragged
+     in horizontal/vertical scrollbars) in the 641-900px band. The CTA
+     wraps inside its own box rather than poking past the edge; items keep
+     their positions when there's room. */
+  .bw-tools { min-width: 0; }
+  .bw-tools > * { min-width: 0; }
+  .bw-tools .cta { white-space: normal; text-align: center; line-height: 1.1; }
   .bw-tools .lang { display: flex; }
   /* On mobile, both toggles collapse to a single label — the click
      target ("what you'll switch to") rather than "current state".
