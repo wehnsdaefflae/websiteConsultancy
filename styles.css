@@ -154,11 +154,23 @@ a { text-decoration: none; }
 }
 .bw-tools .theme-toggle:hover { background: var(--paper); }
 
-@media (max-width: 1100px) {
-  /* Tight space below ~1100px: hide lang to keep nav + theme + CTA from
-     overflowing. Restored at ≤900px when the desktop nav drops out — the
-     mobnav has no language switch, so this is the only mobile path. */
-  .bw-tools .lang { display: none; }
+@media (max-width: 1380px) {
+  /* MEASURED fit: brand (323px) + nav natural (619px) + tools (433px) = 1375px.
+     Below ~1375px the 1fr nav track compresses and the nowrap links collide
+     with the tools (nav-right == tools-left at 1280px). So hand navigation
+     over to the burger at THIS width so the header never overlaps. The
+     mobnav has no language switch — keep lang visible here. */
+  .bw-nav { display: none; }
+  .bw-tools .lang { display: flex; }
+  .mobnav-toggle {
+    display: flex; align-items: center; justify-content: center;
+    background: transparent; color: var(--ink);
+    border: 0; cursor: pointer;
+    padding: 0 18px;
+    margin-left: auto;  /* push the burger to the top-right corner */
+  }
+  .mobnav-toggle:hover,
+  .mobnav-toggle[aria-expanded="true"] { background: var(--yellow); }
 }
 @media (max-width: 900px) {
   .bw-nav { display: none; }
@@ -1027,11 +1039,15 @@ a { text-decoration: none; }
   filter: invert(1);
 }
 @media (max-width: 960px) {
-  /* Card stacks to one column; meta row sits full-width beneath the body.
-     Put the funding logos BESIDE the stats (right column, dense-packed)
-     instead of stacked under them on these mid-wide screens. Cards without
-     logos keep a single left column — identical to before. */
+  /* Card stacks to one column at ≤960px. */
   .bw-work { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+}
+@media (min-width: 641px) and (max-width: 960px) {
+  /* MEDIUM widths only (the top bar's medium band): keep the funding logos
+     BESIDE the stats (right column, dense-packed) — the original intent.
+     On the narrowest screens (≤640px) this 2-col split is dropped and the
+     meta stays the default stacked single column. Cards without logos keep
+     a single left column — identical before and after. */
   .bw-work__meta {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
@@ -1815,8 +1831,9 @@ a { text-decoration: none; }
    MOBILE NAV — top-right burger
    ============================== */
 .bw-mobnav { display: none; }
-.mobnav-toggle { display: none; border-right: 0; }
-@media (min-width: 901px) {
+.mobnav-toggle { border-right: 0; }
+@media (min-width: 1381px) {
+  .mobnav-toggle { display: none; }  /* desktop — burger only in the ≤1380 band */
   .bw-tools .cta { border-right: 0; }  /* burger hidden — CTA is rightmost again */
 }
 @media (max-width: 900px) {
@@ -1829,6 +1846,10 @@ a { text-decoration: none; }
   }
   .mobnav-toggle:hover,
   .mobnav-toggle[aria-expanded="true"] { background: var(--yellow); }
+}
+@media (max-width: 1380px) {
+  /* Dropdown follows the burger across the whole band where the burger is
+     shown (901–1380). The toggle itself is styled in the 1380 block above. */
   .bw-mobnav.is-open {
     display: block;
     position: fixed; top: 67px; right: 0;   /* no-JS fallback (desktop header height); initMobnavToggle overrides with the live header bottom */
