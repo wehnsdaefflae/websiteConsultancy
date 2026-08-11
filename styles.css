@@ -1784,36 +1784,44 @@ a { text-decoration: none; }
 }
 
 /* ==============================
-   MOBILE NAV bottom bar
+   MOBILE NAV — top-right burger
    ============================== */
 .bw-mobnav { display: none; }
+.mobnav-toggle { display: none; border-right: 0; }
+@media (min-width: 901px) {
+  .bw-tools .cta { border-right: 0; }  /* burger hidden — CTA is rightmost again */
+}
 @media (max-width: 900px) {
-  .bw-mobnav {
-    display: grid; grid-template-columns: repeat(5, 1fr);
-    position: fixed; bottom: 0; left: 0; right: 0;
-    /* JS overrides `bottom: 0` with inline `top: Npx; bottom: auto`,
-       computing N from the visualViewport so the nav's bottom edge
-       always sits flush with the visible bottom — bypassing whatever
-       the engine does with fixed-bottom during URL-bar animations.
-       Without JS / visualViewport, the `bottom: 0` fallback is used. */
+  .mobnav-toggle {
+    display: flex; align-items: center; justify-content: center;
+    background: transparent; color: var(--ink);
+    border: 0; cursor: pointer;
+    padding: 0 18px;
+  }
+  .mobnav-toggle:hover,
+  .mobnav-toggle[aria-expanded="true"] { background: var(--yellow); }
+  .bw-mobnav.is-open {
+    display: block;
+    position: fixed; top: 67px; right: 0;   /* .bw-header height (64 + 3 px border) */
     background: var(--paper-2);
-    border-top: 3px solid var(--ink);
+    border-bottom: 3px solid var(--ink);
+    border-left: 3px solid var(--ink);
     z-index: 90;
-    padding-bottom: env(safe-area-inset-bottom);
+    min-width: 220px;
   }
   .bw-mobnav a {
-    padding: 10px 4px;
-    display: flex; flex-direction: column; align-items: center; gap: 4px;
-    font-family: var(--font-mono); font-size: 10px;
-    text-transform: uppercase; letter-spacing: .04em;
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 18px;
+    font-family: var(--font-mono); font-size: 12px;
+    text-transform: uppercase; letter-spacing: .06em;
     color: var(--ink);
-    border-right: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
   }
+  .bw-mobnav a:last-child { border-bottom: 0; }
   .bw-mobnav a::after { display: none; }
-  .bw-mobnav a:last-child { border-right: 0; }
-  .bw-mobnav a[aria-current="page"] { background: var(--yellow); }
-  .bw-mobnav svg { width: 18px; height: 18px; stroke-width: 2.4; }
-  body { padding-bottom: 58px; }
+  .bw-mobnav a:hover { background: var(--yellow); }
+  .bw-mobnav a[aria-current="page"] { background: var(--mint); }
+  .bw-mobnav svg { width: 18px; height: 18px; stroke-width: 2.4; flex: none; }
 }
 
 /* ==============================
@@ -2337,9 +2345,6 @@ a { text-decoration: none; }
   @media (min-width: 901px) {
     html.bw-slideshow { --slide-inset-x: 0px; }
   }
-  @media (max-width: 900px) {
-    html.bw-slideshow { --slide-bottom: 64px; }   /* .bw-mobnav */
-  }
 
   html.bw-slideshow .bw-header {
     position: fixed;
@@ -2369,12 +2374,7 @@ a { text-decoration: none; }
        below. The mast-with-partners override below opts out of
        max-height so the marquee can pin to a fixed bottom. */
     /* `dvh` (dynamic viewport) instead of `vh` so the slot shrinks when
-       the mobile URL bar is visible. The mobnav is positioned via
-       visualViewport (see initMobnavViewportSync in script.js) and sits
-       at the visible bottom; using `vh` here makes the slide extend down
-       to the LAYOUT bottom (past the visible area), so content pinned
-       to the slide's bottom (e.g. the partners marquee on the home
-       masthead) gets covered by the opaque mobnav. */
+       the mobile URL bar is visible. */
     max-height: calc(100dvh - var(--slide-top) - var(--slide-bottom));
     overflow-x: hidden;
     overflow-y: auto;

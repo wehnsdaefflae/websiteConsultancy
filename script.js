@@ -746,43 +746,43 @@
   }
 
   // ------------------------------------------------------------
-  //  Mobile bottom-nav viewport sync.
-  //  Earlier attempts relied on `position: fixed; bottom: 0` plus a
-  //  translateY correction. That depends on where each engine anchors
-  //  fixed-bottom (iOS = layout viewport, Firefox Android = buggy paint
-  //  during URL-bar animation, Bugzilla #1880375). Sentinel measurement
-  //  reads the LAYOUT position, not the painted one — so when Firefox
-  //  paints fixed-bottom in the wrong place, the sentinel sees nothing
-  //  wrong and the correction is a no-op.
-  //
-  //  Robust fix: bypass fixed-bottom entirely. Compute the absolute pixel
-  //  position where the nav should sit (visual viewport bottom minus nav
-  //  height), and set `top` directly via a CSS custom property. The CSS
-  //  rule uses `top: var(--mobnav-top, auto)` so it falls back to the
-  //  default `bottom: 0` on browsers without visualViewport.
+  //  Mobile nav — top-right burger toggle.
+  //  The .bw-mobnav element is now a fixed dropdown panel under the
+  //  header (see styles.css). The burger button (.mobnav-toggle, a
+  //  .bw-tools child, below 900px only) flips an .is-open class;
+  //  panel visibility, stacking and animation live in CSS. Clicking a
+  //  nav link, pressing Escape, or clicking outside the panel closes
+  //  it again and returns focus to the button.
   // ------------------------------------------------------------
-  function initMobnavViewportSync() {
-    if (!window.visualViewport) return;   // older browsers: bottom:0 fallback
+  function initMobnavToggle() {
+    var btn = document.querySelector('.mobnav-toggle');
     var nav = document.querySelector('.bw-mobnav');
-    if (!nav) return;
-    // Measure nav's natural height ONCE before we override its bottom anchor;
-    // subsequent measurements would include any stretching from `top + bottom`
-    // both being set during a transient state.
-    var navHeight = nav.offsetHeight;
-    function sync() {
-      var vv = window.visualViewport;
-      // Switch nav from bottom-anchored to top-anchored. `bottom: auto`
-      // releases the default `bottom: 0` so the nav's height stays
-      // natural and its top edge sits where we tell it to.
-      nav.style.bottom = 'auto';
-      nav.style.top = (vv.offsetTop + vv.height - navHeight) + 'px';
+    if (!btn || !nav) return;
+    function setOpen(open) {
+      nav.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.setAttribute('aria-label', open
+        ? (document.documentElement.lang === 'en' ? 'Close menu' : 'Menü schließen')
+        : (document.documentElement.lang === 'en' ? 'Open menu' : 'Menü öffnen'));
     }
-    window.visualViewport.addEventListener('resize', sync);
-    window.visualViewport.addEventListener('scroll', sync);
-    // Firefox Android fires vv.scroll less reliably than Chrome during
-    // URL-bar animation — add window.scroll as a fallback ticker.
-    window.addEventListener('scroll', sync, { passive: true });
-    sync();
+    btn.addEventListener('click', function () {
+      setOpen(!nav.classList.contains('is-open'));
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('is-open')) {
+        e.stopPropagation();
+        setOpen(false);
+        btn.focus();
+      }
+    });
+    document.addEventListener('click', function (e) {
+      if (!nav.classList.contains('is-open')) return;
+      if (nav.contains(e.target) || btn.contains(e.target)) return;
+      setOpen(false);
+    });
+    nav.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setOpen(false);
+    });
   }
 
   // ------------------------------------------------------------
@@ -1337,7 +1337,7 @@
     initScrollVar();
     initQuoteCarousel();
     initContactForm();
-    initMobnavViewportSync();
+    initMobnavToggle();
     initVideoPlay();
     initAutoHyphenate();
     initWorksHeadCompact();
