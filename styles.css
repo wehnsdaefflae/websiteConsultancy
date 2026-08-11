@@ -174,13 +174,12 @@ a { text-decoration: none; }
 }
 @media (max-width: 900px) {
   .bw-nav { display: none; }
-  /* Tools items keep their natural size — shrinking them made the boxes
-     collapse under their text and overlap at mid-narrow widths. Instead
-     the tools column wraps onto further rows when the header is tight, so
-     the header grows taller but nothing overlaps and nothing overflows
-     the viewport. */
-  .bw-tools { flex-wrap: wrap; }
-  .bw-tools .cta { white-space: nowrap; }
+  /* HARD RULE: the top bar stays on ONE row at every width — the tools
+     column NEVER wraps. To make that hold down to 641px, the header CTA
+     is hidden here (the burger panel, footer and mast CTAs keep Kontakt
+     reachable); lang + theme + burger always fit beside the brand. */
+  .bw-tools { flex-wrap: nowrap; }
+  .bw-tools .cta { display: none; }
   .bw-tools .lang { display: flex; }
   /* On mobile, both toggles collapse to a single label — the click
      target ("what you'll switch to") rather than "current state".
@@ -204,6 +203,7 @@ a { text-decoration: none; }
   .bw-tools .lang { padding: 0 8px; }
   .bw-tools .lang a { padding: 2px 4px; }
   .bw-tools .theme-toggle { padding: 0 8px; font-size: 11px; }
+  .bw-tools .mobnav-toggle { padding: 0 8px; }  /* beat the later .mobnav-toggle{0 18px} in the mobile-nav section — else the burger overflows a 360-px viewport by 3px */
 
   /* CTAs at their normal 14 px font + 22 px padding were exceeding a
      390-px phone viewport ("Kostenloses Erstgespräch" = 447 px).
@@ -1048,17 +1048,21 @@ a { text-decoration: none; }
      On the narrowest screens (≤640px) this 2-col split is dropped and the
      meta stays the default stacked single column. Cards without logos keep
      a single left column — identical before and after. */
-  .bw-work__meta {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-auto-flow: dense;
-    align-items: start;
-    gap: 8px 28px;
+  .bw-work__meta:has(.bw-work__meta-stats) {
+    display: flex; flex-direction: row; align-items: flex-start; gap: 28px;
     border-left: 0; border-top: 2px dashed var(--ink); padding: 14px 0 0;
   }
-  .bw-work__meta > div { grid-column: 1; }
-  .bw-work__meta > div:has(.bw-work__logo-link),
-  .bw-work__meta > div:has(.bw-work__logo-ptf) { grid-column: 2; }
+  .bw-work__meta:not(:has(.bw-work__meta-stats)) { /* no-logo cards keep the single column at medium widths */
+    border-left: 0; border-top: 2px dashed var(--ink); padding: 14px 0 0;
+  }
+  /* Decouple stats from logos: the four stats live in their own flex
+     column (uniform 10px gaps, independent of logo height), and the
+     funding-logos sit in a second, right-hand flex column. No shared
+     grid rows, so a tall logo can never inflate the gap between the
+     first and second stat. Cards without logos have no wrappers and
+     fall back to a single flex column. */
+  .bw-work__meta-stats { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+  .bw-work__meta-logos { flex: 0 0 auto; display: flex; flex-direction: column; gap: 8px; }
 }
 
 /* ==============================
