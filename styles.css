@@ -1802,7 +1802,7 @@ a { text-decoration: none; }
   .mobnav-toggle[aria-expanded="true"] { background: var(--yellow); }
   .bw-mobnav.is-open {
     display: block;
-    position: fixed; top: 67px; right: 0;   /* .bw-header height (64 + 3 px border) */
+    position: fixed; top: 67px; right: 0;   /* no-JS fallback (desktop header height); initMobnavToggle overrides with the live header bottom */
     background: var(--paper-2);
     border-bottom: 3px solid var(--ink);
     border-left: 3px solid var(--ink);

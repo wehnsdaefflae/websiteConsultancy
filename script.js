@@ -757,9 +757,17 @@
   function initMobnavToggle() {
     var btn = document.querySelector('.mobnav-toggle');
     var nav = document.querySelector('.bw-mobnav');
+    var header = document.querySelector('.bw-header');
     if (!btn || !nav) return;
+    function positionPanel() {
+      // Flush the fixed dropdown under the sticky header's live bottom —
+      // the header is 67px desktop but shrinks ≤640px (CTA hidden, brand
+      // padding reduced), so a hardcoded top would leave a gap there.
+      if (header) nav.style.top = header.getBoundingClientRect().bottom + 'px';
+    }
     function setOpen(open) {
       nav.classList.toggle('is-open', open);
+      if (open) positionPanel();
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       btn.setAttribute('aria-label', open
         ? (document.documentElement.lang === 'en' ? 'Close menu' : 'Menü schließen')
@@ -782,6 +790,9 @@
     });
     nav.addEventListener('click', function (e) {
       if (e.target.closest('a')) setOpen(false);
+    });
+    window.addEventListener('resize', function () {
+      if (nav.classList.contains('is-open')) positionPanel();
     });
   }
 
