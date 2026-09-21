@@ -30,12 +30,16 @@ Static site for Dr. Mark Wernsdorfer's AI consultancy. Two languages
 ├── services.html           DE "Leistungen"
 ├── portfolio.html          DE "Projekte"
 ├── contact.html            DE "Kontakt"
-├── en/                     English mirror (same 5 pages)
+├── datenschutz.html        DE "Datenschutz" (legal, noindex)
+├── en/                     English mirror (same 6 pages)
 │   ├── index.html
 │   ├── about.html
 │   ├── services.html
 │   ├── portfolio.html
-│   └── contact.html
+│   ├── contact.html
+│   └── privacy.html        EN legal page — note the cross-named
+│                           filename (DE datenschutz.html ↔ EN privacy.html);
+│                           the language switch links cross-name for this page
 │
 ├── colors_and_type.css     Design tokens (colours + typography)
 ├── styles.css              Everything else (1 file — on purpose)
@@ -44,8 +48,13 @@ Static site for Dr. Mark Wernsdorfer's AI consultancy. Two languages
 ├── contact.php             Server-side form receiver (primary)
 ├── contact.node.js         Node.js alternative (optional)
 │
-├── images/                 Profile portrait webp variants
+├── images/                 Profile portrait webp variants + og-card.jpg
 ├── logos/                  Partner / institution logos
+├── fonts/                  Self-hosted woff2 (latin + latin-ext)
+├── portrait-mark.png       Full-size portrait source (not deployed)
+│
+├── .well-known/
+│   └── security.txt        RFC 9116 security contact
 │
 ├── .htaccess               Apache config (MIME, cache, security)
 ├── .pleskignore            Files NOT deployed to Plesk webroot
@@ -61,8 +70,8 @@ Static site for Dr. Mark Wernsdorfer's AI consultancy. Two languages
 ```
 
 **Guiding principle**: one CSS file, one JS file. No modular split,
-no import graph, no build step. The tradeoff is a single ~2,700-line
-CSS file — searchable via `rg` / `grep`. Related rules are grouped
+no import graph, no build step. The tradeoff is a single large
+stylesheet — searchable via `rg` / `grep`. Related rules are grouped
 in commented blocks (see `styles.css` section banners).
 
 ---
