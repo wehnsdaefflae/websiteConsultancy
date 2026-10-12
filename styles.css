@@ -1422,6 +1422,18 @@ a { text-decoration: none; }
   .bw-segment__sticky { position: static; border-bottom: 3px solid var(--ink); padding: 56px 28px; min-height: 0; }
   .bw-segment__body { padding: 56px 28px; border-left: 0; }
 }
+/* Very narrow viewports (<420 px) — drop the display-fill floor, same move as
+   `.bw-mast__title` above. The shared floor of `clamp(60px, 8vw, 140px)` is wider
+   than a 360 px phone for the longest single word any fill carries (EN "Coding"
+   measured 363 px at a 360 px viewport and scrolled the document; DE "Coden" fits).
+   Lowering only the FLOOR leaves every viewport ≥ 420 px pixel-identical.
+   Must stay AFTER the base rule above: equal specificity, so source order decides. */
+@media (max-width: 420px) {
+  .bw-segment__fill,
+  .bw-bigtext {
+    font-size: clamp(48px, 15vw, 60px);
+  }
+}
 
 /* ==============================
    STAT GRID  (numbers)
@@ -1489,7 +1501,10 @@ a { text-decoration: none; }
 .bw-sec--ink .bw-stat:hover .bw-stat__label { color: var(--paper); }
 .bw-sec--ink .bw-stat:hover .bw-stat__value { text-shadow: 4px 4px 0 var(--mint); }
 @media (max-width: 900px) {
-  .bw-stats, .bw-stats--3 { grid-template-columns: repeat(2, 1fr); }
+  /* minmax(0, …) not bare 1fr: the German stat labels ("Drittmittel in klinischen &
+     öffentlichen Projekten") inflate a bare 1fr track to max-content and overflowed
+     the document at 320 px. */
+  .bw-stats, .bw-stats--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .bw-stat:nth-child(2n) { border-right: 0; }
   .bw-stat:not(:last-child):not(:nth-last-child(2)) { border-bottom: 3px solid var(--ink); }
 }
@@ -2967,7 +2982,12 @@ a { text-decoration: none; }
   background: var(--paper-2);
   border: 3px solid var(--ink); border-radius: 10px;
   box-shadow: 6px 6px 0 var(--ink);
-  transition: transform .25s var(--ease-pop), box-shadow .25s, background .2s;
+  /* transform + box-shadow share var(--ease-pop) (house rule): the 6px→11px shadow
+     visibly desyncs from the -5,-5 lift otherwise. The paired re-declaration on
+     `.bw-step.bw-observable` only applies inside prefers-reduced-motion:
+     no-preference and only once JS tags the element, so the base rule has to carry
+     the pairing itself. */
+  transition: transform .25s var(--ease-pop), box-shadow .25s var(--ease-pop), background .2s;
 }
 .bw-step:nth-child(3n+1) { transform: rotate(-.8deg); }
 .bw-step:nth-child(3n+2) { transform: rotate(.6deg); background: var(--paper-3); }
