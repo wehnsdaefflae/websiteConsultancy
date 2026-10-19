@@ -1050,6 +1050,15 @@ a { text-decoration: none; }
 }
 .bw-work__logo-link img {
   display: block;
+  /* The BMFTR logo ships at its intrinsic 270x180 with no cap, unlike its
+     Prototype Fund sibling (`.bw-work__logo-ptf { max-width: 240px }`). At a
+     320 px viewport the meta column is 185 px wide, so the unconstrained image
+     pushed the document to scrollWidth 349 on BOTH portfolio pages. Scale it
+     down proportionally instead; `height: auto` keeps the aspect ratio and
+     the `width`/`height` attributes still reserve layout space before load.
+     Full size is unchanged from 430 px up (measured: 270 px at 430/768/1280). */
+  max-width: 100%;
+  height: auto;
 }
 @media (max-width: 960px) {
   /* Card stacks to one column at ≤960px. */
@@ -1507,6 +1516,35 @@ a { text-decoration: none; }
   .bw-stats, .bw-stats--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .bw-stat:nth-child(2n) { border-right: 0; }
   .bw-stat:not(:last-child):not(:nth-last-child(2)) { border-bottom: 3px solid var(--ink); }
+}
+
+/* Very narrow viewports (<420 px) — the last two document-level overflows.
+   MEASURED at a 320 px viewport (scrollWidth vs clientWidth 320): every page
+   scrolled sideways, DE 343 / EN 338 and 349 on both portfolio pages.
+
+   (a) HEADER TOOLS. The `.bw-tools` row is 119 px wide but holds lang 42.8 +
+       theme-toggle 57.4 + burger 34 = 134.2 px, pushing `button.mobnav-toggle`
+       to right 343.2 (DE) / 338.2 (EN). The ≤640px block above already compacts
+       these "so all three still fit inside a ~360-px phone"; 320 px needs one
+       more notch of the same lever. The row must stay on ONE line (hard rule at
+       ≤900px), so padding — not wrapping — is what gives.
+   (b) STAT NUMBERS. At 320 px a stat cell is 160 px wide and `28px 24px` padding
+       leaves 112 px of content, while "€3M+" renders 141.6 px at the base floor
+       of `clamp(30px, 4vw, 52px)`. Overflowed as a TEXT box, not an element box,
+       which is why element-level probing missed it: trim the cell padding and
+       lower only the FLOOR, same move as `.bw-mast__title` and the display fill.
+
+   Must stay AFTER the `.bw-stat` base rule and the ≤640px tools rules: equal
+   specificity, so source order decides. Every viewport ≥ 420 px is pixel-identical
+   (verified at 430 / 768 / 1280 px: padding back to `28px 24px`). */
+@media (max-width: 420px) {
+  .bw-tools > * { padding: 0 4px; gap: 3px; }
+  .bw-tools .lang { padding: 0 4px; }
+  .bw-tools .lang a { padding: 2px 3px; }
+  .bw-tools .theme-toggle { padding: 0 4px; }
+  .bw-tools .mobnav-toggle { padding: 0 4px; }
+  .bw-stat { padding: 22px 14px; }
+  .bw-stat__value { font-size: clamp(24px, 7.5vw, 52px); }
 }
 
 /* ==============================
