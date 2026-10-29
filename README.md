@@ -204,8 +204,8 @@ Tested at 390×844 (iPhone 14). Key breakpoints:
 
 | `@media` | what changes |
 |---|---|
-| `≤ 1100px` | header's `.lang` switch hides (keeps CTA visible) |
-| `≤ 900px` | `.bw-nav` hides, `.bw-mobnav` (fixed bottom) takes over; most grids collapse to single column with `minmax(0, 1fr)`; hero stub hides |
+| `≤ 1380px` | `.bw-nav` hides and the `.mobnav-toggle` burger takes over (measured: brand 323 + nav 619 + tools 433 = 1375px, so the nav collides with the tools below ~1375px). The header's `.lang` switch **stays visible** — the mobnav carries no language switch |
+| `≤ 900px` | `.bw-mobnav` (fixed bottom) takes over; most grids collapse to single column with `minmax(0, 1fr)`; hero stub hides |
 | `≤ 640px` | brand shrinks to 18 px; header CTA hides (bottom nav surfaces Kontakt); tools padding compacted |
 | `≤ 420px` | masthead headline floor drops to 30 px; `hyphens: auto` allowed for long words |
 
